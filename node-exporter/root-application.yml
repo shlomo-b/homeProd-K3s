@@ -7,10 +7,10 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
-    path: ./node-exporter
+    path: ./monitoring-stack-k3d/node-exporter
   destination:
     server: https://kubernetes.default.svc
-    namespace: ./monitoring-stack-k3d/node-exporter
+    namespace: node-exporter
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
