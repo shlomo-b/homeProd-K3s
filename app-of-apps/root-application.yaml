@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git # the repo
+    path: app-of-apps # the path of the helm charts
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc  # The cluster URL Argo CD will connect to
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
