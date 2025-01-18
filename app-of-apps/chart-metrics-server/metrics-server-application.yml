@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    repoURL: https://kubernetes-sigs.github.io/metrics-server
     path: app-of-apps/chart-metrics-server
     targetRevision: HEAD
   destination:
