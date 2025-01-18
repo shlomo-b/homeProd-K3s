@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/kubernetes-sigs/metrics-server.git
-  #  path: app-of-apps/chart-metrics-server
+    repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
+    path: app-of-apps/chart-metrics-server
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc

@@ -1,26 +1,26 @@
-promtail:
-  serviceAccount:
-    create: true
-  deployment:
-    replicas: 1
-  config:
-    enabled: true
-    logFormat: logfm
-    logLevel: info
-    serverPort: 3101
-    clients:
-      - url: http://10.90.100.251:3100/loki/api/v1/push # my loki server on on-premises
-  # sidecar:
-  #   configReloader:
-  #     enabled: false
-  #     resources:
-  #       limits:
-  #         cpu: 200m
-  #         memory: 128Mi
-  #       requests:
-  #         cpu: 100m
-  #         memory: 128Mi
-  service:
-    enabled: true
-    type: ClusterIP
-    port: 3101 # the port svc that expose and use for helthcheck
+# promtail:
+#   serviceAccount:
+#     create: true
+#   deployment:
+#     replicas: 1
+#   config:
+#     enabled: true
+#     logFormat: logfm
+#     logLevel: info
+#     serverPort: 3101
+#     clients:
+#       - url: http://10.90.100.251:3100/loki/api/v1/push # my loki server on on-premises
+#   # sidecar:
+#   #   configReloader:
+#   #     enabled: false
+#   #     resources:
+#   #       limits:
+#   #         cpu: 200m
+#   #         memory: 128Mi
+#   #       requests:
+#   #         cpu: 100m
+#   #         memory: 128Mi
+#   service:
+#     enabled: true
+#     type: ClusterIP
+#     port: 3101 # the port svc that expose and use for helthcheck
