@@ -1,0 +1,10 @@
+serviceAccount:
+  create: true
+replicas: 1
+resources:
+  requests:
+    cpu: 40m
+    memory: 25Mi
+  limits:
+    cpu: 40m
+    memory: 25Mi

@@ -1,0 +1,31 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: traefik-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.18.0.251/32
+  autoAssign: true
+---
+# Pool for other services (Argo CD)
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.18.0.252/32
+  autoAssign: true
+---
+# L2Advertisement to use both pools
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - traefik-pool
+  - ip-pool

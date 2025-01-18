@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server-hpa
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    path: app-of-apps/chart-metrics-server
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: metrics-server-hpa
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      
+    # track and sync all git changes the argo will check every 3 minutes
+    automated:
+      selfHeal: true # auto sync the changes to the cluster from git
+      prune: true    # auto delete resources locally if thay are not in git
