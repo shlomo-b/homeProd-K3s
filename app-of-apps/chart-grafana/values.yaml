@@ -11,5 +11,5 @@ grafana:
     port: 80
     targetPort: 3000
   adminUser: admin
-  adminPassword: strongpassword
+  adminPassword: strongpassword # temp password
   
