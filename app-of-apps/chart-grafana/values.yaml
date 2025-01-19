@@ -8,5 +8,5 @@ grafana:
     loadBalancerIP: "172.18.0.150"
     loadBalancerClass: ""
     loadBalancerSourceRanges: []
-    port: 3000
+    port: 80
     targetPort: 3000
