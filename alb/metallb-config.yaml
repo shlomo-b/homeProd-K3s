@@ -18,6 +18,18 @@ spec:
   addresses:
   - 172.18.0.252/32
   autoAssign: true
+
+---
+# Pool for other services (Argo CD)
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: alb-resources
+  namespace: metallb-system
+spec:
+  addresses:
+    - 172.18.0.100-172.18.0.150
+  autoAssign: true
 ---
 # L2Advertisement to use both pools
 apiVersion: metallb.io/v1beta1
@@ -29,3 +41,4 @@ spec:
   ipAddressPools:
   - traefik-pool
   - ip-pool
+  - alb-resources

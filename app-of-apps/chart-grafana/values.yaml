@@ -1,0 +1,12 @@
+grafana:
+  serviceAccount:
+    create: true
+  replicas: 1
+  service:
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "172.18.0.150"
+    loadBalancerClass: ""
+    loadBalancerSourceRanges: []
+    port: 80
+    targetPort: 3000
