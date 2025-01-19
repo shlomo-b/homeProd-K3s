@@ -10,3 +10,6 @@ grafana:
     loadBalancerSourceRanges: []
     port: 80
     targetPort: 3000
+  adminUser: admin
+    adminPassword: strongpassword
+  
