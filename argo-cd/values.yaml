@@ -48,7 +48,7 @@
     volumes:
       - name: sso-cert
         secret:
-          secretName: argo-cd-sso-cert
+          secretName: argo-cd-sso-cert # reference the secret name 
 
     # Mount the SSO certificate to Dex, making it available in the container     
     volumeMounts:
