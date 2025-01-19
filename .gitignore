@@ -1,0 +1,2 @@
+# ignore certificates for SSO
+./argo-cd/secret.yml
