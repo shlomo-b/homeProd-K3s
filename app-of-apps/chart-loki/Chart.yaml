@@ -6,6 +6,6 @@ version: 3.3.2
 appVersion: 3.3.2
 dependencies:
 - name: loki
-  repository: https://github.com/grafana/loki
+  repository: https://grafana.github.io/helm-charts
   version: 6.25.0
   condition: loki.enabled # only install if etrics-server is enabled
