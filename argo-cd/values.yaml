@@ -42,9 +42,6 @@
       servicePortHttpsName: https
       loadBalancerClass: ""
       loadBalancerIP: "172.18.0.252"
-    tls:
-      enabled: true
-      secretName: secret-trusted-argo-cd
 
   # responsible for authenticating users    
   dex:
@@ -53,12 +50,19 @@
         secret:
           secretName: argo-cd-sso-cert # reference the secret name 
 
+      - name: trusted
+        secret:
+          secretName: secret-trusted-argo-cd # Reference the Secret name    
+
     # Mount the SSO certificate to Dex, making it available in the container     
     volumeMounts:
       - name: sso-cert
         mountPath: /etc/dex/certs
         readOnly: true
 
+      - name: trusted
+        mountPath: /etc/dex/certs
+        readOnly: true
 
 
         
