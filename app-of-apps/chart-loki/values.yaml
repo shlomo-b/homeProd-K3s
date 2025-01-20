@@ -10,6 +10,7 @@ loki:
     loadBalancerSourceRanges: []
     port: 80
     targetPort: 3100
-  storage:
-    bucketNames:
-      chunks: evsecops-shlomo-tf
+  schemaConfig:
+    configs:
+      - from: 2020-10-01
+        store: bigquery
