@@ -10,5 +10,6 @@ loki:
     loadBalancerSourceRanges: []
     port: 80
     targetPort: 3100
-  storageClass: null  
-  
+  storage:
+    bucketNames:
+      chunks: evsecops-shlomo-tf
