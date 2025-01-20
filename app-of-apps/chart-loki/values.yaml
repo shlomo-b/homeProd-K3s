@@ -25,7 +25,7 @@ loki:
       active_index_directory: /data/loki/boltdb-shipper-active
       cache_location: /data/loki/boltdb-shipper-cache
     aws:
-      s3: s3://devsecops-shlomo-tf
+      s3: devsecops-shlomo-tf
       region: eu-central-1
       access_key_id: "${AWS_ACCESS_KEY_ID}"
       secret_access_key: "${AWS_SECRET_ACCESS_KEY}"
