@@ -27,8 +27,8 @@ loki:
     aws:
       s3: s3://vsecops-shlomo-tf
       region: eu-central-1
-      access_key_id: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-      secret_access_key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      access_key_id: "${AWS_ACCESS_KEY_ID}"
+      secret_access_key: "${AWS_SECRET_ACCESS_KEY}"
   limitsConfig:
     enforceMetricName: false
     rejectOldSamples: true
