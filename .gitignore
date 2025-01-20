@@ -1,2 +1,3 @@
 # ignore certificates for SSO
-argo-cd/secret.yml
+argo-cd/secret-sso.yml
+argo-cd/secret-trusted-argo-cd.yml

@@ -8,7 +8,7 @@ spec:
   - 172.18.0.251/32
   autoAssign: true
 ---
-# Pool for other services (Argo CD)
+# Pool for Argo CD
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -20,7 +20,7 @@ spec:
   autoAssign: true
 
 ---
-# Pool for other services (Argo CD)
+# Pool for other services
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:

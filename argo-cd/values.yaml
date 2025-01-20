@@ -42,6 +42,9 @@
       servicePortHttpsName: https
       loadBalancerClass: ""
       loadBalancerIP: "172.18.0.252"
+    tls:
+      enabled: true
+      secretName: secret-trusted-argo-cd
 
   # responsible for authenticating users    
   dex:
