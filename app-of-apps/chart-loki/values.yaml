@@ -19,7 +19,7 @@ loki:
     s3:
       s3: null
       endpoint: null
-      region: 
+      region: eu-central-1
       secretAccessKey: null
       accessKeyId: null
       signatureVersion: null
