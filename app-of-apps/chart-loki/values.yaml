@@ -10,7 +10,7 @@ loki:
     loadBalancerSourceRanges: []
     port: 80
     targetPort: 3100
-   storage:
+  storage:
     type: s3
     s3:
       s3: null
