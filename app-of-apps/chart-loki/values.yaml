@@ -10,27 +10,20 @@ loki:
     loadBalancerSourceRanges: []
     port: 80
     targetPort: 3100
-  storage:
-    bucketNames:
-       chunks: devsecops-shlomo-tf
-       ruler:   devsecops-shlomo-tf
-       admin: devsecops-shlomo-tf
-    type: s3
-    s3:
-      s3: null
-      endpoint: null
-      region: eu-central-1
-      secretAccessKey: null
-      accessKeyId: null
-      signatureVersion: null
-      s3ForcePathStyle: false
-      insecure: false
-      http_config: {}
-      # -- Check https://grafana.com/docs/loki/latest/configure/#s3_storage_config for more info on how to provide a backoff_config
-      backoff_config: {}
-      disable_dualstack: false
-    filesystem:
-      chunks_directory: /var/loki/chunks
-      rules_directory: /var/loki/rules
-      admin_api_directory: /var/loki/admin
+  schema_config:
+    configs:
+      - from: 2019-07-14
+        store: tsdb
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
+      - from: 2023-07-20
+        store: tsdb
+        object_store: filesystem
+        schema: v13
+        index:
+          prefix: index_
+          period: 24h
 
