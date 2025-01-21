@@ -11,6 +11,10 @@ loki:
     port: 80
     targetPort: 3100
   storage:
+    bucketNames:
+       chunks: devsecops-shlomo-tf
+       ruler:   devsecops-shlomo-tf
+       admin: devsecops-shlomo-tf
     type: s3
     s3:
       s3: null
