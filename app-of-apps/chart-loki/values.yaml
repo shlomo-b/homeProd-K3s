@@ -1,35 +1,21 @@
-# loki:
-#   serviceAccount:
-#     create: true
-#   replicas: 1
-#   service:
-#     enabled: true
-#     type: LoadBalancer
-#     loadBalancerIP: "172.18.0.149"
-#     loadBalancerClass: ""
-#     loadBalancerSourceRanges: []
-#     port: 80
-#     targetPort: 3100
-#   schemaConfig:
-#     configs:
-#       - from: 2020-10-01
-#         store: boltdb-shipper
-#         object_store: s3
-#         schema: v11
-#         index:
-#           prefix: index_
-#           period: 168h
-#   storageConfig:
-#     boltdb_shipper:
-#       shared_store: s3
-#       active_index_directory: /data/loki/boltdb-shipper-active
-#       cache_location: /data/loki/boltdb-shipper-cache
-#     aws:
-#       s3: devsecops-shlomo-tf
-#       region: eu-central-1
-#       access_key_id: "${AWS_ACCESS_KEY_ID}"
-#       secret_access_key: "${AWS_SECRET_ACCESS_KEY}"
-#   limitsConfig:
-#     enforceMetricName: false
-#     rejectOldSamples: true
-#     rejectOldSamplesMaxAge: 168h
+loki:
+  serviceAccount:
+    create: true
+  replicas: 1
+  service:
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "172.18.0.149"
+    loadBalancerClass: ""
+    loadBalancerSourceRanges: []
+    port: 80
+    targetPort: 3100
+  storage:
+    type: "s3"
+    s3:
+      region: "us-east-1"
+    bucketNames:
+      chunks: devsecops-shlomo-tf
+      ruler:  devsecops-shlomo-tf
+      admin:  devsecops-shlomo-tf 
+
