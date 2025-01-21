@@ -1,29 +1,29 @@
-loki:
-  serviceAccount:
-    create: true
-  replicas: 1
-  service:
-    enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.149"
-    loadBalancerClass: ""
-    loadBalancerSourceRanges: []
-    port: 80
-    targetPort: 3100
-  schema_config:
-    configs:
-      - from: 2019-07-14
-        store: tsdb
-        object_store: filesystem
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-      - from: 2023-07-20
-        store: tsdb
-        object_store: filesystem
-        schema: v13
-        index:
-          prefix: index_
-          period: 24h
+# loki:
+#   serviceAccount:
+#     create: true
+#   replicas: 1
+#   service:
+#     enabled: true
+#     type: LoadBalancer
+#     loadBalancerIP: "172.18.0.149"
+#     loadBalancerClass: ""
+#     loadBalancerSourceRanges: []
+#     port: 80
+#     targetPort: 3100
+#   schema_config:
+#     configs:
+#       - from: 2019-07-14
+#         store: tsdb
+#         object_store: filesystem
+#         schema: v11
+#         index:
+#           prefix: index_
+#           period: 24h
+#       - from: 2023-07-20
+#         store: tsdb
+#         object_store: filesystem
+#         schema: v13
+#         index:
+#           prefix: index_
+#           period: 24h
 
