@@ -54,6 +54,4 @@ spec:
   ports:
     - protocol: TCP
       port: 3000   # the port svc that expose
-      targetPort: 3000 # the port of the pod
-      loadBalancerIP: 172.18.0.145
-      
+      targetPort: 3000 # the port of the pod      
