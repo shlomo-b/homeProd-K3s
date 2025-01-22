@@ -68,4 +68,3 @@ spec:
     - protocol: TCP
       port: 5050   # the port svc that expose
       targetPort: 5050 # the port of the pod | container
-      loadBalancerIP: 172.18.0.146
