@@ -55,7 +55,7 @@ spec:
   selector:
     app: backend-lab4
   type: LoadBalancer # the type of the service
-  loadBalancerIP: 172.18.0.146
+  loadBalancerIP: "172.18.0.146"
   ports:
     - protocol: TCP
       port: 5050   # the port svc that expose

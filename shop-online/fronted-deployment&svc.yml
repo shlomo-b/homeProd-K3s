@@ -50,7 +50,7 @@ spec:
   selector:
     app: react-app
   type: LoadBalancer # the type of the service
-  loadBalancerIP: 172.18.0.145
+  loadBalancerIP: "172.18.0.145"
   ports:
     - protocol: TCP
       port: 3000   # the port svc that expose
