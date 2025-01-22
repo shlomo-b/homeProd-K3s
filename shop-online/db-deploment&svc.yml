@@ -39,14 +39,6 @@ spec:
                 name: var-shop-online # reference from ConfigMap
                 key: MONGO_DB_HOST
 
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 200m
-            memory: 256Mi
-
       #   volumeMounts:
       #   - name: react-shop-storage
       #     mountPath: /data/db # default path should be /data/db its for mongodb
