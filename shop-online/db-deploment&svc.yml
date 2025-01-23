@@ -40,12 +40,12 @@ spec:
                 key: MONGO_DB_HOST
 
         volumeMounts:
-        - name: postgres-storage
+        - name: mongodb-storage
           mountPath: /data/db # default path should be /data/db its for mongodb
       volumes:
-        - name: postgres-storage
+        - name: mongodb-storage
           persistentVolumeClaim:
-            claimName: postgres-pvc     
+            claimName: mongodb-pvc  
 
 ---
 apiVersion: v1
