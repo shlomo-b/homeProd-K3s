@@ -8,6 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
     path: shop-online
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: shop-online
