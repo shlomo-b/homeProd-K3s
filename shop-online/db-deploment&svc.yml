@@ -39,13 +39,13 @@ spec:
                 name: var-shop-online # reference from ConfigMap
                 key: MONGO_DB_HOST
 
-      #   volumeMounts:
-      #   - name: react-shop-storage
-      #     mountPath: /data/db # default path should be /data/db its for mongodb
-      # volumes:
-      #   - name: react-shop-storage
-      #     persistentVolumeClaim:
-      #       claimName: react-shop-pvc      
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /data/db # default path should be /data/db its for mongodb
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc     
 
 ---
 apiVersion: v1
