@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: shop-online-ingress
-  namespace: lab4 # the namespace that separates the pods between environments.
+  namespace: shop-online # the namespace that separates the pods between environments.
   # annotations:
   #   nginx.ingress.kubernetes.io/default-backend: lab4-backend-svc
   #   nginx.ingress.kubernetes.io/rewrite-target: /
