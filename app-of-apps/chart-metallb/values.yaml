@@ -1,59 +1,59 @@
 metallb:
   serviceAccount:
     create: true
-  installCRDs: true  
+
+  installCRDs: true
+
   configInline:
-      # Define IP address pools
-      address-pools:
-        - name: traefik-pool
-          protocol: layer2
-          addresses:
-            - 172.18.0.251/32
-          auto-assign: true
+    # Define IP address pools
+    address-pools:
+      - name: traefik-pool
+        protocol: layer2
+        addresses:
+          - 172.18.0.251/32
+        auto-assign: true
 
-        - name: ip-pool
-          protocol: layer2
-          addresses:
-            - 172.18.0.252/32
-          auto-assign: true
+      - name: ip-pool
+        protocol: layer2
+        addresses:
+          - 172.18.0.252/32
+        auto-assign: true
 
-        - name: alb-resources
-          protocol: layer2
-          addresses:
-            - 172.18.0.100-172.18.0.150
-          auto-assign: true
+      - name: alb-resources
+        protocol: layer2
+        addresses:
+          - 172.18.0.100-172.18.0.150
+        auto-assign: true
 
-      # Define L2Advertisements for the pools
-      l2-advertisements:
-        - ipAddressPools:
-            - traefik-pool
-            - ip-pool
-            - alb-resources
+    # Define L2Advertisements for the pools
+    l2-advertisements:
+      - ipAddressPools:
+          - traefik-pool
+          - ip-pool
+          - alb-resources
 
+  controller:
+    tolerations: []
+    nodeSelector: {}
+    affinity: {}
+
+  speaker:
+    tolerations: []
+    nodeSelector: {}
+    affinity: {}
+
+  resources:
     controller:
-      tolerations: []
-      nodeSelector: {}
-      affinity: {}
-
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
     speaker:
-      tolerations: []
-      nodeSelector: {}
-      affinity: {}
-
-    resources:
-      controller:
-        limits:
-          cpu: 200m
-          memory: 256Mi
-        requests:
-          cpu: 100m
-          memory: 128Mi
-      speaker:
-        limits:
-          cpu: 200m
-          memory: 256Mi
-        requests:
-          cpu: 100m
-          memory: 128Mi
-
-  
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
