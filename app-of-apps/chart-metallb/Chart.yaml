@@ -6,6 +6,6 @@ version: 0.14.9
 appVersion: 0.14.9
 dependencies:
 - name: metallb
-  repository: https://charts.bitnami.com/bitnami
+  repository: oci://registry-1.docker.io/bitnamicharts/metallb
   version: 6.4.4
   condition: metallb.enabled # only install if etrics-server is enabled
