@@ -15,7 +15,7 @@ spec:
               service:
                 name: react-svc
                 port:
-                  number: 30100
+                  number: 3000
 
           - path: /register
             pathType: Exact
@@ -23,7 +23,7 @@ spec:
               service:
                 name: react-svc
                 port:
-                  number: 30100
+                  number: 3000
 
           - path: /login
             pathType: Exact # allow only access to application
@@ -31,7 +31,7 @@ spec:
               service:
                 name: react-svc
                 port:
-                  number: 30100          
+                  number: 3000          
 
           - path: /api/health
             pathType: Exact
@@ -39,7 +39,7 @@ spec:
               service:
                 name: lab4-backend-svc
                 port:
-                  number: 30056
+                  number: 5050
 
           - path: /api/products
             pathType: Exact # allow only access to application
@@ -47,7 +47,7 @@ spec:
               service:
                 name: lab4-backend-svc
                 port:
-                  number: 30056
+                  number: 5050
 
           - path: /api/users
             pathType: Exact # allow only access to application
@@ -55,4 +55,4 @@ spec:
               service:
                 name: lab4-backend-svc
                 port:
-                  number: 30056
+                  number: 5050
