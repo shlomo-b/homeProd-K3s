@@ -1,0 +1,11 @@
+apiVersion: v2
+name: metallb
+description: A Helm chart for metallb
+type: application
+version: 0.14.9
+appVersion: 0.14.9
+dependencies:
+- name: metallb
+  repository: oci://registry-1.docker.io/bitnamicharts/metallb
+  version: 6.4.4
+  condition: metallb.enabled # only install if etrics-server is enabled
