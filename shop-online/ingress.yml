@@ -1,0 +1,68 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop-online-ingress
+  namespace: lab4 # the namespace that separates the pods between environments.
+  # annotations:
+  #   nginx.ingress.kubernetes.io/default-backend: lab4-backend-svc
+  #   nginx.ingress.kubernetes.io/rewrite-target: /
+  #   nginx.ingress.kubernetes.io/use-regex: "true"
+  #   nginx.ingress.kubernetes.io/configuration-snippet: |
+  #     location ~ ^/(?!(api/health|api/products|api/users|api/login|register|$)) {
+  #       return 404;
+  #     }
+
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: react-shop.com.spider.local
+      http:
+        paths:
+          - path: /
+            pathType: Exact # allow only access to application
+            backend:
+              service:
+                name: react-svc
+                port:
+                  number: 30100
+
+          - path: /register
+            pathType: Exact
+            backend:
+              service:
+                name: react-svc
+                port:
+                  number: 30100
+
+          - path: /login
+            pathType: Exact # allow only access to application
+            backend:
+              service:
+                name: react-svc
+                port:
+                  number: 30100          
+
+          - path: /api/health
+            pathType: Exact
+            backend:
+              service:
+                name: lab4-backend-svc
+                port:
+                  number: 30056
+
+          - path: /api/products
+            pathType: Exact # allow only access to application
+            backend:
+              service:
+                name: lab4-backend-svc
+                port:
+                  number: 30056
+
+          - path: /api/users
+            pathType: Exact # allow only access to application
+            backend:
+              service:
+                name: lab4-backend-svc
+                port:
+                  number: 30056
