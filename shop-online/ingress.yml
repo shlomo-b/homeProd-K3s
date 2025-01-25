@@ -3,20 +3,10 @@ kind: Ingress
 metadata:
   name: shop-online-ingress
   namespace: shop-online # the namespace that separates the pods between environments.
-  # annotations:
-  #   nginx.ingress.kubernetes.io/default-backend: lab4-backend-svc
-  #   nginx.ingress.kubernetes.io/rewrite-target: /
-  #   nginx.ingress.kubernetes.io/use-regex: "true"
-  #   nginx.ingress.kubernetes.io/configuration-snippet: |
-  #     location ~ ^/(?!(api/health|api/products|api/users|api/login|register|$)) {
-  #       return 404;
-  #     }
-
-
 spec:
   ingressClassName: nginx
   rules:
-    - host: react-shop.com.spider.local
+    - host: shop-online.spider.local
       http:
         paths:
           - path: /
