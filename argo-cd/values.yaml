@@ -31,7 +31,7 @@
       policy.csv: |
         p, role:role:admin, *, *, *, allow
         g, "Shlomo_lab@spider-shlomo.com", role:admin
-        g, "shlomobarzili@gmail.com", role:admin
+        g, "AlinaB@spider-shlomo.com", role:admin
 
   server:
     service:

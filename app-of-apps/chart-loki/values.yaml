@@ -10,21 +10,14 @@ loki:
     loadBalancerSourceRanges: []
     port: 80
     targetPort: 3100
-  schema_config:
+  chemaConfig:
     configs:
-      - from: 2019-07-14
+      - from: 2024-06-01 #The date from which this schema configuration applies.
         store: tsdb
-        object_store: filesystem
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-      - from: 2023-07-20
-        store: tsdb
-        object_store: filesystem
+        object_store: s3
         schema: v13
         index:
-          prefix: index_
-          period: 24h
+          prefix: loki_index_
+          period: 24h #The time period for creating new index tables, here 24h (daily).
 
  
