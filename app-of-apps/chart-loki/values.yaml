@@ -1,23 +1,35 @@
-loki:
-  serviceAccount:
-    create: true
-  replicas: 1
-  service:
-    enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.149"
-    loadBalancerClass: ""
-    loadBalancerSourceRanges: []
-    port: 80
-    targetPort: 3100
-  chemaConfig:
-    configs:
-      - from: 2024-06-01 #The date from which this schema configuration applies.
-        store: tsdb
-        object_store: s3
-        schema: v13
-        index:
-          prefix: loki_index_
-          period: 24h #The time period for creating new index tables, here 24h (daily).
+# loki:
+#   serviceAccount:
+#     create: true
+#   replicas: 1
+#   service:
+#     enabled: true
+#     type: LoadBalancer
+#     loadBalancerIP: "172.18.0.149"
+#     loadBalancerClass: ""
+#     loadBalancerSourceRanges: []
+#     port: 80
+#     targetPort: 3100
+#   storage:
+#     # Loki requires a bucket for chunks and the ruler. GEL requires a third bucket for the admin API.
+#     # Please provide these values if you are using object storage.
+#     # bucketNames:
+#     #   chunks: FIXME
+#     #   ruler: FIXME
+#     #   admin: FIXME
+#     type: s3
+#     s3:
+#       s3: null
+#       endpoint: null
+#       region: null
+#       secretAccessKey: null
+#       accessKeyId: null
+#       signatureVersion: null
+#       s3ForcePathStyle: false
+#       insecure: false
+#       http_config: {}
+#       # -- Check https://grafana.com/docs/loki/latest/configure/#s3_storage_config for more info on how to provide a backoff_config
+#       backoff_config: {}
+#       disable_dualstack: false
 
  
