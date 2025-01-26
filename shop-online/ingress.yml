@@ -17,42 +17,42 @@ spec:
                 port:
                   number: 3000
 
-          - path: /register
-            pathType: Exact
-            backend:
-              service:
-                name: react-svc
-                port:
-                  number: 3000
+          # - path: /register
+          #   pathType: Exact
+          #   backend:
+          #     service:
+          #       name: react-svc
+          #       port:
+          #         number: 3000
 
-          - path: /login
-            pathType: Exact # allow only access to application
-            backend:
-              service:
-                name: react-svc
-                port:
-                  number: 3000          
+          # - path: /login
+          #   pathType: Exact # allow only access to application
+          #   backend:
+          #     service:
+          #       name: react-svc
+          #       port:
+          #         number: 3000          
 
-          - path: /api/health
-            pathType: Exact
-            backend:
-              service:
-                name: lab4-backend-svc
-                port:
-                  number: 5050
+          # - path: /api/health
+          #   pathType: Exact
+          #   backend:
+          #     service:
+          #       name: lab4-backend-svc
+          #       port:
+          #         number: 5050
 
-          - path: /api/products
-            pathType: Exact # allow only access to application
-            backend:
-              service:
-                name: lab4-backend-svc
-                port:
-                  number: 5050
+          # - path: /api/products
+          #   pathType: Exact # allow only access to application
+          #   backend:
+          #     service:
+          #       name: lab4-backend-svc
+          #       port:
+          #         number: 5050
 
-          - path: /api/users
-            pathType: Exact # allow only access to application
-            backend:
-              service:
-                name: lab4-backend-svc
-                port:
-                  number: 5050
+          # - path: /api/users
+          #   pathType: Exact # allow only access to application
+          #   backend:
+          #     service:
+          #       name: lab4-backend-svc
+          #       port:
+          #         number: 5050
