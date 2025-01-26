@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: shop-online-ingress
   namespace: shop-online # the namespace that separates the pods between environments.
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    
 spec:
   ingressClassName: nginx
   rules:
