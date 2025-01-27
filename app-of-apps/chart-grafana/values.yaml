@@ -12,4 +12,18 @@ grafana:
     targetPort: 3000
   adminUser: admin
   adminPassword: strongpassword # temp password
+  persistence:
+    enabled: true
+    size: 10Gi
+  sidecar:
+    datasources:
+      enabled: true
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki.monitoring.svc.cluster.local:3100  
   
