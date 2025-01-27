@@ -25,5 +25,5 @@ grafana:
       - name: Loki
         type: loki
         access: proxy
-        url: http://loki.monitoring.svc.cluster.local:3100  
+        url: http://172.18.0.149:3100  
   
