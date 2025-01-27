@@ -1,63 +1,26 @@
 loki:
-  serviceAccount:
-    create: true
-  enabled: true  
-  replicas: 1
-  service:
-    enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.149"
-    loadBalancerClass: ""
-    loadBalancerSourceRanges: []
-    port: 80
-    targetPort: 3100
+  enabled: true
   persistence:
+    type: pvc
     enabled: true
-    size: 10Gi
-    storageClassName: "standard"  # עדכן לפי סוג ה-Storage Class שלך
-  auth_enabled: false  # השבתת אימות אם אינך זקוק לו
-  storage_config:
-    boltdb_shipper:
-      active_index_directory: /data/loki/index
-      shared_store: filesystem
-    filesystem:
-      directory: /data/loki/chunks
-  schemaConfig:
-    configs:
-      - from: "2022-01-01"
-        store: boltdb-shipper
-        object_store: filesystem
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-  commonConfig:
-    replication_factor: 1
-  limits_config:
-    enforce_metric_name: false
-    reject_old_samples: true
-    reject_old_samples_max_age: 168h
-  compactor:
-    shared_store: filesystem
-  distributor:
-    ring:
-      kvstore:
-        store: inmemory
-    replication_factor: 1
-  ingester:
-    lifecycler:
-      ring:
-        kvstore:
-          store: inmemory
-        replication_factor: 1
-    chunk_idle_period: 3m
-    chunk_retain_period: 1m
-    max_transfer_retries: 0
-  querier:
-    query_timeout: 1m
-  frontend_worker:
-    frontend_address: "127.0.0.1:9095"
-  frontend:
-    compress_responses: true
-    log_queries_longer_than: 5s
-    max_outstanding_per_tenant: 200
+    existingClaim: loki
+  securityContext:
+    runAsGroup: 10001
+    runAsUser: 10001
+    
+# loki:
+#   serviceAccount:
+#     create: true
+#   enabled: true  
+#   replicas: 1
+#   service:
+#     enabled: true
+#     type: LoadBalancer
+#     loadBalancerIP: "172.18.0.149"
+#     loadBalancerClass: ""
+#     loadBalancerSourceRanges: []
+#     port: 80
+#     targetPort: 3100
+#   persistence:
+#     enabled: true
+#     size: 10Gi
