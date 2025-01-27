@@ -1,8 +1,19 @@
 loki:
-  enabled: true
+  serviceAccount:
+    create: true
+  enabled: true  
+  replicas: 1
   service:
-    type: NodePort
-    nodePort: 31000
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "172.18.0.149"
+    loadBalancerClass: ""
+    loadBalancerSourceRanges: []
+    port: 80
+    targetPort: 3100
+  persistence:
+    enabled: true
+    size: 10Gi
   readinessProbe:
     httpGet:
       path: /ready
@@ -12,4 +23,4 @@ loki:
     httpGet:
       path: /ready
       port: http-metrics
-    initialDelaySeconds: 45
+    initialDelaySeconds: 45  
