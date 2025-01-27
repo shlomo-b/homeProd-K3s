@@ -12,9 +12,9 @@ grafana:
     targetPort: 3000
   adminUser: admin
   adminPassword: strongpassword # temp password
-  # persistence:
-  #   enabled: true
-  #   size: 10Gi
+  persistence:
+    enabled: true
+    size: 10Gi
   sidecar:
     datasources:
       enabled: true
