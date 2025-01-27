@@ -13,6 +13,7 @@ grafana:
   adminUser: admin
   adminPassword: strongpassword # temp password
   persistence:
+    type: pvc
     enabled: true
     size: 10Gi
   sidecar:
