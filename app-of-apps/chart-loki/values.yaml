@@ -14,25 +14,50 @@ loki:
   persistence:
     enabled: true
     size: 10Gi
-    storageClassName: "standard"  # או שם ה-StorageClass המתאים לסביבה שלך
+    storageClassName: "standard"  # עדכן לפי סוג ה-Storage Class שלך
+  auth_enabled: false  # השבתת אימות אם אינך זקוק לו
   storage_config:
     boltdb_shipper:
       active_index_directory: /data/loki/index
       shared_store: filesystem
     filesystem:
       directory: /data/loki/chunks
-  commonConfig:
-    replication_factor: 1
   schemaConfig:
     configs:
-      - from: "2020-10-24"
+      - from: "2022-01-01"
         store: boltdb-shipper
         object_store: filesystem
         schema: v11
         index:
           prefix: index_
           period: 24h
+  commonConfig:
+    replication_factor: 1
   limits_config:
     enforce_metric_name: false
     reject_old_samples: true
     reject_old_samples_max_age: 168h
+  compactor:
+    shared_store: filesystem
+  distributor:
+    ring:
+      kvstore:
+        store: inmemory
+    replication_factor: 1
+  ingester:
+    lifecycler:
+      ring:
+        kvstore:
+          store: inmemory
+        replication_factor: 1
+    chunk_idle_period: 3m
+    chunk_retain_period: 1m
+    max_transfer_retries: 0
+  querier:
+    query_timeout: 1m
+  frontend_worker:
+    frontend_address: "127.0.0.1:9095"
+  frontend:
+    compress_responses: true
+    log_queries_longer_than: 5s
+    max_outstanding_per_tenant: 200
