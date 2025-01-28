@@ -1,16 +1,16 @@
-# loki:
-#   serviceAccount:
-#     create: true
-#   enabled: true  
-#   replicas: 1
-#   service:
-#     enabled: true
-#     type: LoadBalancer
-#     loadBalancerIP: "172.18.0.149"
-#     loadBalancerClass: ""
-#     loadBalancerSourceRanges: []
-#     port: 80
-#     targetPort: 3100
-#   persistence:
-#     enabled: true
-#     size: 10Gi
+loki:
+  serviceAccount:
+    create: true
+  enabled: true  
+  replicas: 1
+  service:
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "172.18.0.149"
+    loadBalancerClass: ""
+    loadBalancerSourceRanges: []
+    port: 80
+    targetPort: 3100
+  persistence:
+    enabled: true
+    size: 10Gi
