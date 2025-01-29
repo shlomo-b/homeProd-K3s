@@ -1,7 +1,7 @@
 prometheus:
   serviceAccount:
     create: true
-  replicaCount: 1
+  replicaCount: 2
   service:
     enabled: true
     type: LoadBalancer
@@ -10,7 +10,7 @@ prometheus:
     loadBalancerSourceRanges: []
     port: 9090
     targetPort: 9090
-    servicePort: 9090
+    servicePort: 80
     serviceTargetPort: 9090
     hostPort: 9090
   persistence:

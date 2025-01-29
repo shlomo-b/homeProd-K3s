@@ -7,7 +7,7 @@ grafana:
     type: LoadBalancer
     loadBalancerIP: "172.18.0.150"
     loadBalancerClass: ""
-    loadBalancerSourceRanges: []
+   # loadBalancerSourceRanges: []
     port: 3000
     targetPort: 3000
   adminUser: admin
