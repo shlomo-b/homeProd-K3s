@@ -32,14 +32,14 @@ prometheus:
           - targets:
               - "localhost:9090"
 
-alertmanager:
-  enabled: false
+  alertmanager:
+    enabled: false
 
-kubeStateMetrics:
-  enabled: false
+  kubeStateMetrics:
+    enabled: false
 
-pushgateway:
-  enabled: false
+  pushgateway:
+    enabled: false
 
-prometheusOperator:
-  enabled: false
+  prometheusOperator:
+    enabled: false
