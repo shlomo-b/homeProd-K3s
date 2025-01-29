@@ -20,7 +20,7 @@ prometheus:
   prometheus.yml:
     enabled: true
     scrape_configs:
-      - job_name: "prometheus"
+      - job_name: "prometheu3333s"
         static_configs:
           - targets:
               - "localhost:9090"
