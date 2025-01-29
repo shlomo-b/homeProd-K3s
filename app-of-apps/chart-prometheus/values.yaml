@@ -10,6 +10,7 @@ prometheus:
     loadBalancerSourceRanges: []
     port: 9090
     targetPort: 9090
+    servicePort: 9090
   persistence:
     enabled: true
     type: pvc
