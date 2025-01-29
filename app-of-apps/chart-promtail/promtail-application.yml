@@ -13,8 +13,8 @@ spec:
     server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
+    # syncOptions:
+    #   - CreateNamespace=true
       
     # track and sync all git changes the argo will check every 3 minutes
     automated:
