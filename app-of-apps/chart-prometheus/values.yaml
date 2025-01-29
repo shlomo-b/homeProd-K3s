@@ -34,8 +34,8 @@ prometheus:
 alertmanager:
   enabled: false
 
-prometheus-node-exporter:
-  enabled: false
+  prometheus-node-exporter:
+    enabled: false
 
 kubeStateMetrics:
   enabled: false
