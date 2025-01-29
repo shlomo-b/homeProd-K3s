@@ -1,6 +1,7 @@
 prometheus:
+  enabled: true
   serviceAccount:
-    create: true
+    create: true  
 
   replicaCount: 1
 
