@@ -40,3 +40,6 @@ prometheus:
 
   kube-state-metrics:
     enabled: false  
+
+  prometheus-node-exporter:
+    enabled: true  
