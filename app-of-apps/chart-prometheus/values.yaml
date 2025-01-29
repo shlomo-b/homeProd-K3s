@@ -7,7 +7,7 @@ prometheus:
 
   service:
     enabled: true
-    type: LoadBalancer
+    type: ClusterIP
     loadBalancerIP: "172.18.0.144"
     loadBalancerClass: ""
     loadBalancerSourceRanges: []
