@@ -15,7 +15,10 @@ prometheus:
     hostPort: 9090
   persistentVolume:
     enabled: true
+    mountPath: /data
     size: 10Gi
+    accessModes:
+      - ReadWriteOnce
   prometheus.yml:
     enabled: true
     scrape_configs:
