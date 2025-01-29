@@ -8,8 +8,8 @@ prometheus:
     loadBalancerIP: "172.18.0.148"
     loadBalancerClass: ""
     loadBalancerSourceRanges: []
-    port: 9090
-    targetPort: 9090
+    port: 80
+    targetPort: 80
     servicePort: 80
     serviceTargetPort: 9090
     hostPort: 9090
