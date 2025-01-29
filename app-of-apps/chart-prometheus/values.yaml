@@ -21,6 +21,10 @@ prometheus:
         static_configs:
           - targets:
               - "localhost:9090"   
+      - job_name: "x"
+        static_configs:
+          - targets:
+              - "localhost:9090"           
 
   alertmanager:
     enabled: false
