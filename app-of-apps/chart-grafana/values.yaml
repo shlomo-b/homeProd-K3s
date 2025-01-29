@@ -27,4 +27,10 @@ grafana:
         type: loki
         access: proxy
         url: http://172.18.0.149:3100  
+
+      - name: prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus:9090
+    
   
