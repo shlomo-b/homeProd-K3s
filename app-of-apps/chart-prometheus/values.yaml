@@ -13,11 +13,11 @@ prometheus:
     servicePort: 80
     serviceTargetPort: 9090
     hostPort: 9090
-  persistence:
-    enabled: true
-    type: pvc
-    size: 10Gi
-    storageClass: ""
+  # persistence:
+  #   enabled: true
+  #   type: pvc
+  #   size: 10Gi
+  #   storageClass: ""
   prometheus.yml:
     enabled: true
     scrape_configs:
