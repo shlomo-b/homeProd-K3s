@@ -1,7 +1,9 @@
 prometheus:
   serviceAccount:
     create: true
+
   replicaCount: 1
+
   service:
     enabled: true
     type: LoadBalancer
@@ -13,16 +15,33 @@ prometheus:
     servicePort: 80
     serviceTargetPort: 9090
     hostPort: 9090
+
   persistentVolume:
     enabled: true
     mountPath: /data
     size: 10Gi
     accessModes:
       - ReadWriteOnce
+
   prometheus.yml:
     enabled: true
     scrape_configs:
-      - job_name: prometheus
+      - job_name: "prometheus"
         static_configs:
           - targets:
-            - localhost:9090
+              - "localhost:9090"
+
+alertmanager:
+  enabled: false
+
+nodeExporter:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+prometheusOperator:
+  enabled: false
