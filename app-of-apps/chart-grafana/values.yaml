@@ -16,6 +16,7 @@ grafana:
     type: pvc
     enabled: true
     size: 10Gi
+    mountPath: /data
   sidecar:
     datasources:
       enabled: true
