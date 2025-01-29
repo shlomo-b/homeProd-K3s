@@ -2,7 +2,7 @@ apiVersion: v2
 name: prometheus
 description: A Helm chart for prometheus
 type: application
-# version: v3.1.0
+version: v3.1.0
 appVersion: v3.1.0
 dependencies:
 - name: prometheus
