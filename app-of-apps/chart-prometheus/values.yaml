@@ -16,18 +16,18 @@ prometheus:
     enabled: true
     size: 10Gi
     mountPath: /prometheus  # Ensure correct data storage
-
-  prometheus.yml:
-    enabled: true
-    scrape_configs:
-      - job_name: "prometheu3333s"
-        static_configs:
-          - targets:
-              - "localhost:9090"
-      - job_name: "x"
-        static_configs:
-          - targets:
-              - "localhost:9090"        
+  serverFiles:
+    prometheus.yml:
+      enabled: true
+      scrape_configs:
+        - job_name: "prometheu3333s"
+          static_configs:
+            - targets:
+                - "localhost:9090"
+        - job_name: "x"
+          static_configs:
+            - targets:
+                - "localhost:9090"        
 
   alertmanager:
     enabled: false
