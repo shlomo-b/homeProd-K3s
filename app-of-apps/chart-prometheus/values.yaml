@@ -35,11 +35,8 @@ prometheus:
   alertmanager:
     enabled: false
 
-  kubeStateMetrics:
-    enabled: false
-
   pushgateway:
     enabled: false
 
-  prometheusOperator:
-    enabled: false
+  kube-state-metrics:
+    enabled: false  
