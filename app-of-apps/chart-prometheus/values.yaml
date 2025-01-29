@@ -5,29 +5,22 @@ prometheus:
 
   replicaCount: 1
 
-  service:
+  server:
     enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.144"
-    port: 80
-    targetPort: 9090  # Prometheus default port
-
-  persistence:
-    enabled: true
-    size: 10Gi
-    mountPath: /prometheus  # Ensure correct data storage
-  serverFiles:
-    prometheus.yml:
+    service:
+      type: LoadBalancer
+      loadBalancerIP: "172.18.0.144"
+      port: 80
+      targetPort: 9090
+    persistentVolume:
       enabled: true
-      scrape_configs:
-        - job_name: "prometheu3333s"
-          static_configs:
-            - targets:
-                - "localhost:9090"
-        - job_name: "x"
-          static_configs:
-            - targets:
-                - "localhost:9090"        
+      size: 10Gi
+      mountPath: /data
+    extraScrapeConfigs:
+      - job_name: "prometheus"
+        static_configs:
+          - targets:
+              - "localhost:9090"   
 
   alertmanager:
     enabled: false
