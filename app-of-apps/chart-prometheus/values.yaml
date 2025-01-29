@@ -8,7 +8,7 @@ prometheus:
   service:
     enabled: true
     type: LoadBalancer
-    loadBalancerIP: "172.18.0.148"
+    loadBalancerIP: "172.18.0.144"
     loadBalancerClass: ""
     loadBalancerSourceRanges: []
     port: 80
