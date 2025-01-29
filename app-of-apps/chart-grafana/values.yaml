@@ -32,6 +32,6 @@ grafana:
       - name: prometheus
         type: prometheus
         access: proxy
-        url: http://prometheus:9090
+        url: http://172.18.0.144:9090
     
   
