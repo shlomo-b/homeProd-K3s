@@ -15,9 +15,10 @@ prometheus:
     type: pvc
     size: 10Gi
     storageClass: ""
-  # extraScrapeConfigs:
-  #   enabled: true
-  #   configs:
-  #     - job_name: "custom-job"
-  #       static_configs:
-  #         - targets: ["172.18.0.100:8080"]
+  prometheus.yml:
+    enabled: true
+    scrape_configs:
+      - job_name: prometheus
+        static_configs:
+          - targets:
+            - localhost:9090
