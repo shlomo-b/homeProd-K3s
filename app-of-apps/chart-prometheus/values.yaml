@@ -14,8 +14,8 @@ prometheus:
     port: 80
     targetPort: 80
     servicePort: 80
-    serviceTargetPort: 9090
-    hostPort: 9090
+    serviceTargetPort: 80
+    hostPort: 80
 
   persistentVolume:
     enabled: true
