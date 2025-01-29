@@ -15,7 +15,7 @@ grafana:
   persistence:
     type: pvc
     enabled: true
-    size: 11Gi
+    size: 10Gi
   sidecar:
     datasources:
       enabled: true
