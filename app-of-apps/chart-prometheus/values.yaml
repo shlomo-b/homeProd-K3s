@@ -9,18 +9,13 @@ prometheus:
     enabled: true
     type: LoadBalancer
     loadBalancerIP: "172.18.0.144"
-    loadBalancerClass: ""
-    loadBalancerSourceRanges: []
     port: 80
-    targetPort: 80
-    servicePort: 80
-    serviceTargetPort: 80
-    hostPort: 80
+    targetPort: 9090  # Prometheus default port
 
   persistence:
-    type: pvc
     enabled: true
     size: 10Gi
+    mountPath: /prometheus  # Ensure correct data storage
 
   prometheus.yml:
     enabled: true
