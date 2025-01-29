@@ -8,10 +8,9 @@ prometheus:
   server:
     enabled: true
     service:
-      configPath: /etc/config/prometheus.yml
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
-      port: 80
+      port: 9090
       targetPort: 9090
     persistentVolume:
       enabled: true
