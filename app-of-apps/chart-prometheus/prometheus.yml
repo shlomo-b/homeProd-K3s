@@ -1,0 +1,85 @@
+# most all the job_name it's for get a metricks.
+
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  external_labels:
+    monitor: 'Monitoring'
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets: ['alertmanager:9093']    
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+    metrics_path: "/metrics"  
+    # basic_auth:
+    #   username_file: "/etc/prometheus/prometheus_username.txt" # my username from folder secrets
+    #   password_file: "/etc/prometheus/prometheus_password.txt" # my passwrod from folder secrets
+
+  - job_name: 'grafana'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['grafana:3000']
+
+# the node-exporter show the state of the system environment like: [cpu,memory)
+
+  - job_name: 'node-exporter'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+# show the all the containers that runining on the system environment and send all the metricks to promethus
+
+  - job_name: 'cAdvisor'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  - job_name: "loki"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["loki:3100"]     
+       
+  - job_name: "blackjack"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["10.90.100.251:9792"]  
+
+#---------------outside the network----------------#
+
+  - job_name: 'blackjack.spider-shlomo.com'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['blackjack.spider-shlomo.com:443']
+    scheme: https
+
+  - job_name: 'blackjack_locali'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['10.0.11.10:8090']
+
+  - job_name: "shlomo-pc"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["10.0.11.250:9182"]   
+  
+  - job_name: "pods blackjack in eks"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["node-exporter.spider-shlomo.com:30910"]
+
+  - job_name: 'react-shop-backend-minikube'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['192.168.49.2:30056']
+
+  - job_name: 'backend.spider-shlomo.com'
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ['backend.spider-shlomo.com:443']
+    scheme: https
