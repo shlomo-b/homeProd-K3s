@@ -40,10 +40,11 @@ prometheus:
             - targets: ['blackjack.spider-shlomo.com:443']
           scheme: https
 
-        - job_name: 'blackjack_locali'
+         - job_name: 'backend.spider-shlomo.com'
           metrics_path: "/metrics"
           static_configs:
-            - targets: ['10.0.11.10:8090']
+            - targets: ['backend.spider-shlomo.com:443']
+          scheme: https    
 
         - job_name: "shlomo-pc"
           metrics_path: "/metrics"
@@ -58,13 +59,7 @@ prometheus:
         - job_name: 'react-shop-backend-minikube'
           metrics_path: "/metrics"
           static_configs:
-            - targets: ['192.168.49.2:30056']
-
-        - job_name: 'backend.spider-shlomo.com'
-          metrics_path: "/metrics"
-          static_configs:
-            - targets: ['backend.spider-shlomo.com:443']
-          scheme: https            
+            - targets: ['192.168.49.2:30056']          
 
 
   alertmanager:
@@ -77,4 +72,4 @@ prometheus:
     enabled: false  
 
   prometheus-node-exporter:
-    enabled: false
+    enabled: true
