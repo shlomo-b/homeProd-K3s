@@ -31,7 +31,40 @@ prometheus:
           metrics_path: /metrics
           static_configs:
             - targets:
-              - grafana:3000      
+              - grafana:3000
+#---------------outside the network----------------#
+
+        - job_name: 'blackjack.spider-shlomo.com'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['blackjack.spider-shlomo.com:443']
+          scheme: https
+
+        - job_name: 'blackjack_locali'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['10.0.11.10:8090']
+
+        - job_name: "shlomo-pc"
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ["10.0.11.250:9182"]   
+        
+        - job_name: "pods blackjack in eks"
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ["node-exporter.spider-shlomo.com:30910"]
+
+        - job_name: 'react-shop-backend-minikube'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['192.168.49.2:30056']
+
+        - job_name: 'backend.spider-shlomo.com'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['backend.spider-shlomo.com:443']
+          scheme: https            
 
 
   alertmanager:
