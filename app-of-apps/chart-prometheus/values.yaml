@@ -19,10 +19,10 @@ prometheus:
         - /etc/config/prometheus.yml
 
       scrape_configs:
-        - job_name: prometheusssssss
+        - job_name: prometheus
           static_configs:
             - targets:
-              - localhost:9090
+              - prometheus:9090
 
   alertmanager:
     enabled: false
