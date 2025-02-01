@@ -40,7 +40,7 @@ prometheus:
             - targets: ['blackjack.spider-shlomo.com:443']
           scheme: https
 
-         - job_name: 'backend.spider-shlomo.com'
+        - job_name: 'backend.spider-shlomo.com'
           metrics_path: "/metrics"
           static_configs:
             - targets: ['backend.spider-shlomo.com:443']
