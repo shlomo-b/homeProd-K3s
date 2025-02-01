@@ -23,7 +23,7 @@ prometheus:
         - targets:
             - "localhost:9090" 
   statefulSet:
-      replicaCount: 2
+      replicas: 2
 
 
   alertmanager:
