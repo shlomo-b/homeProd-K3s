@@ -4,7 +4,6 @@ prometheus:
     create: true  
   server:
     enabled: true
-    replicaCount: 1
     service:
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
@@ -23,6 +22,10 @@ prometheus:
       static_configs:
         - targets:
             - "localhost:9090" 
+   statefulset:
+      replicas: 2
+      # replicaCount: 1
+
 
   alertmanager:
     enabled: false
