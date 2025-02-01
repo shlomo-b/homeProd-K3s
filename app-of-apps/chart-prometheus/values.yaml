@@ -36,7 +36,7 @@ prometheus:
           metrics_path: /metrics
           static_configs:
             - targets:
-              - localhost:9100      
+              - node-exporter:9100      
 #---------------outside the network----------------#
 
         - job_name: 'blackjack.spider-shlomo.com'
@@ -78,3 +78,8 @@ prometheus:
 
   prometheus-node-exporter:
     enabled: true
+    service:
+      type: ClusterIP
+      port: 9100
+      targetPort: 9100
+      PortName: metrics
