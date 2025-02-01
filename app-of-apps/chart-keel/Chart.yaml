@@ -8,4 +8,4 @@ dependencies:
 - name: keel
   repository: https://charts.keel.sh
   version: 1.0.5
-  condition: keel.enabled # only install if keel is enabled
+ # condition: keel.enabled # only install if keel is enabled

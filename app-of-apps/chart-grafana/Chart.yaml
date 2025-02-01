@@ -8,4 +8,4 @@ dependencies:
 - name: grafana
   repository: https://grafana.github.io/helm-charts
   version: 8.8.4
-  condition: grafana.enabled # only install if etrics-server is enabled
+#  condition: grafana.enabled # only install if etrics-server is enabled

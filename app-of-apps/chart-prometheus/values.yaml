@@ -18,15 +18,16 @@ prometheus:
     persistentVolume:
       enabled: true
       size: 10Gi
-    extraScrapeConfigs:
-      - job_name: "prometheus"
-        static_configs:
-          - targets:
-              - "localhost:9090"   
-      - job_name: "x"
-        static_configs:
-          - targets:
-              - "localhost:9090"           
+    prometheus.yml: 
+      scrape_configs:
+        - job_name: "prometheus"
+          static_configs:
+            - targets:
+                - "localhost:9090"   
+        - job_name: "x"
+          static_configs:
+            - targets:
+                - "localhost:9090"           
 
   alertmanager:
     enabled: false
