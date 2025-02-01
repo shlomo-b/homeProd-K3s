@@ -6,8 +6,6 @@ prometheus:
   replicaCount: 1
 
   server:
-    config:
-      file: /etc/prometheus/prometheus.yml
     enabled: true
     service:
       type: LoadBalancer
