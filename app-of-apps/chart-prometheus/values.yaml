@@ -26,7 +26,7 @@ prometheus:
           metrics_path: /metrics
           static_configs:
             - targets:
-              - localhost:9090
+              - prometheus-server:9090
         - job_name: grafana
           metrics_path: /metrics
           static_configs:
