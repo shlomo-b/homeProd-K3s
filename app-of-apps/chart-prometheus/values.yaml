@@ -3,7 +3,7 @@ prometheus:
   serviceAccount:
     create: true  
 
-  replicaCount: 1
+  replicaCount: 2
 
   server:
     enabled: true
