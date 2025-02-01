@@ -22,9 +22,8 @@ prometheus:
       static_configs:
         - targets:
             - "localhost:9090" 
-  statefulset:
-      replicas: 2
-      # replicaCount: 1
+  statefulSet:
+      replicaCount: 1
 
 
   alertmanager:
