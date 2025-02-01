@@ -83,3 +83,4 @@ prometheus:
       port: 9100
       targetPort: 9100
       PortName: metrics
+      name: node-exporter
