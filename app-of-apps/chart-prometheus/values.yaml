@@ -2,11 +2,9 @@ prometheus:
   enabled: true
   serviceAccount:
     create: true  
-
-  replicas: 2
-
   server:
     enabled: true
+    replicaCount: 1
     service:
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
