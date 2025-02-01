@@ -32,6 +32,11 @@ prometheus:
           static_configs:
             - targets:
               - grafana:3000
+        - job_name: node-exporter
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - node-exporter:9100      
 #---------------outside the network----------------#
 
         - job_name: 'blackjack.spider-shlomo.com'
