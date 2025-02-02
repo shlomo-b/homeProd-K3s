@@ -1,0 +1,10 @@
+apiVersion: v2
+name: uptime-kuma
+description: A Helm chart for uptime-kuma
+type: application
+version: 1.23.13
+appVersion: 1.23.13
+dependencies:
+- name: uptime-kuma
+  repository:  https://dirsigler.github.io/uptime-kuma-helm
+  version: 2.21.2

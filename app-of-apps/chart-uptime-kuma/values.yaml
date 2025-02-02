@@ -1,0 +1,12 @@
+uptime-kuma:
+  enabled: true
+  serviceAccount:
+    create: true  
+  service:
+    type: NodePort
+    port: 3001
+    nodePort: 30056
+  volume:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 4Gi  
