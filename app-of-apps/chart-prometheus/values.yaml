@@ -75,11 +75,11 @@ prometheus:
   kube-state-metrics:
     enabled: false  
 
-  # prometheus-node-exporter:
-  #   enabled: true
-  #   service:
-  #     type: ClusterIP
-  #     port: 9100
-  #     targetPort: 9100
-  #     PortName: metrics
-  #     name: node-exporter
+  prometheus-node-exporter:
+    enabled: false
+    # service:
+    #   type: ClusterIP
+    #   port: 9100
+    #   targetPort: 9100
+    #   PortName: metrics
+    #   name: node-exporter
