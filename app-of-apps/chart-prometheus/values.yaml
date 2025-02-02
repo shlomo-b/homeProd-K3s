@@ -17,15 +17,16 @@ prometheus:
     persistentVolume:
       enabled: true
       size: 10Gi
-  serverFiles:    
-    prometheus.yml:
-      rule_files:
-        - /etc/config/prometheus.yml
-      scrape_configs:
-        - job_name: prometheus
-          static_configs:
-            - targets:
-              - prometheus-server:9090
+  # serverFiles:    
+  #   prometheus.yml:
+  #     rule_files:
+  #       - /etc/config/prometheus.yml
+  #     scrape_configs:
+  #       - job_name: prometheus
+  #         metrics_path: /metrics
+  #         static_configs:
+  #           - targets:
+  #             - prometheus-server:9090
 #         - job_name: grafana
 #           metrics_path: /metrics
 #           static_configs:
@@ -76,10 +77,10 @@ prometheus:
     enabled: false  
 
   prometheus-node-exporter:
-    enabled: false
-    # service:
-    #   type: ClusterIP
-    #   port: 9100
-    #   targetPort: 9100
-    #   PortName: metrics
-    #   name: node-exporter
+    enabled: true
+    service:
+      type: ClusterIP
+      port: 9100
+      targetPort: 9100
+      PortName: metrics
+      name: node-exporter
