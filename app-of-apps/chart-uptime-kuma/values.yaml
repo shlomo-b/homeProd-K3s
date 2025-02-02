@@ -10,16 +10,3 @@ uptime-kuma:
     enabled: true
     accessMode: ReadWriteOnce
     size: 4Gi
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 10
-    periodSeconds: 10
-    timeoutSeconds: 1
-    failureThreshold: 3
-    successThreshold: 1
-    exec:
-      command: []
-    ping:
-      host: 2.2.2.2
-      friendlyName: uptime-kuma
- 
