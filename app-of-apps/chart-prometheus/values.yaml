@@ -18,7 +18,7 @@ prometheus:
       enabled: true
       size: 10Gi
   serverFiles:
-    prometheus.yml: |
+    prometheus.yml:
       global:
         scrape_interval: 15s
         scrape_timeout: 10s
