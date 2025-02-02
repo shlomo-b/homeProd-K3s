@@ -37,7 +37,7 @@ prometheus:
           static_configs:
             - targets:
               - prometheus-prometheus-node-exporter:9100      
-#---------------outside the network----------------#
+
 
         - job_name: 'blackjack.spider-shlomo.com'
           metrics_path: "/metrics"
