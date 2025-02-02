@@ -17,10 +17,10 @@ prometheus:
     persistentVolume:
       enabled: true
       size: 10Gi
-#   serverFiles:    
-#     prometheus.yml:
-#       rule_files:
-#         - /etc/config/prometheus.yml
+  serverFiles:    
+    prometheus.yml:
+      rule_files:
+        - /etc/config/prometheus.yml
 #       scrape_configs:
 #         - job_name: prometheus
 #           metrics_path: /metrics
