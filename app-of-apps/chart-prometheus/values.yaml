@@ -11,8 +11,8 @@ prometheus:
     service:
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
-      port: 8080
       targetPort: 8080
+      servicePort: 8080
       containerPortName: metrics
     persistentVolume:
       enabled: true
