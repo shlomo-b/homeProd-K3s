@@ -12,7 +12,7 @@ prometheus:
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
       port: 9090
-      targetPort: 9090
+    #  targetPort: 9090
       servicePort: 9090
     persistentVolume:
       enabled: true
