@@ -3,10 +3,10 @@ prometheus:
   serviceAccount:
     create: true  
   server:
-    # global:
-    #     scrape_interval: 15s
-    #     scrape_timeout: 10s
-    #     evaluation_interval: 15s
+    global:
+        scrape_interval: 15s
+        scrape_timeout: 10s
+        evaluation_interval: 15s
     enabled: true
     service:
       type: LoadBalancer
@@ -19,10 +19,6 @@ prometheus:
       size: 10Gi
   serverFiles:
     prometheus.yml:
-      global:
-        scrape_interval: 15s
-        scrape_timeout: 10s
-        evaluation_interval: 15s
       scrape_configs:
         - job_name: 'prometheus'
           metrics_path: '/metrics'
