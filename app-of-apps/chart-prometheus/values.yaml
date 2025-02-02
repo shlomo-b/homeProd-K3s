@@ -49,10 +49,11 @@ prometheus:
 #             - targets: ['backend.spider-shlomo.com:443']
 #           scheme: https    
 
-#         - job_name: "shlomo-pc"
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ["10.0.11.250:9182"]   
+        - job_name: "shlomo-pc"
+          metrics_path: "/metrics"
+          static_configs:
+            - targets:
+                - "10.0.11.250:9182"
         
 #         - job_name: "pods blackjack in eks"
 #           metrics_path: "/metrics"
