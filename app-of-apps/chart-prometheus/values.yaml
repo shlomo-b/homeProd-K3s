@@ -11,9 +11,9 @@ prometheus:
     service:
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
-      port: 9090
-    #  targetPort: 9090
-      servicePort: 9090
+      # port: 9090
+      # targetPort: 9090
+      # servicePort: 9090
     persistentVolume:
       enabled: true
       size: 10Gi
@@ -37,7 +37,7 @@ prometheus:
           static_configs:
             - targets:
               - prometheus-prometheus-node-exporter:9100      
-
+#---------------outside the network----------------#
 
         - job_name: 'blackjack.spider-shlomo.com'
           metrics_path: "/metrics"
