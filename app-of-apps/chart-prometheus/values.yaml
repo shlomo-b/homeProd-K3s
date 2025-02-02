@@ -18,15 +18,15 @@ prometheus:
       enabled: true
       size: 10Gi
   serverFiles:    
-    prometheus.yml:
+    prometheus.yml: |
       rule_files:
         - /etc/config/prometheus.yml
-#       scrape_configs:
-#         - job_name: prometheus
-#           metrics_path: /metrics
-#           static_configs:
-#             - targets:
-#               - prometheus-server:9090
+      scrape_configs:
+        - job_name: prometheus
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - prometheus-server:9090
 #         - job_name: grafana
 #           metrics_path: /metrics
 #           static_configs:
