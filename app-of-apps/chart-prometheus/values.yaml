@@ -12,59 +12,59 @@ prometheus:
       type: LoadBalancer
       loadBalancerIP: "172.18.0.144"
       port: 9090
-    targetPort: 9090
+      targetPort: 9090
       servicePort: 9090
     persistentVolume:
       enabled: true
       size: 10Gi
-#   serverFiles:    
-#     prometheus.yml:
-#       rule_files:
-#         - /etc/config/prometheus.yml
-#       scrape_configs:
-#         - job_name: prometheus
-#           metrics_path: /metrics
-#           static_configs:
-#             - targets:
-#               - prometheus-server:9090
-#         - job_name: grafana
-#           metrics_path: /metrics
-#           static_configs:
-#             - targets:
-#               - grafana:3000
-#         - job_name: node-exporter
-#           metrics_path: /metrics
-#           static_configs:
-#             - targets:
-#               - prometheus-prometheus-node-exporter:9100      
-# #---------------outside the network----------------#
+  serverFiles:    
+    prometheus.yml:
+      rule_files:
+        - /etc/config/prometheus.yml
+      scrape_configs:
+        - job_name: prometheus
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - prometheus-server:9090
+        - job_name: grafana
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - grafana:3000
+        - job_name: node-exporter
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - prometheus-prometheus-node-exporter:9100      
+#---------------outside the network----------------#
 
-#         - job_name: 'blackjack.spider-shlomo.com'
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ['blackjack.spider-shlomo.com:443']
-#           scheme: https
+        - job_name: 'blackjack.spider-shlomo.com'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['blackjack.spider-shlomo.com:443']
+          scheme: https
 
-#         - job_name: 'backend.spider-shlomo.com'
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ['backend.spider-shlomo.com:443']
-#           scheme: https    
+        - job_name: 'backend.spider-shlomo.com'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['backend.spider-shlomo.com:443']
+          scheme: https    
 
-#         - job_name: "shlomo-pc"
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ["10.0.11.250:9182"]   
+        - job_name: "shlomo-pc"
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ["10.0.11.250:9182"]   
         
-#         - job_name: "pods blackjack in eks"
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ["node-exporter.spider-shlomo.com:30910"]
+        - job_name: "pods blackjack in eks"
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ["node-exporter.spider-shlomo.com:30910"]
 
-#         - job_name: 'react-shop-backend-minikube'
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ['192.168.49.2:30056']          
+        - job_name: 'react-shop-backend-minikube'
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ['192.168.49.2:30056']          
 
 
   alertmanager:
