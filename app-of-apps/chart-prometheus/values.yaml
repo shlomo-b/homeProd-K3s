@@ -18,7 +18,7 @@ prometheus:
       enabled: true
       size: 10Gi
   serverFiles:    
-    prometheus.yml: |
+    prometheus.yml:
       rule_files:
         - /etc/config/prometheus.yml
       scrape_configs:
