@@ -22,8 +22,8 @@ prometheus:
       rule_files:
         - /etc/config/prometheus.yml
       scrape_configs:
-        - job_name: prometheus
-          metrics_path: /metrics
+        - job_name: 'prometheus'
+          metrics_path: '/metrics'
           static_configs:
             - targets: 
                 - "prometheus-server:9090"
