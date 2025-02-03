@@ -1,6 +1,22 @@
 loki:
+  serviceAccount:
+    annotations:
+      "eks.amazonaws.com/role-arn": "arn:aws:iam::<account id>:role/<role name>"
+  enabled: true  
+  replicas: 1
+  service:
+    enabled: true
+    type: LoadBalancer
+    loadBalancerIP: "172.18.0.149"
+    loadBalancerClass: ""
+    port: 80
+    targetPort: 3100
   storage:
     bucketNames:
       chunks: "infix-ue1-ifx-d-s3"
       ruler: "infix-ue1-ifx-d-s3"
       admin: "infix-ue1-ifx-d-s3"
+    type: s3
+    s3:
+      s3: "s3://infix-ue1-ifx-d-s3/grafana/"
+      region: "us-east-1"
