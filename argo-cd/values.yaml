@@ -48,7 +48,7 @@ dex:
   volumes:
     - name: sso-cert
       secret:
-        secretName: argo-cd-sso-cert # reference the secret name 
+        secretName: argocd-sso-cert # reference the secret name 
 
     - name: trusted
       secret: 

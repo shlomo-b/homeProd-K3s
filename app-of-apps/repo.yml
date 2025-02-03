@@ -3,7 +3,7 @@ kind: Secret
 type: Opaque
 metadata:
   name: repo
-  namespace: argo-cd
+  namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
