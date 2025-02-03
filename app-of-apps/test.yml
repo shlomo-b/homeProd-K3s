@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: monitoring
-  namespace: argocd
+  namespace: argo-cd
 spec:
   roles:
   # A role which provides full access to all users
