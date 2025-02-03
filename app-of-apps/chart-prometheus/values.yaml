@@ -58,7 +58,8 @@ prometheus:
         - job_name: "backend-shop-online.spider.local"
           metrics_path: "/metrics"
           static_configs:
-                - targets: "172.18.0.145:5050"
+              - targets: 
+                - "172.18.0.145:5050"
 
 
   alertmanager:
