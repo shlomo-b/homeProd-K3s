@@ -1,4 +1,14 @@
 loki:
+  auth_enabled: false  # Add this if you don't need auth
+  storage:
+    type: 'filesystem'  # This is needed based on the chart
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+    filesystem:
+      chunks_directory: /var/loki/chunks
+      rules_directory: /var/loki/rules
   serviceAccount:
     create: true
   enabled: true
@@ -14,12 +24,18 @@ loki:
     enabled: true
     storageSize: 10Gi
     storageClass: null
-  storage:
-    type: filesystem  # or any other supported storage type
-    bucketNames:
-      chunks: chunks
-      ruler: ruler
-      admin: admin
-    filesystem:
-      chunks_directory: /var/loki/chunks
-      rules_directory: /var/loki/rules
+  schemaConfig:
+    configs:
+      - from: "2021-08-01"
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v12
+        index:
+          prefix: loki_index_
+          period: 24h
+  storageConfig:
+    boltdb_shipper:
+      active_index_directory: /var/loki/index
+      cache_location: /var/loki/cache
+      cache_ttl: 24h
+      shared_store: filesystem
