@@ -55,15 +55,10 @@ prometheus:
             - targets:
                 - "10.0.11.250:9182"
         
-#         - job_name: "pods blackjack in eks"
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ["node-exporter.spider-shlomo.com:30910"]
-
-#         - job_name: 'react-shop-backend-minikube'
-#           metrics_path: "/metrics"
-#           static_configs:
-#             - targets: ['192.168.49.2:30056']          
+        - job_name: "backend-shop-online.spider.local"
+          metrics_path: "/metrics"
+          static_configs:
+                - targets: "172.18.0.145:5050"
 
 
   alertmanager:
