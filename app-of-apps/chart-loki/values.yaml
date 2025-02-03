@@ -16,6 +16,6 @@ loki:
     s3:
       region: eu-central-1
     bucketNames:
-      chunks: <bucket name>
-      ruler: <bucket name>
-      admin: <bucket name>
+      chunks: project-terraform-tfstate-shlomo
+      ruler: project-terraform-tfstate-shlomo
+      admin: project-terraform-tfstate-shlomo
