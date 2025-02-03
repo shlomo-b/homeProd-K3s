@@ -13,4 +13,4 @@ loki:
   persistence:
     enabled: true
     storageSize: 10Gi
-    storageClass: "local-path"
+    storageClass: null
