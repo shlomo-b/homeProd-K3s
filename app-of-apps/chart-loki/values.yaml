@@ -1,37 +1,32 @@
 loki:
-  auth_enabled: false
-  commonConfig:
-    replication_factor: 1
-    ring:
-      instance_addr: 127.0.0.1
-      kvstore:
-        store: inmemory
-  storage:
-    bucketNames:
-      chunks: chunks
-      ruler: ruler
-      admin: admin
-    type: filesystem
-  storage_config:
-    boltdb_shipper:
-      active_index_directory: /var/loki/index
-      cache_location: /var/loki/cache
-      cache_ttl: 24h
-      shared_store: filesystem
-    filesystem:
-      directory: /var/loki/chunks
-  schemaConfig:
-    configs:
-      - from: "2021-08-01"
-        store: boltdb-shipper
-        object_store: filesystem
-        schema: v12
-        index:
-          prefix: loki_index_
-          period: 24h
+  enabled: true
+  config:  # This is important - moving storage config under 'config'
+    auth_enabled: false
+    storage:
+      bucketNames:
+        chunks: chunks
+        ruler: ruler
+        admin: admin
+      type: filesystem
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: /var/loki/index
+        cache_location: /var/loki/cache
+        cache_ttl: 24h
+        shared_store: filesystem
+      filesystem:
+        directory: /var/loki/chunks
+    schema_config:
+      configs:
+        - from: "2021-08-01"
+          store: boltdb-shipper
+          object_store: filesystem
+          schema: v12
+          index:
+            prefix: loki_index_
+            period: 24h
   serviceAccount:
     create: true
-  enabled: true
   replicas: 1
   service:
     enabled: true
@@ -44,4 +39,3 @@ loki:
     enabled: true
     storageSize: 10Gi
     storageClass: null
-    
