@@ -4,7 +4,7 @@ metadata:
   name: uptime-kuma
   namespace: argocd
 spec:
-  project: default
+  project: monitoring
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
     path: app-of-apps/chart-uptime-kuma
