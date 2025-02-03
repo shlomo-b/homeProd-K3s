@@ -1,6 +1,7 @@
 loki:
   serviceAccount:
-    create: true
+    annotations:
+      "eks.amazonaws.com/role-arn": "arn:aws:iam::<account id>:role/<role name>"
   enabled: true  
   replicas: 1
   service:
@@ -10,7 +11,11 @@ loki:
     loadBalancerClass: ""
     port: 80
     targetPort: 3100
-  persistence:
-    enabled: true
-    storageSize: 10Gi
-    storageClass: null
+  storage:
+    type: "s3"
+    s3:
+      region: eu-central-1
+    bucketNames:
+      chunks: <bucket name>
+      ruler: <bucket name>
+      admin: <bucket name>
