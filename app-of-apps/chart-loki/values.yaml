@@ -1,41 +1,9 @@
 loki:
   enabled: true
-  config:  # This is important - moving storage config under 'config'
-    auth_enabled: false
-    storage:
-      bucketNames:
-        chunks: chunks
-        ruler: ruler
-        admin: admin
-      type: filesystem
-    storage_config:
-      boltdb_shipper:
-        active_index_directory: /var/loki/index
-        cache_location: /var/loki/cache
-        cache_ttl: 24h
-        shared_store: filesystem
-      filesystem:
-        directory: /var/loki/chunks
-    schema_config:
-      configs:
-        - from: "2021-08-01"
-          store: boltdb-shipper
-          object_store: filesystem
-          schema: v12
-          index:
-            prefix: loki_index_
-            period: 24h
-  serviceAccount:
-    create: true
-  replicas: 1
-  service:
-    enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.149"
-    loadBalancerClass: ""
-    port: 80
-    targetPort: 3100
   persistence:
+    type: pvc
     enabled: true
-    storageSize: 10Gi
-    storageClass: null
+    existingClaim: loki
+  securityContext:
+    runAsGroup: 10001
+    runAsUser: 10001
