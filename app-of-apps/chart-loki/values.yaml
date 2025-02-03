@@ -1,21 +1,66 @@
 loki:
-  serviceAccount:
-    annotations:
-      "eks.amazonaws.com/role-arn": "arn:aws:iam::<account id>:role/<role name>"
-  enabled: true  
-  replicas: 1
-  service:
+  schemaConfig:
+    configs:
+      - from: 2024-04-01
+        store: tsdb
+        object_store: s3
+        schema: v13
+        index:
+          prefix: loki_index_
+          period: 24h
+  ingester:
+    chunk_encoding: snappy
+  tracing:
     enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.149"
-    loadBalancerClass: ""
-    port: 80
-    targetPort: 3100
+  querier:
+    max_concurrent: 4
+
   storage:
-    type: "s3"
-    s3:
-      region: eu-central-1
+    type: s3
     bucketNames:
-      chunks: project-terraform-tfstate-shlomo
-      ruler: project-terraform-tfstate-shlomo
-      admin: project-terraform-tfstate-shlomo
+      chunks: "chunks"
+      ruler: "ruler"
+      admin: "admin"
+    s3:
+      s3: http://minio-operator:9090
+      endpoint: http://minio-operator:9090
+      accessKeyId: "AIbzZUHczp8q3qsC"
+      secretAccessKey: "ia2YH6QGUZq93fWeiJedNtN3MpCIA4bP"
+      s3ForcePathStyle: true
+      insecure: true
+
+deploymentMode: Distributed
+
+ingester:
+  replicas: 3
+querier:
+  replicas: 3
+  maxUnavailable: 2
+queryFrontend:
+  replicas: 2
+  maxUnavailable: 1
+queryScheduler:
+  replicas: 2
+distributor:
+  replicas: 3
+  maxUnavailable: 2
+compactor:
+  replicas: 1
+indexGateway:
+  replicas: 2
+  maxUnavailable: 1
+
+bloomCompactor:
+  replicas: 0
+bloomGateway:
+  replicas: 0
+
+backend:
+  replicas: 0
+read:
+  replicas: 0
+write:
+  replicas: 0
+
+singleBinary:
+  replicas: 0
