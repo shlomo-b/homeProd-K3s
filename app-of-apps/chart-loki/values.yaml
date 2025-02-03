@@ -1,66 +1,41 @@
 loki:
+  auth_enabled: false
+  storage:
+    bucketNames:
+      chunks: infix-ue1-ifx-d-s3
+      ruler: infix-ue1-ifx-d-s3
+      admin: infix-ue1-ifx-d-s3
+    type: s3
+    s3:
+      s3: s3://infix-ue1-ifx-d-s3/grafana/
+      endpoint: null
+      region: us-east-1
+      secretAccessKey: null
+      accessKeyId: null
+      signatureVersion: null
+      s3ForcePathStyle: false
+      insecure: false
+      http_config: {}
   schemaConfig:
     configs:
-      - from: 2024-04-01
-        store: tsdb
+      - from: "2024-07-31"
+        index:
+          period: 24h
+          prefix: loki_ops_index_
         object_store: s3
         schema: v13
-        index:
-          prefix: loki_index_
-          period: 24h
-  ingester:
-    chunk_encoding: snappy
-  tracing:
-    enabled: true
-  querier:
-    max_concurrent: 4
+        store: tsdb
+  useTestSchema: false
 
-  storage:
-    type: s3
-    bucketNames:
-      chunks: "chunks"
-      ruler: "ruler"
-      admin: "admin"
-    s3:
-      s3: http://minio-operator:9090
-      endpoint: http://minio-operator:9090
-      accessKeyId: "AIbzZUHczp8q3qsC"
-      secretAccessKey: "ia2YH6QGUZq93fWeiJedNtN3MpCIA4bP"
-      s3ForcePathStyle: true
-      insecure: true
+serviceAccount:
+  create: false
+# RBAC configuration
+rbac:
+  pspEnabled: false
+  sccEnabled: false
+  namespaced: false
 
-deploymentMode: Distributed
-
-ingester:
-  replicas: 3
-querier:
-  replicas: 3
-  maxUnavailable: 2
-queryFrontend:
-  replicas: 2
-  maxUnavailable: 1
-queryScheduler:
-  replicas: 2
-distributor:
-  replicas: 3
-  maxUnavailable: 2
-compactor:
-  replicas: 1
-indexGateway:
-  replicas: 2
-  maxUnavailable: 1
-
-bloomCompactor:
-  replicas: 0
-bloomGateway:
-  replicas: 0
-
-backend:
-  replicas: 0
-read:
-  replicas: 0
-write:
-  replicas: 0
-
-singleBinary:
-  replicas: 0
+# Configuration for the gateway
+gateway:
+  # -- Specifies whether the gateway should be enabled
+  enabled: false
