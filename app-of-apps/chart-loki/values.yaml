@@ -1,7 +1,7 @@
 loki:
   serviceAccount:
     create: true
-  enabled: true  
+  enabled: true
   replicas: 1
   service:
     enabled: true
@@ -14,3 +14,12 @@ loki:
     enabled: true
     storageSize: 10Gi
     storageClass: null
+  storage:
+    type: filesystem  # or any other supported storage type
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+    filesystem:
+      chunks_directory: /var/loki/chunks
+      rules_directory: /var/loki/rules
