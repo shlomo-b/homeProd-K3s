@@ -1,18 +1,18 @@
-loki:
-  serviceAccount:
-    annotations:
-      "eks.amazonaws.com/role-arn": "arn:aws:iam::<account id>:role/<role name>"
-  enabled: true  
-  replicas: 1
-  service:
-    enabled: true
-    type: LoadBalancer
-    loadBalancerIP: "172.18.0.149"
-    loadBalancerClass: ""
-    port: 80
-    targetPort: 3100
-  replicas: 1
-  read:
-    persistent:
-      enabled: true
-      storageClassName: "local-path"
+# loki:
+#   serviceAccount:
+#     annotations:
+#       "eks.amazonaws.com/role-arn": "arn:aws:iam::<account id>:role/<role name>"
+#   enabled: true  
+#   replicas: 1
+#   service:
+#     enabled: true
+#     type: LoadBalancer
+#     loadBalancerIP: "172.18.0.149"
+#     loadBalancerClass: ""
+#     port: 80
+#     targetPort: 3100
+#   replicas: 1
+#   read:
+#     persistent:
+#       enabled: true
+#       storageClassName: "local-path"
