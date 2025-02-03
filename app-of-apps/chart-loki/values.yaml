@@ -12,13 +12,5 @@ loki:
     targetPort: 3100
   persistence:
     enabled: true
-    size: 10Gi
-  storage:
-    bucketNames:
-      chunks: aws-bucket-name
-      ruler: aws-bucket-name
-      admin: aws-bucket-name
-    type: s3
-    s3:
-      region: aws-region
-  auth_enabled: false
+    storageSize: 10Gi
+    storageClass: "local-path"
