@@ -13,3 +13,12 @@ loki:
   persistence:
     enabled: true
     size: 10Gi
+  storage:
+    bucketNames:
+      chunks: aws-bucket-name
+      ruler: aws-bucket-name
+      admin: aws-bucket-name
+    type: s3
+    s3:
+      region: aws-region
+  auth_enabled: false
