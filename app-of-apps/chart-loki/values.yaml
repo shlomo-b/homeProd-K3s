@@ -1,41 +1,6 @@
 loki:
-  auth_enabled: false
   storage:
     bucketNames:
-      chunks: infix-ue1-ifx-d-s3
-      ruler: infix-ue1-ifx-d-s3
-      admin: infix-ue1-ifx-d-s3
-    type: s3
-    s3:
-      s3: s3://infix-ue1-ifx-d-s3/grafana/
-      endpoint: null
-      region: us-east-1
-      secretAccessKey: null
-      accessKeyId: null
-      signatureVersion: null
-      s3ForcePathStyle: false
-      insecure: false
-      http_config: {}
-  schemaConfig:
-    configs:
-      - from: "2024-07-31"
-        index:
-          period: 24h
-          prefix: loki_ops_index_
-        object_store: s3
-        schema: v13
-        store: tsdb
-  useTestSchema: false
-
-serviceAccount:
-  create: false
-# RBAC configuration
-rbac:
-  pspEnabled: false
-  sccEnabled: false
-  namespaced: false
-
-# Configuration for the gateway
-gateway:
-  # -- Specifies whether the gateway should be enabled
-  enabled: false
+      chunks: "infix-ue1-ifx-d-s3"
+      ruler: "infix-ue1-ifx-d-s3"
+      admin: "infix-ue1-ifx-d-s3"
