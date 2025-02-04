@@ -49,7 +49,7 @@ metadata:
 spec:
   selector:
     app: react-app
-  type: ClusterIP # the type of the service
+  type: LoadBalancer # the type of the service
   loadBalancerIP: "172.18.0.145"
   ports:
     - protocol: TCP
