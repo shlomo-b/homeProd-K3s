@@ -16,6 +16,13 @@ spec:
             pathType: Exact # allow only access to application
             backend:
               service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Exact # allow only access to application
+            backend:
+              service:
                 name: react-svc
                 port:
                   number: 3000
