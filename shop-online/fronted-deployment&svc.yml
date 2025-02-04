@@ -50,8 +50,8 @@ spec:
   selector:
     app: react-app
   type: ClusterIP # the type of the service
- # loadBalancerIP: "172.18.0.100"
+  loadBalancerIP: "172.18.0.145"
   ports:
     - protocol: TCP
       port: 3000   # the port svc that expose
-      targetPort: 3000 # the port of the pod
+      targetPort: 3000 # the port of the pod      
