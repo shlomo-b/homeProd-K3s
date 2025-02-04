@@ -4,11 +4,9 @@ metadata:
   name: shop-online-ingress
   namespace: shop-online # the namespace that separates the pods between environments.
   annotations:
-    ginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   rules:
     - host: shop-online.spider.local
       http:
