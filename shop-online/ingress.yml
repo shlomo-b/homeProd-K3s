@@ -5,6 +5,7 @@ metadata:
   namespace: shop-online # the namespace that separates the pods between environments.
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: "shop-online"
 spec:
   ingressClassName: traefik
   rules:
