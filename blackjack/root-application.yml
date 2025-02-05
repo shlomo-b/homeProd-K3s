@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blackjack
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shlomo-b/Shop-Online.git
+    path: apps/blackjack
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: blackjack
+  ignoreDifferences:
+    - group: "apps" # the group of the resource including the kind deployment
+      kind: "Deployment"
+      jsonPointers: # the json pointers to ignore, its deployment.
+      - /spec/replicas  
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+      
+    # track and sync all git changes the argo will check every 3 minutes
+    automated:
+      selfHeal: true # auto sync the changes to the cluster from git
+      prune: true    # auto delete resources locally if thay are not in git
