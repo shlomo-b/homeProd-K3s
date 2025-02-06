@@ -37,24 +37,29 @@
 
 
 loki:
+  deploymentMode: SingleBinary  # חשוב שזה יהיה בהתחלה
+
   loki:
     auth_enabled: false
+    
+    schemaConfig:
+      configs:
+        - from: "2024-01-01"
+          store: boltdb-shipper  # שינוי מ-tsdb ל-boltdb-shipper
+          object_store: filesystem  # שינוי מ-s3 ל-filesystem
+          schema: v12
+          index:
+            prefix: index_
+            period: 24h
+
     storage:
       type: filesystem
       filesystem:
         chunks_directory: /var/loki/chunks
         rules_directory: /var/loki/rules
-      storage_config:
-        boltdb_shipper:
-          active_index_directory: /var/loki/index
-          cache_location: /var/loki/boltdb-cache
-          shared_store: filesystem
 
-    singleBinary:
-      replicas: 1
-      persistence:
-        enabled: true
-        size: 10Gi
-
-
-  deploymentMode: SingleBinary
+  singleBinary:
+    replicas: 1
+    persistence:
+      enabled: true
+      size: 10Gi
