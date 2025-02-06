@@ -39,7 +39,6 @@
 loki:
   loki:
     auth_enabled: false
-    deploymentMode: SingleBinary  # חשוב שזה יהיה בהתחלה
     schemaConfig:
       configs:
         - from: "2024-01-01"
