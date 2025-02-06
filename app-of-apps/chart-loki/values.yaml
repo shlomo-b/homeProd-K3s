@@ -1,6 +1,6 @@
 # loki:
 #   loki:
-#     auth_enabled: true
+#     auth_enabled: false
 
 #     schemaConfig:
 #       configs:
@@ -34,3 +34,27 @@
 #       region: eu-central-1
 #       secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
 #       accessKeyId: ${AWS_ACCESS_KEY_ID}
+
+
+loki:
+  loki:
+    auth_enabled: false
+    storage:
+      type: filesystem
+      filesystem:
+        chunks_directory: /var/loki/chunks
+        rules_directory: /var/loki/rules
+      storage_config:
+        boltdb_shipper:
+          active_index_directory: /var/loki/index
+          cache_location: /var/loki/boltdb-cache
+          shared_store: filesystem
+
+    singleBinary:
+      replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+
+
+  deploymentMode: SingleBinary
