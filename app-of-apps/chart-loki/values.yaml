@@ -1,14 +1,22 @@
 loki:
   loki:
-    config:
-      storage_config:
-        filesystem:
-          directory: /var/loki/chunks
+    storage:
+      type: filesystem
+      filesystem:
+        chunks_directory: /var/loki/chunks
+        rules_directory: /var/loki/rules
+
+  deploymentMode: SingleBinary
+  
+  write:
+    replicas: 0
+  read:
+    replicas: 0
+  backend:
+    replicas: 0
     
-    deploymentMode: SingleBinary
-    
-    singleBinary:
-      replicas: 1
-      persistence:
-        enabled: true
-        size: 10Gi
+  singleBinary:
+    replicas: 1
+    persistence:
+      enabled: true
+      size: 10Gi
