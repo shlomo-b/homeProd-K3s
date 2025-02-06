@@ -1,25 +1,13 @@
 loki:
-  deploymentMode: SingleBinary
-  
   loki:
-    auth_enabled: false
-    schemaConfig:
-      configs:
-        - from: "2024-01-01"
-          store: boltdb-shipper
-          object_store: filesystem
-          schema: v12
-          index:
-            prefix: index_
-            period: 24h
-
-    storage:
-      type: filesystem
-      filesystem:
-        chunks_directory: /var/loki/chunks
-        rules_directory: /var/loki/rules
-
-    singleBinary:  # עכשיו זה בתוך loki הפנימי
+    config:
+      storage_config:
+        filesystem:
+          directory: /var/loki/chunks
+    
+    deploymentMode: SingleBinary
+    
+    singleBinary:
       replicas: 1
       persistence:
         enabled: true
