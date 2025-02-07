@@ -8,6 +8,8 @@ loki:
     auth_enabled: false
     read:
       replicas: 1
+    backend:
+      replicas: 1  
 
     schemaConfig:
       configs:
