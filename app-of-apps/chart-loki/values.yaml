@@ -9,7 +9,11 @@ loki:
     read:
       replicas: 1
     backend:
-      replicas: 1  
+      replicas: 1
+      autoscaling:
+        minReplicas: 1
+        maxReplicas: 1
+      
 
     schemaConfig:
       configs:
