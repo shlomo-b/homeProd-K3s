@@ -23,6 +23,8 @@ loki:
     replicas: 1
   gateway:
     replicas: 1  
+  write:
+    replicas: 1  
 
   backend:
     replicas: 1
