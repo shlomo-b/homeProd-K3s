@@ -52,7 +52,9 @@ loki:
   resultsCache:
     enabled: false
   lokiCanary:
-    enabled: false    
+    enabled: false
+  test:
+    enabled: false      
 
   serviceAccount:
     create: true
