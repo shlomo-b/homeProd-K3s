@@ -2,6 +2,9 @@ loki:
   deploymentMode: SimpleScalable
   loki:
     auth_enabled: false
+    server:
+      http_listen_port: 3100
+      grpc_listen_port: 9095
     schemaConfig:
       configs:
         - from: "2024-01-01"
