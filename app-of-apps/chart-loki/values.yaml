@@ -47,6 +47,12 @@ loki:
     autoscaling:
       minReplicas: 1
       maxReplicas: 1
+  chunksCache:
+    enabled: false
+  resultsCache:
+    enabled: false
+  lokiCanary:
+    enabled: false    
 
   serviceAccount:
     create: true
