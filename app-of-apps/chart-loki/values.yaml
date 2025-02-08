@@ -3,9 +3,9 @@ loki:
   loki:
     serviceAccount:
       create: true
-      name: loki-access-to-s3
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
+      # name: loki-access-to-s3
+      # annotations:
+      #   eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
     auth_enabled: false
     server:
       http_listen_port: 3100
@@ -40,10 +40,16 @@ loki:
       enabled: true
       type: ClusterIP
       port: 3100 # the port svc that expose and use for helthcheck
-  gateway:
-    enabled: false
+    persistence:
+      enabled: true
+      size: 10Gi   
+
   write:
-    replicas: 1  
+    replicas: 1 
+    persistence:
+      enabled: true
+      size: 10Gi   
+
   backend:
     replicas: 1
     autoscaling:
@@ -56,6 +62,7 @@ loki:
     persistence:
       enabled: true
       size: 10Gi  
+
   chunksCache:
     enabled: false
   resultsCache:
@@ -64,6 +71,8 @@ loki:
     enabled: false
   test:
     enabled: false
+  gateway:
+    enabled: false  
 
 
 
