@@ -1,18 +1,16 @@
+deploymentMode: SimpleScalable
+
+serviceAccount:
+  create: true
+  name: loki-access-to-s3
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
 loki:
-  deploymentMode: SimpleScalable
   loki:
-    serviceAccount:
-      create: true
-      name: loki-access-to-s3
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
     auth_enabled: false
-    server:
-      http_listen_port: 3100
-      grpc_listen_port: 9095
     commonConfig:
       path_prefix: /var/loki
-      replication_factor: 3  
+      replication_factor: 1
     schemaConfig:
       configs:
         - from: "2024-01-01"
@@ -29,35 +27,29 @@ loki:
         admin: s3-loki
       type: s3
       s3:
-       # endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1
-
 
   read:
     legacyReadTarget: false
     replicas: 1
-    service:
-      enabled: true
-      type: ClusterIP
-      port: 3100 # the port svc that expose and use for helthcheck
-  gateway:
-    enabled: false
+
   write:
-    replicas: 1  
+    replicas: 1
+
   backend:
     replicas: 1
-    autoscaling:
-      minReplicas: 1
-      maxReplicas: 1
+
+  gateway:
+    enabled: false
+
   chunksCache:
     enabled: false
+
   resultsCache:
     enabled: false
+
   lokiCanary:
     enabled: false
+
   test:
     enabled: false
-
-
-
-      
