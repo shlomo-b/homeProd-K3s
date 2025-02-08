@@ -2,14 +2,17 @@ loki:
   deploymentMode: SimpleScalable
   loki:
     serviceAccount:
-    create: true
-    name: loki-access-to-s3
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
+      create: true
+      name: loki-access-to-s3
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
     auth_enabled: false
     server:
       http_listen_port: 3100
       grpc_listen_port: 9095
+    commonConfig:
+      path_prefix: /var/loki
+      replication_factor: 3  
     schemaConfig:
       configs:
         - from: "2024-01-01"
@@ -26,9 +29,9 @@ loki:
         admin: s3-loki
       type: s3
       s3:
-        endpoint: s3.us-east-1.amazonaws.com
+       # endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1
-        
+
 
   read:
     legacyReadTarget: false
