@@ -24,6 +24,10 @@ loki:
   read:
     legacyReadTarget: false
     replicas: 1
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 3100 # the port svc that expose and use for helthcheck
   gateway:
     enabled: false
   #   replicas: 1  
