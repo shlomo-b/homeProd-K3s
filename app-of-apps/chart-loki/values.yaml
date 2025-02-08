@@ -42,12 +42,14 @@ loki:
       port: 3100 # the port svc that expose and use for helthcheck
     persistence:
       enabled: true
+      volumeClaimsEnabled: true
       size: 10Gi   
 
   write:
     replicas: 1 
     persistence:
       enabled: true
+      volumeClaimsEnabled: true
       size: 10Gi   
 
   backend:
@@ -61,6 +63,7 @@ loki:
     #  port: 3100
     persistence:
       enabled: true
+      volumeClaimsEnabled: true
       size: 10Gi  
 
   chunksCache:
