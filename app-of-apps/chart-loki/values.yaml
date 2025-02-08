@@ -57,10 +57,10 @@ loki:
     autoscaling:
       minReplicas: 1
       maxReplicas: 1
-    service:
-      enabled: true
-      type: ClusterIP
-    #  port: 3100
+    # service:
+    #   enabled: true
+    #   type: ClusterIP
+    # #  port: 3100
     persistence:
       enabled: true
       volumeClaimsEnabled: true
