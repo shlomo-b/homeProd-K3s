@@ -9,7 +9,7 @@ promtail:
     logLevel: info
     serverPort: 3101
     clients:
-      - url: http://172.18.0.149:3100/loki/api/v1/push # my loki server on on-premises
+      - url: http://loki-read:3100/loki/api/v1/push # my loki server on on-premises
   # sidecar:
   #   configReloader:
   #     enabled: false
