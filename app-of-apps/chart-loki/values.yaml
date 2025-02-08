@@ -26,17 +26,17 @@ loki:
     replicas: 1
   gateway:
     enabled: false
-    replicas: 1  
-    service:
-      enabled: true
-      type: LoadBalancer
-      loadBalancerIP: "172.18.0.149"
-      loadBalancerClass: ""
-    # loadBalancerSourceRanges: []
-      port: 3100
-      targetPort: 3100
-  write:
-    replicas: 1  
+  #   replicas: 1  
+  #   service:
+  #     enabled: true
+  #     type: LoadBalancer
+  #     loadBalancerIP: "172.18.0.149"
+  #     loadBalancerClass: ""
+  #   # loadBalancerSourceRanges: []
+  #     port: 3100
+  #     targetPort: 3100
+  # write:
+  #   replicas: 1  
 
   backend:
     replicas: 1
