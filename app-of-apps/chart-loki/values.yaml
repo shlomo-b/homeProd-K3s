@@ -25,6 +25,10 @@ loki:
         ruler: s3-loki
         admin: s3-loki
       type: s3
+      s3:
+        endpoint: s3.us-east-1.amazonaws.com
+        region: us-east-1
+        
 
   read:
     legacyReadTarget: false
@@ -35,18 +39,8 @@ loki:
       port: 3100 # the port svc that expose and use for helthcheck
   gateway:
     enabled: false
-  #   replicas: 1  
-  #   service:
-  #     enabled: true
-  #     type: LoadBalancer
-  #     loadBalancerIP: "172.18.0.149"
-  #     loadBalancerClass: ""
-  #   # loadBalancerSourceRanges: []
-  #     port: 3100
-  #     targetPort: 3100
   write:
     replicas: 1  
-
   backend:
     replicas: 1
     autoscaling:
