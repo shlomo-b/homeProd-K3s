@@ -12,7 +12,7 @@ loki:
       grpc_listen_port: 9095
     commonConfig:
       path_prefix: /var/loki
-      replication_factor: 1
+    #  replication_factor: 1
       retention_period: 24h
     schemaConfig:
       configs:
