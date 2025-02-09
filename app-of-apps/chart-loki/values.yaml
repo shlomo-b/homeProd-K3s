@@ -22,15 +22,15 @@ loki:
             period: 24h
           object_store: s3
           schema: v13
-    # storage:
-    #   bucketNames:
-    #     chunks: loki-storge
-    #     ruler: s3-loki
-    #     admin: s3-loki
-    #   type: s3
-    #   s3:
-    #    # endpoint: s3.us-east-1.amazonaws.com
-    #     region: us-east-1
+    storage:
+      bucketNames:
+        chunks: loki-storge
+        ruler: s3-loki
+        admin: s3-loki
+      type: s3
+      s3:
+       # endpoint: s3.us-east-1.amazonaws.com
+        region: us-east-1
 
 
   read:
