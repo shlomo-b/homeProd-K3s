@@ -1,6 +1,9 @@
 loki:
   deploymentMode: SimpleScalable
   loki:
+    config:
+      query_range:
+        enabled: true
     serviceAccount:
       create: true
       name: loki-access-to-s3
@@ -70,7 +73,7 @@ loki:
   chunksCache:
     enabled: false
   resultsCache:
-    enabled: false
+    enabled: true
   lokiCanary:
     enabled: false
   test:
