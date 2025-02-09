@@ -23,14 +23,11 @@ loki:
           object_store: s3
           schema: v13
     storage:
-      bucketNames:
-        chunks: loki-storge
-        ruler: s3-loki
-        admin: s3-loki
-      type: s3
-      s3:
-       # endpoint: s3.us-east-1.amazonaws.com
-        region: us-east-1
+      type: filesystem
+      filesystem:
+        chunks_directory: /var/loki/chunks
+        rules_directory: /var/loki/rules
+        admin_api_directory: /var/loki/admin
 
 
   read:
@@ -43,7 +40,6 @@ loki:
     persistence:
       enabled: true
       volumeClaimsEnabled: true
-      name: loki-read
       size: 10Gi   
 
   write:
