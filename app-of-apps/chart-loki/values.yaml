@@ -1,8 +1,7 @@
 loki:
   deploymentMode: SimpleScalable
   loki:
-    config: |
-      auth_enabled: false
+    auth_enabled: false
     serviceAccount:
       create: true
       name: loki-access-to-s3
