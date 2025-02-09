@@ -24,3 +24,11 @@ promtail:
     enabled: true
     type: ClusterIP
     port: 3101 # the port svc that expose and use for helthcheck
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 3101
+    initialDelaySeconds: 10
+    timeoutSeconds: 1
+    periodSeconds: 10
+    failureThreshold: 3
