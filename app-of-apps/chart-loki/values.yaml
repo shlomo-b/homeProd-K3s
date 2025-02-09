@@ -36,7 +36,7 @@ loki:
 
   read:
     legacyReadTarget: false
-    replicas: 1
+    replicas: 2
     service:
       enabled: true
       type: ClusterIP
