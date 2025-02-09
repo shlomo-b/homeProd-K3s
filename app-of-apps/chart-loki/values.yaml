@@ -1,7 +1,7 @@
 loki:
   deploymentMode: SimpleScalable
   loki:
-    config:
+    config: |
       auth_enabled: false
     serviceAccount:
       create: true
