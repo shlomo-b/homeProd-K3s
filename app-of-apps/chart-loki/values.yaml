@@ -14,11 +14,6 @@ loki:
       path_prefix: /var/loki
       replication_factor: 1
       retention_period: 24h
-      ring:
-        kvstore:
-          store: s3
-          s3:
-            endpoint: s3.us-east-1.amazonaws.com
     schemaConfig:
       configs:
         - from: "2024-01-01"
