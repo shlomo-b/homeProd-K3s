@@ -1,23 +1,6 @@
 loki:
   deploymentMode: SimpleScalable
   loki:
-    query_range:
-    split_queries_by_interval: 15m
-    cache_results: true
-    results_cache:
-      cache:
-        enable_fifocache: true
-        fifocache:
-          max_size_mb: 500
-          validity: 24h
-
-    # frontend_worker:
-    #   parallelism: 4
-    #   match_max_concurrent: true
-
-    # query_scheduler:
-    #   max_outstanding_requests_per_tenant: 2048
-
     serviceAccount:
       create: true
       name: loki-access-to-s3
@@ -30,6 +13,12 @@ loki:
     commonConfig:
       path_prefix: /var/loki
       replication_factor: 1
+      retention_period: 24h
+        ring:
+          kvstore:
+            store: s3
+            s3:
+              endpoint: s3.us-east-1.amazonaws.com
     schemaConfig:
       configs:
         - from: "2024-01-01"
