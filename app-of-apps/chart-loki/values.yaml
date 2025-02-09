@@ -20,7 +20,7 @@ loki:
           index:
             prefix: loki_index_
             period: 24h
-          object_store: s3
+          object_store: filesystem
           schema: v13
     storage:
       type: filesystem
