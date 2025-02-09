@@ -43,6 +43,7 @@ loki:
     persistence:
       enabled: true
       volumeClaimsEnabled: true
+      name: loki-read
       size: 10Gi   
 
   write:
