@@ -1,9 +1,9 @@
 apiVersion: v2
 name: external-secrets
 description: A standalone Helm chart for external-secrets
-version: 0.1.0
-appVersion: "0.12.1" # Optional, aligns with the app version you are deploying
+version: v0.14.1
+appVersion: v0.14.1 # Optional, aligns with the app version you are deploying
 dependencies:
   - name: external-secrets
-    version: "0.12.1"
+    version: 0.14.1
     repository: oci://ghcr.io/external-secrets/charts
