@@ -3,9 +3,9 @@ loki:
   loki:
     serviceAccount:
       create: true
-      # name: loki-access-to-s3
-      # annotations:
-      #   eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
+      name: loki-access-to-s3
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
     auth_enabled: false
     server:
       http_listen_port: 3100
@@ -20,14 +20,17 @@ loki:
           index:
             prefix: loki_index_
             period: 24h
-          object_store: filesystem
+          object_store: s3
           schema: v13
     storage:
-      type: filesystem
-      filesystem:
-        chunks_directory: /var/loki/chunks
-        rules_directory: /var/loki/rules
-        admin_api_directory: /var/loki/admin
+      type: s3
+      s3:
+        region: us-east-1
+        endpoint: s3.amazonaws.com
+        bucketNames:
+          chunks: loki-storge
+          ruler: s3-loki
+          admin: s3-loki
 
 
   read:
