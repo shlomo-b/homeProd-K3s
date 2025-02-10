@@ -27,17 +27,17 @@ spec:
                 name: var-shop-online # reference from ConfigMap
                 key: MONGO_INITDB_ROOT_USERNAME
                 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret       # reference from ExternalSecret
+                key: MONGO_INITDB_ROOT_USERNAME
+
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: var-shop-online # reference from ConfigMap
+              secretKeyRef:
+                name: aws-secret      # reference from ExternalSecret
                 key: MONGO_INITDB_ROOT_PASSWORD
-
-          - name: MONGO_DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: var-shop-online # reference from ConfigMap
-                key: MONGO_DB_HOST
 
         volumeMounts:
         - name: mongodb-storage
