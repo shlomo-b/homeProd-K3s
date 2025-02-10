@@ -7,7 +7,7 @@ external-secrets:
     create: true
     name: external-secrets
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/external-secrets-role
+      eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/external-secrets-role-k3d
   extraObjects:
     - apiVersion: external-secrets.io/v1beta1
       kind: ClusterSecretStore
