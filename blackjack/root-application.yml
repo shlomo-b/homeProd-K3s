@@ -6,20 +6,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shlomo-b/Shop-Online.git
+    repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
     path: apps/blackjack
   destination:
     server: https://kubernetes.default.svc
     namespace: blackjack
-  ignoreDifferences:
-    - group: "apps" # the group of the resource including the kind deployment
-      kind: "Deployment"
-      jsonPointers: # the json pointers to ignore, its deployment.
-      - /spec/replicas  
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=true
       
     # track and sync all git changes the argo will check every 3 minutes
     automated:

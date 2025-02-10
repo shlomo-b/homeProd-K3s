@@ -6,8 +6,8 @@ metadata:
 spec:
   selector:
     app: blackjack
-  type: ClusterIP # the type of the service
+  type: NodePort # the type of the service
   ports:
     - protocol: TCP
       port: 80   # the port svc that expose
-      targetPort: 80 # the port of the pod | container
+      NodePort: 30060 # the port of the pod | container
