@@ -8,3 +8,19 @@ external-secrets:
     name: external-secrets
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/external-secrets-role
+  extraObjects:
+    - apiVersion: external-secrets.io/v1beta1
+      kind: ClusterSecretStore
+      metadata:
+        name: aws-secret-store
+        namespace: external-secrets
+      spec:
+        provider:
+          aws:
+            service: SecretsManager
+            region: us-east-1
+            auth:
+              jwt:
+                serviceAccountRef:
+                  name: external-secrets
+                  namespace: external-secrets
