@@ -33,11 +33,3 @@ spec:
           limits:
             cpu: 200m
             memory: 256Mi
-
-        volumeMounts:
-        - name: blackjack-storage
-          mountPath: /storage-data
-      volumes:
-      - name: blackjack-storage
-        persistentVolumeClaim:
-          claimName: blackjack-pvc
