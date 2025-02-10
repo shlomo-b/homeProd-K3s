@@ -1,3 +1,6 @@
 # ignore certificates for SSO
 argocd/secret-sso.yml
 argocd/secret-trusted-argo-cd.yml
+
+# ignore secerts for chart-external-secrets
+app-of-apps/chart-external-secrets/secrets.yaml
