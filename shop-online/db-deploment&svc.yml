@@ -23,14 +23,14 @@ spec:
         env:
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
-              configMapKeyRef:
-                name: var-shop-online # reference from ConfigMap
+              secretKeyRef:
+                name: aws-secret # reference from ExternalSecret
                 key: MONGO_INITDB_ROOT_USERNAME
                 
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: var-shop-online # reference from ConfigMap
+              secretKeyRef:
+                name: aws-secret # reference from ExternalSecret
                 key: MONGO_INITDB_ROOT_PASSWORD
 
           - name: MONGO_DB_HOST
