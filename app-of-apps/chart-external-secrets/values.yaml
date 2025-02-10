@@ -26,4 +26,3 @@ external-secrets:
                 serviceAccountRef:
                   name: external-secrets
                   namespace: external-secrets
-      
