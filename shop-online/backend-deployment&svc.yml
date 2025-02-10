@@ -27,17 +27,17 @@ spec:
           protocol: TCP
 
         env:
+          - name: MONGO_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: var-shop-online # reference from ConfigMap
+                key: MONGO_DB_HOST
+
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
-              secretKeyRef:
-                name: aws-secret # reference from ExternalSecret
+              configMapKeyRef:
+                name: var-shop-online      # reference from ConfigMap
                 key: MONGO_INITDB_ROOT_USERNAME
-                
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: aws-secret # reference from ExternalSecret
-                key: MONGO_INITDB_ROOT_PASSWORD
 
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
