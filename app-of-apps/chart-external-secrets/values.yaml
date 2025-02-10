@@ -6,8 +6,6 @@ external-secrets:
   serviceAccount:
     create: true
     name: external-secrets
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/external-secrets-role-k3d
   extraObjects:
     - apiVersion: external-secrets.io/v1beta1
       kind: ClusterSecretStore
@@ -20,7 +18,12 @@ external-secrets:
             service: SecretsManager
             region: us-east-1
             auth:
-              jwt:
-                serviceAccountRef:
-                  name: external-secrets
+              secretRef:
+                accessKeyIDSecretRef:
+                  name: awssm-secret
+                  key: access-key
+                  namespace: external-secrets
+                secretAccessKeySecretRef:
+                  name: awssm-secret
+                  key: secret-access-key
                   namespace: external-secrets
