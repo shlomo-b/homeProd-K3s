@@ -8,7 +8,7 @@ external-secrets:
     name: external-secrets
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/external-secrets-role
-  extraObjects:
+  extraObjects: |
     - apiVersion: external-secrets.io/v1beta1
       kind: ClusterSecretStore
       metadata:
