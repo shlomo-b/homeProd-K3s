@@ -33,3 +33,18 @@ spec:
           limits:
             cpu: 200m
             memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-blackjack 
+  namespace: blackjack # the namespace that sperate the pods between envroments.
+spec:
+  selector:
+    app: blackjack
+  type: NodePort # the type of the service
+  ports:
+    - protocol: TCP
+      port: 80   # the port svc that expose
+      nodePort: 30060 # the port of the pod | container
+      targetPort: 80
