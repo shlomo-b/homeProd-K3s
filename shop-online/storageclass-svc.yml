@@ -15,7 +15,7 @@ kind: PersistentVolume
 metadata:
   name: mongodb-pv
 spec:
-  storageClassName: "local-path"
+  storageClassName: ""
   capacity:
     storage: 1Gi
   accessModes:
@@ -29,7 +29,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongodb-pvc
 spec:
-  storageClassName: "local-path"
+  storageClassName: ""
   accessModes:
     - ReadWriteOnce
   resources:
