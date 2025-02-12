@@ -7,11 +7,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
-    path: shop-online
+    path: ./apps/shop-online
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: ./apps/shop-online
+    namespace: shop-online
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
