@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shop-online
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
+    path: shop-online
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps/shop-online
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      
+    # track and sync all git changes the argo will check every 3 minutes
+    automated:
+      selfHeal: true # auto sync the changes to the cluster from git
+      prune: true    # auto delete resources locally if thay are not in git
