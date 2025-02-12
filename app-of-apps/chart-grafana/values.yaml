@@ -17,6 +17,7 @@ grafana:
     enabled: true
     hostPath: /home/shlomo/grafana-data
     size: 10Gi
+    existingClaim: ""
 
   extraVolumes:
     - name: grafana-storage
@@ -27,7 +28,7 @@ grafana:
   extraVolumeMounts:
     - name: grafana-storage
       mountPath: /var/lib/grafana    
-      
+
   sidecar:
     datasources:
       enabled: true
