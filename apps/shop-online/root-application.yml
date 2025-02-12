@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: apps/shop-online
+    namespace: ./apps/shop-online
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
