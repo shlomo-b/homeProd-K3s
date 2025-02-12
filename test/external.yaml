@@ -31,6 +31,3 @@ spec:
           operator: In
           values:
           - k3d-my-cluster-server-0
-  mountOptions:
-    - uid=472
-    - gid=472

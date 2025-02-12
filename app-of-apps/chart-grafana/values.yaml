@@ -17,7 +17,6 @@ grafana:
     enabled: true
     storageClassName: local-external
     size: 10Gi
-    subPath: grafana-data
   sidecar:
     datasources:
       enabled: true
