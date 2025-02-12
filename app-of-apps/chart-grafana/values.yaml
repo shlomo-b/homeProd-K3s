@@ -15,7 +15,7 @@ grafana:
   persistence:
     type: pvc
     enabled: true
-  #  storageClassName: local-external
+    storageClassName: local-external
     size: 10Gi
   sidecar:
     datasources:
