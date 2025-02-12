@@ -15,7 +15,19 @@ grafana:
   persistence:
     type: pvc
     enabled: true
+    hostPath: /home/shlomo/grafana-data
     size: 10Gi
+
+  extraVolumes:
+    - name: grafana-storage
+      hostPath:
+        path: /home/shlomo/grafana-data
+        type: DirectoryOrCreate
+
+  extraVolumeMounts:
+    - name: grafana-storage
+      mountPath: /var/lib/grafana    
+      
   sidecar:
     datasources:
       enabled: true
