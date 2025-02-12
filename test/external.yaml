@@ -3,6 +3,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: local-external
+  namespace: monitoring
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 
@@ -12,6 +13,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: grafana-external-pv
+  namespace: monitoring
 spec:
   capacity:
     storage: 10Gi
@@ -29,4 +31,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - k3d-my-cluster-server-0    # השם הנכון של ה-node שלך
+          - k3d-my-cluster-server-0
