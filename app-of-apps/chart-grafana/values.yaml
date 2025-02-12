@@ -13,7 +13,7 @@ grafana:
   adminUser: admin
   adminPassword: strongpassword # temp password
   persistence:
-    type: pvc
+    type: hostPath
     enabled: true
     storageClassName: local-external
     size: 10Gi
