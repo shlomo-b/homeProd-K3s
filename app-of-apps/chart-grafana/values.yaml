@@ -12,11 +12,11 @@ grafana:
     targetPort: 3000
   adminUser: admin
   adminPassword: strongpassword # temp password
-  persistence:
-    type: pvc
-    enabled: true
-    hostPath: /home/shlomo/grafana-data
-    size: 10Gi
+  # persistence:
+  #   type: pvc
+  #   enabled: true
+  #   hostPath: /home/shlomo/grafana-data
+  #   size: 10Gi
   extraVolumes:
     - name: grafana-storage
       hostPath:
