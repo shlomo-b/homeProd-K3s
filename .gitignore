@@ -4,3 +4,6 @@ argocd/secret-trusted-argo-cd.yml
 
 # ignore secerts for chart-external-secrets
 app-of-apps/chart-external-secrets/secrets.yaml
+
+# ignore file addresses.txt
+addresses.txt

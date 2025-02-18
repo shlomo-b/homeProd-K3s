@@ -1,11 +1,12 @@
+# Pool for monitoring
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: traefik-pool
+  name: monitoring
   namespace: metallb-system
 spec:
   addresses:
-  - 10.90.100.201/32
+  - 10.90.100.110-10.90.100.119
   autoAssign: true
 ---
 # Pool for Argo CD
@@ -28,7 +29,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 10.90.100.100-10.90.100.150
+    - 10.90.100.121-10.90.100.150
   autoAssign: true
 ---
 # L2Advertisement to use both pools
@@ -39,6 +40,6 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - traefik-pool
-  - ip-pool
+  - monitoring
+  - argocd-ip
   - alb-resources
