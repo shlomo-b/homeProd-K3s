@@ -5,7 +5,7 @@ grafana:
   service:
     enabled: true
     type: LoadBalancer
-    loadBalancerIP: "172.18.0.150"
+    loadBalancerIP: "10.90.100.110"
     loadBalancerClass: ""
    # loadBalancerSourceRanges: []
     port: 3000
@@ -31,4 +31,4 @@ grafana:
       - name: prometheus
         type: prometheus
         access: proxy
-        url: http://172.18.0.144:9090
+        url: http://10.90.100.111:9090

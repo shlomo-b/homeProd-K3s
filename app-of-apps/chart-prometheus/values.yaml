@@ -10,7 +10,7 @@ prometheus:
     enabled: true
     service:
       type: LoadBalancer
-      loadBalancerIP: "172.18.0.144"
+      loadBalancerIP: "10.90.100.111"
       targetPort: 9090
       servicePort: 9090
       containerPortName: metrics
