@@ -17,6 +17,14 @@ spec:
       labels:
         app: backend-lab4
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: backend-lab4    
+    spec:
       containers:
       - name: lab4-backend
         image: shlomobarzili/flask-backend:latest

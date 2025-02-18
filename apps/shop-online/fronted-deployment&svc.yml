@@ -17,6 +17,14 @@ spec:
       labels:
         app: react-app
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: react-app      
+    spec:
       containers:
       - name: lab4
         image: shlomobarzili/react-fronted:latest
