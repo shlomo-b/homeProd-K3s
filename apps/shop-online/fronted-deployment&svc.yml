@@ -23,7 +23,7 @@ spec:
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              app: react-app      
+              app: react-app    
     spec:
       containers:
       - name: lab4

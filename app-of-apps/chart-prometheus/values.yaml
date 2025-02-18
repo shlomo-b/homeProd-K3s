@@ -62,7 +62,7 @@ prometheus:
           metrics_path: "/metrics"
           static_configs:
               - targets: 
-                - "172.18.0.146:5050"
+                - "10.90.100.111:5050"
 
 
   alertmanager:
