@@ -10,7 +10,7 @@ prometheus:
     enabled: true
     service:
       type: LoadBalancer
-      loadBalancerIP: ""
+      loadBalancerIP: 10.90.100.111
       targetPort: 9090
       port: 9090
       servicePort: 9090
