@@ -40,7 +40,7 @@ server:
     servicePortHttpName: http
     servicePortHttpsName: https
     loadBalancerClass: ""
-    loadBalancerIP: "172.18.0.252"
+    loadBalancerIP: "10.90.100.200"
 
 # responsible for authenticating users    
 dex:

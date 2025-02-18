@@ -5,18 +5,18 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 172.18.0.251/32
+  - 10.90.100.201/32
   autoAssign: true
 ---
 # Pool for Argo CD
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: ip-pool
+  name: argocd-ip
   namespace: metallb-system
 spec:
   addresses:
-  - 172.18.0.252/32
+  - 10.90.100.200/32
   autoAssign: true
 
 ---
@@ -28,7 +28,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 172.18.0.100-172.18.0.150
+    - 10.90.100.100-10.90.100.150
   autoAssign: true
 ---
 # L2Advertisement to use both pools
