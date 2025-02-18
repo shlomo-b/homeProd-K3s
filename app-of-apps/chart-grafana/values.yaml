@@ -5,7 +5,7 @@ grafana:
   service:
     enabled: true
     type: LoadBalancer
-    loadBalancerIP: "10.90.100.110"
+    loadBalancerIP: 10.90.100.110
     loadBalancerClass: ""
     loadBalancerSourceRanges: []
     port: 80
