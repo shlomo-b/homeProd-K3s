@@ -12,11 +12,21 @@ spec:
   selector:
     matchLabels:
       app: blackjack
-  replicas: 1
   template:
     metadata:
       labels:
         app: blackjack
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - blackjack
+              topologyKey: "kubernetes.io/hostname"
     spec:
       containers:
       - name: blackjack
