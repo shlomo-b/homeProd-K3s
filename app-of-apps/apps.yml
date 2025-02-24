@@ -8,7 +8,7 @@ spec:
   sourceRepos:
     - '*'
   destinations:
-    - namespace: apps
+    - namespace: [blackjack, shop-online]
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
