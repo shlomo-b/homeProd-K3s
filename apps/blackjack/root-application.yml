@@ -4,7 +4,7 @@ metadata:
   name: blackjack
   namespace: argocd
 spec:
-  project: apps
+  project: apps-all
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
     path: ./apps/blackjack
