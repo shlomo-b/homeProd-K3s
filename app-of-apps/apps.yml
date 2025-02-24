@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: apps
+  namespace: argocd 
+spec:
+  description: 'Project for monitoring'
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: apps
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
