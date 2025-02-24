@@ -4,13 +4,11 @@ metadata:
   name: apps
   namespace: argocd 
 spec:
-  description: 'Project for application games'
+  description: 'Project for games apps'
   sourceRepos:
     - '*'
   destinations:
-    - namespace: blackjack    # This should be a string, not an array
-      server: '*'
-    - namespace: shop-online  # Add as separate destination
+    - namespace: blackjack
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
