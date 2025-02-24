@@ -4,7 +4,7 @@ promtail:
   deployment:
     enabled: true
     replicaCount: 1
-  daemonSet:
+  daemonset:
     enabled: false  
   config:
     enabled: true
