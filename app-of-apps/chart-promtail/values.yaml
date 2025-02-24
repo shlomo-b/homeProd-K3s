@@ -4,6 +4,8 @@ promtail:
   deployment:
     enabled: true
     replicaCount: 1
+  daemonSet:
+    enabled: false  
   config:
     enabled: true
     logFormat: logfm
