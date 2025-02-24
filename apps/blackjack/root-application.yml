@@ -8,6 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
     path: ./apps/blackjack
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: blackjack
