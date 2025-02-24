@@ -1,11 +1,11 @@
 promtail:
   serviceAccount:
     create: true
-  deployment:
-    enabled: true
-    replicaCount: 1
+  # deployment:
+  #   enabled: true
+  #   replicaCount: 1
   daemonset:
-    enabled: false  
+    enabled: true
   config:
     enabled: true
     logFormat: logfm
