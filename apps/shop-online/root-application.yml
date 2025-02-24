@@ -4,7 +4,7 @@ metadata:
   name: shop-online
   namespace: argocd
 spec:
-  project: apps
+  project: default
   source:
     repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
     path: ./apps/shop-online
