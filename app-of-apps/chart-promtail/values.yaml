@@ -2,6 +2,7 @@ promtail:
   serviceAccount:
     create: true
   deployment:
+    enabled: true
     replicaCount: 1
   config:
     enabled: true
@@ -10,16 +11,16 @@ promtail:
     serverPort: 3101
     clients:
       - url: http://loki-write:3100/loki/api/v1/push # my loki server on on-premises
-  # sidecar:
-  #   configReloader:
-  #     enabled: false
-  #     resources:
-  #       limits:
-  #         cpu: 200m
-  #         memory: 128Mi
-  #       requests:
-  #         cpu: 100m
-  #         memory: 128Mi
+  sidecar:
+    configReloader:
+      enabled: false
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
   service:
     enabled: true
     type: ClusterIP
