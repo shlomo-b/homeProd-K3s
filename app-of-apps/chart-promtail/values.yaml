@@ -2,7 +2,7 @@ promtail:
   serviceAccount:
     create: true
   deployment:
-    replicas: 1
+    replicaCount: 1
   config:
     enabled: true
     logFormat: logfm
