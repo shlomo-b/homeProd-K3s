@@ -6,13 +6,3 @@ cert-manager:
     requests:
       cpu: 10m
       memory: 80Mi
-  affinity:
-    nodeAffinity:
-     requiredDuringSchedulingIgnoredDuringExecution:
-       nodeSelectorTerms:
-       - matchExpressions:
-         - key: foo.bar.com/role
-           operator: In
-           values:
-           - node2    
-
