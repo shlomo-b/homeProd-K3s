@@ -65,14 +65,14 @@ loki:
       size: 10Gi  
 
   resultsCache:
-    enabled: true
-    cache:
-      enableFifoCache: true
-      fifoCacheConfig:
-        maxSizeBytes: 1073741824  # 1GB
-        validity: 1h  
-  limits_config:
-    maxCacheFreshnessPerQuery: 1m  # רענון כל דקה    
+    enabled: false
+  #   cache:
+  #     enableFifoCache: true
+  #     fifoCacheConfig:
+  #       maxSizeBytes: 1073741824  # 1GB
+  #       validity: 1h  
+  # limits_config:
+  #   maxCacheFreshnessPerQuery: 1m  # רענון כל דקה    
 
   chunksCache:
     enabled: false
