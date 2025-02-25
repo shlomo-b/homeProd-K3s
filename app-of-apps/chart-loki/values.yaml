@@ -66,6 +66,12 @@ loki:
 
   resultsCache:
     enabled: true
+    cache:
+      enableFifoCache: true
+      fifoCacheConfig:
+        maxSizeBytes: 1073741824  # 1GB
+        validity: 12h  
+        
   chunksCache:
     enabled: false
   lokiCanary:
