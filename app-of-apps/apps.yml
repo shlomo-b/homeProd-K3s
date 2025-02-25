@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: apps-all
+  name: applications
   namespace: argocd 
 spec:
   description: 'Project for games apps'
@@ -9,7 +9,7 @@ spec:
     - '*'
   destinations:
     - namespace: blackjack
-      server: '*'
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
