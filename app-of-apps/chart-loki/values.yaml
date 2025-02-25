@@ -70,8 +70,10 @@ loki:
       enableFifoCache: true
       fifoCacheConfig:
         maxSizeBytes: 1073741824  # 1GB
-        validity: 12h  
-        
+        validity: 1h  
+  limits_config:
+    maxCacheFreshnessPerQuery: 1m  # רענון כל דקה    
+
   chunksCache:
     enabled: false
   lokiCanary:
