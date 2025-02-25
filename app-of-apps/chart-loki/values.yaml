@@ -65,7 +65,7 @@ loki:
       size: 10Gi  
 
   chunksCache:
-    enabled: false
+    enabled: true
   resultsCache:
     enabled: false
   lokiCanary:
