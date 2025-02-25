@@ -64,9 +64,9 @@ loki:
       volumeClaimsEnabled: true
       size: 10Gi  
 
-  chunksCache:
-    enabled: true
   resultsCache:
+    enabled: true
+  chunksCache:
     enabled: false
   lokiCanary:
     enabled: false
