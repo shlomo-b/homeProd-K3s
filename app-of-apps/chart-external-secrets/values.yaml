@@ -7,6 +7,14 @@ external-secrets:
     create: true
     name: external-secrets
 
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: external-secrets  
+
   extraObjects:  
     - apiVersion: external-secrets.io/v1beta1
       kind: ClusterSecretStore
