@@ -7,24 +7,24 @@ external-secrets:
     create: true
     name: external-secrets
 
-extraObjects:  
-      - apiVersion: external-secrets.io/v1beta1
-        kind: ClusterSecretStore
-        metadata:
-          name: aws-secret-store
-          namespace: external-secrets
-        spec:
-          provider:
-            aws:
-              service: SecretsManager
-              region: us-east-1
-              auth:
-                secretRef:
-                  accessKeyIDSecretRef:
-                    name: awssm-secret
-                    key: access-key
-                    namespace: external-secrets
-                  secretAccessKeySecretRef:
-                    name: awssm-secret
-                    key: secret-access-key
-                    namespace: external-secrets
+  extraObjects:  
+    - apiVersion: external-secrets.io/v1beta1
+      kind: ClusterSecretStore
+      metadata:
+        name: aws-secret-store
+        namespace: external-secrets
+      spec:
+        provider:
+          aws:
+            service: SecretsManager
+            region: us-east-1
+            auth:
+              secretRef:
+                accessKeyIDSecretRef:
+                  name: awssm-secret
+                  key: access-key
+                  namespace: external-secrets
+                secretAccessKeySecretRef:
+                  name: awssm-secret
+                  key: secret-access-key
+                  namespace: external-secrets
