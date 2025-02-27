@@ -7,13 +7,13 @@ external-secrets:
     create: true
     name: external-secrets
   
-  affinity:
-    podAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - external-secrets
-          topologyKey: "kubernetes.io/hostname"
+  # affinity:
+  #   podAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       - labelSelector:
+  #           matchExpressions:
+  #             - key: app
+  #               operator: In
+  #               values:
+  #                 - external-secrets
+  #         topologyKey: "kubernetes.io/hostname"
