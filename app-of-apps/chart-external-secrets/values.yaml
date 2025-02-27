@@ -15,7 +15,7 @@ external-secrets:
               - key: app
                 operator: In
                 values:
-                  - backend
+                  - external-secrets
           topologyKey: "kubernetes.io/hostname"
   
   extraObjects:
