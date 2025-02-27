@@ -1,7 +1,7 @@
 metrics-server:
   serviceAccount:
     create: true
-  replicas: 1
+  replicas: 2
   resources:
     requests:
       cpu: 40m
