@@ -1,0 +1,25 @@
+{{- if .Values.external-secrets.extraObjects }}
+{{- range .Values.external-secrets.extraObjects }}
+---
+apiVersion: {{ .apiVersion }}
+kind: {{ .kind }}
+metadata:
+  name: {{ .metadata.name }}
+  namespace: {{ .metadata.namespace }}
+spec:
+  provider:
+    aws:
+      service: {{ .spec.provider.aws.service }}
+      region: {{ .spec.provider.aws.region }}
+      auth:
+        secretRef:
+          accessKeyIDSecretRef:
+            name: {{ .spec.provider.aws.auth.secretRef.accessKeyIDSecretRef.name }}
+            key: {{ .spec.provider.aws.auth.secretRef.accessKeyIDSecretRef.key }}
+            namespace: {{ .spec.provider.aws.auth.secretRef.accessKeyIDSecretRef.namespace }}
+          secretAccessKeySecretRef:
+            name: {{ .spec.provider.aws.auth.secretRef.secretAccessKeySecretRef.name }}
+            key: {{ .spec.provider.aws.auth.secretRef.secretAccessKeySecretRef.key }}
+            namespace: {{ .spec.provider.aws.auth.secretRef.secretAccessKeySecretRef.namespace }}
+{{- end }}
+{{- end }}
