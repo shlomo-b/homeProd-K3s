@@ -7,7 +7,7 @@ external-secrets:
     create: true
     name: external-secrets
 
-    extraObjects:  
+extraObjects:  
       - apiVersion: external-secrets.io/v1beta1
         kind: ClusterSecretStore
         metadata:
