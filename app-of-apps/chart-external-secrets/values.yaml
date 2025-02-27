@@ -6,14 +6,11 @@ external-secrets:
   serviceAccount:
     create: true
     name: external-secrets
-  
-  # affinity:
-  #   podAffinity:
-  #     requiredDuringSchedulingIgnoredDuringExecution:
-  #       - labelSelector:
-  #           matchExpressions:
-  #             - key: app
-  #               operator: In
-  #               values:
-  #                 - external-secrets
-  #         topologyKey: "kubernetes.io/hostname"
+
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: external-secrets
