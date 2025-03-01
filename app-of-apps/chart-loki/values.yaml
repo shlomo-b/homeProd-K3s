@@ -5,8 +5,6 @@ loki:
     serviceAccount:
       create: true
       name: loki-access-to-s3
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/s3-loki
     auth_enabled: false
     server:
       http_listen_port: 3100
@@ -33,6 +31,8 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1
+        accessKeyId: access-key
+        secretAccessKey: secret-access-key
 
 
   read:

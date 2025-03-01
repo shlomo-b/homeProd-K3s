@@ -7,3 +7,6 @@ app-of-apps/chart-external-secrets/secrets.yaml
 
 # ignore file addresses.txt
 addresses.txt
+
+# ignore file s3-access
+app-of-apps/chart-loki/s3-secrets.yaml
