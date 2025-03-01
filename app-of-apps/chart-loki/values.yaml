@@ -31,8 +31,6 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1
-        accessKeyId: QUtJQVNFNldLSFNOU0NRQ0dCNkc=
-        secretAccessKey: eXYvT0VJd0c4b3VkYzF2UjV6amhvc01jaUFTNXdIMFBJQ1ZLL1EwcQ==
 
 
   read:
@@ -66,14 +64,6 @@ loki:
 
   resultsCache:
     enabled: false
-  #   cache:
-  #     enableFifoCache: true
-  #     fifoCacheConfig:
-  #       maxSizeBytes: 1073741824  # 1GB
-  #       validity: 1h  
-  # limits_config:
-  #   maxCacheFreshnessPerQuery: 1m  # רענון כל דקה    
-
   chunksCache:
     enabled: false
   lokiCanary:
