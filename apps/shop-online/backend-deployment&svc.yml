@@ -24,7 +24,7 @@ spec:
           labelSelector:
             matchLabels:
               app: backend-lab4    
-    spec:
+   # spec:
       containers:
       - name: lab4-backend
         image: shlomobarzili/flask-backend:latest

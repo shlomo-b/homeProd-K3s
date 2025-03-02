@@ -35,12 +35,12 @@ loki:
         accessKeyId:
           valueFrom:
             secretKeyRef:
-              name: loki-s3-secrets
+              name: aws-secret
               key: accessKeyId
         secretAccessKey:
           valueFrom:
             secretKeyRef:
-              name: loki-s3-secrets
+              name: aws-secret
               key: secretAccessKey
   read:
     legacyReadTarget: false
