@@ -1,5 +1,8 @@
 loki:
   deploymentMode: SimpleScalable
+  # extraEnvFrom:
+  #   - secretRef:
+  #       name: s3-access
   loki:
     enabled: true
     serviceAccount:
@@ -31,7 +34,6 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1
-
 
   read:
     legacyReadTarget: false
