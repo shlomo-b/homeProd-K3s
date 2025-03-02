@@ -1,8 +1,8 @@
 loki:
   deploymentMode: SimpleScalable
-  # extraEnvFrom:
-  #   - secretRef:
-  #       name: s3-access
+  extraEnvFrom:
+    - secretRef:
+        name: aws-secret
   loki:
     enabled: true
     serviceAccount:
