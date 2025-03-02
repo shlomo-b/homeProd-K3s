@@ -1,9 +1,10 @@
 loki:
-  loki:
+  global:
     deploymentMode: SimpleScalable
     extraEnvFrom:
       - secretRef:
           name: aws-secret
+  loki:
     enabled: true
     serviceAccount:
       create: true
