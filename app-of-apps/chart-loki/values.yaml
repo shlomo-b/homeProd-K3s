@@ -2,6 +2,9 @@ loki:
   global:
     deploymentMode: SimpleScalable
   loki:
+    extraEnvFrom:
+       - secretRef:
+          name: aws-secret
     enabled: true
     serviceAccount:
       create: true
@@ -32,17 +35,17 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        accessKeyId: 
-          valueFrom:
-            secretKeyRef:
-              name: aws-secret
-              key: ${accessKeyId}
-        secretAccessKey:
-          valueFrom:
-            secretKeyRef:
-              name: aws-secret
-              key: ${secretAccessKey}
-  read:
+        # access_key_id:
+        # valueFrom:
+        #   secretKeyRef:
+        #     name: aws-secret
+        #     key: accessKeyId
+        #   secret_access_key:
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: aws-secret
+        #         key: secretAccessKey
+    read:
     legacyReadTarget: false
     replicas: 1
     service:
