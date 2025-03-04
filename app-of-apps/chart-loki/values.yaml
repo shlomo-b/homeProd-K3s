@@ -1,15 +1,6 @@
 loki:
-  extraEnv:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: aws-secret
-          key: accessKeyId
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: aws-secret
-          key: secretAccessKey
+  global:
+    deploymentMode: SimpleScalable
   loki:
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
@@ -52,16 +43,16 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        # access_key_id:
-        # valueFrom:
-        #   secretKeyRef:
-        #     name: aws-secret
-        #     key: accessKeyId
-        #   secret_access_key:
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: aws-secret
-        #         key: secretAccessKey
+        accessKeyId: 
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: accessKeyId
+        secretAccessKey:
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: secretAccessKey
   read:
     legacyReadTarget: false
     replicas: 1
