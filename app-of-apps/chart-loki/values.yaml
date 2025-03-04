@@ -32,7 +32,7 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1
-        extraEnvFrom:
+    extraEnvFrom:
           - secretRef:
               name: aws-secret
               key: accessKeyId
