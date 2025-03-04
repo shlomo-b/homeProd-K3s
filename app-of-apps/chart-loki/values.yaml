@@ -2,9 +2,17 @@ loki:
   global:
     deploymentMode: SimpleScalable
   loki:
-    extraEnvFrom:
-       - secretRef:
-          name: aws-secret
+    extraEnv:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: accessKeyId
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: secretAccessKey
     enabled: true
     serviceAccount:
       create: true
