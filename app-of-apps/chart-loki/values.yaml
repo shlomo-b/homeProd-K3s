@@ -35,7 +35,7 @@ loki:
         extraEnvFrom:
           - secretRef:
               name: aws-secret
-              key: keys
+              key: accessKeyId
         # accessKeyId: 
         #   valueFrom:
         #     secretKeyRef:
