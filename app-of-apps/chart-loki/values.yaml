@@ -53,7 +53,7 @@ loki:
         #       secretKeyRef:
         #         name: aws-secret
         #         key: secretAccessKey
-    read:
+  read:
     legacyReadTarget: false
     replicas: 1
     service:
