@@ -36,12 +36,12 @@ loki:
           valueFrom:
             secretKeyRef:
               name: aws-secret
-              key: accessKeyId
+              key: ${accessKeyId}
         secretAccessKey:
           valueFrom:
             secretKeyRef:
               name: aws-secret
-              key: secretAccessKey
+              key: ${secretAccessKey}
   read:
     legacyReadTarget: false
     replicas: 1
