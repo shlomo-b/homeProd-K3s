@@ -70,7 +70,14 @@ loki:
     service:
       enabled: true
       type: ClusterIP
-      port: 3100    
+      port: 3100
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/component: write
+            topologyKey: kubernetes.io/hostname     
 
 
   backend:
