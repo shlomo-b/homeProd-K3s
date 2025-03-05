@@ -54,7 +54,7 @@ loki:
       volumeClaimsEnabled: true
       size: 10Gi
     affinity:
-      podAffinity:
+      podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchLabels:
