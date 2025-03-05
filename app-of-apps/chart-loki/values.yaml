@@ -62,7 +62,7 @@ loki:
             topologyKey: kubernetes.io/hostname
 
   write:
-    replicas: 1 
+    replicas: 2
     persistence:
       enabled: true
       volumeClaimsEnabled: true
