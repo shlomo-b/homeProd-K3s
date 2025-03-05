@@ -44,7 +44,7 @@ loki:
               key: secretAccessKey
   read:
     legacyReadTarget: false
-    replicas: 1
+    replicas: 2
     service:
       enabled: true
       type: ClusterIP
@@ -52,7 +52,14 @@ loki:
     persistence:
       enabled: true
       volumeClaimsEnabled: true
-      size: 10Gi   
+      size: 10Gi
+    topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: backend     
 
   write:
     replicas: 1 
