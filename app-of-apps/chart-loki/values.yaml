@@ -2,17 +2,6 @@ loki:
   global:
     deploymentMode: SimpleScalable
   loki:
-    extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: aws-secret
-            key: accessKeyId
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: aws-secret
-            key: secretAccessKey
     enabled: true
     serviceAccount:
       create: true
@@ -70,13 +59,15 @@ loki:
     persistence:
       enabled: true
       volumeClaimsEnabled: true
-      size: 10Gi   
+      size: 10Gi
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 3100    
+
 
   backend:
     replicas: 1
-    autoscaling:
-      minReplicas: 1
-      maxReplicas: 1
     persistence:
       enabled: true
       volumeClaimsEnabled: true
