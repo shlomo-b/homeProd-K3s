@@ -53,13 +53,13 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi
-    topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: "kubernetes.io/hostname"
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: backend     
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/component: read
+            topologyKey: kubernetes.io/hostname
 
   write:
     replicas: 1 
