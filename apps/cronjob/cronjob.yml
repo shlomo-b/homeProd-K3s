@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
           - name: cronjob
-            image: shlomobarzili/cronjob:tagname
+            image: shlomobarzili/cronjob:latest
           restartPolicy: OnFailure
           env:
             - name: USERNAME
