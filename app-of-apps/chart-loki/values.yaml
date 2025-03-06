@@ -54,6 +54,7 @@ loki:
       volumeClaimsEnabled: true
       size: 10Gi
     affinity:
+    # verify the pods will run on different nodes
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
@@ -72,6 +73,7 @@ loki:
       type: ClusterIP
       port: 3100
     affinity:
+    # verify the pods will run on different nodes
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:

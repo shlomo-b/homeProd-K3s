@@ -1,10 +1,8 @@
 promtail:
   serviceAccount:
     create: true
-  # deployment:
-  #   enabled: true
-  #   replicaCount: 1
   daemonset:
+  # the pods will be run on each node in the cluster
     enabled: true
   config:
     enabled: true
