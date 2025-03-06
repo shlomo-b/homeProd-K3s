@@ -12,7 +12,7 @@ spec:
           containers:
           - name: cronjob
             image: shlomobarzili/cronjob:tagname
-            imagePullPolicy: IfNotPresent
+          #  imagePullPolicy: IfNotPresent
           env:
             - name: USERNAME
               valueFrom:
