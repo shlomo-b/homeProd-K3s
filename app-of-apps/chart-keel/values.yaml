@@ -11,6 +11,8 @@ keel:
       tag: latest
     - repository: shlomobarzili/flask-backend
       tag: latest
+    - repository: shlomobarzili/cronjob
+      tag: latest  
 
   aws:
     region: us-east-1

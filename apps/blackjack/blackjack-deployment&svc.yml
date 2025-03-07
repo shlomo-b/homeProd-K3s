@@ -27,7 +27,7 @@ spec:
                     values:
                       - blackjack
               topologyKey: "kubernetes.io/hostname"
-    spec:
+
       containers:
       - name: blackjack
         image: shlomobarzili/blackjack:latest
