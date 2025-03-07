@@ -9,10 +9,10 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           containers:
           - name: cronjob
             image: shlomobarzili/cronjob:latest
-            restartPolicy: OnFailure
             env:
               - name: USERNAME
                 valueFrom:
