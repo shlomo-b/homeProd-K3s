@@ -4,10 +4,10 @@ metadata:
   name: backup-fortigate
   namespace: cronjob
 spec:
-  schedule: "*/2 * * * *"
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
-  ttlSecondsAfterFinished: 60
+  schedule: "0 0 * * 6"
+  successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
+  failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
+  ttlSecondsAfterFinished: 60    # The Job (and its pods) will be deleted 60 seconds after completion
   jobTemplate:
     spec:
       template:
