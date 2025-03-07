@@ -5,6 +5,9 @@ metadata:
   namespace: cronjob
 spec:
   schedule: "*/2 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  ttlSecondsAfterFinished: 60
   jobTemplate:
     spec:
       template:
