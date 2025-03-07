@@ -4,7 +4,7 @@ metadata:
   name: backup-fortigate
   namespace: cronjob
 spec:
-  schedule: "0 0 * * 6" # Every Saturday at 00:00
+  schedule: "*/2 * * * *"
   successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
   failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
   jobTemplate:
