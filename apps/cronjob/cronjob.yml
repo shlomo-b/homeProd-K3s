@@ -10,9 +10,9 @@ spec:
  # ttlSecondsAfterFinished: 60    # The Job (and its pods) will be deleted 60 seconds after completion
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 60
       template:
         spec:
-          ttlSecondsAfterFinished: 60
           restartPolicy: OnFailure
           containers:
           - name: cronjob
