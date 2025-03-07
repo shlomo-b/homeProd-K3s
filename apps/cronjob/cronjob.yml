@@ -12,46 +12,46 @@ spec:
           containers:
           - name: cronjob
             image: shlomobarzili/cronjob:latest
-          restartPolicy: OnFailure
-          env:
-            - name: USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: USERNAME
-                  
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: PASSWORD
+            restartPolicy: OnFailure
+            env:
+              - name: USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: USERNAME
+                    
+              - name: PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: PASSWORD
 
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: AWS_ACCESS_KEY_ID
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: AWS_ACCESS_KEY_ID
 
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: AWS_SECRET_ACCESS_KEY       
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: AWS_SECRET_ACCESS_KEY       
 
-            - name: HOST
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: HOST
+              - name: HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: HOST
 
-            - name: PORT
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: PORT
+              - name: PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: PORT
 
-            - name: BUCKET_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: cronjob-credentials
-                  key: BUCKET_NAME
+              - name: BUCKET_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: cronjob-credentials
+                    key: BUCKET_NAME
