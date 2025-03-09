@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    namespace: shop-online
+    name: var-shop-online
+data:
+    MONGO_DB_HOST: mongodb-service
+    REACT_APP_API_URL: http://10.90.100.149:5050

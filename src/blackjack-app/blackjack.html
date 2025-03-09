@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack Game</title>
+    <style>
+        /* Original styles remain the same */
+        body {
+            background-image: url('https://cdn.britannica.com/93/124393-004-B49FE2AE/Blackjack.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #output {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #playButton, #submitInput, #submitUsername {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            display: none;
+        }
+        .video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background-color: #006400;
+        }
+        #inputContainer, #usernameContainer {
+            display: none;
+            margin-top: 20px;
+        }
+        #userInput, #usernameInput {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="videoBackground" class="video-background" autoplay muted loop>
+            <source src="https://media.gettyimages.com/id/470090610/video/playing-cards-falling-concept.mp4?s=mp4-640x640-gi&k=20&c=xOugTaYYUR5oi39isFvyBgLLgJ2dbZ9FSPuvDE-9y1E=" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div id="video-overlay"></div>
+    </div>
+    <div id="usernameContainer">
+        <input type="text" id="usernameInput" placeholder="Enter your username">
+        <button id="submitUsername">Submit</button>
+    </div>
+    <div id="output"></div>
+    <button id="playButton">Play Blackjack</button>
+    <div id="inputContainer">
+        <input type="text" id="userInput" placeholder="Enter your choice">
+        <button id="submitInput">Submit</button>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const playButton = document.getElementById('playButton');
+        const videoContainer = document.querySelector('.video-container');
+        const inputContainer = document.getElementById('inputContainer');
+        const userInput = document.getElementById('userInput');
+        const submitInput = document.getElementById('submitInput');
+        const usernameContainer = document.getElementById('usernameContainer');
+        const usernameInput = document.getElementById('usernameInput');
+        const submitUsername = document.getElementById('submitUsername');
+        
+        let username = '';
+
+        // Hide play button initially
+        playButton.style.display = 'none';
+
+        // Show username input first
+        usernameContainer.style.display = 'block';
+
+        submitUsername.onclick = () => {
+            username = usernameInput.value.trim();
+            if (username.length >= 2) {
+                usernameContainer.style.display = 'none';
+                playButton.style.display = 'inline-block';
+                output.textContent = `Welcome ${username}!\n`;
+            } else {
+                output.textContent = 'Username must be at least 2 characters long.\n';
+            }
+        };
+
+        // Rest of the original code remains exactly the same
+        const blackjack = `
+.------.            _     _            _    _            _
+|A_  _ |.          | |   | |          | |  (_)          | |
+|( \\/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \\  /|K /\\  |     | '_ \\| |/ _\` |/ __| |/ / |/ _\` |/ __| |/ /
+|  \\/ | /  \\ |     | |_) | | (_| | (__|   <| | (_| | (__|   <
+\`-----| \\  / |     |_.__/|_|\\__,_|\\___|_|\\_\\ |\\__,_|\\___|_|\\_\\
+      |  \\/ K|                            _/ |
+      \`------'                           |__/
+`;
+
+        function print(text) {
+            output.textContent += text + '\n';
+        }
+
+        function input(prompt) {
+            return new Promise(resolve => {
+                print(prompt);
+                inputContainer.style.display = 'block';
+                userInput.focus();
+                submitInput.onclick = () => {
+                    const value = userInput.value;
+                    userInput.value = '';
+                    inputContainer.style.display = 'none';
+                    print(value);
+                    resolve(value);
+                };
+                userInput.onkeypress = (e) => {
+                    if (e.key === 'Enter') {
+                        submitInput.click();
+                    }
+                };
+            });
+        }
+
+        function random_choice(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function sum(array) {
+            return array.reduce((a, b) => a + b, 0);
+        }
+
+        async function play_game() {
+            output.textContent = `Welcome ${username}!\n`;
+            print(blackjack);
+
+            let cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+            let user_cards = [];
+            let computer_cards = [];
+
+            function final_hand() {
+                print(`${username}'s final hand: ${user_cards}, current score:${sum(user_cards)}`);
+                print(`Dealer's final hand ${computer_cards}, current score:${sum(computer_cards)}`);
+            }
+
+            for (let i = 0; i < 2; i++) {
+                user_cards.push(random_choice(cards));
+                computer_cards.push(random_choice(cards));
+            }
+
+            print(`${username}'s cards: ${user_cards}, current score:${sum(user_cards)}`);
+            print(`Dealer's first card: ${computer_cards[0]}`);
+
+            // Rest of the original game logic remains exactly the same...
+            if ((user_cards[0] === 11 && user_cards[1] === 10) || (user_cards[0] === 10 && user_cards[1] === 11)) {
+                print(`Win with a Blackjack ${user_cards}`);
+            } else if ((computer_cards[0] === 11 && computer_cards[1] === 10) || (computer_cards[0] === 10 && computer_cards[1] === 11)) {
+                print(`Lose, dealer has Blackjack ${computer_cards}`);
+            } else {
+                let end_of_game = true;
+                while (end_of_game) {
+                    let another_card = await input("Type 'y' to get another card, Type 'n' to pass: ");
+                    if (another_card.toLowerCase() === "y") {
+                        user_cards.push(random_choice(cards));
+                        let result_user = sum(user_cards);
+
+                        if (user_cards.includes(11) && result_user > 21) {
+                            user_cards[user_cards.indexOf(11)] = 1;
+                            result_user = sum(user_cards);
+                        }
+
+                        print(`${username}'s cards: ${user_cards}, current score:${result_user}`);
+                        print(`Dealer's first card: ${computer_cards[0]}`);
+
+                        if (result_user > 21) {
+                            end_of_game = false;
+                            final_hand();
+                            print("You went over. You lose ");
+                        }
+                    } else if (another_card.toLowerCase() === "n") {
+                        while (sum(computer_cards) < 17) {
+                            computer_cards.push(random_choice(cards));
+                        }
+
+                        let result_computer = sum(computer_cards);
+                        let result_user = sum(user_cards);
+
+                        if (computer_cards.includes(11) && result_computer > 21) {
+                            computer_cards[computer_cards.indexOf(11)] = 1;
+                            result_computer = sum(computer_cards);
+                        }
+
+                        final_hand();
+
+                        if (result_computer > 21) {
+                            print("Opponent went over. You win");
+                        } else if (result_user > result_computer) {
+                            print("You Win!");
+                        } else if (result_user < result_computer) {
+                            print("You lose!");
+                        } else {
+                            print(`It's a draw`);
+                        }
+                        end_of_game = false;
+                    }
+                }
+            }
+
+            fetch('/increment_games_played', { method: 'POST' });
+        }
+
+        async function main() {
+            videoContainer.style.display = 'block';
+            document.body.style.backgroundImage = 'none';
+
+            while (await input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") === "y") {
+                await play_game();
+            }
+            print("See you next time .. Bye Bye ..");
+        }
+
+        playButton.addEventListener('click', main);
+
+        fetch('/increment_site_visits', { method: 'POST' });
+    </script>
+</body>
+</html>

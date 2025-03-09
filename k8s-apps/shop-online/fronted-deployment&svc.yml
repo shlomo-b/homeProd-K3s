@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-fronted  # react-front
+  namespace: shop-online
+  annotations:
+    # annotations for keel to update the image
+    keel.sh/policy: "all"
+    keel.sh/trigger: "poll"
+    keel.sh/pollSchedule: "@every 3m"
+spec:
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: react-app    
+    spec:
+      containers:
+      - name: lab4
+        image: shlomobarzili/react-fronted:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+        env:
+          - name: REACT_APP_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: var-shop-online # reference from ConfigMap
+                key: REACT_APP_API_URL
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-svc
+  namespace: shop-online # the namespace that sperate the pods between envroments.
+spec:
+  selector:
+    app: react-app
+  type: LoadBalancer # the type of the service
+  loadBalancerIP: "10.90.100.150"
+  ports:
+    - protocol: TCP
+      port: 3000   # the port svc that expose
+      targetPort: 3000 # the port of the pod      

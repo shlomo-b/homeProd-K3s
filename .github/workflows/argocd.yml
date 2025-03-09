@@ -1,0 +1,39 @@
+# name: ArgoCD Upgrade
+
+# on:
+#   push: 
+#     branches: [ "main" ]
+#     paths:
+#       - 'argocd/**'
+#   pull_request:
+#     paths:
+#       - 'argocd/**'
+
+# jobs:
+#   argo_upgrade:
+#     name: 'Upgrade ArgoCD'
+#     runs-on: ubuntu-latest
+
+#     defaults:
+#       run:
+#         shell: bash
+        
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v4
+
+#     - name: Configure AWS Credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         aws-region: us-east-1
+
+#     - name: Upgrade ArgoCD with Helm
+#       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  
+#       run: |
+#         aws eks update-kubeconfig --name my-cluster --region us-east-1
+#         helm repo add argo https://argoproj.github.io/argo-helm
+#         helm repo update
+#         helm upgrade prod-argocd argo/argo-cd --namespace argocd -f values.yaml --create-namespace --version 7.7.23
+#       working-directory: ./argocd

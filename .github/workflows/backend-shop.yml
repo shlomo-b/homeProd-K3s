@@ -1,0 +1,60 @@
+# name: Docker Image CI Backend
+
+# on:
+#   push: 
+#     branches: [ "main" ]
+#     paths:
+#       - 'shop-online-app/backend/**'
+#       # when have changes to this folder it's will be triger.
+#   pull_request:
+#     paths:
+#       - 'shop-online-app/backend/**'
+
+# jobs:
+#   docker:
+#     # if the event only will be true pull_request.merged 
+#     #  if: github.event.pull_request.merged == true
+#     runs-on: ubuntu-latest
+#     # Checkout: Access to my code, which can actually work with it.
+    
+#     # docker_build_2:
+#     #   runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#       -
+#         # to build kind image in architecture amd64 and arm64
+#         name: Set up QEMU
+#         uses: docker/setup-qemu-action@v3
+#       -
+#         # to build docker image with the architecture amd64 and arm64
+#         name: Set up Docker Buildx
+#         uses: docker/setup-buildx-action@v3
+#       - 
+#         # login to docker hub.
+#         name: Login to Docker Hub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}    
+#       - 
+#         # Scan Docker Image for Vulnerabilities before build and merge
+#         name: Scan Docker Image for Vulnerabilities
+#         uses: aquasecurity/trivy-action@0.28.0 
+#         with:
+#           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/flask-backend:latest  
+#       -
+#         # Build the image and push it to dockerhub.
+#         name: Build and push
+#         # It's will be trigger when i push/merge to main branch        
+#         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+#         uses: docker/build-push-action@v6
+#         with:
+#           context: ./
+#           file: ./shop-online-app/backend/Dockerfile # the route of the file Dockerfile
+#           push: true
+#           platforms: linux/amd64,linux/arm64 # build for amd and arm
+#           # sync the image with the latest version   
+#           tags: | 
+#             ${{ secrets.DOCKERHUB_USERNAME }}/flask-backend:${{ github.run_id }}
+#             ${{ secrets.DOCKERHUB_USERNAME }}/flask-backend:latest
