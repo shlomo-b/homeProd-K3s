@@ -5,10 +5,10 @@ on:
     branches: [ "main" ]
     paths:
       - 'src/backup-fw/**'
-  # pull_request:
-  #     # when have changes to this folder it's will be triger.
-  #   paths:
-  #     - 'shop-online-app/frontend/**'
+  pull_request:
+      # when have changes to this folder it's will be triger.
+    paths:
+      - 'src/backup-fw/**'
 
 jobs:
   docker:
@@ -47,7 +47,7 @@ jobs:
         # Build the image and push it to dockerhub.
         name: Build and push
         # It's will be trigger when i push/merge to main branch        
-      #  if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
           file: ./src/backup-fw/Dockerfile # the route of the file Dockerfile

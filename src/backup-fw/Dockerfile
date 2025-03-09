@@ -5,7 +5,7 @@ FROM python:3.12.0-slim
 WORKDIR /app
 
 # Copy requirements first to leverage Docker cache
-COPY requirements.txt /app
+COPY src/backup-fw/requirements.txt /app
 
 RUN pip install --upgrade pip
 
@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir -r requirements.txt && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY fortigate_backup.py /app
+COPY src/backup-fw/fortigate_backup.py /app
 
 
 # Start application
