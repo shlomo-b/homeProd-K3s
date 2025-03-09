@@ -1,14 +1,14 @@
-name: Docker Image CI Fortigate Backup
+name: Docker Image CI juniper Backup
 
 on:
   push: 
     branches: [ "main" ]
     paths:
-      - 'src/backup-fw/**'
+      - 'src/backup-sw/**'
   pull_request:
       # when have changes to this folder it's will be triger.
     paths:
-      - 'src/backup-fw/**'
+      - 'src/backup-sw/**'
 
 jobs:
   docker:
@@ -42,7 +42,7 @@ jobs:
         name: Scan Docker Image for Vulnerabilities
         uses: aquasecurity/trivy-action@0.28.0 
         with:
-          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/fortigate-backup:latest
+          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/backup-sw:latest  
       -
         # Build the image and push it to dockerhub.
         name: Build and push
@@ -50,10 +50,10 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
-          file: ./src/backup-fw/Dockerfile # the route of the file Dockerfile
+          file: ./src/backup-sw/Dockerfile # the route of the file Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64 # build for amd and arm
        # sync the image with the latest version   
           tags: | 
-            ${{ secrets.DOCKERHUB_USERNAME }}/fortigate-backup:${{ github.run_id }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/fortigate-backup:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/backup-sw:${{ github.run_id }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/backup-sw:latest
