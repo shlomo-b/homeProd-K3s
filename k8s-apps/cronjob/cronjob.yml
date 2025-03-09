@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: cronjob
-            image: shlomobarzili/cronjob:latest
+            image: shlomobarzili/fortigate-backup:latest
             env:
               - name: USERNAME
                 valueFrom:
