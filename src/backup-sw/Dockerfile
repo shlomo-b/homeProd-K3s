@@ -23,5 +23,5 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY src/backup-sw/juniper_sw.py /app
 
 
-# Start application
+# Start application when container is run
 CMD ["python", "juniper_backup.py"]
