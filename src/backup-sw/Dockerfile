@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir -r requirements.txt && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY src/backup-sw/juniper_sw.py /app
+COPY src/backup-sw/juniper-sw.py /app
 
 
 # Start application when container is run
