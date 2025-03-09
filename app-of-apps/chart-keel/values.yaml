@@ -11,7 +11,7 @@ keel:
       tag: latest
     - repository: shlomobarzili/flask-backend
       tag: latest
-    - repository: shlomobarzili/cronjob
+    - repository: shlomobarzili/fortigate-backup
       tag: latest  
 
   aws:
