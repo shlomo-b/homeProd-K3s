@@ -128,4 +128,3 @@ spec:
                   secretKeyRef:
                     name: juniper-credentials
                     key: BUCKET_NAME
-
