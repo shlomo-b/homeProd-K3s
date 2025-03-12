@@ -63,7 +63,7 @@ def backup_data():
 
         # Define S3 bucket details
         BUCKET_NAME = os.environ.get('BUCKET_NAME')
-        s3_object_name = f"backups-fortigate/{backup_file}"
+        s3_object_name = f"backups/{backup_file}"
 
         # Create a Boto3 S3 client
         s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
