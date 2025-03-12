@@ -24,4 +24,4 @@ COPY src/backup-sw/juniper-sw.py /app
 
 
 # Start application when container is run
-CMD ["python", "juniper_backup.py"]
+CMD ["python", "juniper-sw.py"]
