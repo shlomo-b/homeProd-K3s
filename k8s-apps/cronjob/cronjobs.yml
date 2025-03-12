@@ -90,41 +90,41 @@ spec:
               - name: USERNAME
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: USERNAME
                     
               - name: PASSWORD
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: PASSWORD
 
               - name: AWS_ACCESS_KEY_ID
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: AWS_ACCESS_KEY_ID
 
               - name: AWS_SECRET_ACCESS_KEY
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: AWS_SECRET_ACCESS_KEY       
 
               - name: HOST
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: HOST
 
               - name: PORT
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: PORT
 
               - name: BUCKET_NAME
                 valueFrom:
                   secretKeyRef:
-                    name: juniper-credentials
+                    name: cronjob-credentials-juniper-backup
                     key: BUCKET_NAME
