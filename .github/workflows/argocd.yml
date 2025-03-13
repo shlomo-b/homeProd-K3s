@@ -22,17 +22,24 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
+    - name: Check Connectivity to K3s
+      run: |
+        ping -c 4 10.0.11.230
+  
     - name: Setup K3s Kubeconfig
       run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
-        export KUBECONFIG=$HOME/.kube/config
-        echo "KUBECONFIG is set for K3s"
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          echo "KUBECONFIG is set for K3s"
 
     - name: Verify K3s Connection
       run: |
         export KUBECONFIG=$HOME/.kube/config
+        kubectl cluster-info
         kubectl get nodes
+
 
     - name: Install & Upgrade ArgoCD with Helm
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  
