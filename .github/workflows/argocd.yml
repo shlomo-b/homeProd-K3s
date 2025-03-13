@@ -24,9 +24,11 @@ jobs:
 
     - name: Setup K3s Kubeconfig
       run: |
+        mkdir -p $HOME/.kube
         echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
         export KUBECONFIG=$HOME/.kube/config
         echo "KUBECONFIG is set for K3s"
+
 
     - name: Verify K3s Connection
       run: |
