@@ -1,4 +1,4 @@
-#argo-cd
+#argo-cdג
 global:
   domain: argocd.spider.local
 
