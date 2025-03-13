@@ -22,10 +22,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    # - name: Check Connectivity to K3s
-    #   run: |
-    #     ping -c 4 10.0.11.230
-  
+    - name: Show GitHub Runner IP
+      run: |
+        curl -s https://checkip.amazonaws.com
+
     - name: Setup K3s Kubeconfig
       run: |
           mkdir -p $HOME/.kube
