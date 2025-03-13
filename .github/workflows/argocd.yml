@@ -29,7 +29,6 @@ jobs:
         export KUBECONFIG=$HOME/.kube/config
         echo "KUBECONFIG is set for K3s"
 
-
     - name: Verify K3s Connection
       run: |
         export KUBECONFIG=$HOME/.kube/config
