@@ -28,7 +28,7 @@ configs:
   # RBAC for application argocd
   rbac:
     create : true
-  #  policy.default: role:none
+    policy.default: role:admin
     policy.csv: |
       # Admins - full access
       p, role:admin, *, *, *, allow
