@@ -32,16 +32,8 @@ loki:
         s3: true
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        accessKeyId: 
-          valueFrom:
-            secretKeyRef:
-              name: aws-secret
-              key: accessKeyId
-        secretAccessKey:
-          valueFrom:
-            secretKeyRef:
-              name: aws-secret
-              key: secretAccessKey
+        secretAccessKey: ${ACCESS_KEY_ID}
+        accessKeyId: ${SECRET_ACCESS_KEY}
   read:
     legacyReadTarget: false
     replicas: 2

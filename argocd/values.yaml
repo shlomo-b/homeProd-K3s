@@ -6,6 +6,7 @@ configs:
   params:
     server.insecure: false
   cm:
+    create: true
     # SSO Configuration via AzureAd
     url: https://argocd.spider.local
     dex.config: |
@@ -24,13 +25,22 @@ configs:
             usernameAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
             emailAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
 
-  # RBAC for application argo cd
+  # RBAC for application argocd
   rbac:
-    policy.default: role:admin
+    create : true
+  #  policy.default: role:none
     policy.csv: |
-      p, role:role:admin, *, *, *, allow
+      # Admins - full access
+      p, role:admin, *, *, *, allow
       g, "Shlomo_lab@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:admin
+
+      # Readonly - access only to 'monitoring' project
+      p, role:readonly, applications, get, monitoring/*, allow
+      p, role:readonly, projects, get, monitoring, allow
+      p, role:readonly, logs, get, monitoring/*, allow
+      g, "shlomobarzili@gmail.com", role:readonly
+
 
 server:
   service:
