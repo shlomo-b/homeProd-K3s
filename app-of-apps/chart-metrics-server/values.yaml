@@ -9,6 +9,6 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
-  service:
-    type: NodePort
-    port: 443    
+  # service:
+  #   type: NodePort
+  #   port: 443    
