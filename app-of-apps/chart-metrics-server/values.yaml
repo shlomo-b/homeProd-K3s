@@ -9,24 +9,10 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
-  containerPort: 10250
-  livenessProbe:
-    httpGet:
-      path: /livez
-      port: 10250
-      scheme: HTTPS
-    initialDelaySeconds: 0
-    periodSeconds: 10
-    failureThreshold: 3    
-  readinessProbe:
-    httpGet:
-      path: /readyz
-      port: 10250
-      scheme: HTTPS
-    initialDelaySeconds: 20
-    periodSeconds: 10
-    failureThreshold: 3
-  args:
-    - --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternalIP,ExternalDNS
-    - --kubelet-insecure-tls
-    - --secure-port=4443
+  service:
+    type: ClusterIP
+    port: 443
+    labels:
+      kubernetes.io/cluster-service: "true"
+      kubernetes.io/name: "Metrics-server"
+      
