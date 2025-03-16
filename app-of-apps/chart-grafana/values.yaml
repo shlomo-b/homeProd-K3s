@@ -18,6 +18,13 @@ grafana:
     enabled: true
     size: 10Gi
     accessMode: ReadWriteOnce
+  topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: grafana  
   sidecar:
     datasources:
       enabled: true
