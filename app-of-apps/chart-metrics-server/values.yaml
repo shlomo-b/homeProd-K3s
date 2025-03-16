@@ -9,8 +9,19 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
+  containerPort: 10250
+  livenessProbe:
+    httpGet:
+      path: /livez
+      port: https
+      scheme: HTTPS
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    failureThreshold: 3    
+  readinessProbe:
+    httpGet:
+      path: /readyz
+      port: 
   args:
     - --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternalIP,ExternalDNS
-    - --kubelet-insecure-tls    
-
-  
+    - --kubelet-insecure-tls        
