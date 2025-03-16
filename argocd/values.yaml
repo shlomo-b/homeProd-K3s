@@ -29,6 +29,7 @@ configs:
   # RBAC for application argocd
   rbac:
     create : true
+    policy.default: role:admin
     policy.csv: |
       # Admins - full access
       p, role:admin, *, *, *, allow
@@ -40,7 +41,7 @@ configs:
       p, role:readonly, projects, get, monitoring, allow
       p, role:readonly, logs, get, monitoring/*, allow
       g, "shlomobarzili@gmail.com", role:readonly
-    policy.default: role:readonly
+
 server:
   service:
     type: LoadBalancer
