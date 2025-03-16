@@ -13,6 +13,16 @@ grafana:
     servicePort: 3000
   adminUser: admin
   adminPassword: strongpassword # temp password
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - node1
+                  - node2
   persistence:
     type: pvc
     enabled: true
