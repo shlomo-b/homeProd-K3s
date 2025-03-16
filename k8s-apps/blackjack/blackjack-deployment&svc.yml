@@ -16,44 +16,44 @@ spec:
     metadata:
       labels:
         app: blackjack
-  spec:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: topology.kubernetes.io/zone
-              operator: In
-              values:
-                - node1
-                - node2
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values:
+                  - node1
+                  - node2
       containers:
-      - name: blackjack
-        image: shlomobarzili/blackjack:latest
-        imagePullPolicy: Always
-        ports:
-        - name: http
-          containerPort: 80
-          protocol: TCP
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 200m
-            memory: 256Mi
+        - name: blackjack
+          image: shlomobarzili/blackjack:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: svc-blackjack 
-  namespace: blackjack # the namespace that sperate the pods between envroments.
+  namespace: blackjack
 spec:
   selector:
     app: blackjack
-  type: NodePort # the type of the service
+  type: NodePort
   ports:
     - protocol: TCP
-      port: 80   # the port svc that expose
-      nodePort: 30060 # the port of the pod | container
+      port: 80
+      nodePort: 30060
       targetPort: 80
