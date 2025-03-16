@@ -9,11 +9,11 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
-  containerPort: 4443  # שינוי מ-10250 ל-4443 (הפורט הדיפולטיבי של metrics-server)
+  containerPort: 10250
   livenessProbe:
     httpGet:
       path: /livez
-      port: 4443
+      port: 10250
       scheme: HTTPS
     initialDelaySeconds: 0
     periodSeconds: 10
@@ -21,7 +21,7 @@ metrics-server:
   readinessProbe:
     httpGet:
       path: /readyz
-      port: 4443
+      port: 10250
       scheme: HTTPS
     initialDelaySeconds: 20
     periodSeconds: 10
