@@ -53,8 +53,8 @@ loki:
             - key: topology.kubernetes.io/zone
               operator: In
               values:
-              - node1
-              - node2
+                - node1
+                - node2
 
   write:
     replicas: 2
