@@ -36,7 +36,7 @@ loki:
         accessKeyId: ${SECRET_ACCESS_KEY}
   read:
     legacyReadTarget: false
-    replicas: 2
+    replicas: 1
     service:
       enabled: true
       type: ClusterIP
@@ -55,7 +55,7 @@ loki:
             topologyKey: kubernetes.io/hostname
 
   write:
-    replicas: 2
+    replicas: 1
     persistence:
       enabled: true
       volumeClaimsEnabled: true
