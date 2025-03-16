@@ -19,6 +19,8 @@ grafana:
     type: pvc
     enabled: true
     size: 10Gi
+    accessModes:
+      - ReadWriteMany
   sidecar:
     datasources:
       enabled: true
