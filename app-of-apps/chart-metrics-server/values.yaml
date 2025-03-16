@@ -9,6 +9,22 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
-  # service:
-  #   type: NodePort
-  #   port: 443    
+  service:
+    type: ClusterIP
+    port: 443 
+  livenessProbe:
+    httpGet:
+      path: /livez
+      port: https
+      scheme: HTTPS
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    failureThreshold: 3    
+  readinessProbe:
+    httpGet:
+      path: /readyz
+      port: https
+      scheme: HTTPS
+    initialDelaySeconds: 20
+    periodSeconds: 10
+    failureThreshold: 3  

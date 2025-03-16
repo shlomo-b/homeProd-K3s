@@ -18,6 +18,7 @@ spec:
         app: blackjack
     spec:
       affinity:
+      # Only deploy on node1 and node2 with nodeAffinity
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
