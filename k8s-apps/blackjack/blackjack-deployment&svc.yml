@@ -16,7 +16,7 @@ spec:
     metadata:
       labels:
         app: blackjack
-    spec:
+  spec:
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
