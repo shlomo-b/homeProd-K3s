@@ -10,3 +10,5 @@ uptime-kuma:
     enabled: true
     accessMode: ReadWriteOnce
     size: 4Gi
+    accessModes:
+      - ReadWriteMany
