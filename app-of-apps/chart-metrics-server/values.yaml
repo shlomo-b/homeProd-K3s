@@ -9,19 +9,20 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
-  containerPort: 10250
+  # This should match the port metrics-server is actually listening on
+  containerPort: 4443  # Change from 10250 to 4443 (default metrics-server port)
   livenessProbe:
     httpGet:
       path: /livez
-      port: https
+      port: https  # This will use the service port name
       scheme: HTTPS
     initialDelaySeconds: 0
     periodSeconds: 10
-    failureThreshold: 3    
+    failureThreshold: 3
   readinessProbe:
     httpGet:
       path: /readyz
-      port: https  # You must set this value
+      port: https  # This will use the service port name
       scheme: HTTPS
     initialDelaySeconds: 20
     periodSeconds: 10
@@ -29,3 +30,4 @@ metrics-server:
   args:
     - --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternalIP,ExternalDNS
     - --kubelet-insecure-tls
+    - --secure-port=4443  # Explicitly set the listening port
