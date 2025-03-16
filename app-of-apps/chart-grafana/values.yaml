@@ -20,11 +20,12 @@ grafana:
           labelSelector:
             matchLabels:
               app: backend
-
   persistence:
     type: pvc
     enabled: true
     size: 10Gi
+    accessModes:
+      - ReadWriteMany
   sidecar:
     datasources:
       enabled: true
