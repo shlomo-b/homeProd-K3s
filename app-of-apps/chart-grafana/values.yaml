@@ -23,7 +23,8 @@ grafana:
           topologyKey: "kubernetes.io/hostname"
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
-            app.kubernetes.io/name: grafana
+            matchLabels:
+              app.kubernetes.io/name: grafana
 
   sidecar:
     datasources:
