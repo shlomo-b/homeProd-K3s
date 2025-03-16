@@ -14,7 +14,7 @@ grafana:
   adminUser: admin
   adminPassword: strongpassword # temp password
   nodeSelector:
-      kubernetes.io/hostname: node1
+      kubernetes.io/hostname: master-eks
   persistence:
     type: pvc
     enabled: true
