@@ -19,7 +19,7 @@ grafana:
     size: 10Gi
     accessMode: ReadWriteOnce
   topologySpreadConstraints:
-        - maxSkew: 1
+        - maxSkew: 2
           topologyKey: "kubernetes.io/hostname"
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
