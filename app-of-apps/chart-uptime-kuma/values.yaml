@@ -10,15 +10,3 @@ uptime-kuma:
     enabled: true
     accessMode: ReadWriteOnce
     size: 4Gi
-    accessModes:
-      - ReadWriteMany
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: topology.kubernetes.io/zone
-            operator: In
-            values:
-            - node1
-            - node2    
