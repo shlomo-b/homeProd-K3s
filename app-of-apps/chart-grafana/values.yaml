@@ -18,7 +18,7 @@ grafana:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: kubernetes.io/hostname
+              - key: topology.kubernetes.io/zone
                 operator: In
                 values:
                   - node3
