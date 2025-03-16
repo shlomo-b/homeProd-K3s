@@ -24,4 +24,4 @@ metrics-server:
       port: 
   args:
     - --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternalIP,ExternalDNS
-    - --kubelet-insecure-tls        
+    - --kubelet-insecure-tls
