@@ -9,9 +9,7 @@ metrics-server:
     limits:
       cpu: 40m
       memory: 25Mi
-  service:
-    type: ClusterIP
-    port: 443 
+  containerPort: 10250
   livenessProbe:
     httpGet:
       path: /livez
