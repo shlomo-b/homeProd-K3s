@@ -25,8 +25,8 @@ spec:
             - key: topology.kubernetes.io/zone
               operator: In
               values:
-              - node1
-              - node2
+                - node1
+                - node2
       containers:
       - name: blackjack
         image: shlomobarzili/blackjack:latest
