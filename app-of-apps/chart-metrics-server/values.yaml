@@ -21,7 +21,11 @@ metrics-server:
   readinessProbe:
     httpGet:
       path: /readyz
-      port: 
+      port: https  # You must set this value
+      scheme: HTTPS
+    initialDelaySeconds: 20
+    periodSeconds: 10
+    failureThreshold: 3
   args:
     - --kubelet-preferred-address-types=InternalDNS,InternalIP,Hostname,ExternalIP,ExternalDNS
     - --kubelet-insecure-tls
