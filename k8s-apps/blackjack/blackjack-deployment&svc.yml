@@ -23,8 +23,7 @@ spec:
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              app: backend
-
+              app: blackjack
       containers:
       - name: blackjack
         image: shlomobarzili/blackjack:latest
