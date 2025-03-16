@@ -13,19 +13,11 @@ grafana:
     servicePort: 3000
   adminUser: admin
   adminPassword: strongpassword # temp password
-  topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: "kubernetes.io/hostname"
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: backend
   persistence:
     type: pvc
     enabled: true
     size: 10Gi
-    accessModes:
-      - ReadWriteMany
+    accessMode: ReadWriteOnce
   sidecar:
     datasources:
       enabled: true
