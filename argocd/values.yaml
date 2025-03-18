@@ -17,7 +17,7 @@ configs:
         connectors:
         - type: saml
           id: saml
-          name: saml
+          name: azure
           config:
             entityIssuer: https://argocd.spider.local/api/dex/callback
             ssoURL: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
