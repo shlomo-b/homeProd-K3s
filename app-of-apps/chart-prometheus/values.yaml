@@ -33,16 +33,16 @@ prometheus:
           static_configs:
             - targets:
                 - "grafana:3000"
-        - job_name: node-exporter
+        # - job_name: node-exporter
+        #   metrics_path: /metrics
+        #   static_configs:
+        #     - targets:
+        #         - "prometheus-prometheus-node-exporter:9100"    
+        - job_name: 'node-exporter-nodes'
           metrics_path: /metrics
           static_configs:
             - targets:
-                - "prometheus-prometheus-node-exporter:9100"    
-        - job_name: 'nodes'
-          metrics_path: /metrics
-          static_configs:
-            - targets:
-               # - "master-eks:9100"
+                - "master-eks:9100"
                 - "node1:9100"
                 - "node2:9100"
                 - "node3:9100"
