@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb-system
+  name: metallb-system-loadbalancer
   namespace: argocd
 spec:
   project: default
