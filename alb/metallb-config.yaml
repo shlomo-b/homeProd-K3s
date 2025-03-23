@@ -3,7 +3,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: monitoring
-  namespace: metallb-system
+  namespace: service-load-balancer
 spec:
   addresses:
   - 10.90.100.110-10.90.100.119
@@ -14,7 +14,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: argocd-ip
-  namespace: metallb-system
+  namespace: service-load-balancer
 spec:
   addresses:
   - 10.90.100.200/32
@@ -26,7 +26,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: alb-resources
-  namespace: metallb-system
+  namespace: service-load-balancer
 spec:
   addresses:
     - 10.90.100.121-10.90.100.150
@@ -37,7 +37,7 @@ apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: l2advertisement
-  namespace: metallb-system
+  namespace: service-load-balancer
 spec:
   ipAddressPools:
   - monitoring
