@@ -1,4 +1,5 @@
 metallb:
+  installCRDs: true
   speaker:
     enabled: true
     serviceAccount:
