@@ -40,7 +40,7 @@ loki:
     service:
       enabled: true
       type: ClusterIP
-      port: 3100 # the port svc that expose and use for helthcheckd
+      port: 3100 # the port svc that expose and use for helthcheck
     persistence:
       enabled: true
       volumeClaimsEnabled: true
