@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git # the repo
+    repoURL: https://github.com/shlomo-b/homeProd-K3s.git # the repo
     path: app-of-apps # the path of the helm charts
     targetRevision: HEAD
     directory:

@@ -5,9 +5,9 @@ on:
     branches: [ "main" ]
     paths:
       - 'argocd/**'
-  pull_request:
-    paths:
-      - 'argocd/**'
+  # pull_request:
+  #   paths:
+  #     - 'argocd/**'
 
 jobs:
   argo_upgrade:
@@ -39,7 +39,6 @@ jobs:
         export KUBECONFIG=$HOME/.kube/config
         kubectl cluster-info
         kubectl get nodes
-
 
     - name: Install & Upgrade ArgoCD with Helm
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  

@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shlomo-b/monitoring-stack-k3d.git
+    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     path: app-of-apps/chart-metallb
     targetRevision: HEAD
   destination:
@@ -16,5 +16,5 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated:
-      selfHeal: true # auto sync the changes to the cluster from git
-      prune: true    # auto delete resources locally if thay are not in git
+      selfHeal: true 
+      prune: true
