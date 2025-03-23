@@ -1,7 +1,6 @@
 #argo-cd
 global:
   domain: argocd.spider.local
-
 configs:
   params:
     server.insecure: false
@@ -82,16 +81,8 @@ dex:
       secret:
         secretName: argocd-sso-cert # reference the secret name 
 
-    - name: trusted
-      secret: 
-        secretName: secret-trusted-argocd # Reference the Secret name    
-
   # Mount the SSO certificate to Dex, making it available in the container     
   volumeMounts:
     - name: sso-cert
-      mountPath: /etc/dex/certs
-      readOnly: true
-
-    - name: trusted
       mountPath: /etc/dex/certs
       readOnly: true

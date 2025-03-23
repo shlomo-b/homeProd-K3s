@@ -1,8 +1,0 @@
-# cert-manager:
-#   installCRDs: true
-#   serviceAccount:
-#     create: true
-#   resources:  
-#     requests:
-#       cpu: 10m
-#       memory: 80Mi
