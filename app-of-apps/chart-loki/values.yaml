@@ -45,14 +45,6 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi
-    # affinity:
-    # # verify the pods will run on different nodes
-    #   podAntiAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       - labelSelector:
-    #           matchLabels:
-    #             app.kubernetes.io/component: read
-    #         topologyKey: kubernetes.io/hostname
 
   write:
     replicas: 2
@@ -64,16 +56,7 @@ loki:
       enabled: true
       type: ClusterIP
       port: 3100
-    # affinity:
-    # # verify the pods will run on different nodes
-    #   podAntiAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       - labelSelector:
-    #           matchLabels:
-    #             app.kubernetes.io/component: write
-    #         topologyKey: kubernetes.io/hostname     
-
-
+      
   backend:
     replicas: 1
     persistence:

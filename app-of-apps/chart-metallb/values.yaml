@@ -1,5 +1,7 @@
 metallb:
-  installCRDs: true
+  crds:
+    enabled: true
+    validationFailurePolicy: Fail
   speaker:
     enabled: true
     serviceAccount:
@@ -8,6 +10,8 @@ metallb:
        limits:
          cpu: 100m
          memory: 100Mi    
+    frr:
+      enabled: false     
          
   controller:
     enabled: true  
@@ -26,3 +30,4 @@ metallb:
               operator: In
               values:
                 - node2
+
