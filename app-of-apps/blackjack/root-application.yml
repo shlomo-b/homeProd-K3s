@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: ./k8s-apps/blackjack
+    path: ./app-of-apps/blackjack
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
