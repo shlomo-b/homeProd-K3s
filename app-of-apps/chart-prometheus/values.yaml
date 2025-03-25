@@ -49,6 +49,21 @@ prometheus:
                 - "node1:9100"
                 - "node2:9100"
                 - "node3:9100"
+
+        - job_name: 'kubernetes-service-endpoints'
+          kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+              - coinbridge
+          relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            action: replace
+            target_label: kubernetes_namespace
+        
           
 # #---------------outside the network----------------#
 
