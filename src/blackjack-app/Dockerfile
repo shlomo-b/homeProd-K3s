@@ -1,4 +1,4 @@
-# Use an official Python runtime as a parent image
+# Use an official Python
 FROM python:3.9-slim
 
 # Set the working directory the on the container 

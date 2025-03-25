@@ -47,7 +47,7 @@ jobs:
       - name: Scan for secrets with Gitleaks
         uses: gitleaks/gitleaks-action@v2 
         with:
-          path: ./src/blackjack-app
+          args: detect --source=./src/blackjack-app --redact --exit-code=2 --report-format=sarif --report-path=gitleaks.sarif
 
       -
         # Build the image and push it to dockerhub.
