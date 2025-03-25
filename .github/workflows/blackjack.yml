@@ -43,6 +43,12 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0 
         with:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/blackjack:latest
+
+      - name: Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2 
+        with:
+          path: ./src/blackjack-app
+
       -
         # Build the image and push it to dockerhub.
         name: Build and push
