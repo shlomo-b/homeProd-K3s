@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: externalsecrets
+    path: ./secrets-apps
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
