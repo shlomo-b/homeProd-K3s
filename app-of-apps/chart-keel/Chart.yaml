@@ -1,0 +1,11 @@
+apiVersion: v2
+name: keel
+description: A Helm chart for keel
+type: application
+version: 0.19.1
+appVersion: 0.19.1
+dependencies:
+- name: keel
+  repository: https://charts.keel.sh
+  version: 1.0.5
+ # condition: keel.enabled # only install if keel is enabled
