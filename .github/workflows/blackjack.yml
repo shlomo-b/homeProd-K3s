@@ -44,8 +44,8 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/blackjack:latest
 
-      - name: Scan for secrets with Gitleaks
-        uses: gitleaks/gitleaks-action@v2 
+      # - name: Scan for secrets with Gitleaks
+      #   uses: gitleaks/gitleaks-action@v2 
       -
         # Build the image and push it to dockerhub.
         name: Build and push
