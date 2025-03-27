@@ -4,7 +4,7 @@ metadata:
   name: argocd
   namespace: argocd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io # The finalizer delete the application and resources
 spec:
   project: default
   source:
