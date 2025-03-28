@@ -4,12 +4,12 @@ description: A Helm chart for install actions-runner-controller CRD
 type: application
 version: 0.11.0
 appVersion: "0.11.0"
-# home: https://github.com/actions/actions-runner-controller
-# # sources:
-# #   - "https://github.com/actions/actions-runner-controller"
-# maintainers:
-#   - name: actions
-#     url: https://github.com/actions
+home: https://github.com/actions/actions-runner-controller
+# sources:
+#   - "https://github.com/actions/actions-runner-controller"
+maintainers:
+  - name: actions
+    url: https://github.com/actions
 dependencies:
 - name: gha
   repository: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
