@@ -10,17 +10,17 @@ gha:
     requests:
       cpu: 100m
       memory: 128Mi
-  env:
-    - name: REPOSITORY
-      valueFrom:
-        secretKeyRef:
-          name: gha-secrets
-          key: REPO
-          optional: true 
+  # env:
+  #   - name: REPOSITORY
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: gha-secrets
+  #         key: REPO
+  #         optional: true 
 
-    - name: TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: gha-secrets
-          key: TOKEN
-          optional: true     
+  #   - name: TOKEN
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: gha-secrets
+  #         key: TOKEN
+  #         optional: true     
