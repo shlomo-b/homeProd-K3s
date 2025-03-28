@@ -1,25 +1,26 @@
-# gha:
-#   serviceAccount:
-#     create: true
-#   replicaCount: 2  
-#   resources:
-#     limits:
-#       cpu: 100m
-#       memory: 128Mi
-#     requests:
-#       cpu: 100m
-#       memory: 128Mi
-#   env:
-#     - name: REPOSITORY
-#       valueFrom:
-#         secretKeyRef:
-#           name: gha-secrets
-#           key: REPO
-#           optional: true 
+gha:
+  serviceAccount:
+    create: true
+  replicaCount: 2 
+  namespaceOverride: gha 
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  env:
+    - name: REPOSITORY
+      valueFrom:
+        secretKeyRef:
+          name: gha-secrets
+          key: REPO
+          optional: true 
 
-#     - name: TOKEN
-#       valueFrom:
-#         secretKeyRef:
-#           name: gha-secrets
-#           key: TOKEN
-#           optional: true     
+    - name: TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: gha-secrets
+          key: TOKEN
+          optional: true     
