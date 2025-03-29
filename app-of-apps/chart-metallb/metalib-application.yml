@@ -15,6 +15,9 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
     automated:
       selfHeal: true 
       prune: true
@@ -24,8 +27,3 @@ spec:
       name: bgppeers.metallb.io
       jsonPointers:
       - /spec/conversion/webhook/clientConfig/caBundle
-    - group: "apiextensions.k8s.io"
-      kind: CustomResourceDefinition
-      name: addresspools.metallb.io
-      jsonPointers:
-      - /spec/conversion/webhook/clientConfig/caBundle    
