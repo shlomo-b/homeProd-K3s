@@ -1,0 +1,9 @@
+cert-manager:
+  replicaCount: 1
+  serviceAccount:
+    create: true
+  installCRDs: true  
+  resources:
+    limits:
+      cpu: 100m
+      memory: 512Mi
