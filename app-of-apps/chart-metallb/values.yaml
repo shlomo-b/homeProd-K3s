@@ -2,8 +2,6 @@ metallb:
   crds:
     enabled: true
     validationFailurePolicy: Fail
-    bgp:
-      enabled: false
   speaker:
     enabled: true
     serviceAccount:
