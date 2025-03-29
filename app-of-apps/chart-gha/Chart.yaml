@@ -12,5 +12,5 @@ maintainers:
     url: https://github.com/actions
 dependencies:
 - name: gha
-  repository: https://actions-runner-controller.github.io/actions-runner-controller
+  repository: https://github.com/actions/actions-runner-controller
   version: 0.11.0
