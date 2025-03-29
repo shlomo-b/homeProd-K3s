@@ -1,16 +1,16 @@
-apiVersion: v2
-name: gha
-description: A Helm chart for actions-runner-controller
-type: application
-version: 0.11.0
-appVersion: "0.11.0"
-home: https://github.com/actions/actions-runner-controller
-sources:
-  - "https://github.com/actions/actions-runner-controller"
-maintainers:
-  - name: actions
-    url: https://github.com/actions
-dependencies:
-- name: gha
-  repository: https://actions-runner-controller.github.io/actions-runner-controller
-  version: 0.11.0
+# apiVersion: v2
+# name: gha
+# description: A Helm chart for actions-runner-controller
+# type: application
+# version: 0.11.0
+# appVersion: "0.11.0"
+# home: https://github.com/actions/actions-runner-controller
+# sources:
+#   - "https://github.com/actions/actions-runner-controller"
+# maintainers:
+#   - name: actions
+#     url: https://github.com/actions
+# dependencies:
+# - name: gha
+#   repository: https://actions-runner-controller.github.io/actions-runner-controller
+#   version: 0.11.0
