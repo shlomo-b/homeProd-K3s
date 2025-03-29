@@ -1,6 +1,6 @@
 metallb:
   crds:
-    enabled: false
+    enabled: true
     validationFailurePolicy: Fail
   speaker:
     enabled: true
