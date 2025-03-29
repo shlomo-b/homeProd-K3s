@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gha
+  name: gha-runner
   namespace: argocd
 spec:
   project: default
@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: gha
+    namespace: gha-runner
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

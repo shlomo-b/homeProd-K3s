@@ -1,8 +1,8 @@
-gha:
+gha-runner:
   serviceAccount:
     create: true
   replicaCount: 2 
-  namespaceOverride: gha 
+  namespaceOverride: gha-runner
   # securityContext:
   #   capabilities:
   #     drop:
