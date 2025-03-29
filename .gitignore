@@ -10,3 +10,6 @@ addresses.txt
 
 # ignore file s3-access
 app-of-apps/chart-loki/s3-secrets.yaml
+
+# ignore file secret-repo-gha
+app-of-apps/chart-gha/secret-repo-gha.yml

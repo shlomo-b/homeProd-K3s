@@ -3,13 +3,6 @@ gha-runner:
     create: true
   replicaCount: 2 
   namespaceOverride: gha-runner
-  # securityContext:
-  #   capabilities:
-  #     drop:
-  #       - ALL
-  #   readOnlyRootFilesystem: true
-  #   runAsNonRoot: true
-  #   runAsUser: 1000
   resources:
     limits:
       cpu: 100m
