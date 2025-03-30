@@ -7,3 +7,4 @@ cert-manager:
     limits:
       cpu: 100m
       memory: 512Mi
+  extraObjects:    
