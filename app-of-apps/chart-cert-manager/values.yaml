@@ -7,25 +7,3 @@ cert-manager:
     limits:
       cpu: 100m
       memory: 512Mi
-  extraArgs:
-    apiVersion: cert-manager.io/v1
-    kind: ClusterIssuer
-    metadata:
-      name: letsencrypt-staging
-    spec:
-      acme:
-        email: me@example.com
-        server: https://acme-staging-v02.api.letsencrypt.org/directory
-        privateKeySecretRef:
-          name: example-issuer-account-key
-        solvers:
-        - dns01:
-            route53:
-              region: us-west-2
-              accessKeyIDSecretRef:
-                name: route53-secret
-                key: access-key-id
-              secretAccessKeySecretRef:
-                name: route53-secret
-                key: secret-access-key
-      
