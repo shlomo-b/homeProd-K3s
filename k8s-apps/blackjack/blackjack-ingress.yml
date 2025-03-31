@@ -6,7 +6,9 @@ metadata:
   namespace: blackjack # the namespace that sperate the pods  between envroments.
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.tls.certresolver: "blackjack-cert"    
+    traefik.ingress.kubernetes.io/router.tls.certresolver: "blackjack-cert"  
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https  
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
                                             
 spec:
   ingressClassName: traefik
@@ -23,7 +25,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: ssl-redirect # the name of the service
+                name: 
                 port:
                   name: use-annotation # use the annotation
 
