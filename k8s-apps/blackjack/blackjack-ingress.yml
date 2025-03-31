@@ -9,11 +9,11 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls.certresolver: "blackjack-cert"    
                                             
 spec:
-  tls:
-    -hosts:
-      - blackjack-k3s.spider-shlomo.com
-    secretName: blackjack-tls
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - blackjack-k3s.spider-shlomo.com
+    secretName: blackjack-tls
   rules:
   # those rules for the application to allow the metrics/presentation/and the application
     - host: blackjack-k3s.spider-shlomo.com
