@@ -21,21 +21,21 @@ spec:
     - host: blackjack-k3s.spider-shlomo.com
     - http:
         paths:
-          - path: /metrics
-            pathType: Prefix
-            backend:
-              service:
-                name: 
-                port:
-                  name: use-annotation # use the annotation
+          # - path: /metrics
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: 
+          #       port:
+          #         name: use-annotation # use the annotation
 
-          - path: /
-            pathType: Exact # allow only access to application
-            backend:
-              service:
-                name: redirect-entry-point
-                port:
-                  name: use-annotation # use the annotation    
+          # - path: /
+          #   pathType: Exact # allow only access to application
+          #   backend:
+          #     service:
+          #       name: redirect-entry-point
+          #       port:
+          #         name: use-annotation # use the annotation    
 
           - path: /presentation
             pathType: Prefix
