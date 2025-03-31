@@ -52,7 +52,7 @@ metadata:
 spec:
   selector:
     app: blackjack
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 80
