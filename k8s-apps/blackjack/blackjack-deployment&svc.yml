@@ -52,9 +52,8 @@ metadata:
 spec:
   selector:
     app: blackjack
-  type: NodePort
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 80
-      nodePort: 30060
       targetPort: 80
