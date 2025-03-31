@@ -37,13 +37,13 @@ spec:
           #       port:
           #         name: use-annotation # use the annotation    
 
-          - path: /presentation
-            pathType: Prefix
-            backend:
-              service:
-                name: redirect-entry-point
-                port:
-                  name: use-annotation # use the annotation          
+          # - path: /presentation
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: redirect-entry-point
+          #       port:
+          #         name: use-annotation # use the annotation          
 
           - path: /metrics
             pathType: Prefix
