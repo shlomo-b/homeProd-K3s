@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
       - blackjack-k3s.spider-shlomo.com
-    secretName: blackjack-cert
+    secretName: blackjack-tls
   rules:
   - host: blackjack-k3s.spider-shlomo.com
     http:
