@@ -5,6 +5,8 @@ metadata:
   name: ingress-blackjack
   namespace: blackjack # the namespace that sperate the pods  between envroments.
   annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.tls.certresolver: "blackjack-cert"  
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https  
