@@ -1,72 +1,45 @@
-# for working with alb type application you need to install helm and install the ingress controller aws.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-blackjack
-  namespace: blackjack # the namespace that sperate the pods  between envroments.
+  namespace: blackjack  # שם ה־namespace של האפליקציה
   annotations:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.tls.certresolver: "blackjack-cert"  
-    traefik.ingress.kubernetes.io/frontend-entry-points: http,https  
+    traefik.ingress.kubernetes.io/router.tls.certresolver: "blackjack-cert"
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/redirect-entry-point: https
-                                            
 spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - blackjack-k3s.spider-shlomo.com
-    secretName: blackjack-tls
+      - blackjack-k3s.spider-shlomo.com
+    secretName: blackjack-tls  # הסוד עם תעודת ה-SSL שהונפקה ע"י cert-manager
   rules:
-  # those rules for the application to allow the metrics/presentation/and the application
-    - host: blackjack-k3s.spider-shlomo.com
-    - http:
-        paths:
-          # - path: /metrics
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: 
-          #       port:
-          #         name: use-annotation # use the annotation
+  - host: blackjack-k3s.spider-shlomo.com
+    http:
+      paths:
+        - path: /metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: svc-blackjack
+              port:
+                number: 80
 
-          # - path: /
-          #   pathType: Exact # allow only access to application
-          #   backend:
-          #     service:
-          #       name: redirect-entry-point
-          #       port:
-          #         name: use-annotation # use the annotation    
+        - path: /presentation
+          pathType: Prefix
+          backend:
+            service:
+              name: svc-blackjack
+              port:
+                number: 80
 
-          # - path: /presentation
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: redirect-entry-point
-          #       port:
-          #         name: use-annotation # use the annotation          
-
-          - path: /metrics
-            pathType: Prefix
-            backend:
-              service:
-                name: svc-blackjack
-                port:
-                  number: 80
-
-          - path: /presentation
-            pathType: Prefix
-            backend:
-              service:
-                name: svc-blackjack
-                port:
-                  number: 80
-                  
-          - path: /
-            pathType: Exact # allow only access to application
-            backend:
-              service:
-                name: svc-blackjack
-                port:
-                  number: 80
+        - path: /
+          pathType: Exact
+          backend:
+            service:
+              name: svc-blackjack
+              port:
+                number: 80
