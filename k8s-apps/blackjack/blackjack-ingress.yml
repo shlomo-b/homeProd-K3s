@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-blackjack
-  namespace: blackjack  # שם ה־namespace של האפליקציה
+  namespace: blackjack
   annotations:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
       - blackjack-k3s.spider-shlomo.com
-    secretName: blackjack-tls  # הסוד עם תעודת ה-SSL שהונפקה ע"י cert-manager
+    secretName: blackjack-cert
   rules:
   - host: blackjack-k3s.spider-shlomo.com
     http:
