@@ -1,7 +1,5 @@
 traefik:
   replicaCount: 1
-  serviceAccount:
-    name: traefik
   ingressClass:
     enabled: true
     isDefaultClass: true
