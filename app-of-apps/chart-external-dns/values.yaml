@@ -1,32 +1,32 @@
-external-dns:
-  provider: aws
-  aws:
-    zoneType: public # the zone type is public
-    name: external-dns
-    preferCNAME: false # the preferCNAME is false | to work with ip with a record.
-  policy: upsert-only  # update or create only a record without delete any record.
-  registry: noop       # no operation for record txt.
-  sources:
-    - ingress          # the external-dns will look on the ingress and work with the ingress
-                      # for create a record to alb.
-  domainFilters:
-    - spider-shlomo.com # the domain in route53
-  logLevel: debug
-  txtOwnerId: ""      # it's empty because we dont need record txt.
+# external-dns:
+#   provider: aws
+#   aws:
+#     zoneType: public # the zone type is public
+#     name: external-dns
+#     preferCNAME: false # the preferCNAME is false | to work with ip with a record.
+#   policy: upsert-only  # update or create only a record without delete any record.
+#   registry: noop       # no operation for record txt.
+#   sources:
+#     - ingress          # the external-dns will look on the ingress and work with the ingress
+#                       # for create a record to alb.
+#   domainFilters:
+#     - spider-shlomo.com # the domain in route53
+#   logLevel: debug
+#   txtOwnerId: ""      # it's empty because we dont need record txt.
 
-  # create service account
-  serviceAccount:
-    create: true
-    name: external-dns-service-account
+#   # create service account
+#   serviceAccount:
+#     create: true
+#     name: external-dns-service-account
     
-  # region default
-  region: us-east-1
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - node1
+#   # region default
+#   region: us-east-1
+#   affinity:
+#     nodeAffinity:
+#       requiredDuringSchedulingIgnoredDuringExecution:
+#         nodeSelectorTerms:
+#         - matchExpressions:
+#           - key: kubernetes.io/hostname
+#             operator: In
+#             values:
+#               - node1
