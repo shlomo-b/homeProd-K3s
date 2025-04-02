@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shlomo-b/Shop-Online.git
+    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     path: app-of-apps/chart-external-dns
     targetRevision: HEAD
   destination:
