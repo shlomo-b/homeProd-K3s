@@ -11,7 +11,13 @@ traefik:
     type: LoadBalancer  
     spec:
       LoadBalancerIP: "10.90.100.121"
-  installCRDs: true  
+  installCRDs: true 
+  metrics:
+    prometheus:
+      enabled: true 
+  logs:
+    access:
+      enabled: true  
   resources:
     limits:
       cpu: 100m
