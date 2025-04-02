@@ -1,5 +1,4 @@
 external-dns:
-  replicaCount: 1
   provider: aws
   aws:
     zoneType: public # the zone type is public
@@ -31,4 +30,3 @@ external-dns:
             operator: In
             values:
               - node1
-              - node2
