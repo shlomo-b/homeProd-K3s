@@ -13,8 +13,8 @@ spec:
         route53:
           region: us-east-1
           accessKeyIDSecretRef:
-            name: aws-secret
+            name: cert-manager-secrets
             key: access-key
           secretAccessKeySecretRef:
-            name: aws-secret
+            name: cert-manager-secrets
             key: secret-access-key
