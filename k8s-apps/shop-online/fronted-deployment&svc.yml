@@ -24,7 +24,7 @@ spec:
           labelSelector:
             matchLabels:
               app: react-app    
-    spec:
+  #  spec:
       containers:
       - name: lab4
         image: shlomobarzili/react-fronted:latest
@@ -57,9 +57,9 @@ metadata:
 spec:
   selector:
     app: react-app
-  type: LoadBalancer # the type of the service
-  loadBalancerIP: "10.90.100.150"
+  type: ClusterIP # the type of the service
+ # loadBalancerIP: "10.90.100.150"
   ports:
     - protocol: TCP
       port: 3000   # the port svc that expose
-      targetPort: 3000 # the port of the pod      
+      targetPort: 3000 # the port of the pod

@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-shop-online
+  namespace: shop-online
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: "shop-online-cert"
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+      - shop-online-k3s.spider-shlomo.com
+    secretName: shop-online-tls
+  rules:
+  - host: shop-online-k3s.spider-shlomo.com
+    http:
+      paths:
+        - path: /metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: react-svc
+              port:
+                number: 3000
+
+        - path: /presentation
+          pathType: Prefix
+          backend:
+            service:
+              name: react-svc
+              port:
+                number: 3000
+
+        - path: /
+          pathType: Exact
+          backend:
+            service:
+              name: react-svc
+              port:
+                number: 3000
