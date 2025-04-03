@@ -1,6 +1,15 @@
 external-dns:
   provider: aws
   aws:
+    credentials:  
+      secretName: keys
+      accessKeyIDSecretRef:
+        name: aws-secret
+        key: accessKeyId
+      secretAccessKeySecretRef:
+        name: aws-secret
+        key: secretAccessKey
+        
     zoneType: public # the zone type is public
     name: external-dns
     preferCNAME: false # the preferCNAME is false | to work with ip with a record.
@@ -18,13 +27,6 @@ external-dns:
   serviceAccount:
     create: true
     name: external-dns-service-account
-  secretName: keys
-  accessKeyIDSecretRef:
-    name: aws-secret
-    key: accessKeyId
-  secretAccessKeySecretRef:
-    name: aws-secret
-    key: secretAccessKey
 
   # region default
   region: us-east-1
