@@ -13,3 +13,21 @@ spec:
   issuerRef:
     name: letsencrypt-dns
     kind: ClusterIssuer
+
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: shop-online-cert
+  namespace: shop-online
+spec:
+  secretName: shop-online-tls
+  duration: 2160h
+  renewBefore: 360h
+  commonName: shop-online-k3s.spider-shlomo.com
+  dnsNames:
+  - shop-online-k3s.spider-shlomo.com
+  issuerRef:
+    name: letsencrypt-dns
+    kind: ClusterIssuer
