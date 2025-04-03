@@ -2,7 +2,7 @@ external-dns:
   provider: aws
   aws:
     credentials:  
-      secretName: keys
+      secretName: route53-access
       accessKeyIDSecretRef:
         name: aws-secret
         key: accessKeyId
