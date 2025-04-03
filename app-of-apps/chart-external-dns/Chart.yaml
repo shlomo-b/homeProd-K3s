@@ -1,12 +1,12 @@
-# apiVersion: v2
-# name: external-dns
-# description: A Helm chart for ExternalDNS
-# type: application
-# version: 8.7.9
-# appVersion: 0.16.1
-# dependencies:
-# - name: external-dns
-#   repository: oci://registry-1.docker.io/bitnamicharts
-#   tags:
-#   - bitnami-common
-#   version: 8.7.9
+apiVersion: v2
+name: external-dns
+description: A Helm chart for ExternalDNS
+type: application
+version: 8.7.9
+appVersion: 0.16.1
+dependencies:
+- name: external-dns
+  repository: oci://registry-1.docker.io/bitnamicharts
+  tags:
+  - bitnami-common
+  version: 8.7.9
