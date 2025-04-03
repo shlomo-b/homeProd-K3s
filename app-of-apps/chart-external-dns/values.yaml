@@ -18,7 +18,14 @@ external-dns:
   serviceAccount:
     create: true
     name: external-dns-service-account
-    
+  secretName: keys
+  accessKeyIDSecretRef:
+    name: aws-secret
+    key: accessKeyId
+  secretAccessKeySecretRef:
+    name: aws-secret
+    key: secretAccessKey
+
   # region default
   region: us-east-1
   affinity:
