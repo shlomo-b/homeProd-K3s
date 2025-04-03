@@ -1,0 +1,31 @@
+keel:
+  # Keel policy (all/major/minor/patch/force) - this controls the update frequency based on tag versioning
+  enabled: true
+  policy: all
+  trigger: poll
+  pollSchedule: "@every 3m"
+  images:
+    - repository: shlomobarzili/blackjack # Docker Hub repository name
+      tag: latest # Track the 'latest' tag, or you can use dynamic tags like commit hash
+    - repository: shlomobarzili/react-fronted
+      tag: latest
+    - repository: shlomobarzili/flask-backend
+      tag: latest
+    - repository: shlomobarzili/fortigate-backup
+      tag: latest  
+    - repository: shlomobarzili/backup-sw
+      tag: latest    
+
+  aws:
+    region: us-east-1
+
+  helmProvider:
+    enabled: true # enable helm provider  
+# if the repo is private you need to add the following 
+
+
+# dockerRegistry:
+#   enabled: true
+#   name: docker.io        # Docker Hub URL
+#   key: YOUR_DOCKER_HUB_USERNAME
+#   secret: YOUR_DOCKER_HUB_TOKEN  # Docker Hub Access Token
