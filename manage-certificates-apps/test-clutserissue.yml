@@ -13,8 +13,8 @@ spec:
         route53:
           region: us-east-1
           accessKeyIDSecretRef:
-            name: cert-manager-secrets
+            name: secret-cert-manager
             key: access-key
           secretAccessKeySecretRef:
-            name: cert-manager-secrets
+            name: secret-cert-manager
             key: secret-access-key
