@@ -20,24 +20,24 @@ spec:
   - host: shop-online-k3s.spider-shlomo.com
     http:
       paths:
-        - path: /metrics
-          pathType: Prefix
-          backend:
-            service:
-              name: react-svc
-              port:
-                number: 3000
+        # - path: /metrics
+        #   pathType: Prefix
+        #   backend:
+        #     service:
+        #       name: react-svc
+        #       port:
+        #         number: 3000
 
-        - path: /presentation
-          pathType: Prefix
-          backend:
-            service:
-              name: react-svc
-              port:
-                number: 3000
+        # - path: /presentation
+        #   pathType: Prefix
+        #   backend:
+        #     service:
+        #       name: react-svc
+        #       port:
+        #         number: 3000
 
         - path: /
-          pathType: Exact
+          pathType: prefix
           backend:
             service:
               name: react-svc
