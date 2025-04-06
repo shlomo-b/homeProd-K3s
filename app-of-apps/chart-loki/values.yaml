@@ -3,9 +3,9 @@ loki:
     deploymentMode: SimpleScalable
   loki:
     enabled: true
-    memberlist:
-      join_members:
-        - loki-backend
+    # memberlist:
+    #   join_members:
+    #     - loki-backend
     serviceAccount:
       create: true
       name: loki-access-to-s3
