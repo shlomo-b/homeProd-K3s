@@ -47,7 +47,7 @@ loki:
       size: 10Gi
 
   write:
-    replicas: 1
+    replicas: 2
     persistence:
       enabled: true
       volumeClaimsEnabled: true
