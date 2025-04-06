@@ -35,6 +35,7 @@ loki:
         secretAccessKey: ${ACCESS_KEY_ID}
         accessKeyId: ${SECRET_ACCESS_KEY}
   read:
+    enabled: true
     legacyReadTarget: false
     replicas: 2
     service:
@@ -47,6 +48,7 @@ loki:
       size: 10Gi
 
   write:
+    enabled: true
     replicas: 2
     persistence:
       enabled: true
@@ -58,6 +60,7 @@ loki:
       port: 3100
       
   backend:
+    enabled: true
     replicas: 1
     persistence:
       enabled: true
