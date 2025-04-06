@@ -3,6 +3,9 @@ loki:
     deploymentMode: SimpleScalable
   loki:
     enabled: true
+    memberlist:
+      join_members:
+        - loki-backend
     serviceAccount:
       create: true
       name: loki-access-to-s3
@@ -32,8 +35,8 @@ loki:
         s3: s3://s3.us-east-1
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        secretAccessKey: ${ACCESS_KEY_ID}
-        accessKeyId: ${SECRET_ACCESS_KEY}
+        accessKeyId: ${ACCESS_KEY_ID}
+        secretAccessKey: ${SECRET_ACCESS_KEY}
   read:
     enabled: true
     legacyReadTarget: false
