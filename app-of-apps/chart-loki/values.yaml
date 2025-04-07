@@ -32,9 +32,9 @@ loki:
         admin: s3-loki
       type: s3
       s3:
-        s3: s3://s3.us-east-1
-        endpoint: s3.us-east-1.amazonaws.com
-        region: us-east-1   
+        s3: null # s3://s3.us-east-1
+        endpoint: null #  s3.us-east-1.amazonaws.com
+        region: null # us-east-1   
         accessKeyId: null
         secretAccessKey: null
   read:
