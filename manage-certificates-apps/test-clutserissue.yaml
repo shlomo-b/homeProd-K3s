@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-dns-test
+  name: letsencrypt-dns
   labels:
     argocd.argoproj.io/instance: cert-manager
 spec:
