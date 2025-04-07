@@ -1,4 +1,3 @@
-#argocd
 global:
   domain: argocd.spider.local
   
