@@ -7,9 +7,8 @@ cert-manager:
     limits:
       cpu: 100m
       memory: 512Mi
-  extraObjects: 
-    - | 
-      apiVersion: cert-manager.io/v1
+  extraObjects:
+    - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
       metadata:
         name: letsencrypt-dns
@@ -20,12 +19,12 @@ cert-manager:
           privateKeySecretRef:
             name: letsencrypt-dns-private-key
           solvers:
-          - dns01:
-              route53:
-                region: us-east-1
-                accessKeyIDSecretRef:
-                  name: aws-secret
-                  key: accessKeyId
-                secretAccessKeySecretRef:
-                  name: aws-secret
-                  key: secretAccessKey
+            - dns01:
+                route53:
+                  region: us-east-1
+                  accessKeyIDSecretRef:
+                    name: aws-secret
+                    key: accessKeyId
+                  secretAccessKeySecretRef:
+                    name: aws-secret
+                    key: secretAccessKey
