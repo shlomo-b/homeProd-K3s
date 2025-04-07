@@ -7,3 +7,14 @@ cert-manager:
     limits:
       cpu: 100m
       memory: 512Mi    
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - node1
+              - node2
