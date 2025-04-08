@@ -27,7 +27,7 @@ grafana:
       - name: Loki
         type: loki
         access: proxy
-        url: loki-read:3100  
+        url: http://loki-read:3100  
 
       - name: prometheus
         type: prometheus
