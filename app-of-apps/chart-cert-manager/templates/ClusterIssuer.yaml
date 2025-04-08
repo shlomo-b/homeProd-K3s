@@ -1,22 +1,22 @@
-{{- if (index .Values "cert-letsencrypt" "acme") }}
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-dns-issuer
-spec:
-  acme:
-    email: {{ index .Values "cert-letsencrypt" "email" | quote }}
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: letsencrypt-dns-private-key
-    solvers:
-      - dns01:
-          route53:
-            region: {{ index .Values "cert-letsencrypt" "crtah" "region" | default "us-east-1" | quote }}
-            accessKeyIDSecretRef:
-              name: {{ index .Values "cert-letsencrypt" "crtah" "secretName" | default "aws-secret" | quote }}
-              key: "accessKeyId"
-            secretAccessKeySecretRef:
-              name: {{ index .Values "cert-letsencrypt" "crtah" "secretName" | default "aws-secret" | quote }}
-              key: "secretAccessKey"
-{{- end }}
+# {{- if (index .Values "cert-letsencrypt" "acme") }}
+# apiVersion: cert-manager.io/v1
+# kind: ClusterIssuer
+# metadata:
+#   name: letsencrypt-dns-issuer
+# spec:
+#   acme:
+#     email: {{ index .Values "cert-letsencrypt" "email" | quote }}
+#     server: https://acme-v02.api.letsencrypt.org/directory
+#     privateKeySecretRef:
+#       name: letsencrypt-dns-private-key
+#     solvers:
+#       - dns01:
+#           route53:
+#             region: {{ index .Values "cert-letsencrypt" "crtah" "region" | default "us-east-1" | quote }}
+#             accessKeyIDSecretRef:
+#               name: {{ index .Values "cert-letsencrypt" "crtah" "secretName" | default "aws-secret" | quote }}
+#               key: "accessKeyId"
+#             secretAccessKeySecretRef:
+#               name: {{ index .Values "cert-letsencrypt" "crtah" "secretName" | default "aws-secret" | quote }}
+#               key: "secretAccessKey"
+# {{- end }}

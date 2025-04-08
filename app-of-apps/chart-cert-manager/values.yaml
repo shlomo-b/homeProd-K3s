@@ -28,10 +28,10 @@ cert-manager:
               values:
                 - node2
 
-  cert-letsencrypt:
-    email: shlomobarzili@email.com
-    acme: true
-    crtah:
-      region: us-east-1
-      secretName: aws-secret
+  # cert-letsencrypt:
+  #   email: shlomobarzili@email.com
+  #   acme: true
+  #   crtah:
+  #     region: us-east-1
+  #     secretName: aws-secret
               
