@@ -14,3 +14,10 @@ external-secrets:
       labelSelector:
         matchLabels:
           app.kubernetes.io/name: external-secrets
+  secretStore:
+    aws:
+      region: us-east-1
+      namespace: external-secrets
+    #  secretName: aws-secret
+    #  accessKey: access-key-id
+    #  secretAccessKey: secret-access-key
