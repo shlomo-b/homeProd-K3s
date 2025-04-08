@@ -7,8 +7,6 @@ metadata:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
-    # traefik.ingress.kubernetes.io/frontend-entry-points: http,https
-    # traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   ingressClassName: traefik
   tls:
