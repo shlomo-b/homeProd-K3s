@@ -40,3 +40,11 @@ spec:
               name: lab4-backend-svc
               port:
                 number: 5050
+
+        - path: /api/register
+          pathType: Exact
+          backend:
+            service:
+              name: lab4-backend-svc
+              port:
+                number: 5050        
