@@ -5,13 +5,14 @@ metadata:
   namespace: blackjack
 spec:
   secretName: blackjack-tls
+  revisionHistoryLimit: 1
   duration: 2160h
   renewBefore: 360h
   commonName: blackjack-k3s.spider-shlomo.com
   dnsNames:
   - blackjack-k3s.spider-shlomo.com
   issuerRef:
-    name: letsencrypt-dns
+    name: letsencrypt-dns-issuer
     kind: ClusterIssuer
 
 
@@ -23,11 +24,31 @@ metadata:
   namespace: shop-online
 spec:
   secretName: shop-online-tls
+  revisionHistoryLimit: 1
   duration: 2160h
   renewBefore: 360h
   commonName: shop-online-k3s.spider-shlomo.com
   dnsNames:
   - shop-online-k3s.spider-shlomo.com
   issuerRef:
-    name: letsencrypt-dns
+    name: letsencrypt-dns-issuer
+    kind: ClusterIssuer
+
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: shop-online-cert-backend
+  namespace: shop-online
+spec:
+  secretName: shop-online-backend-tls
+  revisionHistoryLimit: 1
+  duration: 2160h
+  renewBefore: 360h
+  commonName: backend-k3s.spider-shlomo.com
+  dnsNames:
+  - backend-k3s.spider-shlomo.com
+  issuerRef:
+    name: letsencrypt-dns-issuer
     kind: ClusterIssuer

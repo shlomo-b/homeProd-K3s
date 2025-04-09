@@ -15,7 +15,7 @@ external-secrets:
         matchLabels:
           app.kubernetes.io/name: external-secrets
 
-  secretStore:
-    aws:
-      region: us-east-1
-      namespace: external-secrets
+  # secretStore:
+  #   aws:
+  #     region: us-east-1
+  #     namespace: external-secrets
