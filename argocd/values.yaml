@@ -68,8 +68,8 @@ configs:
 server:
   ingress:
     enabled: true
-    controller: aws
-    ingressClassName: alb
+    controller: generic
+    ingressClassName: traefik
     annotations:
       kubernetes.io/ingress.class: traefik
       kubernetes.io/preserve-host: "true"
