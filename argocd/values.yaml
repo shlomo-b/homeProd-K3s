@@ -8,7 +8,7 @@ configs:
     create: true
     accounts.shlomob: apiKey, login
     # SSO Configuration via AzureAd
-    url: https://argocd.spider.local
+    url: https://argocd-k3s.spider-shlomo.com
     dex.config: |
         logger:
           level: debug
@@ -18,10 +18,10 @@ configs:
           id: saml
           name: azure
           config:
-            entityIssuer: https://argocd.spider.local/api/dex/callback
+            entityIssuer: https://argocd-k3s.spider-shlomo.com/api/dex/callback
             ssoURL: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
             ca: /etc/dex/certs/ca.crt
-            requestedID: https://argocd.spider.local/api/dex/callback
+            requestedID: https://argocd-k3s.spider-shlomo.com/api/dex/callback
             usernameAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
             emailAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
 
