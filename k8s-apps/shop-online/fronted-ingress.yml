@@ -55,4 +55,12 @@ spec:
             service:
               name: react-svc
               port:
-                number: 3000                    
+                number: 3000 
+
+        - path: /add-product
+          pathType: Exact
+          backend:
+            service:
+              name: react-svc
+              port:
+                number: 3000                             

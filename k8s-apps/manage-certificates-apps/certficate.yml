@@ -52,3 +52,21 @@ spec:
   issuerRef:
     name: letsencrypt-dns-issuer
     kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-cert
+  namespace: argocd
+spec:
+  secretName: argocd-tls
+  revisionHistoryLimit: 1
+  duration: 2160h
+  renewBefore: 360h
+  commonName: argocd-k3s.spider-shlomo.com
+  dnsNames:
+  - argocd-k3s.spider-shlomo.com
+  issuerRef:
+    name: letsencrypt-dns-issuer
+    kind: ClusterIssuer
