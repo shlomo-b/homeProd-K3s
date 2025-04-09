@@ -69,9 +69,9 @@ metadata:
 spec:
   selector:
     app: backend-lab4
-  type: LoadBalancer # the type of the service
-  loadBalancerIP: "10.90.100.149"
+  type: ClusterIP 
+#  loadBalancerIP: "10.90.100.149"
   ports:
     - protocol: TCP
-      port: 5050   # the port svc that expose
-      targetPort: 5050 # the port of the pod | container
+      port: 5050
+      targetPort: 5050

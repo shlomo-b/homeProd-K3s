@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-shop-online
+  name: ingress-fronted
   namespace: shop-online
   annotations:
     kubernetes.io/ingress.class: traefik
@@ -17,14 +17,6 @@ spec:
   - host: shop-online-k3s.spider-shlomo.com
     http:
       paths:
-        - path: /metrics
-          pathType: Exact
-          backend:
-            service:
-              name: react-svc
-              port:
-                number: 3000
-
         - path: /presentation
           pathType: Exact
           backend:
