@@ -14,7 +14,7 @@ spec:
       - backend-k3s.spider-shlomo.com
     secretName: shop-online-backend-tls
   rules:
-  - host: shop-online-k3s.spider-shlomo.com
+ # - host: shop-online-k3s.spider-shlomo.com
     http:
       paths:
         - path: /metrics
