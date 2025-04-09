@@ -1,5 +1,5 @@
 global:
-  domain: argocd.spider.local
+  domain: argocd-k3s.spider-shlomo.com
   
 configs:
   params:
@@ -64,15 +64,20 @@ configs:
       g, "Shlomo_lab@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
     scopes: '[email]'
+# Ingress for argo cd  
 server:
-  service:
-    type: LoadBalancer
-    servicePortHttp: 80
-    servicePortHttps: 443
-    servicePortHttpName: http
-    servicePortHttpsName: https
-    loadBalancerClass: ""
-    loadBalancerIP: "10.90.100.200"
+  ingress:
+    enabled: true
+    controller: aws
+    ingressClassName: alb
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+  extraTls:
+    - hosts:
+        - argocd-k3s.spider-shlomo.com
+      secretName: argocd-tls
 
 # responsible for authenticating users    
 dex:
