@@ -1,5 +1,5 @@
 global:
-  domain: argocd-k3s.spider-shlomo.com
+  domain: argocd.spider.local
   
 configs:
   params:
@@ -8,7 +8,7 @@ configs:
     create: true
     accounts.shlomob: apiKey, login
     # SSO Configuration via AzureAd
-    url: https://argocd-k3s.spider-shlomo.com
+    url: https://argocd.spider.local
     dex.config: |
         logger:
           level: debug
@@ -18,10 +18,10 @@ configs:
           id: saml
           name: azure
           config:
-            entityIssuer: https://argocd-k3s.spider-shlomo.com/api/dex/callback
+            entityIssuer: https://argocd.spider.local/api/dex/callback
             ssoURL: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
             ca: /etc/dex/certs/ca.crt
-            requestedID: https://argocd-k3s.spider-shlomo.com/api/dex/callback
+            requestedID: https://argocd.spider.local/api/dex/callback
             usernameAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
             emailAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
 
@@ -64,20 +64,15 @@ configs:
       g, "Shlomo_lab@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
     scopes: '[email]'
-# Ingress for argo cd  
 server:
-  ingress:
-    enabled: true
-    controller: generic
-    ingressClassName: traefik
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/preserve-host: "true"
-      traefik.ingress.kubernetes.io/router.tls: "true"
-  extraTls:
-    - hosts:
-        - argocd-k3s.spider-shlomo.com
-      secretName: argocd-tls
+  service:
+    type: LoadBalancer
+    servicePortHttp: 80
+    servicePortHttps: 443
+    servicePortHttpName: http
+    servicePortHttpsName: https
+    loadBalancerClass: ""
+    loadBalancerIP: "10.90.100.200"
 
 # responsible for authenticating users    
 dex:
