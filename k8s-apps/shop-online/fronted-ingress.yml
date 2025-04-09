@@ -48,3 +48,11 @@ spec:
               name: react-svc
               port:
                 number: 3000              
+
+        - path: /ws
+          pathType: Exact
+          backend:
+            service:
+              name: react-svc
+              port:
+                number: 3000            
