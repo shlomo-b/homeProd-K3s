@@ -17,14 +17,6 @@ spec:
   - host: shop-online-k3s.spider-shlomo.com
     http:
       paths:
-        - path: /presentation
-          pathType: Exact
-          backend:
-            service:
-              name: react-svc
-              port:
-                number: 3000
-
         - path: /
           pathType: Exact
           backend:
@@ -49,10 +41,18 @@ spec:
               port:
                 number: 3000              
 
-        - path: /ws
+        - path: /register
           pathType: Exact
           backend:
             service:
               name: react-svc
               port:
-                number: 3000            
+                number: 3000     
+
+        - path: /login
+          pathType: Exact
+          backend:
+            service:
+              name: react-svc
+              port:
+                number: 3000                    
