@@ -50,6 +50,5 @@ grafana:
   service:
       enabled: true
       type: ClusterIP
-     # port: 80
       targetPort: 3000
         
