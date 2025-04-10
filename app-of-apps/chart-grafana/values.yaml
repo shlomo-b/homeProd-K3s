@@ -33,3 +33,20 @@ grafana:
         type: prometheus
         access: proxy
         url: http://prometheus-server:9090
+
+  # ingress:
+  #   enabled: true
+  #   ingressClassName: traefik
+  #   annotations:
+  #     kubernetes.io/ingress.class: traefik
+  #     kubernetes.io/preserve-host: "true"
+  #     traefik.ingress.kubernetes.io/router.tls: "true"
+  #   tls:
+  #       - secretName: argocd-tls
+  #         hosts:
+  #           - argocd-k3s.spider-shlomo.com
+  # service:
+  #     type: ClusterIP
+  #     servicePortHttp: 80
+  #     servicePortHttps: 443
+        

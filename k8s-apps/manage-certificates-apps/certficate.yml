@@ -70,3 +70,22 @@ spec:
   issuerRef:
     name: letsencrypt-dns-issuer
     kind: ClusterIssuer
+
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-cert
+  namespace: monitoring
+spec:
+  secretName: grafana-tls
+  revisionHistoryLimit: 1
+  duration: 2160h
+  renewBefore: 360h
+  commonName: grafana-k3s.spider-shlomo.com
+  dnsNames:
+  - grafana-k3s.spider-shlomo.com
+  issuerRef:
+    name: letsencrypt-dns-issuer
+    kind: ClusterIssuer
