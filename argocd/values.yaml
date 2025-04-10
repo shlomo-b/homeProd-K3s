@@ -85,6 +85,9 @@ server:
     servicePortHttps: 443
 
 # responsible for authenticating users
+EnvFrom:
+  - secretRef:
+      name: aws-secret
 dex:
   volumes:
     - name: sso-cert
