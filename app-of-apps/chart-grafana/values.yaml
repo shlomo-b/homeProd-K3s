@@ -41,8 +41,8 @@ grafana:
       kubernetes.io/ingress.class: traefik
       kubernetes.io/preserve-host: "true"
       traefik.ingress.kubernetes.io/router.tls: "true"
-    # hosts:
-    #   - grafana-k3s.spider-shlomo.com  
+    hosts:
+      - grafana-k3s.spider-shlomo.com  
     tls:
         - secretName: grafana-tls
           hosts:
