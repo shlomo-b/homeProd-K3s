@@ -89,7 +89,7 @@ dex:
   volumes:
     - name: sso-cert
       secret:
-        secretName: argocd-sso-cert # reference the secret name 
+        secretName: aws-secret # reference the secret name 
 
   # Mount the SSO certificate to Dex, making it available in the container     
   volumeMounts:
