@@ -85,14 +85,11 @@ server:
     servicePortHttps: 443
 
 # responsible for authenticating users
-EnvFrom:
-  - secretRef:
-      name: aws-secret
 dex:
   volumes:
     - name: sso-cert
       secret:
-        secretName: aws-secret # reference the secret name 
+        secretName: argocd-sso-cert
 
   # Mount the SSO certificate to Dex, making it available in the container     
   volumeMounts:
