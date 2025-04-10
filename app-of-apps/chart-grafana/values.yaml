@@ -44,7 +44,7 @@ grafana:
     tls:
         - secretName: grafana-tls
           hosts:
-            - argocd-k3s.spider-shlomo.com
+            - grafana-k3s.spider-shlomo.com
   # service:
   #     type: ClusterIP
   #     servicePortHttp: 80
