@@ -10,19 +10,19 @@ uptime-kuma:
     enabled: true
     accessMode: ReadWriteOnce
     size: 4Gi
-  # ingress:
-  #   enabled: true
-  #   className: traefik
-  #   annotations:
-  #     kubernetes.io/ingress.class: traefik
-  #     kubernetes.io/preserve-host: "true"
-  #     traefik.ingress.kubernetes.io/router.tls: "true"
-  #   hosts:
-  #     - uptime-kuma-k3s.spider-shlomo.com  
-  #   tls:
-  #       - secretName: uptime-kuma-tls
-  #         hosts:
-  #           - uptime-kuma-k3s.spider-shlomo.com
-  # service:
-  #   type: ClusterIP
-  #   port: 3001          
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    hosts:
+      - uptime-kuma-k3s.spider-shlomo.com  
+    tls:
+        - secretName: uptime-kuma-tls
+          hosts:
+            - uptime-kuma-k3s.spider-shlomo.com
+  service:
+    type: ClusterIP
+    port: 3001

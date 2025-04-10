@@ -47,8 +47,8 @@ grafana:
         - secretName: grafana-tls
           hosts:
             - grafana-k3s.spider-shlomo.com
-  service:
-      enabled: true
-      type: ClusterIP
-      targetPort: 3000
+  # service:
+  #     enabled: true
+  #     type: ClusterIP
+  #     targetPort: 3000
         
