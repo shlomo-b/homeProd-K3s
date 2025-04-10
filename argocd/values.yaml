@@ -84,7 +84,7 @@ server:
     servicePortHttp: 80
     servicePortHttps: 443
 
-# responsible for authenticating users
+# responsible for authenticating usersd
 dex:
   volumes:
     - name: sso-cert
