@@ -82,8 +82,8 @@ server:
     type: ClusterIP
     servicePortHttp: 80
     servicePortHttps: 443
-	
-# responsible for authenticating users    
+
+# responsible for authenticating users
 dex:
   volumes:
     - name: sso-cert
