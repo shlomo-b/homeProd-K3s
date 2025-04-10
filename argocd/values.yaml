@@ -3,7 +3,7 @@ global:
   
 configs:
   params:
-    server.insecure: false
+    server.insecure: true
   cm:
     create: true
     accounts.shlomob: apiKey, login
@@ -64,6 +64,7 @@ configs:
       g, "Shlomo_lab@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
     scopes: '[email]'
+
 # Ingress for argo cd  
 server:
   ingress:
