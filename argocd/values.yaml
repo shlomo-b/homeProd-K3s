@@ -75,10 +75,10 @@ server:
       kubernetes.io/ingress.class: traefik
       kubernetes.io/preserve-host: "true"
       traefik.ingress.kubernetes.io/router.tls: "true"
-  extraTls:
-      - hosts:
-          - argocd-k3s.spider-shlomo.com
-        secretName: argocd-tls
+    extraTls:
+        - hosts:
+            - argocd-k3s.spider-shlomo.com
+          secretName: argocd-tls
   service:
     type: ClusterIP
     servicePortHttp: 80
