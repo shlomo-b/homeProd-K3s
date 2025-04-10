@@ -89,3 +89,21 @@ spec:
   issuerRef:
     name: letsencrypt-dns-issuer
     kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uptime-kuma-cert
+  namespace: monitoring
+spec:
+  secretName: uptime-kuma-tls
+  revisionHistoryLimit: 1
+  duration: 2160h
+  renewBefore: 360h
+  commonName: uptime-kuma-k3s.spider-shlomo.com
+  dnsNames:
+  - uptime-kuma-k3s.spider-shlomo.com
+  issuerRef:
+    name: letsencrypt-dns-issuer
+    kind: ClusterIssuer
