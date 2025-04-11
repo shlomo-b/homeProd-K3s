@@ -20,8 +20,8 @@ uptime-kuma:
     hosts:
       - host: uptime-kuma-k3s.spider-shlomo.com
         paths:
-          - path: /dashboard
-            pathType: Exact
+          - path: /
+            pathType: Prefix
     tls:
         - secretName: uptime-kuma-tls
           hosts:
