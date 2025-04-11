@@ -18,7 +18,10 @@ uptime-kuma:
       kubernetes.io/preserve-host: "true"
       traefik.ingress.kubernetes.io/router.tls: "true"
     hosts:
-      - host: uptime-kuma-k3s.spider-shlomo.com  
+      - host: uptime-kuma-k3s.spider-shlomo.com
+        paths:
+          - path: /
+            pathType: Prefix
     tls:
         - secretName: uptime-kuma-tls
           hosts:
