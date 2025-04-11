@@ -24,7 +24,7 @@ grafana:
       - name: prometheus
         type: prometheus
         access: proxy
-        url: http://prometheus-server:9090
+        url: https://prometheus-k3s.spider-shlomo.com
 
   ingress:
     enabled: true
