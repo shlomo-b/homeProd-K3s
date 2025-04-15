@@ -14,7 +14,8 @@ traefik:
   installCRDs: true 
   metrics:
     prometheus:
-      enabled: true 
+      service:
+        enabled: true 
   logs:
     access:
       enabled: true  
@@ -22,7 +23,3 @@ traefik:
     limits:
       cpu: 100m
       memory: 512Mi
-  ports:
-    metrics: 
-      port: 9191
-      protocol: TCP
