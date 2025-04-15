@@ -28,7 +28,7 @@ loki:
         admin: s3-loki
       type: s3
       s3:
-        s3: s3://s3.us-east-1
+        s3: s3://us-east-1//loki-storge
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
         accessKeyId: ${access-key}
