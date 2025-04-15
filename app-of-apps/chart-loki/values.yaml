@@ -32,7 +32,7 @@ loki:
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
         accessKeyId: ${access-key}
-        secretAccessKey: ${asecret-access-key}
+        secretAccessKey: ${secret-access-key}
   read:
     enabled: true
     legacyReadTarget: false
