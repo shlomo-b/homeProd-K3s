@@ -31,8 +31,8 @@ loki:
         s3: s3://s3.us-east-1
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        accessKeyId: null
-        secretAccessKey: null
+        accessKeyId: ${access-key}
+        secretAccessKey: ${asecret-access-key}
   read:
     enabled: true
     legacyReadTarget: false
