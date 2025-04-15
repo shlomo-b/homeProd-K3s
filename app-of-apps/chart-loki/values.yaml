@@ -2,41 +2,39 @@ loki:
   global:
     deploymentMode: SimpleScalable
   loki:
-    enabled: true
-    memberlist:
-      service:
-        publishNotReadyAddresses: true
-    serviceAccount:
-      create: true
-      name: loki-access-to-s3
-    auth_enabled: false
-    server:
-      http_listen_port: 3100
-      grpc_listen_port: 9095
-    commonConfig:
-      path_prefix: /var/loki
-      replication_factor: 1
-    schemaConfig:
-      configs:
-        - from: "2024-01-01"
-          store: tsdb
-          index:
-            prefix: index_
-            period: 24h
-          object_store: s3
-          schema: v13
-    storage:
-      bucketNames:
-        chunks: loki-storge
-        ruler: s3-loki
-        admin: s3-loki
-      type: s3
-      s3:
-        s3: s3://s3.us-east-1
-        endpoint: s3.us-east-1.amazonaws.com
-        region: us-east-1   
-        accessKeyId: null
-        secretAccessKey: null
+    config:
+      serviceAccount:
+        create: true
+        name: loki-access-to-s3
+      auth_enabled: false
+      server:
+        http_listen_port: 3100
+        grpc_listen_port: 9095
+      common:    
+        commonConfig:
+          path_prefix: /var/loki
+          replication_factor: 1
+        schemaConfig:
+          configs:
+            - from: "2024-01-01"
+              store: tsdb
+              index:
+                prefix: index_
+                period: 24h
+              object_store: s3
+              schema: v13    
+        storage:
+          bucketNames:
+            chunks: loki-storge
+            ruler: s3-loki
+            admin: s3-loki
+          type: s3
+          s3:
+            s3: s3://s3.us-east-1
+            endpoint: s3.us-east-1.amazonaws.com
+            region: us-east-1   
+            accessKeyId: null
+            secretAccessKey: null
   read:
     enabled: true
     legacyReadTarget: false
