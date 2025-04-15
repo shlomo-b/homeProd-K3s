@@ -23,3 +23,10 @@ traefik:
     limits:
       cpu: 100m
       memory: 512Mi
+  ports:    
+    metrics:
+      port: 9100
+    expose:
+      default: true
+    exposePort: 9100
+    portocol: TCP    
