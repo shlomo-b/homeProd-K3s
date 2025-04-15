@@ -33,6 +33,7 @@ loki:
         region: us-east-1   
         accessKeyId: ${access-key}
         secretAccessKey: ${secret-access-key}
+        insecure: true
   read:
     enabled: true
     legacyReadTarget: false
