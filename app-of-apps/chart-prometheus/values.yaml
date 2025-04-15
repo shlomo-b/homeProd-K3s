@@ -76,7 +76,7 @@ prometheus:
           metrics_path: /metrics
           static_configs:
             - targets:
-                - "traefik-ingress-controller:9100"
+                - "traefik-ingress-controller-metrics:9100"
 
 # #---------------outside the network----------------#
 
