@@ -10,6 +10,7 @@ A production-grade Kubernetes infrastructure setup for home lab environments usi
 
 This project implements a production-ready Kubernetes environment using K3s (lightweight Kubernetes) with 1 master and 3 worker nodes. It leverages GitOps principles with ArgoCD for deployment and configuration management, and includes a comprehensive monitoring stack.
 This is an actively maintained project that will continue to evolve with new features, improvements, and best practices over time.
+
 ## Architecture
 
 - **K3s Cluster**: Lightweight Kubernetes with 1 master and 3 worker nodes
@@ -84,10 +85,35 @@ These resources enable secure secret management and automated TLS certificate pr
 - Git repository for storing configuration
 - AWS account for Route53 and AWS Secrets Manager
 - Azure AD account (for SSO configuration)
+- GitHub account with repository access
+- kubectl and helm installed locally
+- AWS CLI configured
 
-#### Initial Setup
+## Getting Started
 
-The cluster is configured using the root application which deploys ArgoCD and initializes the App of Apps pattern for managing all other applications and resources.
+### ArgoCD Installation
+
+1. Add the ArgoCD Helm repository:
+   ```bash
+   helm repo add argo https://argoproj.github.io/argo-helm
+   helm repo update
+   ```
+
+2. Install ArgoCD:
+   ```bash
+   helm install prod-argocd argo/argo-cd --namespace argocd --create-namespace --version 7.7.23
+   ```
+
+3. Get the ArgoCD admin password:
+   ```bash
+   kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+   ```
+
+4. Access the ArgoCD UI using port-forward:
+   ```bash
+   kubectl port-forward svc/prod-argocd-server -n argocd 8080:443
+   ```
+   Then visit: https://localhost:8080
 
 ### Maintenance
 
