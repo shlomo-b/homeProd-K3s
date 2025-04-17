@@ -47,6 +47,7 @@ The cluster uses MetalLB to provide load balancing capabilities on bare metal:
 ### Monitoring Stack
 
 - **Grafana**: Metrics visualization and dashboards
+- **Prometheus**: Metrics collection and time series database
 - **Loki**: Log aggregation system
 - **Promtail**: Log collection agent that ships logs to Loki
 - **Uptime-Kuma**: Uptime monitoring and alerting
