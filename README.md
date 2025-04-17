@@ -9,7 +9,7 @@ A production-grade Kubernetes infrastructure setup for home lab environments usi
 ## Overview
 
 This project implements a production-ready Kubernetes environment using K3s (lightweight Kubernetes) with 1 master and 3 worker nodes. It leverages GitOps principles with ArgoCD for deployment and configuration management, and includes a comprehensive monitoring stack.
-
+This is an actively maintained project that will continue to evolve with new features, improvements, and best practices over time.
 ## Architecture
 
 - **K3s Cluster**: Lightweight Kubernetes with 1 master and 3 worker nodes
