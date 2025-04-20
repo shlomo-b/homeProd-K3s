@@ -10,5 +10,5 @@ metrics-server:
       cpu: 40m
       memory: 25Mi
   service:
-    type: LoadBalancer
-    port: 443
+    type: ClusterIP
+    port: 80
