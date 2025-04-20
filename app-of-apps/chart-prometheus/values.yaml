@@ -26,16 +26,6 @@ prometheus:
         enabled: true
         type: ClusterIP
         targetPort: 3000
-        
-    # service:
-    #   type: LoadBalancer
-    #   loadBalancerIP: 10.90.100.111
-    #   targetPort: 9090
-    #   port: 9090
-    #   servicePort: 9090
-    #   loadBalancerClass: ""
-    #   loadBalancerSourceRanges: []
-    #   containerPortName: metrics
     persistentVolume:
       enabled: true
       size: 10Gi
