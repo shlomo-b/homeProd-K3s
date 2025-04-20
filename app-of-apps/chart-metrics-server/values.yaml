@@ -2,21 +2,19 @@ metrics-server:
   serviceAccount:
     create: true
   replicas: 2
-  resourcesPreset: small
-    resources:
-      requests:
-        cpu: 40m
-        memory: 25Mi
-      limits:
-        cpu: 40m
-        memory: 25Mi
+  resources:
+    requests:
+      cpu: 40m
+      memory: 25Mi
+    limits:
+      cpu: 40m
+      memory: 25Mi
   service:
     type: ClusterIP
     ports:
       https: 443
-  annotations:
-    kubernetes.io/cluster-service: "true"
-    kubernetes.io/name: "metrics-server"    
+  apiService:
+    create: true  
   # containerPorts:
   #   https: 8443   
   # kubernetesPorts: [443, 6443, 8443, 10250]  
