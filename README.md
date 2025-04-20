@@ -91,7 +91,7 @@ These resources enable secure secret management and automated TLS certificate pr
 - AWS CLI configured
 
 ## Getting Started
-
+<details><summary>Click to infrastructure deployment and application deployment</summary>
 ### ArgoCD Installation
 
 1. Add the ArgoCD Helm repository:
@@ -115,6 +115,7 @@ These resources enable secure secret management and automated TLS certificate pr
    kubectl port-forward svc/prod-argocd-server -n argocd 8080:443
    ```
    Then visit: https://localhost:8080
+</details>
 
 ### Maintenance
 
