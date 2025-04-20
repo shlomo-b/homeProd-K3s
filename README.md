@@ -132,8 +132,8 @@ These resources enable secure secret management and automated TLS certificate pr
    kubectl apply -f app-of-apps/root-application.yaml
 
    The app of apps includes the following applications: chart-cert-manager, chart-external-dns, chart-external-secrets, chart-grafana, chart-keel, chart-loki, chart-metallb, chart-prometheus, chart-promtail, chart-traefik, chart-uptime-kuma
-   
-Note: If you don't need all applications, you can modify the root-application.yml file to remove or disable specific applications before applying.
+
+    Note: If you don't need all applications, you can modify the root-application.yml file to remove or disable specific applications before applying.
    ```
 </details>
 
