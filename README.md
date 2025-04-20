@@ -104,10 +104,12 @@ These resources enable secure secret management and automated TLS certificate pr
    ```bash
    helm install prod-argocd argo/argo-cd --namespace argocd --create-namespace --version 7.7.23
    ```
-    2.2 (Optional) For SSO integration and certificates, you can use a values file:
-    bash# Create a values.yaml file with your custom configuration
-    # Then upgrade the chart with:
-    helm upgrade prod-argocd argo/argo-cd --namespace argocd -f values.yaml --create-namespace --version 7.7.23
+2.2 (Optional) For SSO integration and certificates, you can use a values file:
+Create a values.yml file with your custom configuration
+Then upgrade the chart with:
+```bash
+helm upgrade prod-argocd argo/argo-cd --namespace argocd --create-namespace --version 7.7.23 --values values.yml
+```
 
 3. Get the ArgoCD admin password:
    ```bash
