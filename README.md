@@ -116,7 +116,7 @@ These resources enable secure secret management and automated TLS certificate pr
    ```
    Then visit: https://localhost:8080
 
-5. Apply the repository configuration:
+5. Apply the repository configuration(update your repo url):
    ```bash
    kubectl apply -f repo.yml
    ```
