@@ -5,6 +5,8 @@ type: application
 version: 7.4.2
 appVersion: 0.7.2
 dependencies:
-- name: common
+- name: metrics-server
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 7.4.2
+  tags:
+  - bitnami-common
+  version:  7.4.2
