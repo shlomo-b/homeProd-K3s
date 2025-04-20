@@ -13,6 +13,9 @@ metrics-server:
     type: ClusterIP
     ports:
       https: 443
+  annotations:
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: "metrics-server"    
   # containerPorts:
   #   https: 8443   
   # kubernetesPorts: [443, 6443, 8443, 10250]  
