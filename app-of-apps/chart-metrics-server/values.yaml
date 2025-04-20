@@ -13,9 +13,9 @@ metrics-server:
     type: ClusterIP
     ports:
       https: 443
-  containerPorts:
-    https: 8443   
-  kubernetesPorts: [443, 6443, 8443, 10250]  
-  extraArgs:
-      - --kubelet-insecure-tls=true
-      - --kubelet-preferred-address-types=InternalIP
+  # containerPorts:
+  #   https: 8443   
+  # kubernetesPorts: [443, 6443, 8443, 10250]  
+  # extraArgs:
+  #     - --kubelet-insecure-tls=true
+  #     - --kubelet-preferred-address-types=InternalIP
