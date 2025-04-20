@@ -115,6 +115,26 @@ These resources enable secure secret management and automated TLS certificate pr
    kubectl port-forward svc/prod-argocd-server -n argocd 8080:443
    ```
    Then visit: https://localhost:8080
+
+5. Apply the repository configuration:
+   ```bash
+   kubectl apply -f repo.yml
+   ```
+
+### Application Deployment argocd and app of apps
+1. Apply the MetalLB pool configuration:
+   ```bash
+   kubectl apply -f pool-alb/pool-alb-application.yml
+   ```
+
+2. Apply the root application(app of apps pattern):
+   ```bash
+   kubectl apply -f app-of-apps/root-application.yaml
+
+   The app of apps includes the following applications: chart-cert-manager, chart-external-dns, chart-external-secrets, chart-grafana, chart-keel, chart-loki, chart-metallb, chart-prometheus, chart-promtail, chart-traefik, chart-uptime-kuma
+   
+Note: If you don't need all applications, you can modify the root-application.yml file to remove or disable specific applications before applying.
+   ```
 </details>
 
 ### Maintenance
