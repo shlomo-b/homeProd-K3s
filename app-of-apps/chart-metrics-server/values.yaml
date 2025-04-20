@@ -2,13 +2,14 @@ metrics-server:
   serviceAccount:
     create: true
   replicas: 2
-  resources:
-    requests:
-      cpu: 40m
-      memory: 25Mi
-    limits:
-      cpu: 40m
-      memory: 25Mi
+  resourcesPreset:
+    resources:
+      requests:
+        cpu: 40m
+        memory: 25Mi
+      limits:
+        cpu: 40m
+        memory: 25Mi
   service:
     type: ClusterIP
     ports:
