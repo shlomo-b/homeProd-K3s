@@ -12,7 +12,3 @@ metrics-server:
   service:
     type: ClusterIP
     port: 443
-    labels:
-      kubernetes.io/cluster-service: "true"
-      kubernetes.io/name: "Metrics-server"
-      
