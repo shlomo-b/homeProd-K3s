@@ -7,6 +7,4 @@ appVersion: 0.16.1
 dependencies:
 - name: external-dns
   repository: oci://registry-1.docker.io/bitnamicharts
-  tags:
-  - bitnami-common
   version: 8.7.9
