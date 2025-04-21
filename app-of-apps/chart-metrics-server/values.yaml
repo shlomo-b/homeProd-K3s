@@ -13,8 +13,5 @@ metrics-server:
     type: ClusterIP
     ports:
       https: 443
-  apiService:
-    create: true  
-  containerPorts:
-    https: 8443   
-  kubernetesPorts: [443, 6443, 8443, 10250]
+  apiService: # enable the api service for the metrics-server
+    create: true
