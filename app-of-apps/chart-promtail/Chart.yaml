@@ -8,4 +8,3 @@ dependencies:
 - name: promtail
   repository: https://grafana.github.io/helm-charts
   version: 6.16.6
-#  condition: promtail.enabled # only install if promtail is enabled

@@ -8,4 +8,3 @@ dependencies:
 - name: prometheus
   repository: https://prometheus-community.github.io/helm-charts
   version: 27.1.0
-#  condition: prometheus.enabled # only install if etrics-server is enabled

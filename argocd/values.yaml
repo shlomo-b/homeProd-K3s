@@ -32,6 +32,7 @@ configs:
       p, role:readonly-monitoring, applications, get, monitoring/*, allow
       p, role:readonly-monitoring, applications, override, monitoring/*, allow
       p, role:readonly-monitoring, applications, action/*, monitoring/*, allow
+      p, role:readonly-monitoring, applications, action/apps/deployment/restart, monitoring/*, allow
       p, role:readonly-monitoring, repositories, get, *, allow
       p, role:readonly-monitoring, projects, get, monitoring, allow
       p, role:readonly-monitoring, logs, get, monitoring/*, allow
