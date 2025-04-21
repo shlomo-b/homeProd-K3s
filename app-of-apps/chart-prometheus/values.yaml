@@ -67,7 +67,7 @@ prometheus:
           static_configs:
             - targets:
                 - "10.43.174.163:9100"
-  extraScrapeConfigs: 
+
         - job_name: 'kubernetes-service-endpoints'
           kubernetes_sd_configs:
           - role: endpoints
@@ -80,7 +80,7 @@ prometheus:
             target_label: kubernetes_namespace
           - source_labels: [__meta_kubernetes_service_name]
             action: replace
-            target_label: kubernetes_name
+            target_label: kubernetes_namespace_service_name
 
 #---------------outside the network----------------#
 
