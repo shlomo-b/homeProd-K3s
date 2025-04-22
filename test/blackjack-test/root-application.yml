@@ -11,6 +11,8 @@ spec:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     path: test/blackjack-test
     targetRevision: HEAD
+    helm:
+      releaseName: blackjack-api
   destination:
     server: https://kubernetes.default.svc
     namespace: staging
