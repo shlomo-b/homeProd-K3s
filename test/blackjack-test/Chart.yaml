@@ -1,6 +1,0 @@
-apiVersion: v2
-name: blackjack
-description: A simple blackjack deployment
-type: application
-version: 0.1.0
-appVersion: "1.0"
