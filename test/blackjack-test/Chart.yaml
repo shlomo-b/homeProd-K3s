@@ -1,9 +1,6 @@
 apiVersion: v2
-name: staging
-description: A simple blackjack app
+name: blackjack
+description: A simple blackjack deployment
+type: application
 version: 0.1.0
 appVersion: "1.0"
-dependencies:
-  - name: staging
-    version: 0.1.0
-    repository: https://github.com/shlomo-b/homeProd-K3s

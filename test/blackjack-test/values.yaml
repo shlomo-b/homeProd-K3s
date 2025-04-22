@@ -1,4 +1,4 @@
-staging:
+
   image:
     repository: shlomobarzili/blackjack
     tag: latest
