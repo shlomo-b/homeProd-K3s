@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staging
+  namespace: staging
+  annotations:
+    # annotations for keel to update the image
+    keel.sh/policy: "all"
+    keel.sh/trigger: "poll"
+    keel.sh/pollSchedule: "@every 3m"
+spec:
+  selector:
+    matchLabels:
+      app: staging
+  template:
+    metadata:
+      labels:
+        app: staging
+    spec:
+      affinity:
+      # Only deploy on node1 and node2 with nodeAffinity
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - node1
+                  - node2
+      containers:
+        - name: staging
+          image: shlomobarzili/blackjack:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: staging
+  namespace: staging
+spec:
+  selector:
+    app: staging
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
