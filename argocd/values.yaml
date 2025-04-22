@@ -35,32 +35,7 @@ configs:
       p, role:readonly-monitoring, repositories, get, *, allow
       p, role:readonly-monitoring, projects, get, monitoring, allow
       p, role:readonly-monitoring, logs, get, monitoring/*, allow
-      p, role:admin, applications, create, */*, allow
-      p, role:admin, applications, update, */*, allow
-      p, role:admin, applications, delete, */*, allow
-      p, role:admin, applications, sync, */*, allow
-      p, role:admin, applications, override, */*, allow
-      p, role:admin, applications, action/*, */*, allow
-      p, role:admin, applicationsets, get, */*, allow
-      p, role:admin, applicationsets, create, */*, allow
-      p, role:admin, applicationsets, update, */*, allow
-      p, role:admin, applicationsets, delete, */*, allow
-      p, role:admin, certificates, create, *, allow
-      p, role:admin, certificates, update, *, allow
-      p, role:admin, certificates, delete, *, allow
-      p, role:admin, clusters, create, *, allow
-      p, role:admin, clusters, update, *, allow
-      p, role:admin, clusters, delete, *, allow
-      p, role:admin, repositories, create, *, allow
-      p, role:admin, repositories, update, *, allow
-      p, role:admin, repositories, delete, *, allow
-      p, role:admin, projects, create, *, allow
-      p, role:admin, projects, update, *, allow
-      p, role:admin, projects, delete, *, allow
-      p, role:admin, accounts, update, *, allow
-      p, role:admin, gpgkeys, create, *, allow
-      p, role:admin, gpgkeys, delete, *, allow
-      p, role:admin, exec, create, */*, allow
+      p, role:role:admin, *, *, *, allow
       g, "Shlomo_lab@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
     scopes: '[email]'

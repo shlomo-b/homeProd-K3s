@@ -13,3 +13,21 @@ spec:
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: applications-test
+  namespace: argocd 
+spec:
+  description: 'Project for applications'
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: applications-test
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
