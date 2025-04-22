@@ -11,16 +11,7 @@ resources:
   limits:
     cpu: 200m
     memory: 256Mi
-
-nodeAffinity:
-  enabled: true
-  keys:
-    key: kubernetes.io/hostname
-    operator: In
-    values:
-      - node1
-      - node2
-
+    
 service:
   type: NodePort
   port: 80
