@@ -66,6 +66,20 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi  
+    extraArgs:
+      - '-config.expand-env=true'  
+    extraEnv:
+      - name: access-key
+        valueFrom:
+          secretKeyRef:
+            name: s3-access
+            key: access-key
+
+      - name: Asecret-access-key 
+        valueFrom:
+          secretKeyRef:
+            name: s3-access
+            key: secret-access-key 
 
   resultsCache:
     enabled: false
