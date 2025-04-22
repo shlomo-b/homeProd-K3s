@@ -11,7 +11,7 @@ resources:
   limits:
     cpu: 200m
     memory: 256Mi
-    
+
 service:
   type: NodePort
   port: 80
