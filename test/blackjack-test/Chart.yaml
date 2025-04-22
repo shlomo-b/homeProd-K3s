@@ -1,0 +1,5 @@
+apiVersion: v2
+name: blackjack
+description: A simple blackjack app
+version: 0.1.0
+appVersion: "1.0"
