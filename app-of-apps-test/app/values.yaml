@@ -4,3 +4,8 @@ namespace: default
 image:
   name: devopsjourney1/mywebapp
   tag: latest
+
+configmap:
+  name: default
+  data:
+    CUSTOM_HEADER: "This app was deployed using with helm"

@@ -4,3 +4,8 @@ namespace: prod
 image:
   name: devopsjourney1/mywebapp
   tag: latest
+
+configmap:
+  name: app1
+  data:
+    CUSTOM_HEADER: "welcome to Prod"

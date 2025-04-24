@@ -4,3 +4,8 @@ namespace: dev
 image:
   name: devopsjourney1/mywebapp
   tag: latest
+
+configmap:
+  name: app2
+  data:
+    CUSTOM_HEADER: "welcome to dev"
