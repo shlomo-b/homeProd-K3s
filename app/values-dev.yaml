@@ -1,4 +1,4 @@
-appName: dev
+# appName: dev
 namespace: dev
 
 image:

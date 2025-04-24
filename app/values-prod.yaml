@@ -1,4 +1,4 @@
-appName: prod
+# appName: prod
 namespace: prod
 
 image:
