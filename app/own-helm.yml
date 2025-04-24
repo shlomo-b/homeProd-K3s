@@ -13,7 +13,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        - values-dev.yaml
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: prod
