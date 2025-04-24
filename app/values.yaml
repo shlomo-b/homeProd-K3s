@@ -1,5 +1,5 @@
 appName: shlomo-test
-namespace: prod
+namespace: default
 
 image:
   name: devopsjourney1/mywebapp
