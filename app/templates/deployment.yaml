@@ -16,19 +16,17 @@ spec:
       labels:
         app: {{ .Values.appName }}
         tier: frontend
-    spec: # Pod spec
+    spec:
       containers:
       - name: mycontainer
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 80
         resources:
           requests:
-            memory: "16Mi" 
-            cpu: "50m"    # 50 milli cores (1/20 CPU)
+            memory: "16Mi"
+            cpu: "50m"
           limits:
-            memory: "128Mi" # 128 mebibytes 
+            memory: "128Mi"
             cpu: "100m"

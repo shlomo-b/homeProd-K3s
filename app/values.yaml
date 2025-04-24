@@ -1,4 +1,4 @@
-# appName: prod
+appName: shlomo-test
 namespace: prod
 
 image:
