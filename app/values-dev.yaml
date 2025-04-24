@@ -1,0 +1,6 @@
+appName: dev
+namespace: dev
+
+image:
+  name: devopsjourney1/mywebapp
+  tag: latest

@@ -1,0 +1,6 @@
+appName: prod
+namespace: prod
+
+image:
+  name: devopsjourney1/mywebapp
+  tag: latest
