@@ -22,9 +22,9 @@ spec:
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 80
-        envFrom:
-        - configMapRef:
-            name: {{ .Values.configmap.name }}
+        # envFrom:
+        # - configMapRef:
+        #     name: {{ .Values.configmap.name }}
         resources:
           requests:
             memory: "16Mi" 
