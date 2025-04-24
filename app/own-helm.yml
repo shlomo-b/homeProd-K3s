@@ -11,8 +11,9 @@ spec:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     path: app
     targetRevision: HEAD
-    valueFiles:
-      - values-prod.yaml
+    helm:
+      valueFiles:
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: prod
