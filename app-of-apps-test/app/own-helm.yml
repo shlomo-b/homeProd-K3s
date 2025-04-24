@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: app
+    path: app-of-apps-test/app
     targetRevision: HEAD
     helm:
       valueFiles:
@@ -36,7 +36,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: app
+    path: app-of-apps-test/app
     targetRevision: HEAD
     helm:
       valueFiles:
