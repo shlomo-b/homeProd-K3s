@@ -10,7 +10,7 @@ traefik:
     enabled: true
     type: LoadBalancer  
     spec:
-      LoadBalancerIP: "10.90.100.121"
+      loadBalancerIP: "10.90.100.121"
   installCRDs: true 
   metrics:
     prometheus:
