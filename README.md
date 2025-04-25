@@ -91,8 +91,10 @@ These resources enable secure secret management and automated TLS certificate pr
 - AWS CLI configured
 
 ## Getting Started
-<details><summary>Click to infrastructure deployment and application deployment</summary>
-ArgoCD Installation
+<details><summary>Click to expand deployment instructions</summary>
+
+
+### Infrastructure Deployment
 
 1. Add the ArgoCD Helm repository:
    ```bash
