@@ -140,7 +140,27 @@ These resources enable secure secret management and automated TLS certificate pr
    The app of apps includes the following applications: chart-cert-manager, chart-external-dns, chart-external-secrets, chart-grafana, chart-keel, chart-loki, chart-metallb, chart-prometheus, chart-promtail, chart-traefik, chart-uptime-kuma
 
     Note: If you don't need all applications, you can modify the root-application.yml file to remove or disable specific applications before applying.
-   ```
+
+
+### Backup Configuration optional
+   Deploy the cronjob for backing up network devices:
+
+1. Apply the cronjob configuration:
+   ```bash
+   kubectl apply -f cronjob-application.yml
+   ---
+   The cronjob requires the following secret keys:
+
+   BUCKET_NAME - AWS S3 bucket name for storing backups
+   HOST - Hostname or IP address of the device to back up
+   PORT - SSH port for connecting to the device
+   USERNAME - SSH username for authentication
+   PASSWORD - SSH password for authentication
+   AWS_ACCESS_KEY_ID - AWS credentials for S3 access
+   AWS_SECRET_ACCESS_KEY - AWS credentials for S3 access
+
+   These secrets are transferred from external-secrets, which retrieves them from AWS Secrets Manager, provid
+
 </details>
 
 ### Maintenance
