@@ -42,7 +42,7 @@ configs:
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
     scopes: '[email]'
 
-# Ingress for argo cd  
+# Ingress for argo cd  5
 server:
   ingress:
     enabled: true
