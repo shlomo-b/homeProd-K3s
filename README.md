@@ -141,6 +141,15 @@ These resources enable secure secret management and automated TLS certificate pr
 
     Note: If you don't need all applications, you can modify the root-application.yml file to remove or disable specific applications before applying.
 
+### Application Deployment cluster wide resources
+   ClusterIssuer and ClusterSecretStore are required if you want to use cert-manager and external-secrets:
+
+1. Apply the ClusterIssuer and ClusterSecretStore configuration with argocd:
+   ```bash
+   kubectl apply -f k8s-apps/cluster-wide-resources/Cluster-wide-application.yml
+   ---
+
+   These resources enable secure secret management and automated TLS certificate provisioning for all applications in the cluster without requiring application-specific configuration.
 
 ### Backup Configuration optional
    Deploy the cronjob for backing up network devices:
