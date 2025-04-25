@@ -6,7 +6,9 @@ configs:
     server.insecure: true
   cm:
     create: true
-    accounts.shlomob: apiKey, login
+    accounts.shlomob: login
+    accounts.shlomob.password: $2y$10$Ky91SkxA.A/tSWvzPmNxr.hrqI6UFP1o/fJJmNuodMDxgJKcR7iai%
+
     # SSO Configuration via AzureAd
     url: https://argocd-k3s.spider-shlomo.com
     dex.config: |
