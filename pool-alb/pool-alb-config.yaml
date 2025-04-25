@@ -32,6 +32,18 @@ spec:
     - 10.90.100.121-10.90.100.150
   autoAssign: true
 ---
+# pool for traefik
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: traefik
+  namespace: service-load-balancer
+spec:
+  addresses:
+    - 10.90.100.121/32
+  autoAssign: false
+
+---
 # L2Advertisement to use both pools
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -43,3 +55,4 @@ spec:
   - monitoring
   - argocd-ip
   - alb-resources
+  - traefik
