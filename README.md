@@ -92,7 +92,7 @@ These resources enable secure secret management and automated TLS certificate pr
 
 ## Getting Started
 <details><summary>Click to infrastructure deployment and application deployment</summary>
-### ArgoCD Installation
+ArgoCD Installation
 
 1. Add the ArgoCD Helm repository:
    ```bash
@@ -150,6 +150,10 @@ These resources enable secure secret management and automated TLS certificate pr
    ---
 
    These resources enable secure secret management and automated TLS certificate provisioning for all applications in the cluster without requiring application-specific configuration.
+   
+   Note:
+   For cert-manager, you'll need AWS access key and secret key with permissions to access Route53
+   For external-secrets, you'll need AWS access key and secret key with permissions to access AWS SecretsManager
 
 ### Backup Configuration optional
    Deploy the cronjob for backing up network devices:
