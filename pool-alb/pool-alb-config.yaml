@@ -29,7 +29,7 @@ metadata:
   namespace: service-load-balancer
 spec:
   addresses:
-    - 10.90.100.121-10.90.100.150
+    - 10.90.100.126-10.90.100.150
   autoAssign: true
 ---
 # pool for traefik
