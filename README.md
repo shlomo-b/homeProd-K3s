@@ -150,10 +150,16 @@ ArgoCD Installation
    ---
 
    These resources enable secure secret management and automated TLS certificate provisioning for all applications in the cluster without requiring application-specific configuration.
-   
-   Note:
-   For cert-manager, you'll need AWS access key and secret key with permissions to access Route53
-   For external-secrets, you'll need AWS access key and secret key with permissions to access AWS SecretsManager
+   AWS Credentials Requirements:
+
+   For cert-manager: Create an IAM user with permissions to modify Route53 records for DNS validation. The access key and secret key must be stored as a Kubernetes secret referenced by the ClusterIssuer, or use a service account.
+
+   For external-secrets: Create an IAM user with permissions to read from AWS SecretsManager. The access key and secret key must be stored as a Kubernetes secret referenced by the ClusterSecretStore, or use a service account.
+
+   Note: Examples of how to use certificates and external secrets in your applications can be found in the folder manage-certificates-apps and manage-secrets-apps:
+
+Certificate examples: see k8s-apps/manage-certificates-apps/
+External secrets examples: see k8s-apps/blackjack and k8s-apps/shop-online
 
 ### Backup Configuration optional
    Deploy the cronjob for backing up network devices:
