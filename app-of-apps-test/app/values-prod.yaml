@@ -4,7 +4,7 @@ namespace: prod
 image:
   name: devopsjourney1/mywebapp
   tag: latest
-
+type: LoadBalancer
 configmap:
   name: app1
   data:
