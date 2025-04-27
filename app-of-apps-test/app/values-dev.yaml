@@ -2,10 +2,10 @@
 namespace: dev
 
 image:
-  name: shlomobarzili/blackjack
+  name: grafana/grafana
   tag: latest
 
-containerPort: 80
+containerPort: 90
 configmap:
   name: app2
   data:
