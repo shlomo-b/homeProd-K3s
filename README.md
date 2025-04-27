@@ -129,13 +129,13 @@ These resources enable secure secret management and automated TLS certificate pr
    kubectl apply -f repo.yml
    ```
 
-### Application Deployment pool-alb
+### Application Deployment pool-alb for MetalLB
 1. Apply the MetalLB pool configuration:
    ```bash
    kubectl apply -f pool-alb/pool-alb-application.yml
    ```
-   
-### Application Deployment argocd and app of apps
+
+### Application Deployment app of apps
 1. Apply the root application(app of apps pattern):
    ```bash
    kubectl apply -f app-of-apps/root-application.yaml
