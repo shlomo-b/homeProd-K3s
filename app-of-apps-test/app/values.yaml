@@ -6,7 +6,7 @@ image:
   tag: latest
 
 
-containerPort: 3000
+containerPort: 80
 configmap:
   name: default
   data:

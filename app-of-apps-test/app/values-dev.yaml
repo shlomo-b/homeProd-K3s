@@ -2,10 +2,10 @@
 namespace: dev
 
 image:
-  name: shlomobarzili/react-fronted
+  name: shlomobarzili/blackjack
   tag: latest
 
-containerPort: 3000
+containerPort: 80
 configmap:
   name: app2
   data:
