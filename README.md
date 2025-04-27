@@ -1,6 +1,6 @@
 # HomeProd-K3s
 
-A production-grade Kubernetes infrastructure setup for home lab environments using K3s, GitOps, and comprehensive monitoring.
+A home lab Kubernetes environment implementing production-grade infrastructure practices with K3s, GitOps, and comprehensive monitoring.
 
 ![K3s Architecture](https://img.shields.io/badge/Architecture-K3s-brightgreen)
 ![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-blue)
@@ -8,7 +8,7 @@ A production-grade Kubernetes infrastructure setup for home lab environments usi
 
 ## Overview
 
-This project implements a production-ready Kubernetes environment using K3s (lightweight Kubernetes) with 1 master and 3 worker nodes. It leverages GitOps principles with ArgoCD for deployment and configuration management, and includes a comprehensive monitoring stack.
+This project implements a home lab Kubernetes environment using K3s (lightweight Kubernetes) with 1 master and 3 worker nodes. It leverages GitOps principles with ArgoCD for deployment and configuration management, and includes a comprehensive monitoring stack.
 This is an actively maintained project that will continue to evolve with new features, improvements, and best practices over time.
 
 ## Architecture
