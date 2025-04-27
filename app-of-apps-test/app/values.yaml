@@ -4,9 +4,8 @@ namespace: default
 image:
   name: devopsjourney1/mywebapp
   tag: latest
-
-
 containerPort: 80
+type: ClusterIP
 configmap:
   name: default
   data:
