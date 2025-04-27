@@ -6,11 +6,10 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    name: flask
   selector:
     app: {{ .Values.appName }}
-    tier: frontend
+  ports:
+    - port: {{ .Values.containerPort }}              
+      targetPort: {{ .Values.containerPort }}
+      protocol: TCP
   type: LoadBalancer
