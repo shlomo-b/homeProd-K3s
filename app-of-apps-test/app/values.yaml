@@ -5,8 +5,8 @@ image:
   name: devopsjourney1/mywebapp
   tag: latest
 
-port:
-  containerPort: 3000
+
+containerPort: 3000
 configmap:
   name: default
   data:
