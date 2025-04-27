@@ -1,4 +1,4 @@
-appName: shlomo-test
+appName: first-helm-chart
 namespace: default
 
 image:
