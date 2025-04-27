@@ -22,7 +22,7 @@ spec:
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.port.containerPort }}
         envFrom:
         - configMapRef:
             name: {{ .Values.configmap.name }}

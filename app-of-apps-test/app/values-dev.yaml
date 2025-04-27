@@ -4,7 +4,8 @@ namespace: dev
 image:
   name: shlomobarzili/react-fronted
   tag: latest
-
+port:
+  containerPort: 3000
 configmap:
   name: app2
   data:
