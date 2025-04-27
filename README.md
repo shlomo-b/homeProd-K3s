@@ -16,7 +16,7 @@ This is an actively maintained project that will continue to evolve with new fea
 - **K3s Cluster**: Lightweight Kubernetes with 1 master and 3 worker nodes
 - **GitOps**: ArgoCD for declarative, Git-based application deployment
 - **App of Apps Pattern**: Hierarchical application management
-- **Monitoring**: Grafana, Loki, Promtail, and Uptime-Kuma
+- **Monitoring**: Grafana,Prometheus, Loki, Promtail, and Uptime-Kuma
 - **Certificate Management**: Let's Encrypt certificates with cert-manager
 - **Domain Management**: AWS Route53 with external-dns for automatic DNS records creation
 - **Authentication**: SSO integration with Azure AD
@@ -31,7 +31,7 @@ This is an actively maintained project that will continue to evolve with new fea
 The GitOps workflow is managed through ArgoCD, which is structured using the App of Apps pattern:
 
 - **Root Application**: Deploys and manages all other ArgoCD applications
-- **Monitoring Project**: Dedicated ArgoCD project specifically for monitoring tools (Grafana, Loki, Promtail, and Uptime-Kuma)
+- **Monitoring Project**: Dedicated ArgoCD project specifically for monitoring tools (Grafana,Prometheus, Loki, Promtail, and Uptime-Kuma)
 - **Default Project**: Other applications (blackjack, shop-online, etc.) are deployed in the default project
 
 This structure provides clear separation between monitoring resources and application resources, making it easier to manage and view related applications together.

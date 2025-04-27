@@ -2,7 +2,7 @@
 namespace: dev
 
 image:
-  name: devopsjourney1/mywebapp
+  name: shlomobarzili/react-fronted
   tag: latest
 
 configmap:
