@@ -4,8 +4,10 @@ namespace: default
 image:
   name: devopsjourney1/mywebapp
   tag: latest
-containerPort: 80
-serviceType: ClusterIP
+service:
+  containerPort: 80
+  targetPort: 80
+  serviceType: LoadBalancer
 configmap:
   name: default
   data:

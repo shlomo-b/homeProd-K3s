@@ -5,8 +5,10 @@ image:
   name: grafana/grafana
   tag: latest
 
-containerPort: 3000
-serviceType: LoadBalancer
+service:
+  containerPort: 3000
+  targetPort: 3000
+  serviceType: LoadBalancer
 configmap:
   name: app2
   data:
