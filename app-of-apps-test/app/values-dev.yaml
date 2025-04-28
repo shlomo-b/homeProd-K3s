@@ -6,7 +6,7 @@ image:
   tag: latest
 
 service:
-  containerPort: 3000
+  port: 3000
   targetPort: 3000
   serviceType: LoadBalancer
 containerPort: 3000  

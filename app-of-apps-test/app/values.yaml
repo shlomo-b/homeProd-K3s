@@ -5,7 +5,7 @@ image:
   name: devopsjourney1/mywebapp
   tag: latest
 service:
-  containerPort: 80
+  port: 80
   targetPort: 80
   serviceType: LoadBalancer
 containerPort: 80  
