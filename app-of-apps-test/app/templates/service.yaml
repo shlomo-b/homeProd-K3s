@@ -12,4 +12,4 @@ spec:
     - port: {{ .Values.service.containerPort }}              
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-  type: {{ .Values.service.serviceType }}
+  type: {{ .Values.service.serviceType }} 

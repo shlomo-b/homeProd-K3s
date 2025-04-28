@@ -8,6 +8,7 @@ service:
   containerPort: 80
   targetPort: 80
   serviceType: LoadBalancer
+containerPort: 80  
 configmap:
   name: default
   data:
