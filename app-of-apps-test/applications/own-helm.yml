@@ -40,9 +40,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        - values-dev.yaml
-    directory:
-      recurse: false   
+        - values-dev.yaml 
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
