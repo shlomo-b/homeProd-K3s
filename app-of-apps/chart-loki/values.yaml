@@ -1,10 +1,14 @@
 loki:
-  global:
-    deploymentMode: SimpleScalable
-    extraEnvFrom:
-      - secretRef:
-          name: aws-secret
+  # global:
+  #   deploymentMode: SimpleScalable
+  #   extraEnvFrom:
+  #     - secretRef:
+  #         name: aws-secret
   loki:
+    global:
+      extraEnvFrom:
+        - secretRef:
+            name: aws-secret
     serviceAccount:
       create: true
       name: loki-access-to-s3
