@@ -1,8 +1,6 @@
 loki:
   global:
     deploymentMode: SimpleScalable
-    extraArgs:
-      - -config.expand-env=true
   loki:
     serviceAccount:
       create: true
@@ -48,6 +46,8 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi
+    extraArgs:
+      - '-config.expand-env=true'  
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
@@ -71,6 +71,8 @@ loki:
       enabled: true
       type: ClusterIP
       port: 3100
+    extraArgs:
+      - '-config.expand-env=true'  
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
@@ -90,6 +92,8 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi  
+    extraArgs:
+      - '-config.expand-env=true'  
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
