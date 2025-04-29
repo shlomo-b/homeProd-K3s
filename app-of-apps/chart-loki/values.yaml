@@ -1,14 +1,12 @@
 loki:
-  # global:
-  #   deploymentMode: SimpleScalable
-  #   extraEnvFrom:
-  #     - secretRef:
-  #         name: aws-secret
+  global:
+    deploymentMode: SimpleScalable
+    extraArgs:
+      - -config.expand-env=true
+    extraEnvFrom:
+      - secretRef:
+          name: aws-secret
   loki:
-    global:
-      extraEnvFrom:
-        - secretRef:
-            name: aws-secret
     serviceAccount:
       create: true
       name: loki-access-to-s3
@@ -38,8 +36,8 @@ loki:
         s3: s3://us-east-1//loki-storge
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        accessKeyId: accessKeyId
-        secretAccessKey: secretAccessKey
+        accessKeyId: "${accessKeyId}"
+        secretAccessKey: "$secretAccessKey}"
         insecure: false
   read:
     enabled: true
