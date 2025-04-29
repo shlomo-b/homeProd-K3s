@@ -31,8 +31,8 @@ loki:
         s3: s3://us-east-1//loki-storge
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        accessKeyId: "${accessKeyId}"
-        secretAccessKey: "${secretAccessKey}"
+        accessKeyId: "${AWS_ACCESS_KEY_ID}"
+        secretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
         insecure: false
   read:
     enabled: true
@@ -68,9 +68,17 @@ loki:
       size: 10Gi  
     extraArgs:
       - '-config.expand-env=true'  
-    extraEnvFrom: 
-        - secretRef:
+    extraEnv:
+      - name: accessKeyId
+        valueFrom:
+          secretKeyRef:
             name: aws-secret
+            key: accessKeyId
+      - name: secretAccessKey
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: secretAccessKey
 
   resultsCache:
     enabled: false
