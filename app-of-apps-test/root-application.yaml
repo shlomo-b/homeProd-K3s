@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git # the repo
-    path: app-of-apps-test-applications
+    path: app-of-apps-test/applications
     targetRevision: HEAD
     directory:
       recurse: true
