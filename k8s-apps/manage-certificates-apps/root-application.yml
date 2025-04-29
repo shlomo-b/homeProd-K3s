@@ -4,7 +4,7 @@ metadata:
   name: certificates-apps
   namespace: argocd
 spec:
-  project: default
+  project: appservices
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     path: ./k8s-apps/manage-certificates-apps
