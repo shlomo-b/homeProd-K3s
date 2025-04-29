@@ -8,7 +8,7 @@ spec:
   sourceRepos:
     - '*'
   destinations:
-   # - namespace: monitoring
+    - namespace: '*'
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
