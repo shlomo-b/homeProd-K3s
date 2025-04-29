@@ -5,7 +5,7 @@ loki:
       - -config.expand-env=true
     extraEnvFrom:
       - secretRef:
-          name: aws-secret
+          name: s3-access
   loki:
     serviceAccount:
       create: true
