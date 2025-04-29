@@ -5,7 +5,7 @@ loki:
       - -config.expand-env=true
     extraEnvFrom:
       - secretRef:
-          name: s3-access
+          name: aws-secret
   loki:
     serviceAccount:
       create: true
@@ -37,7 +37,7 @@ loki:
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
         accessKeyId: "${accessKeyId}"
-        secretAccessKey: "$secretAccessKey}"
+        secretAccessKey: "${secretAccessKey}"
         insecure: false
   read:
     enabled: true
