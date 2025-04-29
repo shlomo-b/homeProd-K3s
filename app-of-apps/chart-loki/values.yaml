@@ -46,19 +46,6 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi
-    extraArgs:
-      - '-config.expand-env=true'  
-    extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: aws-secret
-            key: accessKeyId
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: aws-secret
-            key: secretAccessKey  
 
   write:
     enabled: true
@@ -71,19 +58,6 @@ loki:
       enabled: true
       type: ClusterIP
       port: 3100
-    extraArgs:
-      - '-config.expand-env=true'  
-    extraEnv:
-      - name: AWS_ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: aws-secret
-            key: accessKeyId
-      - name: AWS_SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: aws-secret
-            key: secretAccessKey  
       
   backend:
     enabled: true
@@ -104,21 +78,7 @@ loki:
         valueFrom:
           secretKeyRef:
             name: aws-secret
-            key: secretAccessKey  
-    # extraArgs:
-    #   - '-config.expand-env=true'  
-    # extraEnv:
-    #   - name: access-key
-    #     valueFrom:
-    #       secretKeyRef:
-    #         name: s3-access
-    #         key: access-key
-
-    #   - name: Asecret-access-key 
-    #     valueFrom:
-    #       secretKeyRef:
-    #         name: s3-access
-    #         key: secret-access-key 
+            key: secretAccessKey
 
   resultsCache:
     enabled: false
