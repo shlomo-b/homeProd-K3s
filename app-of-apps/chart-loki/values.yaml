@@ -44,8 +44,8 @@ loki:
         s3: s3://us-east-1//loki-storge
         endpoint: s3.us-east-1.amazonaws.com
         region: us-east-1   
-        accessKeyId: "${AWS_ACCESS_KEY_ID}"
-        secretAccessKey: "${AWS_SECRET_ACCESS_KEY}"
+        accessKeyId: "${accessKeyId}"
+        secretAccessKey: "${secretAccessKey}"
         insecure: false
   read:
     enabled: true
