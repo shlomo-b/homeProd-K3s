@@ -13,8 +13,6 @@ spec:
     targetRevision: HEAD
     directory:
       recurse: true
-      include: '*.yaml'
-      exclude: 'app/templates/**'
   destination:
     server: https://kubernetes.default.svc  # The cluster URL Argo CD will connect to
   syncPolicy:
