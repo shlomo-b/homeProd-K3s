@@ -46,6 +46,19 @@ loki:
       enabled: true
       volumeClaimsEnabled: true
       size: 10Gi
+    extraArgs:
+      - '-config.expand-env=true'  
+    extraEnv:
+      - name: accessKeyId
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: accessKeyId
+      - name: secretAccessKey
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: secretAccessKey  
 
   write:
     enabled: true
@@ -58,6 +71,19 @@ loki:
       enabled: true
       type: ClusterIP
       port: 3100
+    extraArgs:
+      - '-config.expand-env=true'  
+    extraEnv:
+      - name: accessKeyId
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: accessKeyId
+      - name: secretAccessKey
+        valueFrom:
+          secretKeyRef:
+            name: aws-secret
+            key: secretAccessKey  
       
   backend:
     enabled: true
