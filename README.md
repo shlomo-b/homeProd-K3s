@@ -193,8 +193,11 @@ External secrets examples: see k8s-apps/blackjack and k8s-apps/shop-online
 
 1. Apply the shop-online and blackjack applications:
    ```bash
+   Apply the shop-online application:
    kubectl apply -f k8s-apps/shop-online/root-application.yml
-   ---
+   
+2. Apply the blackjack application:
+   ```bash
    kubectl apply -f k8s-apps/blackjack/root-application.yml
    ---
    Note:
