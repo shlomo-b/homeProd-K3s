@@ -230,6 +230,6 @@ Certificates are automatically renewed by cert-manager before expiration.
 
 Monitoring tools are deployed and updated as Helm charts. To update:
 
-1. Update the relevant chart version in your configuration
-2. Commit changes to Git
-3. ArgoCD will automatically sync the changes
+1. Update the relevant chart version in your configuration.
+2. Commit changes to Git.
+3. ArgoCD will automatically sync the changes.

@@ -46,7 +46,7 @@ configs:
       g, "daniel@spider-shlomo.com", role:readonly-appservices
     scopes: '[email]'
 
-# Ingress for argo cd  5
+# Ingress for argo cd
 server:
   ingress:
     enabled: true
