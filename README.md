@@ -198,7 +198,7 @@ External secrets examples: see k8s-apps/blackjack and k8s-apps/shop-online
 
    Note:
 
-   To use these applications, you need to deploy the root application in ArgoCD first
+   To use these applications, you need to deploy the root application in ArgoCD
    The shop-online application requires the following environment variables to be transferred:
 
    Backend to Database connection:
