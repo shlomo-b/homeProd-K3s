@@ -195,6 +195,7 @@ External secrets examples: see k8s-apps/blackjack and k8s-apps/shop-online
    ```bash
    kubectl apply -f k8s-apps/shop-online/root-application.yml
    ---
+   ```bash
    kubectl apply -f k8s-apps/blackjack/root-application.yml
    ---
    Note:
