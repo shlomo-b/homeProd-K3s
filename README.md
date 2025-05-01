@@ -192,8 +192,10 @@ External secrets examples: see k8s-apps/blackjack and k8s-apps/shop-online
 
 
 1. Apply the shop-online and blackjack applications:
-   bashkubectl apply -f k8s-apps/shop-online/root-application.yml
+   ```bash
+   kubectl apply -f k8s-apps/shop-online/root-application.yml
    kubectl apply -f k8s-apps/blackjack/root-application.yml
+   ---
    Note:
 
    To use these applications, you need to deploy the root application in ArgoCD first
