@@ -183,6 +183,35 @@ External secrets examples: see k8s-apps/blackjack and k8s-apps/shop-online
 
    These secrets are transferred from external-secrets, which retrieves them from AWS Secrets Manager, provid
 
+### Application Deployment options (shop-online and blackjack)
+   Before deploying, please note:
+
+   Both applications can be deployed with or without TLS certificates
+   Blackjack application is a simple standalone app that doesn't require additional configuration but optionally can use ingress with TLS
+   Shop-online requires both ConfigMaps and secrets from external-secrets
+
+
+1. Apply the shop-online and blackjack applications:
+   bashkubectl apply -f k8s-apps/shop-online/root-application.yml
+   kubectl apply -f k8s-apps/blackjack/root-application.yml
+   Note:
+
+   To use these applications, you need to deploy the root application in ArgoCD first
+   The shop-online application requires the following environment variables to be transferred:
+
+   Backend to Database connection:
+
+   MONGO_DB_HOST - From ConfigMap
+   MONGO_INITDB_ROOT_USERNAME - From external-secrets
+   MONGO_INITDB_ROOT_PASSWORD - From external-secrets
+
+
+   Frontend to Backend connection:
+
+   REACT_APP_API_URL - From ConfigMap
+
+   These applications demonstrate how to use external-secrets for secure credential management and cert-manager for TLS certificates with your ingress resources.
+
 </details>
 
 ### Maintenance
