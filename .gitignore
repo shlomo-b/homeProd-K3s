@@ -18,3 +18,5 @@ app-of-apps/chart-gha/secret-repo-gha.yml
 
 # ignore file README-Pool.md
 README-Pool.md
+
+k8s-apps/cluster-wide-resources/secret.yml
