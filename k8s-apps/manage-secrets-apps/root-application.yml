@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: ./manage-secrets-apps
+    path: k8s-apps/manage-secrets-apps
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
