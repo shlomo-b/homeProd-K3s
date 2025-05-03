@@ -57,7 +57,7 @@ prometheus:
           metrics_path: /metrics
           static_configs:
             - targets:
-                - "master-eks:9100"
+                - "master:9100"
                 - "node1:9100"
                 - "node2:9100"
                 - "node3:9100"
