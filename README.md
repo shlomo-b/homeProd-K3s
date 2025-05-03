@@ -128,19 +128,18 @@ These resources enable secure secret management and automated TLS certificate pr
    ```bash
    kubectl apply -f repo.yml
    ```
-
-### Application Deployment pool-alb for MetalLB
-1. Apply the MetalLB pool configuration:
-   ```bash
-   kubectl apply -f pool-alb/pool-alb-application.yml
-   ```
-
 ### Application Deployment app of apps
 1. Apply the root application(app of apps pattern):
    ```bash
    kubectl apply -f app-of-apps/root-application.yaml
 
    The app of apps includes the following applications: chart-cert-manager, chart-external-dns, chart-external-secrets, chart-grafana, chart-keel, chart-loki, chart-metallb, chart-prometheus, chart-promtail, chart-traefik, chart-uptime-kuma
+   
+### Application Deployment pool-alb for MetalLB
+1. Apply the MetalLB pool configuration:
+   ```bash
+   kubectl apply -f pool-alb/pool-alb-application.yml
+   ```
 
     Note: If you don't need all applications, you can modify the root-application.yml file to remove or disable specific applications before applying.
 
