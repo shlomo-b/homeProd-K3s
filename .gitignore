@@ -10,13 +10,8 @@ app-of-apps/chart-cert-manager/secrets.yaml
 # ignore file addresses.txt
 addresses.txt
 
-# ignore file s3-access
-app-of-apps/chart-loki/s3-secrets.yaml
-
-# ignore file secret-repo-gha
-app-of-apps/chart-gha/secret-repo-gha.yml
-
 # ignore file README-Pool.md
 README-Pool.md
 
+# ignore file secret
 k8s-apps/cluster-wide-resources/secret.yml
