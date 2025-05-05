@@ -1,21 +1,58 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: argocd-k8s
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io # The finalizer delete the application and resources
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/shlomo-b/homeProd-K3s.git # the repo
+#     path: app-of-apps-test/applications
+#     targetRevision: HEAD
+#     directory:
+#       recurse: true
+#   destination:
+#     server: https://kubernetes.default.svc  # The cluster URL Argo CD will connect to
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: argocd-k8s
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io # The finalizer delete the application and resources
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/shlomo-b/homeProd-K3s.git # the repo
-    path: app-of-apps-test/applications
-    targetRevision: HEAD
-    directory:
-      recurse: true
-  destination:
-    server: https://kubernetes.default.svc  # The cluster URL Argo CD will connect to
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  generators:
+    - list:
+        elements:
+          - env: dev
+            valueFile: values-dev.yaml
+            namespace: dev
+          - env: prod
+            valueFile: values-prod.yaml
+            namespace: prod
+  template:
+    metadata:
+      name: myapp-{{env}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+        targetRevision: HEAD
+        path: app-of-apps-test/app
+        helm:
+          valueFiles:
+            - '{{valueFile}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
