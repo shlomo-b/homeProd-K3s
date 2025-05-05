@@ -23,7 +23,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: myapp-dev-prod
+  name: all-apps-dev-prod
   namespace: argocd
 spec:
   generators:
@@ -32,31 +32,27 @@ spec:
           - list:
               elements:
                 - env: dev
-                  valueFile: values-dev.yaml
-                  namespace: dev
                 - env: prod
-                  valueFile: values-prod.yaml
-                  namespace: prod
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD
               directories:
-                - path: app-of-apps-test/app
+                - path: app-of-apps-test/*
   template:
     metadata:
-      name: myapp-{{env}}
+      name: '{{path.basename}}-{{env}}'
     spec:
       project: default
       source:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         targetRevision: HEAD
-        path: app-of-apps-test/app
+        path: app-of-apps-test/{{path.basename}}
         helm:
           valueFiles:
-            - '{{valueFile}}'
+            - values-{{env}}.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{namespace}}'
+        namespace: '{{env}}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
