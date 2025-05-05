@@ -59,3 +59,47 @@
 #         automated:
 #           selfHeal: true
 #           prune: true
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: myapp-dev-prod
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - env: dev
+                  valueFile: values-dev.yaml
+                  namespace: dev
+                - env: prod
+                  valueFile: values-prod.yaml
+                  namespace: prod
+          - git:
+              repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+              revision: HEAD
+              directories:
+                - path: app-of-apps-test/app
+  template:
+    metadata:
+      name: myapp-{{env}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+        targetRevision: HEAD
+        path: app-of-apps-test/app
+        helm:
+          valueFiles:
+            - '{{valueFile}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
