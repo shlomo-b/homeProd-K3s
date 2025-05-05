@@ -9,6 +9,8 @@ service:
   targetPort: 80
   serviceType: LoadBalancer
 containerPort: 80  
+ingress:
+  enabled: false
 configmap:
   name: default
   data:

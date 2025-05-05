@@ -1,26 +1,28 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: {{ .Values.appName }}
-#   namespace: {{ .Values.namespace }}
-#   annotations:
-#     kubernetes.io/ingress.class: {{ .Values.ingressClass }}
-#     kubernetes.io/preserve-host: "true"
-#     traefik.ingress.kubernetes.io/router.tls: "true"
-# spec:
-#   ingressClassName: {{ .Values.ingressClass }}
-#   tls:
-#   - hosts:
-#       - {{ .Values.ingressHostrules }}
-#     secretName: {{ .Values.secretName }}
-#   rules:
-#   - host: {{ .Values.ingressHostrules }}
-#     http:
-#       paths:
-#         - path: {{ .Values.path }}
-#           pathType: {{ .Values.pathType }}
-#           backend:
-#             service:
-#               name: {{ .Values.serviceName }}
-#               port:
-#                 number:  {{ .Values.port }}
+{{- if .Values.ingress.enabled-}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingressClass }}
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: {{ .Values.ingressClass }}
+  tls:
+  - hosts:
+      - {{ .Values.ingressHostrules }}
+    secretName: {{ .Values.secretName }}
+  rules:
+  - host: {{ .Values.ingressHostrules }}
+    http:
+      paths:
+        - path: {{ .Values.path }}
+          pathType: {{ .Values.pathType }}
+          backend:
+            service:
+              name: {{ .Values.serviceName }}
+              port:
+                number:  {{ .Values.port }}
+{{- end }}
