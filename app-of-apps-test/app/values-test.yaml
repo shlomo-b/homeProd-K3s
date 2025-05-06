@@ -1,0 +1,15 @@
+appName: test
+namespace: test
+
+image:
+  name: shlomobarzili/blackjack
+  tag: latest
+
+service:
+  serviceType: LoadBalancer
+
+serviceType: LoadBalancer
+configmap:
+  name: app3
+  data:
+    CUSTOM_HEADER: "welcome to test"
