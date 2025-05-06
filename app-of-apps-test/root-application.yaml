@@ -25,6 +25,8 @@ kind: ApplicationSet
 metadata:
   name: all-apps-dev-prod
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
     - matrix:
