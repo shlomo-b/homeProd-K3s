@@ -32,7 +32,8 @@ The GitOps workflow is managed through ArgoCD, which is structured using the App
 
 - **Root Application**: Deploys and manages all other ArgoCD applications
 - **Monitoring Project**: Dedicated ArgoCD project specifically for monitoring tools (Grafana,Prometheus, Loki, Promtail, and Uptime-Kuma)
-- **Default Project**: Other applications (blackjack, shop-online, etc.) are deployed in the default project
+- **appservices**: Dedicated ArgoCD project specifically for application services
+- **Default Project**: Other applications are deployed in the default project
 
 This structure provides clear separation between monitoring resources and application resources, making it easier to manage and view related applications together.
 
