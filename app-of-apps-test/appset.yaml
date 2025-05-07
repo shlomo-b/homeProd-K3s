@@ -34,9 +34,13 @@ spec:
           - list:
               elements:
                 - env: dev
+                  valueFile: values-dev.yaml
                 - env: prod
+                  valueFile: values-prod.yaml
                 - env: test
+                  valueFile: values-test.yaml
                 - env: app
+                  valueFile: values-app.yaml
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD
