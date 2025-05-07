@@ -1,28 +1,28 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Values.namespace }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingressClass }}
-    kubernetes.io/preserve-host: "true"
-    traefik.ingress.kubernetes.io/router.tls: "true"
+{{ toYaml . | nindent 4 }}
+  {{- end }}
 spec:
-  ingressClassName: {{ .Values.ingressClass }}
+  ingressClassName: {{ .Values.ingress.ingressClass.Name }}
   tls:
-  - hosts:
-      - {{ .Values.ingressHostrules }}
-    secretName: {{ .Values.secretName }}
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.secretName }}
   rules:
-  - host: {{ .Values.ingressHostrules }}
-    http:
-      paths:
-        - path: {{ .Values.path }}
-          pathType: {{ .Values.pathType }}
-          backend:
-            service:
-              name: {{ .Values.serviceName }}
-              port:
-                number:  {{ .Values.port }}
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: {{ .Values.path }}
+            pathType: {{ .Values.pathType }}
+            backend:
+              service:
+                name: {{ .Values.serviceName }}
+                port:
+                  number: {{ .Values.port }}
 {{- end }}
