@@ -1,4 +1,4 @@
-actions:
+gha-runner-scale-set:
   githubConfigUrl: "https://github.com/shlomo-b/homeProd-K3s.git"
   githubConfigSecret:
     github_token:  gha-github-token
