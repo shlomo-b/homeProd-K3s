@@ -1,10 +1,10 @@
-# apiVersion: v2
-# name: gha-runner-scale-set
-# description: A Helm chart for actions-runner-controller
-# type: application
-# version: 0.11.0
-# appVersion: "0.11.0"
-# dependencies:
-# - name: gha-runner-scale-set
-#   repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
-#   version: 0.11.0
+apiVersion: v2
+name: gha-runner
+description: A Helm chart for actions-runner-controller
+type: application
+version: 0.11.0
+appVersion: "0.11.0"
+dependencies:
+- name: actions-runner-controller
+  repository: "https://github.com/actions/actions-runner-controller"
+  version: 0.11.0

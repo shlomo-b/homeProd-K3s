@@ -18,3 +18,6 @@ k8s-apps/cluster-wide-resources/secret.yml
 
 # ignore file secret chart-gha
 app-of-apps/chart-gha/secret.yaml
+
+# ignore file test.yaml
+app-of-apps/chart-gha/test.yaml
