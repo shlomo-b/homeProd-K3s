@@ -4,4 +4,6 @@ actions-runner-controller:
     create: false
     name: gha-github-token
     github_token: gha-github-token
+  image: ghcr.io/actions/actions-runner-controller
+  tag: v0.26.1
 
