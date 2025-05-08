@@ -15,3 +15,6 @@ README-Pool.md
 
 # ignore file secret
 k8s-apps/cluster-wide-resources/secret.yml
+
+# ignore file secret chart-gha
+app-of-apps/chart-gha/secret.yaml

@@ -1,26 +1,4 @@
-# gha-runner:
-#   serviceAccount:
-#     create: true
-#   replicaCount: 2 
-#   namespaceOverride: gha-runner
-#   resources:
-#     limits:
-#       cpu: 100m
-#       memory: 128Mi
-#     requests:
-#       cpu: 100m
-#       memory: 128Mi
-#   env:
-#     - name: REPOSITORY
-#       valueFrom:
-#         secretKeyRef:
-#           name: gha-secrets
-#           key: REPO
-#           optional: true 
-
-#     - name: TOKEN
-#       valueFrom:
-#         secretKeyRef:
-#           name: gha-secrets
-#           key: TOKEN
-#           optional: true     
+gha-runner:
+  githubConfigUrl: "https://github.com/shlomo-b/homeProd-K3s.git"
+  githubConfigSecret:
+    github_token:  gha-github-token
