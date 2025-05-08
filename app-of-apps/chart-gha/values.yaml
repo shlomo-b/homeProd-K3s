@@ -1,7 +1,7 @@
-gha-runner-scale-set:
-  githubConfigUrl: "https://github.com/shlomo-b/homeProd-K3s.git"
-  githubConfigSecret:
-    github_token:  gha-github-token
-  controllerServiceAccount:
-    namespace: gha-runner
-    name: gha-runner-scale-set-controlle  
+# gha-runner-scale-set:
+#   githubConfigUrl: "https://github.com/shlomo-b/homeProd-K3s.git"
+#   githubConfigSecret:
+#     github_token:  gha-github-token
+#   controllerServiceAccount:
+#     namespace: gha-runner
+#     name: gha-runner-scale-set-controlle  
