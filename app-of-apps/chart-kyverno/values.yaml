@@ -11,6 +11,8 @@ cert-manager:
       memory: 70Mi  
   crds:
     enable: false    
+  admissionController:
+    enabled: false  
   # affinity:
   #   nodeAffinity:
   #     requiredDuringSchedulingIgnoredDuringExecution:
