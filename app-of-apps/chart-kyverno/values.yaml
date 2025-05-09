@@ -12,7 +12,7 @@ kyverno:
   crds:
     enable: true    
   admissionController:
-    enabled: true  
+    enabled: false
   # affinity:
   #   nodeAffinity:
   #     requiredDuringSchedulingIgnoredDuringExecution:
