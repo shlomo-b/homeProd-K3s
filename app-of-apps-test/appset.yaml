@@ -31,11 +31,11 @@ spec:
   generators:
     - matrix:
         generators:
-          # - list:
-          #     elements:
-          #       - env: dev
-          #       - env: prod
-          #       - env: test
+          - list:
+              elements:
+                - env: dev
+                - env: prod
+                - env: test
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD

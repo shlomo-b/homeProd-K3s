@@ -1,0 +1,20 @@
+cert-manager:
+  serviceAccount:
+    create: true
+    name: kyverno
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 70Mi  
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: kubernetes.io/hostname
+  #           operator: In
+  #           values:
+  #             - node1
