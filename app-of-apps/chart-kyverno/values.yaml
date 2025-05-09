@@ -9,6 +9,8 @@ cert-manager:
     requests:
       cpu: 100m
       memory: 70Mi  
+  crds:
+    enable: false    
   # affinity:
   #   nodeAffinity:
   #     requiredDuringSchedulingIgnoredDuringExecution:
