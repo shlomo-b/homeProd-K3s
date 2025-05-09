@@ -7,13 +7,16 @@ configs:
   cm:
     create: true
     resource.exclusions: |
-        - apiGroups:
+     resource.exclusions: |
+      - apiGroups:
           - kyverno.io
         kinds:
           - AdmissionReport
           - BackgroundScanReport
           - ClusterAdmissionReport
           - ClusterBackgroundScanReport
+          - PolicyReport
+          - ClusterPolicyReport
         clusters:
           - '*'
     # SSO Configuration via Azure-ad
