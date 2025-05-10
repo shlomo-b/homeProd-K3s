@@ -6,19 +6,6 @@ configs:
     server.insecure: true
   cm:
     create: true
-    resource.exclusions: |
-     resource.exclusions: |
-      - apiGroups:
-          - kyverno.io
-        kinds:
-          - AdmissionReport
-          - BackgroundScanReport
-          - ClusterAdmissionReport
-          - ClusterBackgroundScanReport
-          - PolicyReport
-          - ClusterPolicyReport
-        clusters:
-          - '*'
     # SSO Configuration via Azure-ad
     url: https://argocd-k3s.spider-shlomo.com
     dex.config: |

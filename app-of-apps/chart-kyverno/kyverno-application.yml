@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: externalsecrets-applications
+  name: kyverno
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
 spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: k8s-apps/manage-secrets-apps
+    path: app-of-apps/chart-kyverno
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
+    namespace: kyverno
   syncPolicy:
-    # syncOptions:
-    #   - CreateNamespace=true
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
     automated:
       selfHeal: true 
       prune: true
