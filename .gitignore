@@ -21,3 +21,7 @@ app-of-apps/chart-gha/secret.yaml
 
 # ignore file test.yaml
 app-of-apps/chart-gha/test.yaml
+
+kyverno-policies/
+
+app-test/

@@ -13,12 +13,3 @@ kyverno:
     enable: true    
   admissionController:
     enabled: false
-  # affinity:
-  #   nodeAffinity:
-  #     requiredDuringSchedulingIgnoredDuringExecution:
-  #       nodeSelectorTerms:
-  #       - matchExpressions:
-  #         - key: kubernetes.io/hostname
-  #           operator: In
-  #           values:
-  #             - node1
