@@ -1,12 +1,17 @@
 external-secrets:
- # global:
-  topologySpreadConstraints:
+  global:
+    topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: "kubernetes.io/hostname"
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: external-secrets
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - external-secrets
+                - external-secrets-webhook
+                - external-secrets-cert-controller
   enabled: true
   replicaCount: 1
   installCRDs: true
