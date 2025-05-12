@@ -19,50 +19,50 @@
 #     automated:
 #       prune: true
 #       selfHeal: true
-
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: all-apps-dev-prod
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  generators:
-    - matrix:
-        generators:
-          - list:
-              elements:
-                - env: dev
-                - env: prod
-                - env: test
-          - git:
-              repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-              revision: HEAD
-              directories:
-                - path: app-of-apps-test/*
-  template:
-    metadata:
-      name: '{{path.basename}}-{{env}}'
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-        targetRevision: HEAD
-        path: app-of-apps-test/{{path.basename}}
-        helm:
-          valueFiles:
-            - values-{{env}}.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{env}}'
-      syncPolicy:
-        # syncOptions:
-        #   - CreateNamespace=true
-        automated:
-          selfHeal: true
-          prune: true
-
+---
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: all-apps-dev-prod
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   generators:
+#     - matrix:
+#         generators:
+#           - list:
+#               elements:
+#                 - env: dev
+#                 - env: prod
+#                 - env: test
+#           - git:
+#               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+#               revision: HEAD
+#               directories:
+#                 - path: app-of-apps-test/*
+#   template:
+#     metadata:
+#       name: '{{path.basename}}-{{env}}'
+#     spec:
+#       project: default
+#       source:
+#         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+#         targetRevision: HEAD
+#         path: app-of-apps-test/{{path.basename}}
+#         helm:
+#           valueFiles:
+#             - values-{{env}}.yaml
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: '{{env}}'
+#       syncPolicy:
+#         # syncOptions:
+#         #   - CreateNamespace=true
+#         automated:
+#           selfHeal: true
+#           prune: true
+---
 # apiVersion: argoproj.io/v1alpha1
 # kind: ApplicationSet
 # metadata:
@@ -106,3 +106,56 @@ spec:
 #         automated:
 #           selfHeal: true
 #           prune: true
+
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: all-apps
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - env: dev
+                  chartPath: app
+                  valueFile: values-dev.yaml
+                - env: prod
+                  chartPath: app
+                  valueFile: values-prod.yaml
+                - env: test
+                  chartPath: app
+                  valueFile: values-test.yaml
+                - env: app
+                  chartPath: blackjack-test
+                  valueFile: values-app.yaml
+          - git:
+              repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+              revision: HEAD
+              directories:
+                - path: app-of-apps-test/*
+  template:
+    metadata:
+      name: '{{chartPath}}-{{env}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+        targetRevision: HEAD
+        path: app-of-apps-test/{{chartPath}}
+        helm:
+          valueFiles:
+            - '{{valueFile}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{env}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
