@@ -8,7 +8,7 @@ image:
 service:
   port: 80
   targetPort: 80
-  serviceType: ClusterIP
+  serviceType: NodePort
 containerPort: 80
 
 # ingress:
