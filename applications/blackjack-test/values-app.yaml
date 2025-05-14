@@ -13,7 +13,7 @@ containerPort: 80
 
 ingress:
   enabled: true
-  ingressClass.Name: traefik
+  ingressClassName: traefik
   annotations:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
