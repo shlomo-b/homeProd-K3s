@@ -25,9 +25,9 @@ ingress:
   serviceName: svc-test
   port: 80
   tls:
-      - secretName: test-app-tls
-        hosts:
-          - test-k3s.spider-shlomo.com
+  - secretName: test-app-tls
+    hosts:
+      - test-k3s.spider-shlomo.com
 configmap:
   name: app5
   data:
