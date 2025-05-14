@@ -22,6 +22,8 @@ ingress:
 
   path: /
   pathType: Prefix
+  serviceName: svc-test
+  port: 80
   tls:
       - secretName: test-app-tls
         hosts:
