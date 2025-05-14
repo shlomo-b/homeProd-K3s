@@ -172,10 +172,10 @@ spec:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         revision: HEAD
         directories:
-          - path: applications/*/*
+          - path: /applications/*/*
   template:
     metadata:
-      name: 'debug-{{path.dirname}}-{{path.basename}}'
+      name: '{{path.dirname}}-{{path.basename}}'
     spec:
       project: default
       source:
