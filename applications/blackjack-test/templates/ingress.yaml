@@ -19,10 +19,10 @@ spec:
       http:
         paths:
           - path: {{ .Values.path }}
-            pathType: {{ .Values.pathType }}
+            pathType: {{ .Values.ingress.pathType }}
             backend:
               service:
-                name: {{ .Values.serviceName }}
+                name: {{ .Values.ingress.serviceName }}
                 port:
-                  number: {{ .Values.port }}
+                  number: {{ .Values.ingress.port }}
 {{- end }}
