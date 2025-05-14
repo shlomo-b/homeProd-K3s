@@ -182,7 +182,7 @@ spec:
       source:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         targetRevision: HEAD
-        path: app-of-apps-test/charts/{{path.dirname}}
+        path: applications/charts/{{path.dirname}}
         helm:
           valueFiles:
             - ../../{{path.dirname}}/{{path.basename}}/values.yaml
