@@ -22,7 +22,6 @@ ingress:
 
   path: /
   pathType: Prefix
-  pathType: Prefix 
   tls:
       - secretName: test-app-tls
         hosts:
