@@ -161,7 +161,6 @@
 #           prune: true
 
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -173,7 +172,9 @@ spec:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         revision: HEAD
         directories:
-          - path: applications/*/*
+          - path: applications/app/dev
+          - path: applications/app/prod
+          - path: applications/blackjack/test
   template:
     metadata:
       name: '{{path.dirname}}-{{path.basename}}'
@@ -182,7 +183,7 @@ spec:
       source:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         targetRevision: HEAD
-        path: app-of-apps-test/charts/{{path.dirname}}
+        path: applications/charts/{{path.dirname}}
         helm:
           valueFiles:
             - ../../{{path.dirname}}/{{path.basename}}/values.yaml
