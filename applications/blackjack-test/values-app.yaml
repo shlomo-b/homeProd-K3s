@@ -11,21 +11,21 @@ service:
   serviceType: NodePort
 containerPort: 80
 
-# ingress:
-#   enabled: true
-#   ingressClass.Name: traefik
-#   annotations:
-#     kubernetes.io/ingress.class: traefik
-#     kubernetes.io/preserve-host: "true"
-#     traefik.ingress.kubernetes.io/router.tls: "true"
-#   host: test-k3s.spider-shlomo.com
+ingress:
+  enabled: true
+  ingressClass.Name: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  host: test-k3s.spider-shlomo.com
 
-#   path: /
-#   pathType: Prefix 
-#   tls:
-#       - secretName: test-app-tls
-#         hosts:
-#           - blackjack-dev.spider-shlomo.com
+  path: /
+  pathType: Prefix 
+  tls:
+      - secretName: test-app-tls
+        hosts:
+          - test-k3s.spider-shlomo.com
 configmap:
   name: app5
   data:
