@@ -185,7 +185,7 @@ spec:
         path: applications/charts/{{path.dirname}}
         helm:
           valueFiles:
-            - ../../{{path.dirname}}/{{path.basename}}/values.yaml
+            - ../../../{{path.dirname}}/{{path.basename}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
