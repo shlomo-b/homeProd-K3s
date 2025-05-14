@@ -21,6 +21,7 @@ ingress:
   host: test-k3s.spider-shlomo.com
 
   path: /
+  pathType: Prefix
   pathType: Prefix 
   tls:
       - secretName: test-app-tls
