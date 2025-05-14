@@ -161,7 +161,6 @@
 #           prune: true
 
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -176,16 +175,16 @@ spec:
           - path: applications/*/*
   template:
     metadata:
-      name: '{{path.dirname}}-{{path.basename}}'
+      name: 'debug-{{path.dirname}}-{{path.basename}}'
     spec:
       project: default
       source:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         targetRevision: HEAD
-        path: applications/charts/{{path.dirname}}
+        path: applications/charts/{{path.dirname}}  # charts/app וכו'
         helm:
           valueFiles:
-            - ../../{{path.dirname}}/{{path.basename}}/values.yaml  # ← כאן התיקון
+            - ../../{{path.dirname}}/{{path.basename}}/values.yaml  # שים לב: 2 רמות למעלה בלבד
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
