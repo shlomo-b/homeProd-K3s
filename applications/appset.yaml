@@ -173,7 +173,7 @@ spec:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         revision: HEAD
         directories:
-          - path: applications/*
+          - path: applications/*/*
   template:
     metadata:
       name: '{{path.dirname}}-{{path.basename}}'
@@ -185,7 +185,7 @@ spec:
         path: applications/charts/{{path.dirname}}
         helm:
           valueFiles:
-            - ../../../{{path.dirname}}/{{path.basename}}/values.yaml
+            - ../../{{path.dirname}}/{{path.basename}}/values.yaml  # ← כאן התיקון
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
