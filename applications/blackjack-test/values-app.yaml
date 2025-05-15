@@ -18,7 +18,7 @@ ingress:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
-  host: test-k3s.spider-shlomo.com
+  host: blackjack-k3s.spider-shlomo.com
   
   paths:
   -  path: /
@@ -29,9 +29,9 @@ ingress:
      serviceName: test-app
 
   tls:
-    - secretName: test-app-tls
+    - secretName: blackjack-tls
       hosts:
-        - test-k3s.spider-shlomo.com
+        - blackjack-k3s.spider-shlomo.com
 configmap:
   name: app5
   data:
