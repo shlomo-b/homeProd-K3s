@@ -140,7 +140,7 @@ spec:
                 - path: applications/*
   template:
     metadata:
-      name: '{{chartPath}}-{{env}}'
+      name: '{{chartPath}}'
     spec:
       project: default
       source:
