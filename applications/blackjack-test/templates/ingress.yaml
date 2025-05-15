@@ -11,18 +11,18 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   tls:
-  {{- range .Values.ingress.tls }}
-      - secretName: {{ .secretName }}
-        hosts:
-  {{- range .hosts }}
-          - {{ . }}
-  {{- end }}
-  {{- end }}
+{{- range .Values.ingress.tls }}
+    - secretName: {{ .secretName }}
+      hosts:
+{{- range .hosts }}
+        - {{ . }}
+{{- end }}
+{{- end }}
   rules:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          {{ - range .Values.ingress.paths }}
+{{- range .Values.ingress.paths }}
           - path: {{ .path }}
             pathType: {{ .pathType }}
             backend:
@@ -31,11 +31,4 @@ spec:
                 port:
                   number: 80
 {{- end }}
-          # - path: {{ .Values.ingress.path }}
-          #   pathType: {{ .Values.ingress.pathType }}
-          #   backend:
-          #     service:
-          #       name: {{ .Values.ingress.serviceName }}
-          #       port:
-          #         number: {{ .Values.ingress.port }}
 {{- end }}
