@@ -1,4 +1,4 @@
-appName: blackjack
+appName: blackjack-svc
 namespace: blackjack
 
 image:
@@ -23,10 +23,10 @@ ingress:
   paths:
   -  path: /
      pathType: Exact
-     serviceName: test-app
+     serviceName: blackjack-svc
   -  path: /metrics
      pathType: Prefix
-     serviceName: test-app
+     serviceName: blackjack-svc
 
   tls:
     - secretName: blackjack-tls
