@@ -130,7 +130,7 @@ spec:
                 - env: test
                   chartPath: app
                   valueFile: values-test.yaml
-                - env: app
+                - env: blackjack
                   chartPath: blackjack
                   valueFile: values-blackjack.yaml
           - git:
