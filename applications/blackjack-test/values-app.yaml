@@ -22,7 +22,7 @@ ingress:
 
   path: /
   pathType: Prefix
-  serviceName: svc-test
+  serviceName: test-app
   port: 80
   tls:
     - secretName: test-app-tls
