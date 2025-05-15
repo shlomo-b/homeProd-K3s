@@ -23,6 +23,7 @@ ingress:
   paths:
   -  path: /
      pathType: Exact
+     serviceName: test-app
   -  path: /metrics
      pathType: Prefix
      serviceName: test-app
