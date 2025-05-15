@@ -1,4 +1,4 @@
-appName: blackjack
+appName: app
 namespace: blackjack
 
 image:
