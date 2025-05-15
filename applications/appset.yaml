@@ -131,7 +131,7 @@ spec:
                   chartPath: app
                   valueFile: values-test.yaml
                 - env: blackjack
-                  chartPath: blackjack
+                  chartPath: blackjack-app
                   valueFile: values-app.yaml
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
