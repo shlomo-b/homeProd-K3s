@@ -11,6 +11,8 @@ service:
 containerPort: 80  
 ingress:
   enabled: false
+autoscaling:
+  enabled: false
 configmap:
   name: default
   data:
