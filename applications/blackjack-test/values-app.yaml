@@ -21,6 +21,8 @@ ingress:
   host: test-k3s.spider-shlomo.com
 
   path: /
+  pathType: Exact 
+  path: /metrics
   pathType: Prefix
   serviceName: test-app
   port: 80
