@@ -20,10 +20,11 @@ ingress:
     traefik.ingress.kubernetes.io/router.tls: "true"
   host: test-k3s.spider-shlomo.com
 
-  path: /
-  pathType: Exact 
-  path: /metrics
-  pathType: Prefix
+  paths:
+    path: /
+    pathType: Exact
+    path: /metrics
+    pathType: Prefix
   serviceName: test-app
   port: 80
   tls:
