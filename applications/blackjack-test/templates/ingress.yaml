@@ -21,12 +21,21 @@ spec:
   rules:
     - host: {{ .Values.ingress.host }}
       http:
-        paths:
-          - path: {{ .Values.ingress.path }}
-            pathType: {{ .Values.ingress.pathType }}
-            backend:
-              service:
-                name: {{ .Values.ingress.serviceName }}
-                port:
-                  number: {{ .Values.ingress.port }}
+        {{ - range .Values.ingress.paths }}
+        - path: {{ .path }}
+          pathType: {{ .pathType }}
+          backend:
+            service:
+              name: {{ .serviceName }}
+              port:
+                number: {{ .port }}
+      {{- end }}
+        # paths:
+        #   - path: {{ .Values.ingress.path }}
+        #     pathType: {{ .Values.ingress.pathType }}
+        #     backend:
+        #       service:
+        #         name: {{ .Values.ingress.serviceName }}
+        #         port:
+        #           number: {{ .Values.ingress.port }}
 {{- end }}
