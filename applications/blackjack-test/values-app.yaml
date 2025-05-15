@@ -21,12 +21,12 @@ ingress:
   host: test-k3s.spider-shlomo.com
   
   paths:
-  path: /
-  pathType: Exact
-  path: /metrics
-  pathType: Prefix
-  serviceName: test-app
-  port: 80
+  -  path: /
+     pathType: Exact
+  -  path: /metrics
+     pathType: Prefix
+     serviceName: test-app
+
   tls:
     - secretName: test-app-tls
       hosts:
