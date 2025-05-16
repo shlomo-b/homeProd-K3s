@@ -10,6 +10,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.appName }}
+      tier: {{ .Values.appName }}
   template:
     metadata:
       labels:
