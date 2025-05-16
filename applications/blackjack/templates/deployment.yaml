@@ -10,12 +10,10 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.appName }}
-      tier: {{ .Values.appName }}
   template:
     metadata:
       labels:
         app: {{ .Values.appName }}
-        tier: {{ .Values.appName }}
 {{- with .Values.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
