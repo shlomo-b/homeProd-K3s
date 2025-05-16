@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appName }}
-        type: {{ .Values.appName }}
+        tier: {{ .Values.appName }}
 {{- with .Values.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
