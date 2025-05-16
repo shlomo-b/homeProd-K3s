@@ -32,7 +32,3 @@ ingress:
     - secretName: blackjack-tls
       hosts:
         - blackjack-k3s.spider-shlomo.com
-configmap:
-  name: app5
-  data:
-    CUSTOM_HEADER: "welcome to dev"

@@ -14,6 +14,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appName }}
+        type: {{ .Values.appName }}
 {{- with .Values.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
@@ -25,9 +26,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: {{ .Values.containerPort }}
-        envFrom:
-        - configMapRef:
-            name: {{ .Values.configmap.name }}
         resources:
           requests:
             memory: "16Mi"

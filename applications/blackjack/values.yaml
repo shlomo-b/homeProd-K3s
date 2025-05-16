@@ -13,8 +13,4 @@ ingress:
   enabled: false
 autoscaling:
   enabled: false
-affinity: {} 
-configmap:
-  name: default
-  data:
-    CUSTOM_HEADER: "This app was deployed using with helm"
+affinity: {}
