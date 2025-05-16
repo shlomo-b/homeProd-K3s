@@ -11,6 +11,7 @@ service:
 containerPort: 80  
 ingress:
   enabled: false
+affinity: {}   
 configmap:
   name: default
   data:

@@ -13,6 +13,7 @@ ingress:
   enabled: false
 autoscaling:
   enabled: false
+affinity: {} 
 configmap:
   name: default
   data:

@@ -10,12 +10,14 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.appName }}
-      tier: frontend
   template:
     metadata:
       labels:
         app: {{ .Values.appName }}
-        tier: frontend
+{{- with .Values.affinity }}
+      affinity:
+      {{toYaml . | indent 4}}   
+{{- end}}   
     spec:
       containers:
       - name: mycontainer
