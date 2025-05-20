@@ -36,7 +36,7 @@ ingress:
 autoscaling:
   enabled: true
   appName: blackjack-svc
-  minReplicas: 2
+  minReplicas: 5
   maxReplicas: 3
   targetCPUUtilizationPercentage: 50
   targetMemoryUtilizationPercentage: 70
