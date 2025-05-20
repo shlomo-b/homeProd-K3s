@@ -39,7 +39,7 @@ autoscaling:
   minReplicas: 2
   maxReplicas: 3
   targetCPUUtilizationPercentage: 50
-  targetMemoryUtilizationPercentage: 70
+#  targetMemoryUtilizationPercentage: 70
   # behavior:
   #   scaleUp:
   #     stabilizationWindowSeconds: 60
