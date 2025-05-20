@@ -2,6 +2,8 @@ metrics-server:
   serviceAccount:
     create: true
   replicas: 3
+  rbac:
+    create: true
   resources:
     requests:
       cpu: 40m
