@@ -15,3 +15,5 @@ metrics-server:
       https: 443
   apiService: # enable the api service for the metrics-server
     create: true
+  args:
+    - --kubelet-insecure-tls  
