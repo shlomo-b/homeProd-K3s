@@ -37,7 +37,7 @@ autoscaling:
   enabled: true
   appName: blackjack-svc
   minReplicas: 5
-  maxReplicas: 3
+  maxReplicas: 6
   targetCPUUtilizationPercentage: 50
   targetMemoryUtilizationPercentage: 70
   behavior:
