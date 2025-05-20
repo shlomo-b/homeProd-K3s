@@ -2,7 +2,8 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Values.autoscaling.name }}
+  name: hpa
+  namespace: blackjack
   labels:
 {{ toYaml .Values.autoscaling.labels | indent 4 }}
 spec:

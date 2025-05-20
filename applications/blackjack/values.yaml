@@ -1,6 +1,7 @@
 appName: first-helm-chart
 namespace: default
 
+replicas: 1
 image:
   name: devopsjourney1/mywebapp
   tag: latest

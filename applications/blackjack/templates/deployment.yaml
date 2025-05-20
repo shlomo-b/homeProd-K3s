@@ -6,7 +6,9 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
-  replicas: 1
+  {{- if (not .Values.autoscaling.enabled) }}
+  replicas: {{ .Values.replicas }}
+  {{- end}}
   selector:
     matchLabels:
       app: {{ .Values.appName }}

@@ -25,10 +25,18 @@ ingress:
      pathType: Exact
      serviceName: blackjack-svc
   -  path: /metrics
-     pathType: Prefix
+     pathType: Exact
      serviceName: blackjack-svc
 
   tls:
     - secretName: blackjack-tls
       hosts:
         - blackjack-k3s.spider-shlomo.com
+
+autoscaling:
+  enabled: true
+  appName: blackjack-svc
+  minReplicas: 2
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 50
