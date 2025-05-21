@@ -58,7 +58,6 @@ spec:
     - metadata: 
         name: mongo-pvc
       spec:
-        storageClassName: local-path 
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
