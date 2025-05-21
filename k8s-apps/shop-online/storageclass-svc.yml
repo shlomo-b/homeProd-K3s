@@ -1,13 +1,14 @@
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: mongodb-pvc
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 1Gi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+  namespace: shop-online
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 
 
 # apiVersion: v1
@@ -37,13 +38,13 @@
 #       storage: 1Gi
 
 
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  namespace: shop-online
-  name: fast-storage
-  annotations:
-    storageclass.beta.kubernetes.io/is-default-class: "true"
-  labels:
-    addonmanager.kubernetes.io/mode: Reconcile
-provisioner: "local-path"
+# kind: StorageClass
+# apiVersion: storage.k8s.io/v1
+# metadata:
+#   namespace: shop-online
+#   name: fast-storage
+#   annotations:
+#     storageclass.beta.kubernetes.io/is-default-class: "true"
+#   labels:
+#     addonmanager.kubernetes.io/mode: Reconcile
+# provisioner: "local-path"
