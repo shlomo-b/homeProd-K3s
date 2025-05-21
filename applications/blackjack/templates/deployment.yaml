@@ -22,7 +22,7 @@ spec:
 {{- end}}      
     spec:
       containers:
-      - name: mycontainer
+      - name: app
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         ports:

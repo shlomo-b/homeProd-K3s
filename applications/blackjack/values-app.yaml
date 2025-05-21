@@ -1,4 +1,4 @@
-appName: blackjack-svc
+appName: blackjack
 namespace: blackjack
 
 image:
@@ -23,10 +23,10 @@ ingress:
   paths:
   -  path: /
      pathType: Exact
-     serviceName: blackjack-svc
+     serviceName: blackjack
   -  path: /metrics
      pathType: Exact
-     serviceName: blackjack-svc
+     serviceName: blackjack
 
   tls:
     - secretName: blackjack-tls
@@ -35,7 +35,7 @@ ingress:
 
 autoscaling:
   enabled: true
-  appName: blackjack-svc
+  appName: blackjack
   minReplicas: 2
   maxReplicas: 3
   targetCPUUtilizationPercentage: 50
