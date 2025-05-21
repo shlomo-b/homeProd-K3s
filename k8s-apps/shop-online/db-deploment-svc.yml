@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongodb-deployment
+  name: mongodb
   namespace: shop-online
   labels:
     app: mongodb-lab4
