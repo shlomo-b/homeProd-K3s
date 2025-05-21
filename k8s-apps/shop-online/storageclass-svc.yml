@@ -10,19 +10,19 @@
 #       storage: 1Gi
 
 
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mongodb-pv
-spec:
-  storageClassName: "local-path"
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: /data/mongodb
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: mongodb-pv
+# spec:
+#   storageClassName: "local-path"
+#   capacity:
+#     storage: 1Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Retain
+#   hostPath:
+#     path: /data/mongodb
 # ---
 # apiVersion: v1
 # kind: PersistentVolumeClaim
