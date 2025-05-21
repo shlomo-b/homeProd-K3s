@@ -8,7 +8,6 @@ metadata:
 spec:
   # create dns name for each pod mongodb
   serviceName: mongodb-service
-  replicas: 3
   selector:
     matchLabels:
       app: mongodb-lab4
