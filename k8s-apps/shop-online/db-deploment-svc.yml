@@ -57,6 +57,8 @@ spec:
   volumeClaimTemplates:
     - metadata: 
         name: mongo-pvc
+        annotations:
+          volume.beta.kubernetes.io/storage-class: local-path
       spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
