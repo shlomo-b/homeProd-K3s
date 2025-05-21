@@ -61,7 +61,7 @@ spec:
           volume.beta.kubernetes.io/storage-class: local-path
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: fast-storage
+        storageClassName: local-path
         resources:
           requests:
             storage: 1Gi
