@@ -53,6 +53,8 @@ spec:
   volumeClaimTemplates:
         - metadata: 
           name: mongo-pvc
+          annotations:
+            volume.beta.kubernetes.io/storage-class: fast-storage
           spec:
             accessModes: [ "ReadWriteOnce" ]
             resources:
