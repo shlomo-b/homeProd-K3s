@@ -6,6 +6,7 @@ metadata:
   labels:
     app: mongodb-lab4
 spec:
+  # create dns name for each pod mongodb
   serviceName: mongodb-service
   replicas: 3
   selector:
@@ -53,7 +54,7 @@ spec:
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
-
+  # create PVC for each pod mongodb
   volumeClaimTemplates:
     - metadata: 
         name: mongo-pvc
