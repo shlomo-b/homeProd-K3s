@@ -50,7 +50,7 @@ spec:
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
-      volumeClaimTemplates:
+  volumeClaimTemplates:
         - metadata: 
           name: mongo-pvc
           spec:
