@@ -35,11 +35,13 @@ spec:
                 name: aws-secret # reference from ExternalSecret
                 key: MONGO_INITDB_ROOT_USERNAME
                 
+
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: aws-secret # reference from ExternalSecret
                 key: MONGO_INITDB_ROOT_PASSWORD
+                
 
           - name: MONGO_DB_HOST
             valueFrom:
@@ -50,16 +52,17 @@ spec:
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
+
   volumeClaimTemplates:
-        - metadata: 
-          name: mongo-pvc
-          annotations:
-            volume.beta.kubernetes.io/storage-class: fast-storage
-          spec:
-            accessModes: [ "ReadWriteOnce" ]
-            resources:
-              requests:
-                storage: 1Gi
+    - metadata: 
+        name: mongo-pvc
+        annotations:
+          volume.beta.kubernetes.io/storage-class: fast-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
 
 ---
 apiVersion: v1
