@@ -7,7 +7,7 @@ metadata:
     app: mongodb-lab4
 spec:
   serviceName: mongodb-service
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: mongodb-lab4
@@ -57,14 +57,13 @@ spec:
   volumeClaimTemplates:
     - metadata: 
         name: mongo-pvc
-        annotations:
-          volume.beta.kubernetes.io/storage-class: local-path
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: local-path
+        storageClassName: local-path   # השתמש ב-local-path אם אתה ב-K3s
         resources:
           requests:
             storage: 1Gi
+
 
 ---
 apiVersion: v1
