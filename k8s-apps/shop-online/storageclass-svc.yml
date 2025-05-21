@@ -10,19 +10,19 @@
 #       storage: 1Gi
 
 
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: mongodb-pv
-# spec:
-#   storageClassName: "local-path"
-#   capacity:
-#     storage: 1Gi
-#   accessModes:
-#     - ReadWriteOnce
-#   persistentVolumeReclaimPolicy: Retain
-#   hostPath:
-#     path: /data/mongodb
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+  storageClassName: "local-path"
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/mongodb
 # ---
 # apiVersion: v1
 # kind: PersistentVolumeClaim
@@ -40,7 +40,6 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  namespace: shop-online
   name: fast-storage
   annotations:
     storageclass.beta.kubernetes.io/is-default-class: "true"
