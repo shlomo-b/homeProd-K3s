@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mongodb-deployment
   namespace: shop-online
   labels:
     app: mongodb-lab4
 spec:
+  serviceName: mongodb-service
   selector:
     matchLabels:
       app: mongodb-lab4
@@ -47,12 +48,16 @@ spec:
                 key: MONGO_DB_HOST
 
         volumeMounts:
-        - name: mongodb-storage
+        - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
-      volumes:
-        - name: mongodb-storage
-          persistentVolumeClaim:
-            claimName: mongodb-pvc  
+      volumeClaimTemplates:
+        - metadata: 
+          name: mongo-pvc
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 1Gi
 
 ---
 apiVersion: v1
