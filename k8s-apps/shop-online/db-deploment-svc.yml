@@ -59,7 +59,7 @@ spec:
         name: mongo-pvc
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: local-path   # השתמש ב-local-path אם אתה ב-K3s
+        storageClassName: local-path   # reference from StorageClass defult k3s
         resources:
           requests:
             storage: 1Gi
