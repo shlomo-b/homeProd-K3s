@@ -2,7 +2,7 @@ appName: test
 namespace: test
 
 image:
-  name: shlomobarzili/blackjack
+  name: devopsjourney1/mywebapp
   tag: latest
 
 service:
