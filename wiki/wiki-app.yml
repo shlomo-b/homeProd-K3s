@@ -45,37 +45,37 @@ spec:
             - name: DB_TYPE
               valueFrom:
                 configMapKeyRef:
-                  name: wiki-config-map
+                  name: wiki-config-wiki-app
                   key: DB_TYPE  
 
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: wiki-config-map
+                  name: wiki-config-wiki-app
                   key: DB_HOST
 
             - name: DB_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: wiki-config-map
+                  name: wiki-config-wiki-app
                   key: DB_PORT
 
             - name: DB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: wiki-config-map
+                  name: wiki-config-wiki-app
                   key: DB_USER
 
             - name: DB_PASS
               valueFrom:
                 configMapKeyRef:
-                  name: wiki-config-map
+                  name: wiki-config-wiki-app
                   key: DB_PASS
 
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: wiki-config-map
+                  name: wiki-config-wiki-app
                   key: DB_NAME
 ---
 apiVersion: v1

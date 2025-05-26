@@ -27,6 +27,24 @@ spec:
             limits:
               cpu: 200m
               memory: 256Mi
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: db-postgres-config
+                  key: POSTGRES_USER
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: db-postgres-config
+                  key: POSTGRES_PASSWORD
+
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: db-postgres-config
+                  key: POSTGRES_DB   
 ---
 apiVersion: v1
 kind: Service
