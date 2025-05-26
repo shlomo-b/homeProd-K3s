@@ -6,7 +6,7 @@ metadata:
 data:
    DB_TYPE: postgres
    DB_HOST: svc-postgres
-   DB_PORT: 5432
+   DB_PORT: "5432"
    DB_USER: wikijs
    DB_PASS: wikijsrocks
    DB_NAME: wiki
