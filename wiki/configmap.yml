@@ -10,3 +10,14 @@ data:
    DB_USER: wikijs
    DB_PASS: wikijsrocks
    DB_NAME: wiki
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    namespace: wiki
+    name: wiki-config-map
+data:
+   POSTGRES_DB: wiki
+   POSTGRES_PASSWORD: wikijsrocks
+   POSTGRES_USER: wikijs
