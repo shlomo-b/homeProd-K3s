@@ -42,7 +42,7 @@ spec:
           #       key: MONGO_INITDB_ROOT_PASSWORD
                 
 
-            - name: DB_TYPET
+            - name: DB_TYPE
               valueFrom:
                 configMapKeyRef:
                   name: wiki-config-map
