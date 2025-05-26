@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    namespace: wiki
+    name: wiki-config-map
+data:
+   DB_TYPE: postgres
+   DB_HOST: svc-postgres
+   DB_PORT: 5432
+   DB_USER: wikijs
+   DB_PASS: wikijsrocks
+   DB_NAME: wiki
