@@ -1,31 +1,35 @@
-uptime-kuma:
+enabled: true
+
+serviceAccount:
+  create: true  
+
+# service:
+#   type: NodePort
+#   port: 3001
+#   nodePort: 30056
+
+volume:
   enabled: true
-  serviceAccount:
-    create: true  
-  # service:
-  #   type: NodePort
-  #   port: 3001
-  #   nodePort: 30056
-  volume:
-    enabled: true
-    accessMode: ReadWriteOnce
-    size: 4Gi
-  ingress:
-    enabled: true
-    className: traefik
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/preserve-host: "true"
-      traefik.ingress.kubernetes.io/router.tls: "true"
-    hosts:
-      - host: uptime-kuma-k3s.spider-shlomo.com
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-        - secretName: uptime-kuma-tls
-          hosts:
-            - uptime-kuma-k3s.spider-shlomo.com
-  service:
-    type: ClusterIP
-    port: 3001
+  accessMode: ReadWriteOnce
+  size: 4Gi
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - host: uptime-kuma-k3s.spider-shlomo.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: uptime-kuma-tls
+      hosts:
+        - uptime-kuma-k3s.spider-shlomo.com
+
+service:
+  type: ClusterIP
+  port: 3001
