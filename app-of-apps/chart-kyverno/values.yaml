@@ -1,15 +1,17 @@
-kyverno:
-  serviceAccount:
-    create: true
-    name: kyverno
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 70Mi  
-  crds:
-    enable: true    
-  admissionController:
-    enabled: false
+serviceAccount:
+  create: true
+  name: kyverno
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 70Mi  
+
+crds:
+  enable: true    
+
+admissionController:
+  enabled: false

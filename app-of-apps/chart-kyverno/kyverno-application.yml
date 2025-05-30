@@ -7,10 +7,16 @@ metadata:
     argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
 spec:
   project: default
-  source:
-    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: app-of-apps/chart-kyverno
-    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://kyverno.github.io/kyverno/
+      chart: kyverno
+      targetRevision:  3.4.1
+      helm:
+        valueFiles:
+          - $values/app-of-apps/chart-kyverno/values.yaml  
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno

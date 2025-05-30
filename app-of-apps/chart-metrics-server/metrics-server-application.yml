@@ -3,14 +3,18 @@ kind: Application
 metadata:
   name: metrics-server
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: app-of-apps/chart-metrics-server
-    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: registry-1.docker.io/bitnamicharts
+      chart: metrics-server
+      targetRevision: 7.4.5
+      helm:
+        valueFiles:
+          - $values/app-of-apps/chart-metrics-server/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: metrics-server

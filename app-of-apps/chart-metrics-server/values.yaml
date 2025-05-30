@@ -1,20 +1,24 @@
-metrics-server:
-  serviceAccount:
-    create: true
-  replicas: 2
-  resources:
-    requests:
-      cpu: 40m
-      memory: 25Mi
-    limits:
-      cpu: 40m
-      memory: 25Mi
-  service:
-    type: ClusterIP
-    ports:
-      https: 443
-  apiService: # enable the api service for the metrics-server
-    create: true
-  extraArgs:
-    - --kubelet-insecure-tls
-    - --kubelet-preferred-address-types=InternalIP
+serviceAccount:
+  create: true
+
+replicas: 2
+
+resources:
+  requests:
+    cpu: 40m
+    memory: 25Mi
+  limits:
+    cpu: 40m
+    memory: 25Mi
+
+service:
+  type: ClusterIP
+  ports:
+    https: 443
+
+apiService:  # enable the api service for the metrics-server
+  create: true
+
+extraArgs:
+  - --kubelet-insecure-tls
+  - --kubelet-preferred-address-types=InternalIP
