@@ -1,29 +1,32 @@
-cert-manager:
-  serviceAccount:
-    create: true
-  installCRDs: true  
-  resources:
-    limits:
-      cpu: 100m
-      memory: 512Mi  
+serviceAccount:
+  create: true
+
+installCRDs: true  
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 512Mi  
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node1    
+
+cainjector:
+  enabled: true
+  replicaCount: 1
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - node1    
-  cainjector:
-    enabled: true
-    replicaCount: 1
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
           - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - node2
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - node2

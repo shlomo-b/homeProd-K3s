@@ -3,14 +3,18 @@ kind: Application
 metadata:
   name: external-dns
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: app-of-apps/chart-external-dns
-    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: registry-1.docker.io/bitnamicharts
+      chart: external-dns
+      targetRevision: 8.8.3
+      helm:
+        valueFiles:
+          - $values/app-of-apps/chart-external-dns/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: external-dns

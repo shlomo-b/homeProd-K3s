@@ -1,21 +1,24 @@
-grafana:
-  serviceAccount:
-    create: true
-  replicas: 2
-  adminUser: admin
-  adminPassword: strongpassword # temp password
-  persistence:
-    type: pvc
-    enabled: true
-    size: 10Gi
-    accessMode: ReadWriteOnce
-  sidecar:
-    datasources:
-      enabled: true
+serviceAccount:
+  create: true
+
+replicas: 2
+adminUser: admin
+adminPassword: strongpassword  # temp password
+
+persistence:
+  type: pvc
+  enabled: true
+  size: 10Gi
+  accessMode: ReadWriteOnce
+
+sidecar:
   datasources:
-    datasources.yaml:
-      apiVersion: 1
-      datasources:
+    enabled: true
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
       - name: Loki
         type: loki
         access: proxy
@@ -26,21 +29,21 @@ grafana:
         access: proxy
         url: https://prometheus-k3s.spider-shlomo.com
 
-  ingress:
-    enabled: true
-    ingressClassName: traefik
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/preserve-host: "true"
-      traefik.ingress.kubernetes.io/router.tls: "true"
-    hosts:
-      - grafana-k3s.spider-shlomo.com  
-    tls:
-        - secretName: grafana-tls
-          hosts:
-            - grafana-k3s.spider-shlomo.com
-  service:
-      enabled: true
-      type: ClusterIP
-      targetPort: 3000
-        
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - grafana-k3s.spider-shlomo.com  
+  tls:
+    - secretName: grafana-tls
+      hosts:
+        - grafana-k3s.spider-shlomo.com
+
+service:
+  enabled: true
+  type: ClusterIP
+  targetPort: 3000
