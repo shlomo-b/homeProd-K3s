@@ -4,7 +4,7 @@ metadata:
   name: uptime-kuma
   namespace: argocd
 spec:
-  project: default
+  project: monitoring
   sources:
     - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
       targetRevision: HEAD

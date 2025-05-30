@@ -5,16 +5,22 @@ metadata:
   namespace: argocd
 spec:
   project: monitoring
-  source:
-    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: app-of-apps/chart-prometheus
-    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: prometheus
+      targetRevision: 27.16.0
+      helm:
+        valueFiles:
+          - $values/app-of-apps/chart-prometheus/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
-    # syncOptions:
-    #   - CreateNamespace=true
+    syncOptions:
+      - CreateNamespace=true
     automated:
-      selfHeal: true 
+      selfHeal: true
       prune: true
