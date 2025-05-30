@@ -9,9 +9,9 @@ spec:
     - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
       targetRevision: HEAD
       ref: values
-    - repoURL: https://charts.bitnami.com/bitnami
+    - repoURL: registry-1.docker.io/bitnamicharts
       chart: metallb
-      targetRevision: 0.14.9
+      targetRevision: 6.4.13
       helm:
         valueFiles:
           - $values/app-of-apps/chart-metallb/values.yaml
