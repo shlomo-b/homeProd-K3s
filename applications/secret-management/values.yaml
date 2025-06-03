@@ -1,0 +1,22 @@
+loki_credentials:
+    external_secret_name: loki-credentials
+    namespaces:
+      - dev
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target: aws-secret
+    dataFrom:
+      extract:
+        key: keys
+
+
+loki_credentials:
+    external_secret_name: loki-credentials
+    namespaces:
+      - blackjack
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target: aws-secret
+    dataFrom:
+      extract:
+        key: keys

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: app
-description: A Helm chart for Blackjack
+description: A Helm chart for secretpass
 
 # A chart can be either an 'application' or a 'library' chart.
 #

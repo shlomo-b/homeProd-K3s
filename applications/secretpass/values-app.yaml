@@ -1,5 +1,5 @@
-appName: blackjack
-namespace: blackjack
+appName: secretpass
+namespace: secretpass
 
 image:
   name: shlomobarzili/blackjack

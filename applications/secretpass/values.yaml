@@ -15,3 +15,6 @@ ingress:
 autoscaling:
   enabled: false
 affinity: {}
+
+configmap:
+  create: false
