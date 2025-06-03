@@ -10,8 +10,8 @@ loki_credentials:
         key: keys
 
 
-loki_credentials:
-    external_secret_name: loki-credentials
+loki_test:
+    external_secret_name: loki-credentials-test
     namespaces:
       - blackjack
     refreshInterval: 168h
