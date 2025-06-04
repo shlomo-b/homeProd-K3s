@@ -133,9 +133,9 @@ spec:
                 - env: blackjack
                   chartPath: blackjack
                   valueFile: values-app.yaml
-                - env: secrets-management
-                  chartPath: secrets-management
-                  valueFile: values.yaml
+                # - env: secrets-management
+                #   chartPath: secrets-management
+                #   valueFile: values.yaml
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD
