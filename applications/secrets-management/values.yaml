@@ -41,3 +41,25 @@ cronjob-juniper:
     dataFrom:
       extract:
         key: juniper-credentials
+
+cert-manager-secrets:
+    external_secret_name: cert-manager-secrets
+    namespaces:
+      - cronjob
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  aws-secret
+    dataFrom:
+      extract:
+        key: route53-access
+
+loki-credentials:
+    external_secret_name: loki-credentials
+    namespaces:
+      - monitoring
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  aws-secret
+    dataFrom:
+      extract:
+        key: keys
