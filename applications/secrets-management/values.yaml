@@ -8,3 +8,14 @@ shop-online-external-secret:
     dataFrom:
       extract:
         key: DB-Locali
+
+external-dns-secrets:
+    external_secret_name: external-dns-secrets
+    namespaces:
+      - external-dns
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target: aws-secret
+    dataFrom:
+      extract:
+        key: route53-access
