@@ -19,3 +19,25 @@ external-dns-secrets:
     dataFrom:
       extract:
         key: route53-access
+
+cronjob-fortigate:
+    external_secret_name: cronjob-fortigate
+    namespaces:
+      - cronjob
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target: cronjob-credentials-fortigate-backup
+    dataFrom:
+      extract:
+        key: BUCKET-CRONJOB
+
+cronjob-juniper:
+    external_secret_name: cronjob-juniper
+    namespaces:
+      - cronjob
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target: cronjob-credentials-juniper-backup
+    dataFrom:
+      extract:
+        key: juniper-credentials
