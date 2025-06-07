@@ -1,22 +1,10 @@
-loki_credentials:
-    external_secret_name: loki-credentials
+shop-online-external-secret:
+    external_secret_name: shop-online-external-secret
     namespaces:
-      - dev
+      - shop-online
     refreshInterval: 168h
     secretStoreRefName: aws-secret-store
     target: aws-secret
     dataFrom:
       extract:
-        key: keys
-
-
-loki_test:
-    external_secret_name: loki-credentials-test
-    namespaces:
-      - blackjack
-    refreshInterval: 168h
-    secretStoreRefName: aws-secret-store
-    target: aws-secret
-    dataFrom:
-      extract:
-        key: keys
+        key: DB-Locali
