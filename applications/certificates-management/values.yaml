@@ -1,0 +1,10 @@
+# shop-online-external-secret:
+#     external_secret_name: shop-online-external-secret
+#     namespaces:
+#       - shop-online
+#     refreshInterval: 168h
+#     secretStoreRefName: aws-secret-store
+#     target: aws-secret
+#     dataFrom:
+#       extract:
+#         key: DB-Locali
