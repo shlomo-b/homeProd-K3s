@@ -46,9 +46,9 @@ cert-manager-secrets:
     external_secret_name: cert-manager-secrets
     namespaces:
       - cronjob
-    refreshInterval: 168h
+    refreshInterval: 1m
     secretStoreRefName: aws-secret-store
-    target:  aws-secret
+    target: aws-secret
     dataFrom:
       extract:
         key: route53-access
