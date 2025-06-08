@@ -15,3 +15,30 @@ blackjack-cert:
   dnsNames: 
   -  blackjack-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+shop-online-cert:
+  certificate_name: shop-online-cert
+  namespaces: shop-online
+  secretName: shop-online-tls
+  commonName:  shop-online-k3s.spider-shlomo.com
+  dnsNames: 
+  -  shop-online-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+shop-online-cert-backend:
+  certificate_name: shop-online-cert-backend
+  namespaces: shop-online
+  secretName: shop-online-backend-tls
+  commonName: backend-k3s.spider-shlomo.com
+  dnsNames: 
+  -  backend-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+argocd-cert:
+  certificate_name: argocd-cert
+  namespaces: argocd
+  secretName: shop-online-backend-tls
+  commonName: argocd-k3s.spider-shlomo.com
+  dnsNames: 
+  -  argocd-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
