@@ -1,10 +1,8 @@
-# shop-online-external-secret:
-#     external_secret_name: shop-online-external-secret
-#     namespaces:
-#       - shop-online
-#     refreshInterval: 168h
-#     secretStoreRefName: aws-secret-store
-#     target: aws-secret
-#     dataFrom:
-#       extract:
-#         key: DB-Locali
+prometheus-cert:
+  certificate_name: prometheus-cert
+  namespaces: monitoring
+  secretName: prometheus-tls
+  secretStoreRefName: aws-secret-store
+  commonName: prometheus-k3s.spider-shlomo.com
+  dnsNames: prometheus-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
