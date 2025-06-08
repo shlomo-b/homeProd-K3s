@@ -4,6 +4,8 @@ import select
 import os
 import boto3
 import sys
+from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
+import datetime
 
 # Connect to the firewall
 HOST = os.environ.get('HOST')
@@ -75,8 +77,30 @@ def backup_data():
     except Exception as e:
         print(f"❌ Error during S3 upload: {e}")
 
+
+def push_metrics(success: bool, duration_seconds: float):
+    try:
+        registry = CollectorRegistry()
+        status = Gauge('fortigate_backup_success', '1 if successful, 0 if failed', registry=registry)
+        duration = Gauge('fortigate_backup_duration_seconds', 'How long the backup took', registry=registry)
+        timestamp = Gauge('fortigate_backup_last_run_timestamp', 'When backup was run (unix)', registry=registry)
+
+        status.set(1 if success else 0)
+        duration.set(duration_seconds)
+        timestamp.set(int(datetime.datetime.utcnow().timestamp()))
+
+        pushgateway_url = os.getenv("PUSHGATEWAY_URL", "http://pushgateway:9091")
+        push_to_gateway(pushgateway_url, job='fortigate-backup', registry=registry)
+        print("📤 Metrics pushed to Pushgateway successfully.")
+    except Exception as e:
+        print(f"❌ Failed to push metrics: {e}")
+
 if __name__ == "__main__":
-    if get_full_configuration():
-         backup_data()
+    start_time = time.time()
+    result = get_full_configuration()
+    if result:
+        backup_data()
     else:
         print("❌ Configuration retrieval failed. Skipping S3 upload.")
+    elapsed = time.time() - start_time
+    push_metrics(result, elapsed)
