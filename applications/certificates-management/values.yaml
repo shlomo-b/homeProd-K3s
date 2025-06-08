@@ -37,7 +37,7 @@ shop-online-cert-backend:
 argocd-cert:
   certificate_name: argocd-cert
   namespaces: argocd
-  secretName: shop-online-backend-tls
+  secretName: argocd-tls
   commonName: argocd-k3s.spider-shlomo.com
   dnsNames: 
   -  argocd-k3s.spider-shlomo.com
