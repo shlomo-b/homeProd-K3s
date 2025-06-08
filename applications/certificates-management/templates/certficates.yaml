@@ -1,4 +1,5 @@
-  {{- range $name, $config := .Values }}
+{{- range $name, $config := .Values }}
+   {{- range $dns := $config.dnsNames }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -10,9 +11,11 @@ spec:
   duration: 2160h
   renewBefore: 360h
   commonName: {{ $config.commonName }}
-  dnsNames: {{ $config.dnsNames }}
+  dnsNames:  {{ $dns }}
   issuerRef:
     name: {{ $config.issuerRefName }}
     kind: ClusterIssuer
 ---
+
+  {{- end }}
 {{- end }}
