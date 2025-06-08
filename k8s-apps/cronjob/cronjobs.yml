@@ -8,7 +8,7 @@ metadata:
     keel.sh/trigger: "poll"
     keel.sh/pollSchedule: "@every 3m"
 spec:
-  schedule: "*/2 * * * *" # every month at 00:30
+  schedule: "30 0 1 * *" # every month at 00:30
   successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
   failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
   jobTemplate:
