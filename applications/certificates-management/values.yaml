@@ -5,5 +5,5 @@ prometheus-cert:
   secretStoreRefName: aws-secret-store
   commonName: prometheus-k3s.spider-shlomo.com
   dnsNames: 
-  - "prometheus-k3s.spider-shlomo.com"
+  - prometheus-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer

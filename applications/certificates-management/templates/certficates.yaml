@@ -1,21 +1,21 @@
 {{- range $name, $config := .Values }}
-   {{- range $dns := $config.dnsNames }}
+  {{- range $dns := $config.dnsNames }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ $config.certificate_name }}
-  namespace:  {{ $config.namespaces }}
+  name: {{ $config.certificate_name }}-{{ $dns | replace "." "-" }}
+  namespace: {{ $config.namespaces }}
 spec:
-  secretName: {{ $config.secretName }}
+  secretName: {{ $config.secretName }}-{{ $dns | replace "." "-" }}
   revisionHistoryLimit: 1
   duration: 2160h
   renewBefore: 360h
-  commonName: {{ $config.commonName }}
-  dnsNames:  {{ $dns }}
+  commonName: {{ $dns }}
+  dnsNames:
+    - {{ $dns }}
   issuerRef:
     name: {{ $config.issuerRefName }}
     kind: ClusterIssuer
 ---
-
   {{- end }}
 {{- end }}
