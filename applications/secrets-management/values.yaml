@@ -45,7 +45,7 @@ cronjob-juniper:
 cert-manager-secrets:
     external_secret_name: cert-manager-secrets
     namespaces:
-      - cronjob
+      - cert-manager
     refreshInterval: 1m
     secretStoreRefName: aws-secret-store
     target: aws-secret
