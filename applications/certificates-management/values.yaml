@@ -42,3 +42,30 @@ argocd-cert:
   dnsNames: 
   -  argocd-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+grafana-cert:
+  certificate_name: grafana-cert
+  namespaces: monitoring
+  secretName: grafana-tls
+  commonName: grafana-k3s.spider-shlomo.com
+  dnsNames: 
+  -  grafana-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+uptime-kuma-cert:
+  certificate_name: uptime-kuma-cert
+  namespaces: monitoring
+  secretName: uptime-kuma-tls
+  commonName: uptime-kuma-k3s.spider-shlomo.com
+  dnsNames: 
+  -  uptime-kuma-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+secretpass-cert:
+  certificate_name: secretpass-cert
+  namespaces: secretpass
+  secretName: secretpass-app-tls
+  commonName: secretpass.spider-shlomo.com
+  dnsNames: 
+  -  secretpass.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
