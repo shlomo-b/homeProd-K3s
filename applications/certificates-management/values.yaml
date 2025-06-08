@@ -2,8 +2,16 @@ prometheus-cert:
   certificate_name: prometheus-cert
   namespaces: monitoring
   secretName: prometheus-tls
-  secretStoreRefName: aws-secret-store
   commonName: prometheus-k3s.spider-shlomo.com
   dnsNames: 
   - prometheus-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+blackjack-cert:
+  certificate_name: blackjack-cert
+  namespaces: blackjack
+  secretName: blackjack-tls
+  commonName:  blackjack-k3s.spider-shlomo.com
+  dnsNames: 
+  -  blackjack-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer

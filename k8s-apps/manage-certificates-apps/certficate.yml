@@ -1,19 +1,19 @@
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: blackjack-cert
-  namespace: blackjack
-spec:
-  secretName: blackjack-tls
-  revisionHistoryLimit: 1
-  duration: 2160h
-  renewBefore: 360h
-  commonName: blackjack-k3s.spider-shlomo.com
-  dnsNames:
-  - blackjack-k3s.spider-shlomo.com
-  issuerRef:
-    name: letsencrypt-dns-issuer
-    kind: ClusterIssuer
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: blackjack-cert
+#   namespace: blackjack
+# spec:
+#   secretName: blackjack-tls
+#   revisionHistoryLimit: 1
+#   duration: 2160h
+#   renewBefore: 360h
+#   commonName: blackjack-k3s.spider-shlomo.com
+#   dnsNames:
+#   - blackjack-k3s.spider-shlomo.com
+#   issuerRef:
+#     name: letsencrypt-dns-issuer
+#     kind: ClusterIssuer
 
 
 ---
@@ -107,24 +107,6 @@ spec:
   issuerRef:
     name: letsencrypt-dns-issuer
     kind: ClusterIssuer
-
----
-# apiVersion: cert-manager.io/v1
-# kind: Certificate
-# metadata:
-#   name: prometheus-cert
-#   namespace: monitoring
-# spec:
-#   secretName: prometheus-tls
-#   revisionHistoryLimit: 1
-#   duration: 2160h
-#   renewBefore: 360h
-#   commonName: prometheus-k3s.spider-shlomo.com
-#   dnsNames:
-#   - prometheus-k3s.spider-shlomo.com
-#   issuerRef:
-#     name: letsencrypt-dns-issuer
-#     kind: ClusterIssuer
 
 ---
 apiVersion: cert-manager.io/v1
