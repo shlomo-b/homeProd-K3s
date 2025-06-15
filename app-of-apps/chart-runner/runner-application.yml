@@ -9,7 +9,7 @@ spec:
     - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
       targetRevision: HEAD
       ref: values
-    - repoURL: https://github.com/actions/actions-runner-controller
+    - repoURL: https://github.com/actions/actions-runner-controller.git
       chart: actions-runner-controller
       targetRevision: 0.23.7
       helm:
