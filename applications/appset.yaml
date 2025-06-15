@@ -139,9 +139,9 @@ spec:
                 - env: certificates-management
                   chartPath: certificates-management
                   valueFile: values.yaml  
-                # - env: cronjob
-                #   chartPath: cronjob
-                #   valueFile: values.yaml  
+                - env: cronjob
+                  chartPath: cronjob
+                  valueFile: values.yaml  
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD
