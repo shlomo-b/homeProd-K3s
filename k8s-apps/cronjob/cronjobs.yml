@@ -1,67 +1,67 @@
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: backup-fortigate
-  namespace: cronjob
-  annotations:
-    keel.sh/policy: "all"
-    keel.sh/trigger: "poll"
-    keel.sh/pollSchedule: "@every 3m"
-spec:
-  schedule: "30 0 1 * *" # every month at 00:30
-  successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
-  failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
-  jobTemplate:
-    spec:
-      ttlSecondsAfterFinished: 60 # The Job (and its pods) will be deleted 60 seconds after completion
-      template:
-        spec:
-          restartPolicy: OnFailure
-          containers:
-          - name: cronjob
-            image: shlomobarzili/fortigate-backup:latest
-            env:
-              - name: USERNAME
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: USERNAME
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: backup-fortigate
+#   namespace: cronjob
+#   annotations:
+#     keel.sh/policy: "all"
+#     keel.sh/trigger: "poll"
+#     keel.sh/pollSchedule: "@every 3m"
+# spec:
+#   schedule: "30 0 1 * *" # every month at 00:30
+#   successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
+#   failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
+#   jobTemplate:
+#     spec:
+#       ttlSecondsAfterFinished: 60 # The Job (and its pods) will be deleted 60 seconds after completion
+#       template:
+#         spec:
+#           restartPolicy: OnFailure
+#           containers:
+#           - name: cronjob
+#             image: shlomobarzili/fortigate-backup:latest
+#             env:
+#               - name: USERNAME
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: USERNAME
                     
-              - name: PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: PASSWORD
+#               - name: PASSWORD
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: PASSWORD
 
-              - name: AWS_ACCESS_KEY_ID
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: AWS_ACCESS_KEY_ID
+#               - name: AWS_ACCESS_KEY_ID
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: AWS_ACCESS_KEY_ID
 
-              - name: AWS_SECRET_ACCESS_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: AWS_SECRET_ACCESS_KEY       
+#               - name: AWS_SECRET_ACCESS_KEY
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: AWS_SECRET_ACCESS_KEY       
 
-              - name: HOST
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: HOST
+#               - name: HOST
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: HOST
 
-              - name: PORT
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: PORT
+#               - name: PORT
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: PORT
 
-              - name: BUCKET_NAME
-                valueFrom:
-                  secretKeyRef:
-                    name: cronjob-credentials-fortigate-backup
-                    key: BUCKET_NAME
+#               - name: BUCKET_NAME
+#                 valueFrom:
+#                   secretKeyRef:
+#                     name: cronjob-credentials-fortigate-backup
+#                     key: BUCKET_NAME
 
 ---
 apiVersion: batch/v1
