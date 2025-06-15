@@ -26,3 +26,40 @@ backup-fortigate:
       secretName: cronjob-credentials-fortigate-backup
       key:
         name: HOST
+    - name: BUCKET_NAME
+      secretName: cronjob-credentials-fortigate-backup
+      key:
+        name: BUCKET_NAME    
+
+backup-juniper:
+  cronjob_name: backup-juniper
+  schedule: "0 0 1 * *"  # every month at 00:00
+  image:
+    name: shlomobarzili/backup-sw
+    tag: latest
+
+  env:
+    - name: USERNAME
+      secretName: cronjob-credentials-juniper-backup
+      key:
+        name: USERNAME
+    - name: PASSWORD
+      secretName: cronjob-credentials-juniper-backup
+      key:
+        name: PASSWORD
+    - name: AWS_ACCESS_KEY_ID
+      secretName: cronjob-credentials-juniper-backup
+      key:
+        name: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      secretName: cronjob-credentials-juniper-backup
+      key:
+        name: AWS_SECRET_ACCESS_KEY
+    - name: HOST
+      secretName: cronjob-credentials-juniper-backup
+      key:
+        name: HOST
+    - name: BUCKET_NAME
+      secretName: cronjob-credentials-juniper-backup
+      key:
+        name: BUCKET_NAME    
