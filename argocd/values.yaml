@@ -6,7 +6,7 @@ configs:
     server.insecure: true
   cm:
     create: true
-    # SSO Configuration via Azure-ada
+    # SSO Configuration via Azure-ad
     url: https://argocd-k3s.spider-shlomo.com
     dex.config: |
         logger:

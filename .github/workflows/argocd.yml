@@ -43,7 +43,7 @@ jobs:
     - name: Install & Upgrade ArgoCD with Helm
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'  
       run: |
-        helm repo add argo https://argoproj.github.io/argo-helm
+      #  helm repo add argo https://argoproj.github.io/argo-helm
         helm repo update
         helm upgrade prod-argocd argo/argo-cd --namespace argocd -f values.yaml --create-namespace --version 7.7.23
       working-directory: ./argocd
