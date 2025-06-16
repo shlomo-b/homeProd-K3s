@@ -21,7 +21,11 @@ spec:
         image: shlomobarzili/mongodb:latest
         ports:
         - containerPort: 27017
-        command: ["mongod", "--bind_ip_all", "--replSet", "rs0"]
+        command:
+        - mongod
+        - --replSet
+        - rs0
+        - --bind_ip_all
         resources:
           requests:
             cpu: 100m
