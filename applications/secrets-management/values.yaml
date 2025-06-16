@@ -1,13 +1,13 @@
-# shop-online-external-secret:
-#     external_secret_name: shop-online-external-secret
-#     namespaces:
-#       - shop-online
-#     refreshInterval: 168h
-#     secretStoreRefName: aws-secret-store
-#     target: aws-secret
-#     dataFrom:
-#       extract:
-#         key: DB-Locali
+secretspass-credentials:
+    external_secret_name: secretspass-credentials
+    namespaces:
+      - secretpass
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target: secretspass-credentials
+    dataFrom:
+      extract:
+        key: secretspass-credentials
 
 external-dns-secrets:
     external_secret_name: external-dns-secrets
