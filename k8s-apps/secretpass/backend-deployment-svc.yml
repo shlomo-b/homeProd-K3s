@@ -80,25 +80,25 @@ spec:
 
           - name: DB_NAME
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: secretspass-credentials
                 key: DB_NAME  
 
           - name: BUCKET_NAME
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: secretspass-credentials
                 key: BUCKET_NAME   
 
           - name: FERNET_KEY
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: secretspass-credentials
                 key: FERNET_KEY     
 
           - name: ADMIN_PASSWORD
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: secretspass-credentials
                 key: ADMIN_PASSWORD        
 ---
