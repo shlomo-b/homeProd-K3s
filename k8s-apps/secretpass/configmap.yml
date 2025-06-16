@@ -5,4 +5,4 @@ metadata:
     name: secretpass-config
 data:
     MONGO_INITDB_HOST:  mongodb-service
-    REACT_APP_API_URL: backend-svc
+    REACT_APP_API_URL: https://secretpass-backend.spider-shlomo.com
