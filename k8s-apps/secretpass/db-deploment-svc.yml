@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: mongodb
   namespace: secretpass
   labels:
     app: mongodb
 spec:
-  serviceName: mongodb-service
   selector:
     matchLabels:
       app: mongodb
@@ -15,38 +14,11 @@ spec:
       labels:
         app: mongodb
     spec:
-      initContainers:
-      - name: mongo-init
-        image: mongo
-        command:
-          - /bin/sh
-          - -c
-          - |
-            sleep 10
-            mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local --eval '
-              try {
-                rs.initiate({
-                  _id: "rs0",
-                  members: [
-                    { _id: 0, host: "mongodb-0.mongodb-service.secretpass.svc.cluster.local:27017" },
-                    { _id: 1, host: "mongodb-1.mongodb-service.secretpass.svc.cluster.local:27017" }
-                  ]
-                })
-              } catch (e) { print(e); }
-            ' || true
-        volumeMounts:
-        - name: mongo-pvc
-          mountPath: /data/db
       containers:
       - name: mongodb
         image: mongo
         ports:
         - containerPort: 27017
-        command:
-        - mongod
-        - "--bind_ip_all"
-        - "--replSet"
-        - rs0
         resources:
           requests:
             cpu: 100m
@@ -70,18 +42,15 @@ spec:
               configMapKeyRef:
                 name: secretpass-config
                 key: MONGO_INITDB_HOST
+
         volumeMounts:
         - name: mongo-pvc
-          mountPath: /data/db
-  volumeClaimTemplates:
-    - metadata: 
-        name: mongo-pvc
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: local-path
-        resources:
-          requests:
-            storage: 1Gi
+          mountPath: /data/db # default path should be /data/db its for mongodb
+      volumes:
+      - name: mongo-pvc
+        persistentVolumeClaim:
+          claimName: mongodb-pvc
+
 
 ---
 apiVersion: v1
