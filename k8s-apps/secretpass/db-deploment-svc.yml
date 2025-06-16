@@ -18,14 +18,14 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: shlomobarzili/mongodb:latest
+        image: mongo
         ports:
         - containerPort: 27017
         command:
         - mongod
-        - --replSet
+        - "--bind_ip_all"
+        - "--replSet"
         - rs0
-        - --bind_ip_all
         resources:
           requests:
             cpu: 100m
