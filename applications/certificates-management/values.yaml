@@ -51,3 +51,12 @@ secretpass-cert:
   dnsNames: 
   -  secretpass.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+secretpass-cert-backend:
+  certificate_name: secretpass-cert-backend
+  namespaces: secretpass
+  secretName: secretpass-app-tls-backend
+  commonName: secretpass-backend.spider-shlomo.com
+  dnsNames: 
+  -  secretpass-backend.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
