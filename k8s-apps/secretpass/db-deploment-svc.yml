@@ -6,8 +6,8 @@ metadata:
   labels:
     app: mongodb
 spec:
-  # create dns name for each pod mongodb
   serviceName: mongodb-service
+  replicas: 2
   selector:
     matchLabels:
       app: mongodb
@@ -16,6 +16,28 @@ spec:
       labels:
         app: mongodb
     spec:
+      initContainers:
+      - name: mongo-init
+        image: mongo
+        command:
+          - /bin/sh
+          - -c
+          - |
+            sleep 10
+            mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local --eval '
+              try {
+                rs.initiate({
+                  _id: "rs0",
+                  members: [
+                    { _id: 0, host: "mongodb-0.mongodb-service.secretpass.svc.cluster.local:27017" },
+                    { _id: 1, host: "mongodb-1.mongodb-service.secretpass.svc.cluster.local:27017" }
+                  ]
+                })
+              } catch (e) { print(e); }
+            ' || true
+        volumeMounts:
+        - name: mongo-pvc
+          mountPath: /data/db
       containers:
       - name: mongodb
         image: mongo
@@ -33,7 +55,6 @@ spec:
           limits:
             cpu: 500m
             memory: 1Gi
-
         env:
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
@@ -50,21 +71,18 @@ spec:
               configMapKeyRef:
                 name: secretpass-config
                 key: MONGO_INITDB_HOST
-
         volumeMounts:
         - name: mongo-pvc
-          mountPath: /data/db # default path should be /data/db its for mongodb
-  # create PVC for each pod mongodb
+          mountPath: /data/db
   volumeClaimTemplates:
     - metadata: 
         name: mongo-pvc
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: local-path   # reference from StorageClass defult k3s
+        storageClassName: local-path
         resources:
           requests:
             storage: 1Gi
-
 
 ---
 apiVersion: v1
