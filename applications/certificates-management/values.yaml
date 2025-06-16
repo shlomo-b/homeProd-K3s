@@ -11,7 +11,7 @@ blackjack-cert:
   certificate_name: blackjack-cert
   namespaces: blackjack
   secretName: blackjack-tls
-  commonName:  blackjack-k3s.spider-shlomo.com
+  commonName: blackjack-k3s.spider-shlomo.com
   dnsNames: 
   -  blackjack-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
