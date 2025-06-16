@@ -21,6 +21,7 @@ spec:
         image: shlomobarzili/mongodb:latest
         ports:
         - containerPort: 27017
+        command: ["mongod", "--bind_ip_all", "--replSet", "rs0"]
         resources:
           requests:
             cpu: 100m
@@ -49,7 +50,6 @@ spec:
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
-       # command: ["mongod", "--replSet", "rs0"]  
   # create PVC for each pod mongodb
   volumeClaimTemplates:
     - metadata: 
