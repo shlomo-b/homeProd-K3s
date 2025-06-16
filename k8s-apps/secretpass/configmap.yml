@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    namespace: secretpass
+    name: secretpass-config
+data:
+    MONGO_INITDB_HOST:  mongodb-service
+    REACT_APP_API_URL: backend-svc

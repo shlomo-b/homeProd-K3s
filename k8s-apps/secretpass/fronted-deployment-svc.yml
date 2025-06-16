@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-fronted  # react-front
-  namespace: shop-online
-  annotations:
-    # annotations for keel to update the image
-    keel.sh/policy: "all"
-    keel.sh/trigger: "poll"
-    keel.sh/pollSchedule: "@every 3m"
+  name: fronted-secretpass
+  namespace: secretpass
+  # annotations:
+  #   # annotations for keel to update the image
+  #   keel.sh/policy: "all"
+  #   keel.sh/trigger: "poll"
+  #   keel.sh/pollSchedule: "@every 3m"
 spec:
   selector:
     matchLabels:
-      app: react-app
+      app: fronted
   template:
     metadata:
       labels:
-        app: react-app
+        app: fronted
     spec:
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: "kubernetes.io/hostname"
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: react-app    
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: "kubernetes.io/hostname"
+      #     whenUnsatisfiable: ScheduleAnyway
+      #     labelSelector:
+      #       matchLabels:
+      #         app: react-app    
   #  spec:
       containers:
-      - name: lab4
-        image: shlomobarzili/react-fronted:latest
+      - name: fronted
+        image: shlomobarzili/secretpass-fronted:latest
         imagePullPolicy: Always
         ports:
         - name: http
@@ -45,18 +45,18 @@ spec:
           - name: REACT_APP_API_URL
             valueFrom:
               configMapKeyRef:
-                name: var-shop-online # reference from ConfigMap
+                name: secretpass-config
                 key: REACT_APP_API_URL
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-svc
-  namespace: shop-online # the namespace that sperate the pods between envroments.
+  name: fronted-svc
+  namespace: secretpass
 spec:
   selector:
-    app: react-app
+    app: fronted
   type: ClusterIP
   ports:
     - protocol: TCP

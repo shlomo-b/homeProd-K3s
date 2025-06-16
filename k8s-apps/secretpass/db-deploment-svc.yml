@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
-  namespace: shop-online
+  namespace: secretpass
   labels:
-    app: mongodb-lab4
+    app: mongodb
 spec:
   # create dns name for each pod mongodb
   serviceName: mongodb-service
   selector:
     matchLabels:
-      app: mongodb-lab4
+      app: mongodb
   template:
     metadata:
       labels:
-        app: mongodb-lab4
+        app: mongodb
     spec:
       containers:
       - name: mongodb
@@ -33,22 +33,22 @@ spec:
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
               secretKeyRef:
-                name: aws-secret # reference from ExternalSecret
+                name: secretspass-credentials
                 key: MONGO_INITDB_ROOT_USERNAME
                 
 
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: aws-secret # reference from ExternalSecret
+                name: secretspass-credentials
                 key: MONGO_INITDB_ROOT_PASSWORD
                 
 
-          - name: MONGO_DB_HOST
+          - name: MONGO_INITDB_HOST
             valueFrom:
               configMapKeyRef:
-                name: var-shop-online # reference from ConfigMap
-                key: MONGO_DB_HOST
+                name: secretpass-config
+                key: MONGO_INITDB_HOST
 
         volumeMounts:
         - name: mongo-pvc
@@ -70,10 +70,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-service
-  namespace: shop-online
+  namespace: secretpass
 spec:
   selector:
-    app: mongodb-lab4
+    app: mongodb
   type: ClusterIP
   ports:
     - protocol: TCP
