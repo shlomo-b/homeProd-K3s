@@ -35,15 +35,11 @@ spec:
               secretKeyRef:
                 name: secretspass-credentials
                 key: MONGO_INITDB_ROOT_USERNAME
-                
-
           - name: MONGO_INITDB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: secretspass-credentials
                 key: MONGO_INITDB_ROOT_PASSWORD
-                
-
           - name: MONGO_INITDB_HOST
             valueFrom:
               configMapKeyRef:
@@ -53,6 +49,7 @@ spec:
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
+        command: ["mongod", "--replSet", "rs0"]  
   # create PVC for each pod mongodb
   volumeClaimTemplates:
     - metadata: 
