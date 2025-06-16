@@ -1,4 +1,4 @@
-interval: 24h
+interval: 1m #168h
 provider: aws
 
 aws:
