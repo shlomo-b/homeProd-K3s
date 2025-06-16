@@ -1,117 +1,117 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: backend-secretpass
-  namespace: secretpass
-  # annotations:
-  #   # annotations for keel to update the image
-  #   keel.sh/policy: "all"
-  #   keel.sh/trigger: "poll"
-  #   keel.sh/pollSchedule: "@every 3m"
-spec:
-  selector:
-    matchLabels:
-      app: backend
-  template:
-    metadata:
-      labels:
-        app: backend
-    spec:
-      # topologySpreadConstraints:
-      #   - maxSkew: 1
-      #     topologyKey: "kubernetes.io/hostname"
-      #     whenUnsatisfiable: ScheduleAnyway
-      #     labelSelector:
-      #       matchLabels:
-      #         app: backend  
-   # spec:
-      containers:
-      - name: http
-        image: shlomobarzili/secretpass-backend:latest
-        imagePullPolicy: Always
-        ports:
-        - name: backend
-          containerPort: 5050
-          protocol: TCP
-        resources:
-          requests:
-            cpu: 100m
-            memory: 512Mi
-          limits:
-            cpu: 500m
-            memory: 1Gi  
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: backend-secretpass
+#   namespace: secretpass
+#   # annotations:
+#   #   # annotations for keel to update the image
+#   #   keel.sh/policy: "all"
+#   #   keel.sh/trigger: "poll"
+#   #   keel.sh/pollSchedule: "@every 3m"
+# spec:
+#   selector:
+#     matchLabels:
+#       app: backend
+#   template:
+#     metadata:
+#       labels:
+#         app: backend
+#     spec:
+#       # topologySpreadConstraints:
+#       #   - maxSkew: 1
+#       #     topologyKey: "kubernetes.io/hostname"
+#       #     whenUnsatisfiable: ScheduleAnyway
+#       #     labelSelector:
+#       #       matchLabels:
+#       #         app: backend  
+#    # spec:
+#       containers:
+#       - name: http
+#         image: shlomobarzili/secretpass-backend:latest
+#         imagePullPolicy: Always
+#         ports:
+#         - name: backend
+#           containerPort: 5050
+#           protocol: TCP
+#         resources:
+#           requests:
+#             cpu: 100m
+#             memory: 512Mi
+#           limits:
+#             cpu: 500m
+#             memory: 1Gi  
 
-        env:
-          - name: MONGO_INITDB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: secretpass-config
-                key: MONGO_INITDB_HOST
+#         env:
+#           - name: MONGO_INITDB_HOST
+#             valueFrom:
+#               configMapKeyRef:
+#                 name: secretpass-config
+#                 key: MONGO_INITDB_HOST
 
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: MONGO_INITDB_ROOT_USERNAME
+#           - name: MONGO_INITDB_ROOT_USERNAME
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: MONGO_INITDB_ROOT_USERNAME
                 
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: MONGO_INITDB_ROOT_PASSWORD
+#           - name: MONGO_INITDB_ROOT_PASSWORD
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: MONGO_INITDB_ROOT_PASSWORD
 
-          - name: AWS_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: AWS_ACCESS_KEY_ID
+#           - name: AWS_ACCESS_KEY_ID
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: AWS_ACCESS_KEY_ID
 
-          - name: AWS_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: AWS_SECRET_ACCESS_KEY
+#           - name: AWS_SECRET_ACCESS_KEY
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: AWS_SECRET_ACCESS_KEY
 
-          - name: JWT_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: JWT_SECRET_KEY
+#           - name: JWT_SECRET_KEY
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: JWT_SECRET_KEY
 
-          - name: DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: DB_NAME  
+#           - name: DB_NAME
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: DB_NAME  
 
-          - name: BUCKET_NAME
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: BUCKET_NAME   
+#           - name: BUCKET_NAME
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: BUCKET_NAME   
 
-          - name: FERNET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: FERNET_KEY     
+#           - name: FERNET_KEY
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: FERNET_KEY     
 
-          - name: ADMIN_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: ADMIN_PASSWORD        
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-svc
-  namespace: secretpass
-spec:
-  selector:
-    app: backend
-  type: ClusterIP 
-  ports:
-    - protocol: TCP
-      port: 5050
-      targetPort: 5050
+#           - name: ADMIN_PASSWORD
+#             valueFrom:
+#               secretKeyRef:
+#                 name: secretspass-credentials
+#                 key: ADMIN_PASSWORD        
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: backend-svc
+#   namespace: secretpass
+# spec:
+#   selector:
+#     app: backend
+#   type: ClusterIP 
+#   ports:
+#     - protocol: TCP
+#       port: 5050
+#       targetPort: 5050
