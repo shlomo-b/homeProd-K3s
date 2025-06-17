@@ -27,7 +27,7 @@ spec:
   #  spec:
       containers:
       - name: fronted
-        image: shlomobarzili/secretpass-fronted:latest
+        image: shlomobarzili/secretpass-frontend:latest
         imagePullPolicy: Always
         ports:
         - name: http
