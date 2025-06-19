@@ -14,7 +14,11 @@ images:
   - repository: shlomobarzili/fortigate-backup
     tag: latest  
   - repository: shlomobarzili/backup-sw
-    tag: latest    
+    tag: latest  
+  - repository: shlomobarzili/secretpass-backend   
+    tag: latest
+  - repository: shlomobarzili/secretpass-frontend
+    tag: latest 
 
 aws:
   region: us-east-1
