@@ -27,8 +27,11 @@ spec:
             - bash
             - -c
             - |
-              echo "🔄 Waiting for all MongoDB pods to be ready..."
-              for host in mongodb-0 mongodb-1 mongodb-2; do
+              set -e
+              replicas=2
+              echo "🔄 Waiting for all MongoDB pods (0 to $((replicas - 1))) to be ready..."
+              for i in $(seq 0 $((replicas - 1))); do
+                host="mongodb-$i"
                 until mongosh --host $host.mongodb-service.secretpass.svc.cluster.local --eval "db.adminCommand('ping')" &>/dev/null; do
                   echo "⏳ Waiting for $host to be ready..."
                   sleep 2
@@ -42,14 +45,20 @@ spec:
                 echo "✅ Replica set already exists. Skipping initialization."
               else
                 echo "🚀 Initiating replica set..."
-                mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local --eval '
+                members=""
+                for i in $(seq 0 $((replicas - 1))); do
+                  host="mongodb-$i.mongodb-service.secretpass.svc.cluster.local:27017"
+                  members="$members{ _id: $i, host: \"$host\" },"
+                done
+                # Remove trailing comma
+                members="${members%,}"
+
+                mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local --eval "
                   rs.initiate({
-                    _id: "rs0",
-                    members: [
-                      { _id: 0, host: "mongodb-0.mongodb-service.secretpass.svc.cluster.local:27017" },
-                      { _id: 1, host: "mongodb-1.mongodb-service.secretpass.svc.cluster.local:27017" }                    ]
+                    _id: 'rs0',
+                    members: [ $members ]
                   })
-                '
+                "
               fi
 
               echo "👤 Creating root user..."
