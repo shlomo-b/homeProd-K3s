@@ -3,8 +3,6 @@ kind: StatefulSet
 metadata:
   name: mongodb
   namespace: secretpass
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
   labels:
     app: mongodb
 spec:
@@ -18,39 +16,39 @@ spec:
         app: mongodb
     spec:
       containers:
-        - name: mongodb
-          image: mongo
-          command:
-            - mongod
-            - "--bind_ip_all"
-            - "--replSet"
-            - rs0
-            - "--auth"
-          ports:
-            - containerPort: 27017
-          env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: secretspass-credentials
-                  key: MONGO_INITDB_ROOT_USERNAME
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secretspass-credentials
-                  key: MONGO_INITDB_ROOT_PASSWORD
-          volumeMounts:
-            - name: mongo-pvc
-              mountPath: /data/db
+      - name: mongodb
+        image: mongo:7.0
+        command:
+          - mongod
+          - "--bind_ip_all"
+          - "--replSet"
+          - rs0
+        ports:
+          - containerPort: 27017
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: secretspass-credentials
+                key: MONGO_INITDB_ROOT_USERNAME
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secretspass-credentials
+                key: MONGO_INITDB_ROOT_PASSWORD
+        volumeMounts:
+          - name: mongo-pvc
+            mountPath: /data/db
   volumeClaimTemplates:
     - metadata:
         name: mongo-pvc
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: [ "ReadWriteOnce" ]
         storageClassName: local-path
         resources:
           requests:
             storage: 1Gi
+
 ---            
 apiVersion: v1
 kind: Service
