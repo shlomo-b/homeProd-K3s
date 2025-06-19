@@ -76,9 +76,9 @@ spec:
   scaleTargetRef:
     # after the deployment runs, the HPA will control the number of pods
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     name: mongodb
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 3
   metrics:
     - type: Resource
