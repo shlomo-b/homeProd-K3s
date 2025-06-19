@@ -1,11 +1,15 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mongodb
   namespace: secretpass
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
   labels:
     app: mongodb
 spec:
+  # create dns name for each pod mongodb
+  serviceName: mongodb-service
   selector:
     matchLabels:
       app: mongodb
@@ -19,6 +23,11 @@ spec:
         image: mongo
         ports:
         - containerPort: 27017
+        command:
+        - mongod
+        - "--bind_ip_all"
+        - "--replSet"
+        - rs0
         resources:
           requests:
             cpu: 100m
@@ -26,6 +35,7 @@ spec:
           limits:
             cpu: 500m
             memory: 1Gi
+
         env:
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
@@ -46,12 +56,16 @@ spec:
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb
-      volumes:
-      - name: mongo-pvc
-        persistentVolumeClaim:
-          claimName: mongodb-pvc
-
-
+  # create PVC for each pod mongodb
+  volumeClaimTemplates:
+    - metadata: 
+        name: mongo-pvc
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: local-path   # reference from StorageClass defult k3s
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: v1
 kind: Service

@@ -18,3 +18,11 @@ affinity: {}
 
 configmap:
   create: false
+
+server:
+  ingress:
+    enabled: false
+
+client:
+  ingress:
+    enabled: false
