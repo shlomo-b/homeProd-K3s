@@ -9,6 +9,7 @@ spec:
   backoffLimit: 4
   template:
     spec:
+      restartPolicy: OnFailure
       containers:
         - name: mongo-init
           image: mongo:7.0
@@ -29,6 +30,7 @@ spec:
             - |
               set -e
               replicas=2
+
               echo "🔄 Waiting for all MongoDB pods (0 to $((replicas - 1))) to be ready..."
               for i in $(seq 0 $((replicas - 1))); do
                 host="mongodb-$i"
@@ -50,7 +52,6 @@ spec:
                   host="mongodb-$i.mongodb-service.secretpass.svc.cluster.local:27017"
                   members="$members{ _id: $i, host: \"$host\" },"
                 done
-                # Remove trailing comma
                 members="${members%,}"
 
                 mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local --eval "
@@ -61,13 +62,18 @@ spec:
                 "
               fi
 
-              echo "👤 Creating root user..."
-              mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local --eval "
-                use admin;
-                db.createUser({
-                  user: '$MONGO_INITDB_ROOT_USERNAME',
-                  pwd: '$MONGO_INITDB_ROOT_PASSWORD',
-                  roles: [ { role: 'root', db: 'admin' } ]
-                });
-              "
-      restartPolicy: OnFailure
+              echo "👤 Checking if root user already exists..."
+              USER_EXISTS=$(mongosh --quiet --host mongodb-0.mongodb-service.secretpass.svc.cluster.local/admin --eval "db.getUser('$MONGO_INITDB_ROOT_USERNAME')")
+
+              if [ "$USER_EXISTS" = "null" ]; then
+                echo "👤 Creating root user..."
+                mongosh --host mongodb-0.mongodb-service.secretpass.svc.cluster.local/admin --eval "
+                  db.createUser({
+                    user: '$MONGO_INITDB_ROOT_USERNAME',
+                    pwd: '$MONGO_INITDB_ROOT_PASSWORD',
+                    roles: [ { role: 'root', db: 'admin' } ]
+                  });
+                "
+              else
+                echo "✅ Root user already exists. Skipping creation."
+              fi

@@ -8,65 +8,51 @@ metadata:
   labels:
     app: mongodb
 spec:
-  # create dns name for each pod mongodb
   serviceName: mongodb-service
   selector:
     matchLabels:
       app: mongodb
+  replicas: 2
   template:
     metadata:
       labels:
         app: mongodb
     spec:
       containers:
-      - name: mongodb
-        image: mongo
-        ports:
-        - containerPort: 27017
-        command:
-        - mongod
-        - "--bind_ip_all"
-        - "--replSet"
-        - rs0
-        resources:
-          requests:
-            cpu: 100m
-            memory: 512Mi
-          limits:
-            cpu: 500m
-            memory: 1Gi
-
-        env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: MONGO_INITDB_ROOT_USERNAME
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: secretspass-credentials
-                key: MONGO_INITDB_ROOT_PASSWORD
-          - name: MONGO_INITDB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: secretpass-config
-                key: MONGO_INITDB_HOST
-
-        volumeMounts:
-        - name: mongo-pvc
-          mountPath: /data/db # default path should be /data/db its for mongodb
-  # create PVC for each pod mongodb
+        - name: mongodb
+          image: mongo
+          command:
+            - mongod
+            - "--bind_ip_all"
+            - "--replSet"
+            - rs0
+            - "--auth"
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secretspass-credentials
+                  key: MONGO_INITDB_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secretspass-credentials
+                  key: MONGO_INITDB_ROOT_PASSWORD
+          volumeMounts:
+            - name: mongo-pvc
+              mountPath: /data/db
   volumeClaimTemplates:
-    - metadata: 
+    - metadata:
         name: mongo-pvc
       spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: local-path   # reference from StorageClass defult k3s
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
         resources:
           requests:
             storage: 1Gi
----
+---            
 apiVersion: v1
 kind: Service
 metadata:
