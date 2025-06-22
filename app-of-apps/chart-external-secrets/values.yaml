@@ -21,12 +21,26 @@ serviceAccount:
   create: true
   name: external-secrets
 
-clusterSecretStore:
-  name: aws-secret-store
-  namespace: external-secrets
-  region: us-east-1
-  accessKeySecretName: aws-secret
-  accessKeyIdKey: accessKeyId
-  secretAccessKeyKey: secretAccessKey
-
+extraObjects: 
+  - |
+    apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: aws-secret-store
+      namespace: external-secrets
+    spec:
+      provider:
+        aws:
+          service: SecretsManager
+          region: us-east-1
+          auth:
+            secretRef:
+              accessKeyIDSecretRef:
+                name: aws-secret
+                key: accessKeyId
+                namespace: external-secrets
+              secretAccessKeySecretRef:
+                name: aws-secret
+                key: secretAccessKey
+                namespace: external-secrets
 
