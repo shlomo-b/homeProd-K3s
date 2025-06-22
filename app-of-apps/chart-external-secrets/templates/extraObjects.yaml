@@ -1,0 +1,6 @@
+{{- if .Values.extraObjects }}
+{{- range $i, $extra := .Values.extraObjects }}
+---
+{{ $extra | fromYaml | toYaml }}
+{{- end }}
+{{- end }}
