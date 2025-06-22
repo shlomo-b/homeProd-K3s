@@ -1,6 +1,20 @@
-{{- if .Values.extraObjects }}
-{{- range $i, $extra := .Values.extraObjects }}
----
-{{ $extra | fromYaml | toYaml }}
-{{- end }}
-{{- end }}
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: {{ .Values.clusterSecretStore.name }}
+  namespace: {{ .Values.clusterSecretStore.namespace }}
+spec:
+  provider:
+    aws:
+      service: SecretsManager
+      region: {{ .Values.clusterSecretStore.region }}
+      auth:
+        secretRef:
+          accessKeyIDSecretRef:
+            name: {{ .Values.clusterSecretStore.accessKeySecretName }}
+            key: {{ .Values.clusterSecretStore.accessKeyIdKey }}
+            namespace: {{ .Values.clusterSecretStore.namespace }}
+          secretAccessKeySecretRef:
+            name: {{ .Values.clusterSecretStore.accessKeySecretName }}
+            key: {{ .Values.clusterSecretStore.secretAccessKeyKey }}
+            namespace: {{ .Values.clusterSecretStore.namespace }}
