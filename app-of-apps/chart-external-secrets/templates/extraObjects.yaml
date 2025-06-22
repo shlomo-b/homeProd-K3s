@@ -2,7 +2,7 @@ apiVersion: external-secrets.io/v1
 kind: ClusterSecretStore
 metadata:
   name: {{ .Values.clusterSecretStore.name }}
-  namespace: {{ .Values.clusterSecretStore.namespace }}
+  namespace: external-secrets
 spec:
   provider:
     aws:
