@@ -1,198 +1,35 @@
 # apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: argocd-k8s
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io # The finalizer delete the application and resources
-# spec:
-#   project: default
-#   source:
-#     repoURL: https://github.com/shlomo-b/homeProd-K3s.git # the repo
-#     path: app-of-apps-test/applications
-#     targetRevision: HEAD
-#     directory:
-#       recurse: true
-#   destination:
-#     server: https://kubernetes.default.svc  # The cluster URL Argo CD will connect to
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
----
-# apiVersion: argoproj.io/v1alpha1
-# kind: ApplicationSet
-# metadata:
-#   name: all-apps-dev-prod
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   generators:
-#     - matrix:
-#         generators:
-#           - list:
-#               elements:
-#                 - env: dev
-#                 - env: prod
-#                 - env: test
-#           - git:
-#               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-#               revision: HEAD
-#               directories:
-#                 - path: app-of-apps-test/*
-#   template:
-#     metadata:
-#       name: '{{path.basename}}-{{env}}'
-#     spec:
-#       project: default
-#       source:
-#         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-#         targetRevision: HEAD
-#         path: app-of-apps-test/{{path.basename}}
-#         helm:
-#           valueFiles:
-#             - values-{{env}}.yaml
-#       destination:
-#         server: https://kubernetes.default.svc
-#         namespace: '{{env}}'
-#       syncPolicy:
-#         # syncOptions:
-#         #   - CreateNamespace=true
-#         automated:
-#           selfHeal: true
-#           prune: true
----
-# apiVersion: argoproj.io/v1alpha1
-# kind: ApplicationSet
-# metadata:
-#   name: myapp-dev-prod
-#   namespace: argocd
-# spec:
-#   generators:
-#     - matrix:
-#         generators:
-#           - list:
-#               elements:
-#                 - env: dev
-#                   valueFile: values-dev.yaml
-#                   namespace: dev
-#                 - env: prod
-#                   valueFile: values-prod.yaml
-#                   namespace: prod
-#           - git:
-#               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-#               revision: HEAD
-#               directories:
-#                 - path: app-of-apps-test/app
-#   template:
-#     metadata:
-#       name: myapp-{{env}}
-#     spec:
-#       project: default
-#       source:
-#         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-#         targetRevision: HEAD
-#         path: app-of-apps-test/app
-#         helm:
-#           valueFiles:
-#             - '{{valueFile}}'
-#       destination:
-#         server: https://kubernetes.default.svc
-#         namespace: '{{namespace}}'
-#       syncPolicy:
-#         syncOptions:
-#           - CreateNamespace=true
-#         automated:
-#           selfHeal: true
-#           prune: true
-
-
----
-
-# apiVersion: argoproj.io/v1alpha1
 # kind: ApplicationSet
 # metadata:
 #   name: all-apps
 #   namespace: argocd
 # spec:
 #   generators:
-#     - matrix:
-#         generators:
-#           - list:
-#               elements:
-#                 - env: dev
-#                   chartPath: app
-#                   valueFile: values-dev.yaml
-#                 - env: prod
-#                   chartPath: app
-#                   valueFile: values-prod.yaml
-#                 - env: test
-#                   chartPath: app
-#                   valueFile: values-test.yaml
-#                 - env: app
-#                   chartPath: blackjack-test
-#                   valueFile: values-app.yaml
-#           - git:
-#               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-#               revision: HEAD
-#               directories:
-#                 - path: app-of-apps-test/*
+#     - git:
+#         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+#         revision: HEAD
+#         directories:
+#           - path: applications/app/dev
+#           - path: applications/app/prod
+#           - path: applications/blackjack/test
 #   template:
 #     metadata:
-#       name: '{{chartPath}}-{{env}}'
+#       name: '{{path.dirname}}-{{path.basename}}'
 #     spec:
 #       project: default
 #       source:
 #         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
 #         targetRevision: HEAD
-#         path: app-of-apps-test/{{chartPath}}
+#         path: applications/charts/{{path.dirname}}
 #         helm:
 #           valueFiles:
-#             - '{{valueFile}}'
+#             - ../../{{path.dirname}}/{{path.basename}}/values.yaml
 #       destination:
 #         server: https://kubernetes.default.svc
-#         namespace: '{{env}}'
+#         namespace: '{{path.basename}}'
 #       syncPolicy:
 #         syncOptions:
 #           - CreateNamespace=true
 #         automated:
 #           selfHeal: true
 #           prune: true
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: all-apps
-  namespace: argocd
-spec:
-  generators:
-    - git:
-        repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-        revision: HEAD
-        directories:
-          - path: applications/app/dev
-          - path: applications/app/prod
-          - path: applications/blackjack/test
-  template:
-    metadata:
-      name: '{{path.dirname}}-{{path.basename}}'
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-        targetRevision: HEAD
-        path: applications/charts/{{path.dirname}}
-        helm:
-          valueFiles:
-            - ../../{{path.dirname}}/{{path.basename}}/values.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
-      syncPolicy:
-        syncOptions:
-          - CreateNamespace=true
-        automated:
-          selfHeal: true
-          prune: true
