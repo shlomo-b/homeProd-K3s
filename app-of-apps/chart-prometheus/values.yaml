@@ -52,7 +52,7 @@ serverFiles:
         scheme: https      
 
       - job_name: "backend-secretpass"
-        metrics_path: "/metrics"
+        metrics_path: "/api/metrics"
         static_configs:
           - targets:
               - "secretpass-backend.spider-shlomo.com:443"
