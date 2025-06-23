@@ -51,11 +51,11 @@ serverFiles:
               - "grafana-k3s.spider-shlomo.com:443"
         scheme: https      
 
-      - job_name: "backend"
+      - job_name: "backend-secretpass"
         metrics_path: "/metrics"
         static_configs:
           - targets:
-              - "backend-k3s.spider-shlomo.com:443"
+              - "secretpass-backend.spider-shlomo.com:443"
         scheme: https
 
       - job_name: 'node-exporter-nodes'
