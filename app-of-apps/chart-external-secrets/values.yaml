@@ -13,7 +13,7 @@ global:
               - external-secrets-cert-controller
 
 enabled: true
-replicaCount: 1
+replicaCount: 2
 installCRDs: true
 scopedRBAC: true
 
