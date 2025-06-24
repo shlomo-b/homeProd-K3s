@@ -11,9 +11,9 @@ persistence:
   size: 10Gi
   accessMode: ReadWriteOnce
 
-sidecar:
-  datasources:
-    enabled: true
+# sidecar:
+#   datasources:
+#     enabled: true
 
 datasources:
   datasources.yaml:
