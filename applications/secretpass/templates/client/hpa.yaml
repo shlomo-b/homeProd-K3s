@@ -1,36 +1,36 @@
-{{- if .Values.autoscaling.enabled }}
+{{- if .Values.client.autoscaling.enabled }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Values.appName }}
   namespace:  {{ .Values.namespace }}
   labels:
-{{ toYaml .Values.autoscaling.labels | indent 4 }}
+{{ toYaml .Values.client.autoscaling.labels | indent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.autoscaling.appName }}
-  minReplicas: {{ .Values.autoscaling.minReplicas }}
-  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+    name: {{ .Values.client.autoscaling.appName }}
+  minReplicas: {{ .Values.client.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.client.autoscaling.maxReplicas }}
   metrics:
-{{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
+{{- if .Values.client.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+          averageUtilization: {{ .Values.client.autoscaling.targetCPUUtilizationPercentage }}
 {{- end }}
-{{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
+{{- if .Values.client.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+          averageUtilization: {{ .Values.client.autoscaling.targetMemoryUtilizationPercentage }}
 {{- end }}
-{{- with .Values.autoscaling.behavior }}
+{{- with .Values.client.autoscaling.behavior }}
   behavior:
 {{ toYaml . | indent 4 }}
 {{- end }}

@@ -1,3 +1,4 @@
+{{- if .Values.client.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,8 +7,8 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
-  {{- if (not .Values.autoscaling.enabled) }}
-  replicas: {{ .Values.replicas }}
+  {{- if (not .Values.client.autoscaling.enabled) }}
+  replicas: {{ .Values.client.replicas }}
   {{- end}}
   selector:
     matchLabels:
@@ -16,17 +17,17 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appName }}
-{{- with .Values.affinity }}
+{{- with .Values.client.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
 {{- end}}      
     spec:
       containers:
       - name: app
-        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
         imagePullPolicy: Always
         ports:
-        - containerPort: {{ .Values.containerPort }}
+        - containerPort: {{ .Values.client.containerPort }}
         resources:
           requests:
             memory: "100Mi"
@@ -34,3 +35,5 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "100m"
+
+{{- end }}

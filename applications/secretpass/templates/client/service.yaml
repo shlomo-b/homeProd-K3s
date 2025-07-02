@@ -1,3 +1,4 @@
+{{- if .Values.client.service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,7 +10,9 @@ spec:
   selector:
     app: {{ .Values.appName }}
   ports:
-    - port: {{ .Values.service.port }}              
-      targetPort: {{ .Values.service.targetPort }}
+    - port: {{ .Values.client.service.port }}              
+      targetPort: {{ .Values.client.service.port }}
       protocol: TCP
-  type: {{ .Values.service.serviceType }} 
+  type: {{ .Values.client.service.serviceType }} 
+
+{{- end }}

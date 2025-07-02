@@ -1,28 +1,51 @@
-appName: first-helm-chart
-namespace: default
-
-replicas: 1
-image:
-  name: devopsjourney1/mywebapp
-  tag: latest
-service:
-  port: 80
-  targetPort: 80
-  serviceType: LoadBalancer
-containerPort: 80  
-ingress:
-  enabled: false
-autoscaling:
-  enabled: false
-affinity: {}
+appName: secretpass
+namespace: secretpass
 
 configmap:
   create: false
 
 server:
+  enabled: true
   ingress:
     enabled: false
+  service:
+    enabled: true
+    serviceType: ClusterIP
+    port: 5050
+  image:
+    name: shlomobarzili/secretpass-backend
+    tag: latest
+  containerPort: 5050
+  autoscaling:
+    enabled: false
+  affinity: {}  
+    
 
 client:
+  enabled: true
   ingress:
     enabled: false
+  service:
+    enabled: true
+    serviceType: ClusterIP
+    port: 3000
+  image:
+    name: shlomobarzili/secretpass-frontend
+    tag: latest  
+  containerPort: 3000
+  autoscaling:
+    enabled: false
+  affinity: {}  
+  
+db:  
+  enabled: true
+  service:
+    enabled: true
+    serviceType: ClusterIP
+    port: 27017
+  replicas: 1
+  image:
+    name: mongo
+    tag: latest
+  containerPort: 27017
+  affinity: {}
