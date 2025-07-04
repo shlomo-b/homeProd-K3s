@@ -48,6 +48,24 @@ spec:
                 name: secretpass-config
                 key: MONGO_INITDB_HOST
 
+          - name: SAML_IDENTIFIER
+            valueFrom:
+              configMapKeyRef:
+                name: secretpass-config
+                key: SAML_IDENTIFIER
+
+          - name: SAML_REPLY_URL
+            valueFrom:
+              configMapKeyRef:
+                name: secretpass-config
+                key: SAML_REPLY_URL
+
+          - name: FRONTEND_URL_SAML
+            valueFrom:
+              configMapKeyRef:
+                name: secretpass-config
+                key: FRONTEND_URL_SAML
+
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
               secretKeyRef:
@@ -113,7 +131,7 @@ spec:
               secretKeyRef:
                 name: secretspass-credentials
                 key: SAML_LOGIN_URL 
-                
+
           - name: SAML_CERTIFICATE
             valueFrom:
               secretKeyRef:
