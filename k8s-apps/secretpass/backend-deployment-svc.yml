@@ -100,7 +100,25 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: secretspass-credentials
-                key: ADMIN_PASSWORD        
+                key: ADMIN_PASSWORD
+
+          - name: MICROSOFT_ENTRA_IDENTIFIER
+            valueFrom:
+              secretKeyRef:
+                name: secretspass-credentials
+                key: MICROSOFT_ENTRA_IDENTIFIER  
+
+          - name: SAML_LOGIN_URL
+            valueFrom:
+              secretKeyRef:
+                name: secretspass-credentials
+                key: SAML_LOGIN_URL 
+                
+          - name: SAML_CERTIFICATE
+            valueFrom:
+              secretKeyRef:
+                name: secretspass-credentials
+                key: SAML_CERTIFICATE                   
 ---
 apiVersion: v1
 kind: Service
