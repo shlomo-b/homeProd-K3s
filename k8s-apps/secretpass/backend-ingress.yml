@@ -30,7 +30,7 @@ spec:
             service:
               name: backend-svc
               port:
-                number: 3000         
+                number: 5050         
         # - path: /metrics
         #   pathType: Exact
         #   backend:
