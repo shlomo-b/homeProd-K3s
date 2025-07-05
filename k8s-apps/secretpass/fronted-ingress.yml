@@ -24,6 +24,13 @@ spec:
               name: fronted-svc
               port:
                 number: 3000
+        - path: /remote/saml/
+          pathType: Prefix
+          backend:
+            service:
+              name: backend-svc
+              port:
+                number: 5050        
 
         # - path: /static/js/bundle.js
         #   pathType: Exact
