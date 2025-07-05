@@ -24,13 +24,6 @@ spec:
               name: backend-svc
               port:
                 number: 5050
-        - path: /remote/saml/
-          pathType: Prefix
-          backend:
-            service:
-              name: backend-svc
-              port:
-                number: 5050        
         # - path: /metrics
         #   pathType: Exact
         #   backend:
