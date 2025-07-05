@@ -28,9 +28,9 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: fronted-svc
+              name: backend-svc
               port:
-                number: 3000      
+                number: 5050      
 
         # - path: /static/js/bundle.js
         #   pathType: Exact
