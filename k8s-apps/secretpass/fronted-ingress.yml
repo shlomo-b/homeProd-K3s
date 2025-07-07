@@ -33,7 +33,7 @@ spec:
               port:
                 number: 5050
 
-        - path: /
+        - path: /api/
           pathType: Prefix
           backend:
             service:
