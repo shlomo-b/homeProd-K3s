@@ -5,7 +5,7 @@ metadata:
     name: secretpass-config
 data:
     MONGO_INITDB_HOST:  mongodb-service
-    REACT_APP_API_URL: https://secretpass-backend.spider-shlomo.com
+    REACT_APP_API_URL:  https://secretpass.spider-shlomo.com
     SAML_IDENTIFIER:   https://secretpass.spider-shlomo.com/remote/saml/metadata
     SAML_REPLY_URL:    https://secretpass.spider-shlomo.com/remote/saml/acs
     FRONTEND_URL_SAML: https://secretpass.spider-shlomo.com
