@@ -26,6 +26,14 @@ spec:
       - name: app3
         image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
         imagePullPolicy: Always
+        env:
+          {{- range $env := .Values.server.env }}
+          - name: {{ $env.name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $env.secretName }}
+                key: {{ $env.key }}
+        {{- end }}
         ports:
         - containerPort: {{ .Values.server.containerPort }}
         resources:
@@ -35,5 +43,4 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "100m"
-
 {{- end }}

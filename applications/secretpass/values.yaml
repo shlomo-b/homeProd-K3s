@@ -15,12 +15,18 @@ server:
   image:
     name: shlomobarzili/secretpass-backend
     tag: latest
+  env:
+    - name: USERNAME
+      secretName: cronjob-credentials-fortigate-backup
+      key: USERNAME   
+    - name: test
+      secretName: test
+      key: test      
   containerPort: 5050
   autoscaling:
     enabled: false
-  affinity: {}  
-    
-
+  affinity: {} 
+  
 client:
   enabled: true
   ingress:
@@ -32,6 +38,14 @@ client:
   image:
     name: shlomobarzili/secretpass-frontend
     tag: latest  
+  env:
+    - name: db
+      secretName: cronjob-credentials-fortigate-backup
+      key: db   
+    - name: db512
+      secretName: cronjob-credentials-fortigate-backup
+      key: test  
+
   containerPort: 3000
   autoscaling:
     enabled: false

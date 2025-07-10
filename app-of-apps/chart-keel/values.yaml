@@ -15,10 +15,10 @@ images:
     tag: latest  
   - repository: shlomobarzili/backup-sw
     tag: latest  
-  - repository: shlomobarzili/secretpass-backend   
-    tag: latest
-  - repository: shlomobarzili/secretpass-frontend
-    tag: latest 
+  # - repository: shlomobarzili/secretpass-backend   
+  #   tag: latest
+  # - repository: shlomobarzili/secretpass-frontend
+  #   tag: latest 
 
 aws:
   region: us-east-1

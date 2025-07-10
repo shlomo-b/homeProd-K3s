@@ -26,6 +26,14 @@ spec:
       - name: app
         image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
         imagePullPolicy: Always
+        env:
+          {{- range $env := .Values.client.env }}
+          - name: {{ $env.name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $env.secretName }}
+                key: {{ $env.key }}
+        {{- end }}
         ports:
         - containerPort: {{ .Values.client.containerPort }}
         resources:
