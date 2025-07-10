@@ -42,6 +42,7 @@ configs:
       p, role:readonly-appservices, logs, get, appservices/*, allow
       p, role:role:admin, *, *, *, allow
       g, "Shlomo_lab@spider-shlomo.com", role:admin
+      g, "shlomob@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
       g, "daniel@spider-shlomo.com", role:readonly-appservices
     scopes: '[email]'
