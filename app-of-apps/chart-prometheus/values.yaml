@@ -55,7 +55,7 @@ serverFiles:
         metrics_path: "/api/metrics"
         static_configs:
           - targets:
-              - "secretpass-backend.spider-shlomo.com:443"
+              - "secretpass.spider-shlomo.com:443"
         scheme: https
 
       - job_name: 'node-exporter-nodes'
@@ -79,6 +79,11 @@ serverFiles:
         static_configs:
           - targets:
               - "10.0.11.250:9182"
+      - job_name: "lab-ubuntu"
+        metrics_path: "/metrics"
+        static_configs:
+          - targets:
+              - "10.0.11.10:8001"        
 
 alertmanager:
   enabled: false
