@@ -4,11 +4,11 @@ serviceAccount:
   name: kafka-ui
 resources:
   limits:
-    memory: 200m
-    cpu: 512Mi  
+    memory: "1"  
+    cpu: "2Gi" 
   requests:
-    memory: 200m
-    cpu: 256Mi
+    memory: "500m"
+    cpu: "1Gi"
 
 service:
   type: LoadBalancer
