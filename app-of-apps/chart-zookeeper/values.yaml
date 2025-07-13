@@ -20,4 +20,4 @@ affinity:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - zookeeper
+                - node1
