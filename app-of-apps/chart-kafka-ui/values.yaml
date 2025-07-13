@@ -1,0 +1,15 @@
+replicaCount: 1
+serviceAccount:
+  create: true
+  name: kafka-ui
+resources:
+  requests:
+    memory: 250m
+    cpu: 500m
+  limits:
+    memory: 700m
+    cpu: 900m  
+
+service:
+  type: LoadBalancer
+  port: 8080
