@@ -1,3 +1,8 @@
+replicaCount: 0  # no brokers
+
+controller:
+  replicaCount: 3  # 3 controllers for quorum
+
 serviceAccount:
   create: true
   name: kafka
@@ -28,3 +33,20 @@ auth:
         - controller_user
       passwords:
         - kafka
+
+extraEnvVars:
+  - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
+    value: |
+      0@kafka-controller-0.kafka-controller-headless.kafka.svc.cluster.local:9093,\
+      1@kafka-controller-1.kafka-controller-headless.kafka.svc.cluster.local:9093,\
+      2@kafka-controller-2.kafka-controller-headless.kafka.svc.cluster.local:9093
+  - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
+    value: controller
+  - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
+    value: "kafka:PLAINTEXT,controller:SASL_PLAINTEXT"
+  - name: KAFKA_CFG_SASL_ENABLED_MECHANISMS
+    value: "PLAIN"
+  - name: KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL
+    value: "PLAIN"
+  - name: KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL
+    value: "PLAIN"
