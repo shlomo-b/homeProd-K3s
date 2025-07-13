@@ -7,7 +7,7 @@ kafka:
       protocol: PLAINTEXT
   controller:
     roles: broker,controller
-    quorumVoters: 0@kafka-0.kafka-headless.default.svc.cluster.local:9093
+    quorumVoters: 0@kafka-0.kafka-headless.kafka.svc.cluster.local:9093
     listeners:
       plain:
         port: 9093
