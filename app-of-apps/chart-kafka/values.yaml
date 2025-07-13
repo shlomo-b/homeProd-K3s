@@ -2,9 +2,14 @@ serviceAccount:
   create: true
   name: kafka
 listeners:
+  client:
     containerPort: 9092
     protocol: PLAINTEXT
     name: kafka
+  conroller:
+    containerPort: 9093
+    protocol: PLAINTEXT
+    name: controller  
 
 resources:
   requests:
