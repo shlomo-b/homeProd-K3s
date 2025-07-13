@@ -37,12 +37,12 @@ spec:
             cpu: 500m
             memory: 1Gi  
 
-        # env:
-        #   - name: MONGO_INITDB_HOST
-        #     valueFrom:
-        #       configMapKeyRef:
-        #         name: secretpass-config
-        #         key: MONGO_INITDB_HOST
+        env:
+          - name: KAFKA_BOOTSTRAP_SERVERS
+            valueFrom:
+              configMapKeyRef:
+                name: kafka-config
+                key: KAFKA_BOOTSTRAP_SERVERS
 
 ---
 apiVersion: v1
