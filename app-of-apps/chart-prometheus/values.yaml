@@ -79,11 +79,18 @@ serverFiles:
         static_configs:
           - targets:
               - "10.0.11.250:9182"
+
       - job_name: "lab-ubuntu"
         metrics_path: "/metrics"
         static_configs:
           - targets:
-              - "10.0.11.10:8001"        
+              - "10.0.11.10:8001" 
+
+      - job_name: "cunstomer-k3s"
+        metrics_path: "/metrics"
+        static_configs:
+          - targets:
+              - "10.90.100.130:8001"                 
 
 alertmanager:
   enabled: false
