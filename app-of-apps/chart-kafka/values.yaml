@@ -5,7 +5,7 @@ controller:
   replicaCount: 3
   persistence:
     enabled: true
-    storageClass: "standard"
+    storageClass: "local-path"
     size: 8Gi
 
 listeners:
