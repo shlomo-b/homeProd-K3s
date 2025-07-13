@@ -17,18 +17,11 @@ listeners:
     protocol: SASL_PLAINTEXT
     name: controller
 
-auth:
-  enabled: true
-  type: sasl
-  sasl:
-    mechanism: plain
-    interBroker:
+sasl:
+  controller:
       user: controller_user
       password: kafka
-    controller:
-      user: controller_user
-      password: kafka
-    client:
+  client:
       users:
         - controller_user
       passwords:
