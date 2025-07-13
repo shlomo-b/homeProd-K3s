@@ -10,7 +10,11 @@ listeners:
     containerPort: 9093
     protocol: PLAINTEXT
     name: controller  
-
+service:
+  type: ClusterIP
+  conroller: 9093
+  external: 9095
+  interbroker: 9094 
 resources:
   requests:
     cpu: 100m
