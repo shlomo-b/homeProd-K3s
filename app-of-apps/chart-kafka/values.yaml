@@ -13,7 +13,7 @@ listeners:
 sasl:    
   controller:
     user: kafka
-    password: kafka
+    password: jXZdbrzfn4
     
 service:
   type: ClusterIP
