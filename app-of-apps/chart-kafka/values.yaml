@@ -1,20 +1,20 @@
-kafka:
-  kraft:
-    enabled: true
-  listeners:
-    plain:
-      port: 9092
-      protocol: PLAINTEXT
-  controller:
-    roles: broker,controller
-    quorumVoters: 0@kafka-0.kafka-headless.kafka.svc.cluster.local:9093
-    listeners:
-      plain:
-        port: 9093
-        protocol: PLAINTEXT
+kraft:
+  enabled: true
+
+controller:
+  replicaCount: 3
   persistence:
     enabled: true
     storageClass: "standard"
-    accessModes:
-      - ReadWriteOnce
-    size: 2Gi
+    size: 8Gi
+
+listeners:
+  client:
+    protocol: PLAINTEXT
+  controller:
+    protocol: PLAINTEXT
+  interbroker:
+    protocol: PLAINTEXT
+
+clusterId: ""
+kraftVersion: 1
