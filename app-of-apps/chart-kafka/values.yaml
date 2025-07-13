@@ -1,5 +1,3 @@
-replicaCount: 0  # no brokers
-
 controller:
   replicaCount: 3  # 3 controllers for quorum
 
@@ -16,13 +14,3 @@ listeners:
     containerPort: 9093
     protocol: SASL_PLAINTEXT
     name: controller
-
-sasl:
-  controller:
-      user: controller_user
-      password: kafka
-  client:
-      users:
-        - controller_user
-      passwords:
-        - kafka
