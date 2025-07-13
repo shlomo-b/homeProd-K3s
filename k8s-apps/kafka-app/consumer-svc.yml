@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cunsumer
+  namespace: kafka
+spec:
+  selector:
+    matchLabels:
+      app: cunsumer
+  replicas: 2    
+  template:
+    metadata:
+      labels:
+        app: cunsumer
+    spec:
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: "kubernetes.io/hostname"
+      #     whenUnsatisfiable: ScheduleAnyway
+      #     labelSelector:
+      #       matchLabels:
+      #         app: cunsumer  
+   # spec:
+      containers:
+      - name: http
+        image: shlomobarzili/consumer:v1.1.0
+        imagePullPolicy: Always
+        ports:
+        - name: cunsumer
+          containerPort: 8001
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi  
+
+        # env:
+        #   - name: MONGO_INITDB_HOST
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: secretpass-config
+        #         key: MONGO_INITDB_HOST
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cunsumer-svc
+  namespace: kafka
+spec:
+  selector:
+    app: cunsumer
+  type: LoadBalancer 
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001

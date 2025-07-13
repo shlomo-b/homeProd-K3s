@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+  namespace: kafka
+spec:
+  selector:
+    matchLabels:
+      app: producer
+  replicas: 2    
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: "kubernetes.io/hostname"
+      #     whenUnsatisfiable: ScheduleAnyway
+      #     labelSelector:
+      #       matchLabels:
+      #         app: producer  
+   # spec:
+      containers:
+      - name: http
+        image: shlomobarzili/producer:v1.1.0
+        imagePullPolicy: Always
+        ports:
+        - name: producer
+          containerPort: 8000
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi  
+
+        # env:
+        #   - name: MONGO_INITDB_HOST
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: secretpass-config
+        #         key: MONGO_INITDB_HOST
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: producer-svc
+  namespace: kafka
+spec:
+  selector:
+    app: producer
+  type: LoadBalancer 
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
