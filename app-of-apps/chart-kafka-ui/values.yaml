@@ -13,3 +13,9 @@ resources:
 service:
   type: LoadBalancer
   port: 8080
+
+yamlApplicationConfig:
+  kafka:
+    clusters:
+      name: "kafka-clusters"
+      bootstrapServers: "kafka:9092"
