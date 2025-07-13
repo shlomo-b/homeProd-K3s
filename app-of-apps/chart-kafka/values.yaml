@@ -10,6 +10,11 @@ listeners:
     containerPort: 9093
     protocol: PLAINTEXT
     name: controller  
+sasl:    
+  controller:
+    user: kafka
+    password: kafka
+    clientId: controller_broker_client
 service:
   type: ClusterIP
   conroller: 9093
