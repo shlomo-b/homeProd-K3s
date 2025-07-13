@@ -3,12 +3,12 @@ serviceAccount:
   create: true
   name: kafka-ui
 resources:
-  requests:
-    memory: 250m
-    cpu: 500m
   limits:
-    memory: 700m
-    cpu: 900m  
+    memory: 200m
+    cpu: 512Mi  
+  requests:
+    memory: 200m
+    cpu: 256Mi
 
 service:
   type: LoadBalancer
