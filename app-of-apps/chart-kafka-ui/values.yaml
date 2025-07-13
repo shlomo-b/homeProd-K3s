@@ -17,5 +17,5 @@ service:
 yamlApplicationConfig:
   kafka:
     clusters:
-      name: "kafka-clusters"
-      bootstrapServers: "10.43.116.152:9092"
+     - name: "kafka-clusters"
+       bootstrapServers: "kafka.kafka.svc.cluster.local:9092"
