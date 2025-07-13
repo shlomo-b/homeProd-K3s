@@ -1,37 +1,20 @@
-serviceAccount:
-  create: true
-  name: kafka
-listeners:
-  client:
-    containerPort: 9092
-    protocol: PLAINTEXT
-    name: kafka
-  conroller:
-    containerPort: 9093
-    protocol: PLAINTEXT
-    name: controller  
-sasl:    
+kafka:
+  kraft:
+    enabled: true
+  listeners:
+    plain:
+      port: 9092
+      protocol: PLAINTEXT
   controller:
-    user: kafka
-    password: jXZdbrzfn4
-    
-service:
-  type: ClusterIP
-  conroller: 9093
-  external: 9095
-  interbroker: 9094 
-resources:
-  requests:
-    cpu: 100m
-    memory: 512Mi
-  limits:
-    cpu: 100m
-    memory: 512Mi
-
-topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: "kubernetes.io/hostname"
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: kafka
+    roles: broker,controller
+    quorumVoters: 0@kafka-0.kafka-headless.default.svc.cluster.local:9093
+    listeners:
+      plain:
+        port: 9093
+        protocol: PLAINTEXT
+  persistence:
+    enabled: true
+    storageClass: "standard"
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
