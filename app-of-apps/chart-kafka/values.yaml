@@ -1,8 +1,10 @@
 serviceAccount:
   create: true
-  name: zookeeper
-ports:
-    client: 2181
+  name: kafka
+listeners:
+    containerPort: 9092
+    protocol: PLAINTEXT
+    name: kafka
 
 resources:
   requests:
@@ -20,4 +22,4 @@ affinity:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - node1
+                - node2

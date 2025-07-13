@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: zookeeper
+  name: kafka
   namespace: argocd
 spec:
   project: default
@@ -10,11 +10,11 @@ spec:
       targetRevision: HEAD
       ref: values
     - repoURL: registry-1.docker.io/bitnamicharts
-      chart: zookeeper
-      targetRevision: 13.8.4
+      chart: kafka
+      targetRevision: 32.3.3
       helm:
         valueFiles:
-          - $values/app-of-apps/chart-zookeeper/values.yaml
+          - $values/app-of-apps/chart-kafka/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka
