@@ -12,7 +12,7 @@ listeners:
     name: controller  
 sasl:    
   controller:
-    user: kafka
+    user: controller_user
     password: kafka
     clientId: controller_broker_client
 service:
