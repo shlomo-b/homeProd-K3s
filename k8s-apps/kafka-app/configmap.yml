@@ -4,4 +4,4 @@ metadata:
     namespace: kafka
     name: kafka-config
 data:
-    KAFKA_BOOTSTRAP_SERVERS:  kafka:9092
+    KAFKA_BOOTSTRAP_SERVERS:  kafka.kafka.svc.cluster.local:9092
