@@ -49,9 +49,9 @@ service:
   targetPort: 3000
 
 extraSecretMounts:
-  - name: grafana-credentials
-    mountPath: /etc/grafana/secrets/grafana-credentials
-    secretName: grafana-credentials
+  - name: aws-secret-grafana
+    mountPath: /etc/grafana/secrets/aws-secret-grafana
+    secretName: aws-secret-grafana
     readOnly: true
 
 grafana.ini:
@@ -60,5 +60,5 @@ grafana.ini:
     host: smtp.gmail.com:587
     from_address: Pythonprtgs@gmail.com
     from_name: Grafana
-    user: $__file{/etc/grafana/secrets/grafana-credentials/user}
-    password: $__file{/etc/grafana/secrets/grafana-credentials/password}
+    user: $__file{/etc/grafana/secrets/aws-secret-grafana/user}
+    password: $__file{/etc/grafana/secrets/aws-secret-grafana/password}
