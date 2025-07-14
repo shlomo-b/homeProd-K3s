@@ -70,7 +70,7 @@ grafana-credentials:
       - monitoring
     refreshInterval: 168h
     secretStoreRefName: aws-secret-store
-    target:  aws-secret
+    target:  aws-secret-grafana
     dataFrom:
       extract:
         key: secrets-grafana

@@ -47,3 +47,18 @@ service:
   enabled: true
   type: ClusterIP
   targetPort: 3000
+
+grafana:
+  extraSecretMounts:
+    - name: grafana-credentials
+      mountPath: /etc/secrets/ grafana-credentials
+      secretName:  grafana-credentials
+      readOnly: true
+  grafana.ini:
+    smtp:
+      enabled: true
+      host: smtp.example.com:587
+      from_address: your_from_email@example.com
+      from_name: Grafana
+      user: $(/etc/grafana/smtp-credentials/user)
+      password: $(/etc/grafana/smtp-credentials/password)
