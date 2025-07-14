@@ -7,6 +7,13 @@ controller:
     enabled: true
     storageClass: "local-path"
     size: 8Gi
+  resources:
+    limits:
+      memory: 1536Mi
+      cpu: 750m
+    requests:
+      memory: 1024Mi
+      cpu: 500m
 
 listeners:
   client:
