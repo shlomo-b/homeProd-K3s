@@ -63,7 +63,7 @@ secretpass-cert-backend:
 
 kafka-ui-cert:
   certificate_name: kafka-ui-cert
-  namespaces: kafka-ui
+  namespaces: kafka
   secretName: kafka-ui-tls
   commonName: kafka-ui-k3s.spider-shlomo.com
   dnsNames: 
