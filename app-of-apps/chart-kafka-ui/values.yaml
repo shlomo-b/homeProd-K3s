@@ -19,3 +19,17 @@ yamlApplicationConfig:
     clusters:
      - name: "kafka-clusters"
        bootstrapServers: "kafka.kafka.svc.cluster.local:9092"
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  host: kafka-ui-k3s.spider-shlomo.com
+  path: /
+  pathType: "Prefix"
+  tls:
+    enabled: true
+    secretName: kafka-ui-tls
