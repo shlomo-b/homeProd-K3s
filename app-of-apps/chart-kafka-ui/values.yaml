@@ -20,6 +20,7 @@ yamlApplicationConfig:
      - name: "kafka-clusters"
        bootstrapServers: "kafka.kafka.svc.cluster.local:9092"
 
+# ingress for secure access       
 ingress:
   enabled: true
   ingressClassName: traefik
