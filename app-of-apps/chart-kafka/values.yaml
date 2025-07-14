@@ -26,5 +26,5 @@ listeners:
   interbroker:
     protocol: PLAINTEXT
 
-clusterId: "my-kafka-cluster"
+clusterId: "3d6e8f36-f928-11ec-8ea0-acde48001122"
 kraftVersion: 1
