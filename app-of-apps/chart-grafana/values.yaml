@@ -55,10 +55,10 @@ extraSecretMounts:
     readOnly: true
 
 grafana.ini:
-    smtp:
-      enabled: true
-      host: smtp.gmail.com:587
-      from_address:  Pythonprtgs@gmail.com
-      from_name: Grafana
-      user: $(/etc/secrets/grafana-credentials/user)
-      password: $(/etc/secrets/grafana-credentials/password)
+  smtp:
+    enabled: true
+    host: smtp.gmail.com:587
+    from_address: Pythonprtgs@gmail.com
+    from_name: Grafana
+    user: __file{/etc/grafana/secrets/grafana-credentials/user}
+    password: __file{/etc/grafana/secrets/grafana-credentials/password}
