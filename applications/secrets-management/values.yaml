@@ -63,3 +63,14 @@ loki-credentials:
     dataFrom:
       extract:
         key: keys
+
+grafana-credentials:
+    external_secret_name: grafana-credentials
+    namespaces:
+      - monitoring
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  aws-secret
+    dataFrom:
+      extract:
+        key: secrets-grafana
