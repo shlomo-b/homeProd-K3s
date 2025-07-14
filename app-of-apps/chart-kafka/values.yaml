@@ -16,12 +16,15 @@ controller:
       cpu: 500m
 
 listeners:
+  # the connection of producers and consumers to kafka without encryption
   client:
     protocol: PLAINTEXT
+  # sed for management communication between the Controllers (KRaft mode only)
   controller:
     protocol: PLAINTEXT
+  # the communication between brokers for replication meesages  
   interbroker:
     protocol: PLAINTEXT
 
-clusterId: ""
+clusterId: "my-kafka-cluster"
 kraftVersion: 1
