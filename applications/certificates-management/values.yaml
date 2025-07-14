@@ -60,3 +60,12 @@ secretpass-cert-backend:
   dnsNames: 
   -  secretpass-backend.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+kafka-ui-cert:
+  certificate_name: kafka-ui-cert
+  namespaces: kafka-ui
+  secretName: kafka-ui-tls
+  commonName: kafka-ui-k3s.spider-shlomo.com
+  dnsNames: 
+  -  kafka-ui-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
