@@ -57,8 +57,8 @@ grafana:
   grafana.ini:
     smtp:
       enabled: true
-      host: smtp.example.com:587
-      from_address: your_from_email@example.com
+      host: smtp.gmail.com:587
+      from_address:  Pythonprtgs@gmail.com
       from_name: Grafana
-      user: $(/etc/grafana/smtp-credentials/user)
-      password: $(/etc/grafana/smtp-credentials/password)
+      user: $(/etc/secrets/grafana-credentials/user)
+      password: $(/etc/secrets/grafana-credentials/password)
