@@ -22,7 +22,7 @@ spec:
       #         app: cunsumer  
    # spec:
       containers:
-      - name: http
+      - name: consumer
         image: shlomobarzili/consumer:v1.1.0
         imagePullPolicy: Always
         ports:

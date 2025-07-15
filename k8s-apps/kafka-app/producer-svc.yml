@@ -22,7 +22,7 @@ spec:
       #         app: producer  
    # spec:
       containers:
-      - name: http
+      - name: producer
         image: shlomobarzili/producer:v1.1.0
         imagePullPolicy: Always
         ports:
