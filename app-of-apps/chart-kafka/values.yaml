@@ -2,7 +2,7 @@ kraft:
   enabled: true
 
 controller:
-  replicaCount: 2
+  replicaCount: 3
   persistence:
     enabled: true
     storageClass: "local-path"

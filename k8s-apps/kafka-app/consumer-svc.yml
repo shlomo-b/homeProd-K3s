@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: cunsumer
-  replicas: 3  
+  replicas: 2    
   template:
     metadata:
       labels:
