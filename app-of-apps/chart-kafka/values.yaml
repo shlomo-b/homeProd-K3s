@@ -16,7 +16,8 @@ controller:
       cpu: 500m
 
 listeners:
-  advertisedListeners: PLAINTEXT://kafka.kafka.svc.cluster.local:9092
+  advertisedListeners: 
+    - PLAINTEXT://kafka.kafka.svc.cluster.local:9092
   # the connection of producers and consumers to kafka without encryption
   client:
     protocol: PLAINTEXT
