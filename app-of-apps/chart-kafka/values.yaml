@@ -2,7 +2,7 @@ kraft:
   enabled: true
 
 controller:
-  replicaCount: 3
+  replicaCount: 1
   persistence:
     enabled: true
     storageClass: "local-path"
@@ -29,6 +29,6 @@ listeners:
 clusterId: "3d6e8f36-f928-11ec-8ea0-acde48001122"
 kraftVersion: 1
 
-# provisioning:
-#   enabled: true
-#   replicationFactor: 3
+provisioning:
+  enabled: true
+  replicationFactor: 3
