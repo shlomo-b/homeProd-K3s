@@ -5,3 +5,6 @@ metadata:
     name: kafka-config
 data:
     KAFKA_BOOTSTRAP_SERVERS:  kafka.kafka.svc.cluster.local:9092
+    BG_COLOR: '#12181b'
+    FONT_COLOR: '#FFFFFF'
+    CUSTOM_HEADER: "welcome to kafka app"
