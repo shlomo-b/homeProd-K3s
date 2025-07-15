@@ -2,7 +2,7 @@ kraft:
   enabled: true
 
 controller:
-  replicaCount: 3
+  replicaCount: 1
   persistence:
     enabled: true
     storageClass: "local-path"
@@ -32,3 +32,9 @@ kraftVersion: 1
 # provisioning:
 #   enabled: true
 #   replicationFactor: 3
+
+extraEnvVars:
+  - name: KAFKA_CFG_DEFAULT_REPLICATION_FACTOR
+    value: "1"
+  - name: KAFKA_CFG_MIN_INSYNC_REPLICAS
+    value: "1"
