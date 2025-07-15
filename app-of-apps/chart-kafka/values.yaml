@@ -33,7 +33,7 @@ kraftVersion: 1
 #   enabled: true
 #   replicationFactor: 3
 
-config:
+overrideConfiguration:
   default.replication.factor: 1
   min.insync.replicas: 1
   num.partitions: 1
