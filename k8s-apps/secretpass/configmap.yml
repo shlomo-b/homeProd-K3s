@@ -9,3 +9,4 @@ data:
     SAML_IDENTIFIER:   https://secretpass.spider-shlomo.com/remote/saml/metadata
     SAML_REPLY_URL:    https://secretpass.spider-shlomo.com/remote/saml/acs
     FRONTEND_URL_SAML: https://secretpass.spider-shlomo.com
+    REACT_APP_ENABLE_SAML: true
