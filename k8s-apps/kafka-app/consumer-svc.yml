@@ -43,12 +43,6 @@ spec:
               configMapKeyRef:
                 name: kafka-config
                 key: KAFKA_BOOTSTRAP_SERVERS
-          - name: CUSTOM_HEADER
-            valueFrom:
-              configMapKeyRef:
-                name: kafka-config
-                key: CUSTOM_HEADER      
-
 ---
 apiVersion: v1
 kind: Service
