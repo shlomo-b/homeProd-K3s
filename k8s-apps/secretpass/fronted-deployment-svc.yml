@@ -48,6 +48,12 @@ spec:
                 name: secretpass-config
                 key: REACT_APP_API_URL
 
+          - name: REACT_APP_ENABLE_SAML
+            valueFrom:
+              configMapKeyRef:
+                name: secretpass-config
+                key: REACT_APP_ENABLE_SAML
+
         # readinessProbe:
         #   httpGet:
         #     path: /
