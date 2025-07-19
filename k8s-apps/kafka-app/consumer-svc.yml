@@ -23,7 +23,7 @@ spec:
    # spec:
       containers:
       - name: consumer
-        image: shlomobarzili/consumer:v1.1.1
+        image: shlomobarzili/consumer:v1.2.0
         imagePullPolicy: Always
         ports:
         - name: cunsumer

@@ -23,7 +23,7 @@ spec:
    # spec:
       containers:
       - name: producer
-        image: shlomobarzili/producer:v1.1.1
+        image: shlomobarzili/producer:v1.2.0
         imagePullPolicy: Always
         ports:
         - name: producer
