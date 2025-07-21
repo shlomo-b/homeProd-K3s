@@ -26,7 +26,7 @@ spec:
       #         app: react-app    16167211712
       containers:
       - name: fronted
-        image: shlomobarzili/secretpass-frontend:v1.2.3
+        image: shlomobarzili/secretpass-frontend:v2.0.0
         imagePullPolicy: Always
         ports:
         - name: http
@@ -54,22 +54,21 @@ spec:
                 name: secretpass-config
                 key: REACT_APP_ENABLE_SAML
 
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 3000
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 5
-        #   failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 2
 
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 3000
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 10
-        #   failureThreshold: 3
-
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
 
 ---
 apiVersion: v1

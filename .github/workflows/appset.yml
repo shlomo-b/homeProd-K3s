@@ -4,7 +4,7 @@ on:
   push: 
     branches: [ "main" ]
     paths:
-      - 'applications/**'
+      - 'applications/appset.yaml'
   # pull_request:
   #   paths:
   #     - 'applications/**'
