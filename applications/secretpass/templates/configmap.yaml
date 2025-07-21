@@ -1,9 +1,13 @@
-{{- if or .Values.client.cm.enabled .Values.server.cm.enabled .Values.db.cm.enabled .Values.configmap.create }}
+{{- if or .Values.client.cm.enabled .Values.server.cm.enabled .Values.db.cm.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.configmap.name }}
-  namespace: {{ .Values.namespace | default "default" }}
+  name: secretpass-config
+  namespace: {{ .Values.namespace }}
 data:
-{{ toYaml .Values.configmap.data | nindent 2 }}
+{{- range or .Values.client.envVars .Values.server.envVars .Values.db.envVars }}
+  {{- if eq .source "configMapKeyRef" }}
+  {{ .key }}: {{ .value | default "" | quote }}
+  {{- end }}
+{{- end }}
 {{- end }}

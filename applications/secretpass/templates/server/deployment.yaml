@@ -27,12 +27,18 @@ spec:
         image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
         imagePullPolicy: Always
         env:
-          {{- range $env := .Values.server.env }}
-          - name: {{ $env.name }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $env.secretName }}
-                key: {{ $env.key }}
+            {{- range .Values.server.envVars }}
+            - name: {{ .name }}
+              valueFrom:
+              {{- if eq .source "secretKeyRef" }}
+                secretKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- else if eq .source "configMapKeyRef" }}
+                configMapKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- end }}
         {{- end }}
         ports:
         - containerPort: {{ .Values.server.containerPort }}

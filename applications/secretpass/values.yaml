@@ -14,19 +14,31 @@ server:
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
-    tag: latest
-  env:
-    - name: USERNAME
-      secretName: cronjob-credentials-fortigate-backup
-      key: USERNAME   
-    - name: test
-      secretName: test
-      key: test      
+    tag: latest 
   containerPort: 5050
   autoscaling:
     enabled: false
   affinity: {} 
-  
+  cm:
+    enabled: true
+  envVars:
+    - name: BACKEND_URL
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: JWT_SECRET_KEY
+
+    - name: MONGO_INITDB_HOST
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: MONGO_INITDB_HOST
+      value: MONGO_INITDB_HOST
+
+    - name: SAML_IDENTIFIER
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: SAML_IDENTIFIER
+      value: https://secretpass.spider-shlomo.com/remote/saml/metadata
+       
 client:
   enabled: true
   ingress:
@@ -39,18 +51,19 @@ client:
     name: shlomobarzili/secretpass-frontend
     tag: latest  
   env:
-    - name: db
-      secretName: cronjob-credentials-fortigate-backup
-      key: db   
-    - name: db512
-      secretName: cronjob-credentials-fortigate-backup
-      key: test  
+    - name: BACKEND_URL
+      valueFrom:
+        secretKeyRef:
+            secretName: cronjob-credentials-fortigate-backup
+            key: BACKEND_URL
 
   containerPort: 3000
   autoscaling:
     enabled: false
-  affinity: {}  
-  
+  affinity: {} 
+  cm:
+    enabled: false
+
 db:  
   enabled: true
   service:
@@ -63,3 +76,5 @@ db:
     tag: latest
   containerPort: 27017
   affinity: {}
+  cm:
+    enabled: false
