@@ -27,7 +27,7 @@ spec:
       #         app: react-app    16167211712
       containers:
       - name: fronted
-        image: shlomobarzili/secretpass-frontend:v2.0.0
+        image: shlomobarzili/secretpass-frontend:v2.1.0
         imagePullPolicy: Always
         ports:
         - name: http
