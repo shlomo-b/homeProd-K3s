@@ -27,7 +27,7 @@ spec:
    # spec:
       containers:
       - name: http
-        image: shlomobarzili/secretpass-backend:latest
+        image: shlomobarzili/secretpass-backend:v1.2.0
         imagePullPolicy: Always
         ports:
         - name: backend
