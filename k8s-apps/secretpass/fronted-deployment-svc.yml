@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: fronted-secretpass
   namespace: secretpass
-  annotations:
-    # annotations for keel to update the image
-    keel.sh/policy: "all"
-    keel.sh/trigger: "poll"
-    keel.sh/pollSchedule: "@every 3m"
+  # annotations:
+  #   # annotations for keel to update the image
+  #   keel.sh/policy: "all"
+  #   keel.sh/trigger: "poll"
+  #   keel.sh/pollSchedule: "@every 3m"
 spec:
   selector:
     matchLabels:
@@ -26,7 +26,7 @@ spec:
       #         app: react-app    16167211712
       containers:
       - name: fronted
-        image: shlomobarzili/secretpass-frontend:v1.2.3
+        image: shlomobarzili/secretpass-frontend:v1.2.2
         imagePullPolicy: Always
         ports:
         - name: http
