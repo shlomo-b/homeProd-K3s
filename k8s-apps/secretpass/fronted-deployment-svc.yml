@@ -55,21 +55,21 @@ spec:
                 name: secretpass-config
                 key: REACT_APP_ENABLE_SAML
 
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          failureThreshold: 2
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 3000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        #   failureThreshold: 2
 
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          failureThreshold: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 3000
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 10
+        #   failureThreshold: 3
 
 ---
 apiVersion: v1
