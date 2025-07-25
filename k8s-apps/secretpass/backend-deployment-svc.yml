@@ -9,6 +9,7 @@ metadata:
     keel.sh/trigger: "poll"
     keel.sh/pollSchedule: "@every 3m"
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: backend
@@ -17,7 +18,6 @@ spec:
       labels:
         app: backend
     spec:
-      revisionHistoryLimit: 0
       # topologySpreadConstraints:
       #   - maxSkew: 1
       #     topologyKey: "kubernetes.io/hostname"
