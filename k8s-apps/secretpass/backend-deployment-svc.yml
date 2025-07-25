@@ -17,6 +17,7 @@ spec:
       labels:
         app: backend
     spec:
+      revisionHistoryLimit: 0
       # topologySpreadConstraints:
       #   - maxSkew: 1
       #     topologyKey: "kubernetes.io/hostname"
@@ -24,7 +25,6 @@ spec:
       #     labelSelector:
       #       matchLabels:
       #         app: backend  
-   # spec:
       containers:
       - name: http
         image: shlomobarzili/secretpass-backend:v1.2.0
