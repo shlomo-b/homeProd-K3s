@@ -104,6 +104,8 @@ spec:
   template:
     metadata:
       name: '{{env}}'
+      labels:
+        argocd.argoproj.io/instance: '{{env}}'
     spec:
       project: default
       source:
