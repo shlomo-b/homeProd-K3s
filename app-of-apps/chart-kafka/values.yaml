@@ -19,18 +19,18 @@ listeners:
   # the connection of producers and consumers to kafka without encryption
   client:
     protocol: PLAINTEXT
-    containerPort: 9092
-    name: client
+  #   containerPort: 9092
+  #  name: client
   # sed for management communication between the Controllers (KRaft mode only)
   controller:
     protocol: PLAINTEXT
-    containerPort: 9093
-    name: controller
+  #   containerPort: 9093
+  #  name: controller
   # the communication between brokers for replication meesages  
   interbroker:
     protocol: PLAINTEXT
-    containerPort: 9094
-    name: interbroker
+  #   containerPort: 9094
+  #   name: interbroker
 
 clusterId: "3d6e8f36-f928-11ec-8ea0-acde48001122"
 kraftVersion: 1
