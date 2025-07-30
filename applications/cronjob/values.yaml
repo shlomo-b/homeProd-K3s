@@ -40,7 +40,7 @@ backup-juniper:
   schedule: "*/2 * * * *"  # every month at 00:00 "0 0 1 * *"
   image:
     name: shlomobarzili/backup-sw
-    tag: "13750821156"
+    tag: latest
 
   env:
     - name: USERNAME
