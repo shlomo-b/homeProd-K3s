@@ -1,6 +1,6 @@
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "*/2 * * * *"  # every month at 00:30 "30 0 1 * *"
+  schedule: "30 0 1 * *"  # every month at 00:30 "30 0 1 * *"
   image:
     name: shlomobarzili/fortigate-backup
     tag: latest
@@ -37,7 +37,7 @@ backup-fortigate:
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "*/2 * * * *"  # every month at 00:00 "0 0 1 * *"
+  schedule: "0 0 1 * *"  # every month at 00:00 "0 0 1 * *"
   image:
     name: shlomobarzili/backup-sw
     tag: latest
