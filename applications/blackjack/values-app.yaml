@@ -3,7 +3,7 @@ namespace: blackjack
 
 image:
   name: shlomobarzili/blackjack
-  tag: latest
+  tag: v1.0.0
 
 service:
   port: 80
