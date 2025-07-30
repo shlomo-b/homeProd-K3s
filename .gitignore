@@ -25,3 +25,5 @@ app-of-apps/chart-gha/test.yaml
 kyverno-policies/
 
 app-test/
+
+app-of-apps/chart-keel/
