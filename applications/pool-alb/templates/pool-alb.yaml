@@ -1,0 +1,27 @@
+{{- range $name, $config := .Values.pools }}
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: {{ $config.name }}
+  namespace: service-load-balancer
+spec:
+  addresses:
+    {{- range $config.addresses }}
+    - {{ . }}
+    {{- end }}
+  autoAssign: {{ $config.autoAssign }}
+{{- end }}
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: services
+  namespace: service-load-balancer
+spec:
+  ipAddressPools:
+    {{- range .Values.services.ipAddressPools }}
+    - {{ . }}
+{{- end }}
+

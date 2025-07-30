@@ -1,0 +1,17 @@
+pools:
+  traefikip:
+    name: traefikip
+    addresses:
+      - 10.90.100.121/32
+    autoAssign: false
+
+  alb-resources:
+    name: alb-resources
+    addresses:
+      - 10.90.100.126-10.90.100.150
+    autoAssign: true
+
+services:
+  ipAddressPools:
+    - traefikip
+    - alb-resources
