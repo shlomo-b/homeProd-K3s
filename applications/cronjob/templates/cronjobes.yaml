@@ -9,7 +9,7 @@ metadata:
     keel.sh/trigger: "poll"
     keel.sh/pollSchedule: "@every 3m"
 spec:
-  schedule: {{ $config.schedule }}
+  schedule: "{{ $config.schedule }}"
   successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
   failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
   jobTemplate:
