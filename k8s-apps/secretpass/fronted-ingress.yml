@@ -18,8 +18,8 @@ spec:
   - host: secretpass.spider-shlomo.com
     http:
       paths:
-        - path: /
-          pathType: Prefix
+        - path: /login
+          pathType: Exact
           backend:
             service:
               name: fronted-svc
@@ -34,13 +34,13 @@ spec:
               port:
                 number: 5050
 
-        - path: /api/
-          pathType: Prefix
-          backend:
-            service:
-              name: backend-svc
-              port:
-                number: 5050     
+        # - path: /api/
+        #   pathType: Prefix
+        #   backend:
+        #     service:
+        #       name: backend-svc
+        #       port:
+        #         number: 5050     
 
         - path: /api/metrics
           pathType: Exact
@@ -66,13 +66,22 @@ spec:
         #       port:
         #         number: 3000              
 
-        # - path: /register
-        #   pathType: Exact
-        #   backend:
-        #     service:
-        #       name: react-svc
-        #       port:
-        #         number: 3000     
+        - path: /register
+          pathType: Exact
+          backend:
+            service:
+              name: fronted-svc
+              port:
+                number: 3000
+
+        - path: /register
+          pathType: Exact
+          backend:
+            service:
+              name: backend-svc
+              port:
+                number: 5050
+
 
         # - path: /login
         #   pathType: Exact
@@ -80,12 +89,4 @@ spec:
         #     service:
         #       name: react-svc
         #       port:
-        #         number: 3000 
-
-        # - path: /add-product
-        #   pathType: Exact
-        #   backend:
-        #     service:
-        #       name: react-svc
-        #       port:
-        #         number: 3000                             
+        #         number: 3000                    
