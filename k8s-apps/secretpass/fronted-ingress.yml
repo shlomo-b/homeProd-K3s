@@ -7,7 +7,6 @@ metadata:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
-
 spec:
   ingressClassName: traefik
   tls:
@@ -18,8 +17,8 @@ spec:
   - host: secretpass.spider-shlomo.com
     http:
       paths:
-        - path: /login
-          pathType: Exact
+        - path: /
+          pathType: Prefix
           backend:
             service:
               name: fronted-svc
@@ -34,50 +33,50 @@ spec:
               port:
                 number: 5050
 
-        # - path: /api/
-        #   pathType: Prefix
+        - path: /api/
+          pathType: Prefix
+          backend:
+            service:
+              name: backend-svc
+              port:
+                number: 5050           
+
+        # - path: /static/js/bundle.js
+        #   pathType: Exact
         #   backend:
         #     service:
-        #       name: backend-svc
+        #       name: react-svc
         #       port:
-        #         number: 5050     
+        #         number: 3000     
 
-        - path: /api/metrics
-          pathType: Exact
-          backend:
-            service:
-              name: backend-svc
-              port:
-                number: 3000         
+        # - path: /manifest.json
+        #   pathType: Exact
+        #   backend:
+        #     service:
+        #       name: react-svc
+        #       port:
+        #         number: 3000              
 
-        - path: /static/js/
-          pathType: Exact
-          backend:
-            service:
-              name: fronted-svc
-              port:
-                number: 3000               
+        # - path: /register
+        #   pathType: Exact
+        #   backend:
+        #     service:
+        #       name: react-svc
+        #       port:
+        #         number: 3000     
 
-        - path: /register
-          pathType: Exact
-          backend:
-            service:
-              name: fronted-svc
-              port:
-                number: 3000
+        # - path: /login
+        #   pathType: Exact
+        #   backend:
+        #     service:
+        #       name: react-svc
+        #       port:
+        #         number: 3000 
 
-        - path: /register
-          pathType: Exact
-          backend:
-            service:
-              name: backend-svc
-              port:
-                number: 5050
-
-        - path: /static/css/
-          pathType: Exact
-          backend:
-            service:
-              name: fronted-svc
-              port:
-                number: 3000                    
+        # - path: /add-product
+        #   pathType: Exact
+        #   backend:
+        #     service:
+        #       name: react-svc
+        #       port:
+        #         number: 3000                             
