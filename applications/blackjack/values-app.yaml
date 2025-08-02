@@ -1,6 +1,6 @@
 appName: blackjack
 namespace: blackjack
-
+revisionHistoryLimit: 0
 image:
   name: shlomobarzili/blackjack
   tag: v1.0.0

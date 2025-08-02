@@ -6,6 +6,7 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- if (not .Values.autoscaling.enabled) }}
   replicas: {{ .Values.replicas }}
   {{- end}}
