@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: block-all-unknown
+  namespace: secretpass
+spec:
+  errors:
+    status:
+      - "403"
+    service:
+      name: deny-service
+      port: 80
+    query: /deny.html
