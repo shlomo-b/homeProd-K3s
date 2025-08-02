@@ -14,6 +14,8 @@ spec:
 {{- end }}
 
 ---
+{{- range $name, $config := .Values.l2advertisement }}
+---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
@@ -21,7 +23,21 @@ metadata:
   namespace: service-load-balancer
 spec:
   ipAddressPools:
-    {{- range .Values.services.ipAddressPools }}
-    - {{ . }}
+    {{- range $ipAddressPools := $config.ipAddressPools }}
+    - {{ $ipAddressPools }}
+{{- end }}
 {{- end }}
 
+---
+{{/*
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: services
+  namespace: service-load-balancer
+spec:
+  ipAddressPools:
+  {{- range .Values.services.ipAddressPools }}
+    - {{ . }}
+  {{- end }}
+*/}}

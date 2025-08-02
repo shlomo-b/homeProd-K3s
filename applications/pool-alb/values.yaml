@@ -11,7 +11,14 @@ pools:
       - 10.90.100.126-10.90.100.150
     autoAssign: true
 
-services:
-  ipAddressPools:
-    - traefikip
-    - alb-resources
+l2advertisement:
+  services:
+    ipAddressPools:
+      - traefikip
+      - alb-resources
+
+
+# services:
+#   ipAddressPools:
+#     - traefikip
+#     - alb-resources
