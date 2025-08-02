@@ -41,7 +41,15 @@ spec:
             service:
               name: backend-svc
               port:
-                number: 5050           
+                number: 5050     
+
+        - path: /api/metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: fronted-svc
+              port:
+                number: 3000              
 
         # - path: /static/js/bundle.js
         #   pathType: Exact
