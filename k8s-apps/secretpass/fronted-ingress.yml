@@ -46,7 +46,7 @@ spec:
           pathType: Exact
           backend:
             service:
-              name: fronted-svc
+              name: backend-svc
               port:
                 number: 3000         
 
