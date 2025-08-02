@@ -50,21 +50,13 @@ spec:
               port:
                 number: 3000         
 
-        # - path: /static/js/bundle.js
-        #   pathType: Exact
-        #   backend:
-        #     service:
-        #       name: react-svc
-        #       port:
-        #         number: 3000     
-
-        # - path: /manifest.json
-        #   pathType: Exact
-        #   backend:
-        #     service:
-        #       name: react-svc
-        #       port:
-        #         number: 3000              
+        - path: /static/js/
+          pathType: Exact
+          backend:
+            service:
+              name: fronted-svc
+              port:
+                number: 3000               
 
         - path: /register
           pathType: Exact
@@ -82,11 +74,10 @@ spec:
               port:
                 number: 5050
 
-
-        # - path: /login
-        #   pathType: Exact
-        #   backend:
-        #     service:
-        #       name: react-svc
-        #       port:
-        #         number: 3000                    
+        - path: /static/css/
+          pathType: Exact
+          backend:
+            service:
+              name: fronted-svc
+              port:
+                number: 3000                    
