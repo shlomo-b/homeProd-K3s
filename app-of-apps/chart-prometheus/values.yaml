@@ -71,7 +71,8 @@ serverFiles:
           - targets:
               - "10.43.93.62:9100" 
 
-      - job_name: "all-pods-metrics"
+      - job_name: "all-pods-/metrics"
+        metrics_path: "/metrics"
         kubernetes_sd_configs:
           - role: pod
         relabel_configs:
@@ -81,6 +82,18 @@ serverFiles:
             target_label: kubernetes_pod_name
           - source_labels: [__meta_kubernetes_pod_label_app]
             target_label: kubernetes_app
+
+      - job_name: "all-pods-/api/metrics"
+        metrics_path:  "/api/metrics"
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: kubernetes_pod_name
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            target_label: kubernetes_app      
 
 #---------------outside the network----------------#
 
