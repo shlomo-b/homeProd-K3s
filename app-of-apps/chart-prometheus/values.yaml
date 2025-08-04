@@ -84,8 +84,8 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_label_app]
             target_label: kubernetes_app
 	  
+#---------------outside the network----------------#
 
-      #---------------outside the network----------------#
       - job_name: "shlomo-pc"
         metrics_path: "/metrics"
         static_configs:
