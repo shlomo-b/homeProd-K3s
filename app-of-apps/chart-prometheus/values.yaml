@@ -84,10 +84,10 @@ serverFiles:
             target_label: kubernetes_app
 
       - job_name: "secretpass-pods"
-        metrics_path:  "/api/metrics"
+        metrics_path: "/api/metrics"
         kubernetes_sd_configs:
           - role: pod
-            namespace:
+            namespaces:
               names:
                 - secretpass
         relabel_configs:
@@ -96,7 +96,7 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_name]
             target_label: kubernetes_pod_name
           - source_labels: [__meta_kubernetes_pod_label_app]
-            target_label: kubernetes_app      
+            target_label: kubernetes_app
 
 #---------------outside the network----------------#
 
@@ -106,7 +106,7 @@ serverFiles:
           - targets:
               - "10.0.11.250:9182"
 
-      - job_name: "lab-ubuntu"
+      - job_name: "lab-ubuntu-consumer-docker"
         metrics_path: "/metrics"
         static_configs:
           - targets:
