@@ -88,7 +88,8 @@ serverFiles:
         kubernetes_sd_configs:
           - role: pod
             namespace:
-              names: ["secretpass"]
+              names:
+                - secretpass
         relabel_configs:
           - source_labels: [__meta_kubernetes_namespace]
             target_label: kubernetes_namespace
