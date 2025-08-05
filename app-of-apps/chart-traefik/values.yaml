@@ -1,6 +1,6 @@
 deployment:
   enabled: true
-  replicas: 4
+  replicas: 3
 
 ingressClass:
   enabled: true
