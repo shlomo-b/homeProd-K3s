@@ -7,19 +7,19 @@ ingressClass:
   isDefaultClass: true
   name: traefik
 
-ports:
-  web:
-    port: 8000
-    expose:
-      default: true
-    exposedPort: 80
-    protocol: TCP
-  websecure:
-    port: 8443
-    expose:
-      default: true
-    exposedPort: 443
-    protocol: TCP
+# ports:
+#   web:
+#     port: 8000
+#     expose:
+#       default: true
+#     exposedPort: 80
+#     protocol: TCP
+#   websecure:
+#     port: 8443
+#     expose:
+#       default: true
+#     exposedPort: 443
+#     protocol: TCP
 
 service:
   enabled: true
@@ -27,12 +27,12 @@ service:
   spec:
     loadBalancerIP: "10.90.100.121"
 
-  additionalServices:
-    internal:
-      enabled: true
-      type: LoadBalancer
-      spec:
-        loadBalancerIP: "10.90.100.122"
+  # additionalServices:
+  #   internal:
+  #     enabled: true
+  #     type: LoadBalancer
+  #     spec:
+  #       loadBalancerIP: "10.90.100.122"
         
 installCRDs: true 
 
