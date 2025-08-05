@@ -27,7 +27,6 @@ ports:
       internal: true
     exposedPort: 443
 
-
 service:
   enabled: true
   type: LoadBalancer
@@ -39,6 +38,15 @@ service:
       type: LoadBalancer
       spec:
         loadBalancerIP: "10.90.100.122"
+        ports:
+          - name: web
+            port: 80
+            targetPort: 8000
+            protocol: TCP
+          - name: websecure
+            port: 443
+            targetPort: 8443
+            protocol: TCP
 
 
 installCRDs: true 
