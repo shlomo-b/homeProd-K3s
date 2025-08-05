@@ -13,6 +13,16 @@ service:
   spec:
     loadBalancerIP: "10.90.100.121"
 
+  additionalServices:
+    traefik-ip-122:
+      type: LoadBalancer
+      spec:
+        loadBalancerIP: "10.90.100.122"
+    traefik-ip-123:
+      type: LoadBalancer
+      spec:
+        loadBalancerIP: "10.90.100.123"
+
 installCRDs: true 
 
 metrics:
