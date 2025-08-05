@@ -16,12 +16,32 @@ service:
   additionalServices:
     traefik-ip-122:
       type: LoadBalancer
+      ports:
+        - name: web
+          port: 80
+          targetPort: 8000
+          protocol: TCP
+        - name: websecure
+          port: 443
+          targetPort: 8443
+          protocol: TCP
       spec:
         loadBalancerIP: "10.90.100.122"
+
     traefik-ip-123:
       type: LoadBalancer
+      ports:
+        - name: web
+          port: 80
+          targetPort: 8000
+          protocol: TCP
+        - name: websecure
+          port: 443
+          targetPort: 8443
+          protocol: TCP
       spec:
         loadBalancerIP: "10.90.100.123"
+
 
 installCRDs: true 
 
