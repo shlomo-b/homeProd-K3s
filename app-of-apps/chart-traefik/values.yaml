@@ -8,8 +8,12 @@ ingressClass:
   name: traefik
 
 ports:
-  metrics:
-    port: 9100
+  web:
+    expose:
+      default: true
+  websecure:
+    expose:
+      default: true
   private-web:
     port: 8000
     expose:
@@ -22,33 +26,18 @@ ports:
       default: false
       internal: true
     exposedPort: 443
-  dashboard:
-    port: 8080
-  web:
-    port: 8000
-    expose:
-      default: true
-  websecure:
-    port: 8443
-    expose:
-      default: true
-
+    
 service:
   enabled: true
-  single: true
   type: LoadBalancer
   spec:
     loadBalancerIP: "10.90.100.121"
 
   additionalServices:
-    ip-122:
+    internal:
       type: LoadBalancer
       spec:
         loadBalancerIP: "10.90.100.122"
-    ip-123:
-      type: LoadBalancer
-      spec:
-        loadBalancerIP: "10.90.100.123"
 
 
 installCRDs: true 
