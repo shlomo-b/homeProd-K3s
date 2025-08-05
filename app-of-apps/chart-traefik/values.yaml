@@ -45,7 +45,7 @@ service:
       type: LoadBalancer
       spec:
         loadBalancerIP: "10.90.100.122"
-        
+
 installCRDs: true 
 
 metrics:
@@ -62,10 +62,10 @@ resources:
     cpu: 100m
     memory: 512Mi
 
-topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: "kubernetes.io/hostname"
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
-        app.kubernetes.io/name: traefik
+# topologySpreadConstraints:
+#   - maxSkew: 1
+#     topologyKey: "kubernetes.io/hostname"
+#     whenUnsatisfiable: DoNotSchedule
+#     labelSelector:
+#       matchLabels:
+#         app.kubernetes.io/name: traefik
