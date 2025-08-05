@@ -5,6 +5,18 @@ pools:
       - 10.90.100.121/32
     autoAssign: false
 
+  traefikip2:
+    name: traefikip2
+    addresses:
+      - 10.90.100.122/32
+    autoAssign: false
+
+  traefikip3:
+    name: traefikip3
+    addresses:
+      - 10.90.100.123/32
+    autoAssign: false    
+
   alb-resources:
     name: alb-resources
     addresses:
@@ -15,6 +27,8 @@ l2advertisement:
   services:
     ipAddressPools:
       - traefikip
+      - traefikip2
+      - traefikip3
       - alb-resources
 
 
