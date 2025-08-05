@@ -14,21 +14,27 @@ service:
     loadBalancerIP: "10.90.100.121"
 
 
-additionalServices:
-  traefik-ip-122:
-    enabled: true
-    type: LoadBalancer
+extraObjects:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: traefik-additional-lb
+      namespace: traefik-ingress-controller
     spec:
+      type: LoadBalancer
       loadBalancerIP: "10.90.100.122"
       ports:
         - name: web
           port: 80
-          targetPort: web
+          targetPort: 80
           protocol: TCP
         - name: websecure
           port: 443
-          targetPort: websecure
+          targetPort: 443
           protocol: TCP
+      selector:
+        app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik-ingress-controller
           
 installCRDs: true 
 
