@@ -14,19 +14,10 @@ ports:
   websecure:
     expose:
       default: true
-  private-web:
-    port: 8000
+  metrics:
     expose:
       default: false
-      internal: true
-    exposedPort: 80
-  private-websecure:
-    port: 8443
-    expose:
-      default: false
-      internal: true
-    exposedPort: 443
-    
+
 service:
   enabled: true
   type: LoadBalancer
@@ -35,6 +26,7 @@ service:
 
   additionalServices:
     internal:
+      enabled: true
       type: LoadBalancer
       spec:
         loadBalancerIP: "10.90.100.122"
