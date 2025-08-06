@@ -12,14 +12,16 @@ ports:
     port: 8000
     expose:
       default: true
-      internal: true
+      ip-122: true
+      ip-123: true
     exposedPort: 80
     protocol: TCP
   websecure:
     port: 8443
     expose:
       default: true
-      internal: true
+      ip-122: true
+      ip-123: true
     exposedPort: 443
     protocol: TCP
 
