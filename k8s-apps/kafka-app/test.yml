@@ -7,14 +7,17 @@ metadata:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/preserve-host: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
+    # הוסף annotation זה כדי להשתמש ב-IP 122 או 123
+    traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
 spec:
-  ingressClassName: traefik
+  # השתמש ב-IngressClass ספציפי במקום traefik
+  ingressClassName: traefik-ip-122  # או traefik-ip-123
   tls:
   - hosts:
       - pro.spider-shlomo.com
     secretName: secretpass-app-tls
   rules:
-  - host:  pro.spider-shlomo.com
+  - host: pro.spider-shlomo.com
     http:
       paths:
         - path: /
