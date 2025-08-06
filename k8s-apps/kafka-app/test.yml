@@ -9,6 +9,10 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     # הוסף annotation זה כדי להשתמש ב-IP 122 או 123
     traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
+status:
+  loadBalancer:
+    ingress:
+      - ip: 10.90.100.122    
 spec:
   # השתמש ב-IngressClass ספציפי במקום traefik
   ingressClassName: traefik-ip-122  # או traefik-ip-123
