@@ -4,6 +4,7 @@ metadata:
   name: producer
   namespace: kafka
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: producer
