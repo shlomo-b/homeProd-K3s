@@ -6,6 +6,11 @@ ingressClass:
   enabled: true
   isDefaultClass: true
   name: traefik
+  
+ingressClass:
+  enabled: true
+  isDefaultClass: false
+  name: traefik-ip-122
 
 ports:
   web:
