@@ -20,6 +20,18 @@ ports:
       default: true
     exposedPort: 443
     protocol: TCP
+  private-web:
+    port: 8000
+    expose:
+      default: false
+      internal: true
+    exposedPort: 80
+  private-websecure:
+    port: 8443
+    expose:
+      default: false
+      internal: true
+    exposedPort: 443
 
 service:
   enabled: true
