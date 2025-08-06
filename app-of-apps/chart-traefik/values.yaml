@@ -20,31 +20,12 @@ ports:
       default: true
     exposedPort: 443
     protocol: TCP
-  private-web:
-    port: 8000
-    expose:
-      default: false
-      internal: true
-    exposedPort: 80
-  private-websecure:
-    port: 8443
-    expose:
-      default: false
-      internal: true
-    exposedPort: 443
 
 service:
   enabled: true
   type: LoadBalancer
   spec:
     loadBalancerIP: "10.90.100.121"
-
-  additionalServices:
-    internal:
-      enabled: true
-      type: LoadBalancer
-      spec:
-        loadBalancerIP: "10.90.100.122"
         
 installCRDs: true 
 
