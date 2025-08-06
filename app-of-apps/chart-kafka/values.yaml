@@ -2,7 +2,6 @@ kraft:
   enabled: true
 
 controller:
-  revisionHistoryLimit: 0
   replicaCount: 1
   persistence:
     enabled: true

@@ -7,6 +7,7 @@ ingressClass:
   isDefaultClass: true
   name: traefik
 
+
 ports:
   web:
     port: 8000
@@ -40,9 +41,8 @@ service:
     ip-123:
       enabled: true
       type: LoadBalancer
-      spec:
-        loadBalancerIP: "10.90.100.123"
-        
+      loadBalancerSourceRanges:
+        - "38.0.101.76/30"
 installCRDs: true 
 
 metrics:
