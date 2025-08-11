@@ -5,11 +5,11 @@ replicas: 2
 
 resources:
   requests:
-    cpu: 40m
-    memory: 25Mi
+    cpu: 100m
+    memory: 100Mi
   limits:
-    cpu: 40m
-    memory: 25Mi
+    cpu: 200m
+    memory: 200Mi
 
 service:
   type: ClusterIP
@@ -22,3 +22,12 @@ apiService:  # enable the api service for the metrics-server
 extraArgs:
   - --kubelet-insecure-tls
   - --kubelet-preferred-address-types=InternalIP
+
+livenessProbe:
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 5
+readinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
