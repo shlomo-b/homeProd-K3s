@@ -1,7 +1,7 @@
 serviceAccount:
   create: true
 
-replicas: 1
+replicas: 2
 adminUser: admin
 adminPassword: strongpassword  # temp password
 
