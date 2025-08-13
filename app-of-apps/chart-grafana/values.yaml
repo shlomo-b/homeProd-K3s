@@ -70,3 +70,4 @@ affinity:
               operator: In
               values:
                 - node2
+                - node3
