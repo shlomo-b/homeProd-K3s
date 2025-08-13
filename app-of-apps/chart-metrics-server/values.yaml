@@ -18,6 +18,8 @@ service:
 
 apiService:  # enable the api service for the metrics-server
   create: true
+containerPorts:
+  https: 443
 
 extraArgs:
   - --kubelet-insecure-tls
