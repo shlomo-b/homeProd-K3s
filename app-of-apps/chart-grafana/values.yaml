@@ -71,3 +71,6 @@ affinity:
               values:
                 - node2
                 - node3
+
+initChownData:
+  enabled: false
