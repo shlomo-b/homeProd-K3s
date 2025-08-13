@@ -63,3 +63,14 @@ grafana.ini:
     from_name: Grafana
     user: $__file{/etc/grafana/secrets/aws-secret-grafana/user}
     password: $__file{/etc/grafana/secrets/aws-secret-grafana/password}
+
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node2
