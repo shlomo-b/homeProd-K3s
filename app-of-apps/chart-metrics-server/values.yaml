@@ -21,9 +21,14 @@ apiService:  # enable the api service for the metrics-server
 containerPorts:
   https: 443
 
-extraArgs:
-  - --kubelet-insecure-tls
+args:
+  - --cert-dir=/tmp
+  - --secure-port=443
+  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+  - --kubelet-insecure-tls=true
+  - --kubelet-use-node-status-port
   - --kubelet-preferred-address-types=InternalIP
+  - --metric-resolution=15s
 
 livenessProbe:
   initialDelaySeconds: 15
