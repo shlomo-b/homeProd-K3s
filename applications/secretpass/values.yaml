@@ -155,9 +155,7 @@ client:
       - secretName: secretpass-app-tls
         hosts:
           - secretpass.spider-shlomo.com
-     
-  
-
+          
 db:  
   enabled: true
   revisionHistoryLimit: 0
