@@ -2,17 +2,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.appName }}
+  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}-svc
   namespace: {{ .Values.namespace }}
   labels:
-    app: {{ .Values.appName }}
+    app: {{ .Values.client.name }}
 spec:
   selector:
-    app: {{ .Values.appName }}
+    app: {{ .Values.client.name }}
   ports:
     - port: {{ .Values.client.service.port }}              
       targetPort: {{ .Values.client.service.port }}
       protocol: TCP
-  type: {{ .Values.client.service.serviceType }} 
-
+  type: {{ .Values.client.service.serviceType }}
 {{- end }}

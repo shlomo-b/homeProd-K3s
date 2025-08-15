@@ -2,21 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}
+  name:   {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
   namespace: {{ .Values.namespace }}
   labels:
-    app: {{ .Values.appName }}
+    app:  {{ .Values.client.name }}
 spec:
+  revisionHistoryLimit: {{ .Values.client.revisionHistoryLimit }}
   {{- if (not .Values.client.autoscaling.enabled) }}
   replicas: {{ .Values.client.replicas }}
   {{- end}}
   selector:
     matchLabels:
-      app: {{ .Values.appName }}
+      app:  {{ .Values.client.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}
+        app: {{ .Values.client.name }}
 {{- with .Values.client.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
@@ -27,12 +28,18 @@ spec:
         image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
         imagePullPolicy: Always
         env:
-          {{- range $env := .Values.client.env }}
-          - name: {{ $env.name }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $env.secretName }}
-                key: {{ $env.key }}
+            {{- range .Values.client.envVars }}
+            - name: {{ .name }}
+              valueFrom:
+              {{- if eq .source "secretKeyRef" }}
+                secretKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- else if eq .source "configMapKeyRef" }}
+                configMapKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- end }}
         {{- end }}
         ports:
         - containerPort: {{ .Values.client.containerPort }}
@@ -43,5 +50,25 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "100m"
+
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.client.readinessPath }}
+            port: {{ .Values.client.containerPort }}
+          initialDelaySeconds: 3
+          periodSeconds: {{ .Values.client.readinessPeriod }}
+          timeoutSeconds: {{ .Values.client.readinessTimeout }}
+          successThreshold: {{ .Values.client.readinessSuccess }}
+          failureThreshold: {{ .Values.client.readinessFailure }}
+
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.client.livenessPath }}
+            port: {{ .Values.client.containerPort }}
+          initialDelaySeconds: {{ .Values.client.livenessDelay }}
+          periodSeconds: {{ .Values.client.livenessPeriod }}
+          timeoutSeconds: {{ .Values.client.livenessTimeout }}
+          successThreshold: {{ .Values.client.livenessSuccess }}
+          failureThreshold: {{ .Values.client.livenessFailure }}  
 
 {{- end }}

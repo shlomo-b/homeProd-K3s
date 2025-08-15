@@ -3,9 +3,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: secretpass-config
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace | default "default" }}
 data:
-{{- range or .Values.client.envVars .Values.server.envVars .Values.db.envVars }}
+{{- $all := concat (default (list) .Values.client.envVars) (default (list) .Values.server.envVars) (default (list) .Values.db.envVars) }}
+{{- range $all }}
   {{- if eq .source "configMapKeyRef" }}
   {{ .key }}: {{ .value | default "" | quote }}
   {{- end }}

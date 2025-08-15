@@ -2,19 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}
+  name: {{ include "yourchart.fullname" (dict "name" .Values.db.name) }}
   namespace: {{ .Values.namespace }}
   labels:
-    app: {{ .Values.appName }}
+    app: {{ .Values.db.name }}
 spec:
+  revisionHistoryLimit: {{ .Values.db.revisionHistoryLimit }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.appName }}
+      app: {{ .Values.db.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}
+        app: {{ .Values.db.name }}
 {{- with .Values.db.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
@@ -24,14 +25,36 @@ spec:
       - name: app
         image: "{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}"
         imagePullPolicy: Always
+        env:
+            {{- range .Values.db.envVars }}
+            - name: {{ .name }}
+              valueFrom:
+              {{- if eq .source "secretKeyRef" }}
+                secretKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- else if eq .source "configMapKeyRef" }}
+                configMapKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- end }}
+        {{- end }}
         ports:
         - containerPort: {{ .Values.db.containerPort }}
         resources:
           requests:
-            memory: "100Mi"
-            cpu: "70m"
+            memory: 100m
+            cpu: 512Mi
           limits:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: 500m
+            cpu: 1Gi
 
+        volumeMounts:
+        - name: mongo-pvc
+          mountPath: /data/db # default path should be /data/db its for mongodb
+      volumes:
+      - name: mongo-pvc
+        persistentVolumeClaim:
+          claimName: mongodb-pvc
+  
 {{- end }}

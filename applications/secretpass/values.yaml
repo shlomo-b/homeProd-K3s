@@ -1,11 +1,10 @@
 appName: secretpass
 namespace: secretpass
 
-configmap:
-  create: false
-
 server:
   enabled: true
+  revisionHistoryLimit: 0
+  name: backend
   ingress:
     enabled: false
   service:
@@ -14,7 +13,7 @@ server:
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
-    tag: latest 
+    tag: v13.2.1
   containerPort: 5050
   autoscaling:
     enabled: false
@@ -22,11 +21,72 @@ server:
   cm:
     enabled: true
   envVars:
-    - name: BACKEND_URL
+    - name: JWT_SECRET_KEY
       source: secretKeyRef
       nameVariables: secretspass-credentials
       key: JWT_SECRET_KEY
 
+    - name: MONGO_INITDB_ROOT_USERNAME
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: MONGO_INITDB_ROOT_USERNAME
+
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: MONGO_INITDB_ROOT_PASSWORD
+
+    - name: AWS_ACCESS_KEY_ID
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: AWS_ACCESS_KEY_ID
+
+    - name: AWS_SECRET_ACCESS_KEY
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: AWS_SECRET_ACCESS_KEY
+
+    - name: DB_NAME
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: DB_NAME
+
+    - name: BUCKET_NAME
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: BUCKET_NAME
+
+    - name: FERNET_KEY
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: FERNET_KEY
+
+    - name: ADMIN_PASSWORD
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: ADMIN_PASSWORD
+
+    - name: MICROSOFT_ENTRA_IDENTIFIER
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: MICROSOFT_ENTRA_IDENTIFIER
+
+    - name: SAML_LOGIN_URL
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: SAML_LOGIN_URL 
+
+    - name: SAML_CERTIFICATE
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: SAML_CERTIFICATE
+
+    - name: MONGO_INITDB_HOST
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: MONGO_INITDB_HOST
+      value: mongodb-service
+      
     - name: MONGO_INITDB_HOST
       source: configMapKeyRef
       nameVariables: secretpass-config
@@ -38,34 +98,70 @@ server:
       nameVariables: secretpass-config
       key: SAML_IDENTIFIER
       value: https://secretpass.spider-shlomo.com/remote/saml/metadata
+
+    - name: SAML_REPLY_URL
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: SAML_REPLY_URL
+      value: https://secretpass.spider-shlomo.com/remote/saml/acs
+
+    - name: FRONTEND_URL_SAML
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: FRONTEND_URL_SAML
+      value: https://secretpass.spider-shlomo.com
        
 client:
   enabled: true
-  ingress:
-    enabled: false
+  revisionHistoryLimit: 0
+  name: fronted
   service:
     enabled: true
     serviceType: ClusterIP
     port: 3000
   image:
     name: shlomobarzili/secretpass-frontend
-    tag: latest  
-  env:
-    - name: BACKEND_URL
-      valueFrom:
-        secretKeyRef:
-            secretName: cronjob-credentials-fortigate-backup
-            key: BACKEND_URL
-
+    tag: v2.3.1  
   containerPort: 3000
   autoscaling:
     enabled: false
   affinity: {} 
   cm:
-    enabled: false
+    enabled: true
+  envVars:
+    - name:  REACT_APP_API_URL
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: REACT_APP_API_URL
+      value: https://secretpass.spider-shlomo.com
+    - name: REACT_APP_ENABLE_SAML
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: REACT_APP_ENABLE_SAML
+      value: true  
+  ingress:
+    enabled: true  
+    ingressClassName: traefik
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    host: secretpass.spider-shlomo.com
+    paths:
+    -  path: /
+       pathType: Prefix
+       serviceName: fronted-svc
+    tls:
+      - secretName: secretpass-app-tls
+        hosts:
+          - secretpass.spider-shlomo.com
+     
+  
 
 db:  
   enabled: true
+  revisionHistoryLimit: 0
+  name: db
   service:
     enabled: true
     serviceType: ClusterIP
@@ -77,4 +173,20 @@ db:
   containerPort: 27017
   affinity: {}
   cm:
-    enabled: false
+    enabled: true
+  envVars:
+    - name: MONGO_INITDB_ROOT_USERNAME
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: MONGO_INITDB_ROOT_USERNAME
+
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      source: secretKeyRef
+      nameVariables: secretspass-credentials
+      key: MONGO_INITDB_ROOT_PASSWORD  
+
+    - name: MONGO_INITDB_HOST
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: MONGO_INITDB_HOST
+      value: mongodb

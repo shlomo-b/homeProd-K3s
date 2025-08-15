@@ -2,12 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name:  {{ .Values.appName }}
+  name:   {{ include "yourchart.fullname" (dict "name" .Values.server.name) }}-svc
   namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.server.name }}
 spec:
   selector:
-    app: {{ .Values.appName }}
-    component: server
+    app:  {{ .Values.server.name }}
   ports:
     - port: {{ .Values.server.service.port }}
       targetPort: {{ .Values.server.service.port }}

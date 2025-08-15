@@ -2,28 +2,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}
+  name: {{ include "yourchart.fullname" (dict "name" .Values.server.name) }}
   namespace: {{ .Values.namespace }}
   labels:
-    app: {{ .Values.appName }}
+    app:  {{ .Values.server.name }}
 spec:
+  revisionHistoryLimit: {{ .Values.server.revisionHistoryLimit }}
   {{- if (not .Values.server.autoscaling.enabled) }}
   replicas: {{ .Values.server.replicas }}
   {{- end}}
   selector:
     matchLabels:
-      app: {{ .Values.appName }}
+      app:  {{ .Values.server.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}
+        app:  {{ .Values.server.name }}
 {{- with .Values.server.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
 {{- end}}      
     spec:
       containers:
-      - name: app3
+      - name: backend
         image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
         imagePullPolicy: Always
         env:
@@ -44,9 +45,9 @@ spec:
         - containerPort: {{ .Values.server.containerPort }}
         resources:
           requests:
-            memory: "100Mi"
-            cpu: "70m"
+            memory: 100m
+            cpu: 512Mi
           limits:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: 500m
+            cpu: 1Gi
 {{- end }}
