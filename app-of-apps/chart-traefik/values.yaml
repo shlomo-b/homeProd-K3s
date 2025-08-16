@@ -31,7 +31,7 @@ service:
   type: LoadBalancer
   spec:
     loadBalancerIP: "10.90.100.121"
-
+    
   additionalServices:
     ip-122:
       enabled: true
@@ -41,8 +41,9 @@ service:
     ip-123:
       enabled: true
       type: LoadBalancer
-      loadBalancerSourceRanges:
-        - "38.0.101.76/30"
+      spec:
+        loadBalancerIP: "10.90.100.123"
+        
 installCRDs: true 
 
 metrics:
