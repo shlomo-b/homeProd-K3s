@@ -4,9 +4,8 @@ namespace: secretpass
 server:
   enabled: true
   revisionHistoryLimit: 0
+  replicas: 2
   name: backend
-  ingress:
-    enabled: false
   service:
     enabled: true
     serviceType: ClusterIP
@@ -110,10 +109,27 @@ server:
       nameVariables: secretpass-config
       key: FRONTEND_URL_SAML
       value: https://secretpass.spider-shlomo.com
-       
+
+  ingress:
+    enabled: true  
+    ingressClassName: traefik
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    host: secretpass.spider-shlomo.com
+    paths:
+    -  path: /api/
+       pathType: Prefix
+       serviceName: backend-svc
+    -  path: /remote/saml/
+       pathType: Prefix
+       serviceName: backend-svc   
+
 client:
   enabled: true
   revisionHistoryLimit: 0
+  replicas: 2
   name: fronted
   service:
     enabled: true
@@ -155,10 +171,11 @@ client:
       - secretName: secretpass-app-tls
         hosts:
           - secretpass.spider-shlomo.com
-          
+
 db:  
   enabled: true
   revisionHistoryLimit: 0
+  replicas: 1
   name: db
   service:
     enabled: true

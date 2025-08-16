@@ -8,7 +8,7 @@ metadata:
     app: {{ .Values.db.name }}
 spec:
   revisionHistoryLimit: {{ .Values.db.revisionHistoryLimit }}
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.db.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.db.name }}
