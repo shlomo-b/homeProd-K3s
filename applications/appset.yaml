@@ -70,6 +70,11 @@ metadata:
   name: all-apps
   namespace: argocd
 spec:
+  # הפעלת Go Template ברמת ה-AppSet (חשוב!)
+  goTemplate: true
+  # אופציונלי: להחמיר על מפתחות חסרים (מומלץ)
+  # goTemplateOptions: ["missingkey=error"]
+
   generators:
     - matrix:
         generators:
@@ -86,7 +91,7 @@ spec:
                 - env: test
                   chartPath: app
                   valueFile: values-test.yaml
-                  appProject: appservices
+                  project: appservices
                 - env: blackjack
                   chartPath: blackjack
                   valueFile: values-app.yaml
@@ -96,10 +101,10 @@ spec:
                   valueFile: values.yaml
                 - env: certificates-management
                   chartPath: certificates-management
-                  valueFile: values.yaml  
+                  valueFile: values.yaml
                 - env: cronjob
                   chartPath: cronjob
-                  valueFile: values.yaml  
+                  valueFile: values.yaml
                 - env: pool-alb
                   chartPath: pool-alb
                   valueFile: values.yaml
@@ -108,28 +113,29 @@ spec:
               revision: HEAD
               directories:
                 - path: applications/*
+
   template:
     metadata:
-      name: '{{env}}'
+      # שם ייחודי כדי למנוע התנגשויות שנוצרות מה-matrix
+      name: '{{ .env }}-{{ .path.basename }}'
       labels:
-        argocd.argoproj.io/instance: '{{env}}'
+        argocd.argoproj.io/instance: '{{ .env }}'
     spec:
       project: '{{ default "default" .project }}'
       source:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         targetRevision: HEAD
-        path: applications/{{chartPath}}
+        # אם אתה רוצה להשתמש ב-chartPath שמגיע מה-list (ולא מה-git):
+        path: 'applications/{{ .chartPath }}'
         helm:
           valueFiles:
-            - '{{valueFile}}'
+            - '{{ .valueFile }}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{env}}'
+        namespace: '{{ .env }}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
         automated:
           selfHeal: true
           prune: true
-
-
