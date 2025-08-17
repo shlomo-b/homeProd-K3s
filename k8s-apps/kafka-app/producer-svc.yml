@@ -45,6 +45,12 @@ spec:
                 name: kafka-config
                 key: KAFKA_BOOTSTRAP_SERVERS
 
+          - name: TZ
+            valueFrom:
+              configMapKeyRef:
+                name: kafka-config
+                key: TZ
+
 ---
 apiVersion: v1
 kind: Service
