@@ -86,7 +86,7 @@ spec:
                 - env: test
                   chartPath: app
                   valueFile: values-test.yaml
-                  project: appservices
+                  appProject: appservices
                 - env: blackjack
                   chartPath: blackjack
                   valueFile: values-app.yaml
@@ -96,10 +96,10 @@ spec:
                   valueFile: values.yaml
                 - env: certificates-management
                   chartPath: certificates-management
-                  valueFile: values.yaml
+                  valueFile: values.yaml  
                 - env: cronjob
                   chartPath: cronjob
-                  valueFile: values.yaml
+                  valueFile: values.yaml  
                 - env: pool-alb
                   chartPath: pool-alb
                   valueFile: values.yaml
@@ -109,9 +109,8 @@ spec:
               directories:
                 - path: applications/*
   template:
-    goTemplate: true
     metadata:
-      name: '{{env}}-{{path.basename}}'
+      name: '{{env}}'
       labels:
         argocd.argoproj.io/instance: '{{env}}'
     spec:
@@ -132,4 +131,5 @@ spec:
         automated:
           selfHeal: true
           prune: true
+
 
