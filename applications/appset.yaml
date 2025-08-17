@@ -78,19 +78,15 @@ spec:
                 - env: dev
                   chartPath: app
                   valueFile: values-dev.yaml
-                  project: appservices
                 - env: prod
                   chartPath: app
                   valueFile: values-prod.yaml
-                  project: appservices
                 - env: test
                   chartPath: app
                   valueFile: values-test.yaml
-                  appProject: appservices
                 - env: blackjack
                   chartPath: blackjack
                   valueFile: values-app.yaml
-                  project: appservices
                 - env: secrets-management
                   chartPath: secrets-management
                   valueFile: values.yaml
@@ -114,7 +110,7 @@ spec:
       labels:
         argocd.argoproj.io/instance: '{{env}}'
     spec:
-      project: '{{ default "default" .project }}'
+      project: default
       source:
         repoURL: https://github.com/shlomo-b/homeProd-K3s.git
         targetRevision: HEAD
@@ -131,5 +127,3 @@ spec:
         automated:
           selfHeal: true
           prune: true
-
-
