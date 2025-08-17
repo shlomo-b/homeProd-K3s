@@ -116,8 +116,7 @@ spec:
 
   template:
     metadata:
-      # שם ייחודי כדי למנוע התנגשויות שנוצרות מה-matrix
-      name: '{{ .env }}-{{ .path.basename }}'
+      name: '{{ .env }}
       labels:
         argocd.argoproj.io/instance: '{{ .env }}'
     spec:
