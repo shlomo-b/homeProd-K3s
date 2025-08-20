@@ -60,6 +60,7 @@ spec:
   selector:
     app: cunsumer
   type: LoadBalancer 
+  loadBalancerIP: 10.90.100.126
   ports:
     - protocol: TCP
       port: 8001

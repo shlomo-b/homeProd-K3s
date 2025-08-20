@@ -61,6 +61,7 @@ spec:
   selector:
     app: producer
   type: LoadBalancer 
+  loadBalancerIP: 10.90.100.128
   ports:
     - protocol: TCP
       port: 8000
