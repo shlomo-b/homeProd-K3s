@@ -20,7 +20,7 @@ pools:
   alb-resources:
     name: alb-resources
     addresses:
-      - 10.90.100.125-10.90.100.150
+      - 10.90.100.130-10.90.100.150
     autoAssign: true
 
 l2advertisement:
