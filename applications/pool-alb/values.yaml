@@ -5,22 +5,22 @@ pools:
       - 10.90.100.121/32
     autoAssign: false
 
-  traefikip2:
-    name: traefikip2
-    addresses:
-      - 10.90.100.122/32
-    autoAssign: false
+    traefikip2:
+      name: traefikip2
+      addresses:
+        - 10.90.100.122/32
+      autoAssign: false
 
-  traefikip3:
-    name: traefikip3
-    addresses:
-      - 10.90.100.123/32
-    autoAssign: false    
+    traefikip3:
+      name: traefikip3
+      addresses:
+        - 10.90.100.123/32
+      autoAssign: false    
 
   alb-resources:
     name: alb-resources
     addresses:
-      - 10.90.100.126-10.90.100.150
+      - 10.90.100.130-10.90.100.150
     autoAssign: true
 
 l2advertisement:
