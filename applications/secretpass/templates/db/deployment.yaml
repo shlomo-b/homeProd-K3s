@@ -41,14 +41,10 @@ spec:
         {{- end }}
         ports:
         - containerPort: {{ .Values.db.containerPort }}
+        {{- with .Values.db.resources }}
         resources:
-          requests:
-            memory: 100m
-            cpu: 512Mi
-          limits:
-            memory: 500m
-            cpu: 1Gi
-
+          {{toYaml . | nindent 8}}
+        {{- end }}
         volumeMounts:
         - name: mongo-pvc
           mountPath: /data/db # default path should be /data/db its for mongodb

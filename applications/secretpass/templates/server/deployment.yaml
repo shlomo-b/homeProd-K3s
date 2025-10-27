@@ -43,11 +43,8 @@ spec:
         {{- end }}
         ports:
         - containerPort: {{ .Values.server.containerPort }}
+        {{- with .Values.server.resources }}
         resources:
-          requests:
-            memory: 100m
-            cpu: 512Mi
-          limits:
-            memory: 500m
-            cpu: 1Gi
+          {{toYaml . | nindent 8}}
+        {{- end }}
 {{- end }}

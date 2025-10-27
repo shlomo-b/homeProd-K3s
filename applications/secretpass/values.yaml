@@ -12,7 +12,7 @@ server:
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
-    tag: v13.2.1
+    tag: v3.2.1
   containerPort: 5050
   autoscaling:
     enabled: false
@@ -85,12 +85,6 @@ server:
       nameVariables: secretpass-config
       key: MONGO_INITDB_HOST
       value: mongodb-service
-      
-    - name: MONGO_INITDB_HOST
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: MONGO_INITDB_HOST
-      value: MONGO_INITDB_HOST
 
     - name: SAML_IDENTIFIER
       source: configMapKeyRef
@@ -109,6 +103,13 @@ server:
       nameVariables: secretpass-config
       key: FRONTEND_URL_SAML
       value: https://secretpass.spider-shlomo.com
+  resources:    
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi    
 
   ingress:
     enabled: true  
@@ -155,6 +156,30 @@ client:
       nameVariables: secretpass-config
       key: REACT_APP_ENABLE_SAML
       value: true  
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 2
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3   
+  resources:
+    requests:
+      cpu: 250m
+      memory: 1.5Gi
+    limits:
+      cpu: 1
+      memory: 2Gi   
+    
   ingress:
     enabled: true  
     ingressClassName: traefik
@@ -205,3 +230,10 @@ db:
       nameVariables: secretpass-config
       key: MONGO_INITDB_HOST
       value: mongodb
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi    

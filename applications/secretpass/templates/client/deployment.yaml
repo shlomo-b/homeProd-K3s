@@ -1,4 +1,4 @@
-{{- if .Values.client.enabled }}
+ {{- if .Values.client.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,32 +43,17 @@ spec:
         {{- end }}
         ports:
         - containerPort: {{ .Values.client.containerPort }}
+        {{- with .Values.client.resources}}
         resources:
-          requests:
-            memory: "100Mi"
-            cpu: "70m"
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
-
+          {{- toYaml . | nindent 8}}
+        {{- end}}}
+        {{- with .Values.client.readinessProbe }}
         readinessProbe:
-          httpGet:
-            path: {{ .Values.client.readinessPath }}
-            port: {{ .Values.client.containerPort }}
-          initialDelaySeconds: 3
-          periodSeconds: {{ .Values.client.readinessPeriod }}
-          timeoutSeconds: {{ .Values.client.readinessTimeout }}
-          successThreshold: {{ .Values.client.readinessSuccess }}
-          failureThreshold: {{ .Values.client.readinessFailure }}
-
+          {{- toYaml . | nindent 10}}
+        {{- end }}
+        {{- with .Values.client.livenessProbe }}
         livenessProbe:
-          httpGet:
-            path: {{ .Values.client.livenessPath }}
-            port: {{ .Values.client.containerPort }}
-          initialDelaySeconds: {{ .Values.client.livenessDelay }}
-          periodSeconds: {{ .Values.client.livenessPeriod }}
-          timeoutSeconds: {{ .Values.client.livenessTimeout }}
-          successThreshold: {{ .Values.client.livenessSuccess }}
-          failureThreshold: {{ .Values.client.livenessFailure }}  
+          {{- toYaml . | nindent 10}}
+        {{- end }}
 
 {{- end }}
