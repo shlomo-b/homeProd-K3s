@@ -229,7 +229,7 @@ db:
       source: configMapKeyRef
       nameVariables: secretpass-config
       key: MONGO_INITDB_HOST
-      value: mongodb
+      value: db-service
   resources:
     requests:
       cpu: 100m
