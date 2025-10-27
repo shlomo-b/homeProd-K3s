@@ -99,6 +99,9 @@ spec:
                 - env: pool-alb
                   chartPath: pool-alb
                   valueFile: values.yaml
+                - env: secretpass
+                  chartPath: secretpass
+                  valueFile: values.yaml  
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD
