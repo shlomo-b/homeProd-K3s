@@ -142,8 +142,8 @@ client:
   containerPort: 3000
   autoscaling:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 3
+    minReplicas: 3
+    maxReplicas: 4
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 70
     behavior:
