@@ -42,7 +42,7 @@ spec:
         ports:
         - containerPort: {{ .Values.db.containerPort }}
         {{- with .Values.db.resources }}
-          resources:
+        resources:
             {{toYaml . | nindent 12}}
         {{- end }}
         volumeMounts:
