@@ -45,7 +45,7 @@ spec:
         - containerPort: {{ .Values.client.containerPort }}
         {{- with .Values.client.resources}}
         resources:
-          {{- toYaml . | nindent 12}}
+          {{toYaml . | nindent 12}}
         {{- end}}}
         {{- with .Values.client.readinessProbe }}
         readinessProbe:
