@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Values.appName }}
+  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
   namespace:  {{ .Values.namespace }}
   labels:
 {{ toYaml .Values.client.autoscaling.labels | indent 4 }}

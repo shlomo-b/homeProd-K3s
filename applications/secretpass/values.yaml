@@ -130,8 +130,7 @@ server:
 client:
   enabled: true
   revisionHistoryLimit: 0
-  replicas: 2
-  name: fronted
+#  replicas: 2
   service:
     enabled: true
     serviceType: ClusterIP
@@ -141,7 +140,24 @@ client:
     tag: v2.3.1  
   containerPort: 3000
   autoscaling:
-    enabled: false
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 50
+    targetMemoryUtilizationPercentage: 70
+    behavior:
+      scaleUp:
+        stabilizationWindowSeconds: 60
+        policies:
+          - type: Percent
+            value: 50
+            periodSeconds: 15
+      scaleDown:
+        stabilizationWindowSeconds: 60
+        policies:
+          - type: Percent
+            value: 50
+            periodSeconds: 15
   affinity: {} 
   cm:
     enabled: true
