@@ -42,8 +42,8 @@ spec:
         ports:
         - containerPort: {{ .Values.db.containerPort }}
         {{- with .Values.db.resources }}
-        resources:
-          {{toYaml . | nindent 8}}
+          resources:
+            {{toYaml . | nindent 12}}
         {{- end }}
         volumeMounts:
         - name: mongo-pvc
