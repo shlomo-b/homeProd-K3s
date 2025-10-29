@@ -131,6 +131,7 @@ client:
   enabled: true
   revisionHistoryLimit: 0
 #  replicas: 2
+  name: frontend
   service:
     enabled: true
     serviceType: ClusterIP

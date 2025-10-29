@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
+  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}-hpa
   namespace:  {{ .Values.namespace }}
   labels:
 {{ toYaml .Values.client.autoscaling.labels | indent 4 }}
@@ -10,7 +10,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.client.autoscaling.appName }}
+    name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
   minReplicas: {{ .Values.client.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.client.autoscaling.maxReplicas }}
   metrics:
