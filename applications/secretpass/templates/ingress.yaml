@@ -1,64 +1,43 @@
-{{- if or .Values.client.ingress.enabled .Values.server.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: secretpass-ingress
-  namespace: {{ .Values.namespace }}
-  {{- with .Values.client.ingress.annotations }}
+  namespace: secretpass
   annotations:
-    {{ toYaml . | nindent 4 }}
-  {{- end }}
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  {{- with (or .Values.client.ingress.ingressClassName .Values.server.ingress.ingressClassName) }}
-  ingressClassName: {{ . }}
-    {{- end}}
-  {{- if or .Values.client.ingress.tls .Values.server.ingress.tls }}
+  ingressClassName: traefik
   tls:
-    {{- range .Values.client.ingress.tls }}
-    - secretName: {{ .secretName }}
-      hosts:
-      {{- range .hosts }}
-        - {{ . }}       {{/* "present the value for each string" */}}
-      {{- end }}
-      {{- end }}
-
-      {{- range .Values.server.ingress.tls }}
-    - secretName: {{ .secretName }}
-      hosts:
-        {{- range .hosts }}
-        - {{ . }}
-      {{- end }}
-      {{- end }}
-  {{- end }}
+  - hosts:
+      - secretpass.spider-shlomo.com
+    secretName: secretpass-app-tls
   rules:
-    {{- if .Values.client.ingress.host }}
-    - host: {{ .Values.client.ingress.host }}
-      http:
-        paths:
-          {{- range .Values.client.ingress.paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
-            backend:
-              service:
-                name: {{ .serviceName }}
-                port:
-                  number: 3000
-        {{- end }}
-      {{- end }}
+  - host: secretpass.spider-shlomo.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: fronted-svc
+              port:
+                number: 3000
+                
+        - path: /remote/saml/
+          pathType: Prefix
+          backend:
+            service:
+              name: backend-svc
+              port:
+                number: 5050
 
-  {{- if .Values.server.ingress.host }}
-    - host: {{ .Values.server.ingress.host }}
-      http:
-        paths:
-          {{- range .Values.server.ingress.paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
-            backend:
-              service:
-                name: {{ .serviceName }}
-                port:
-                  number: 5050
-        {{- end }}
-  {{- end }}
-{{- end }}
-
+        - path: /api/
+          pathType: Prefix
+          backend:
+            service:
+              name: backend-svc
+              port:
+                number: 5050
+                
