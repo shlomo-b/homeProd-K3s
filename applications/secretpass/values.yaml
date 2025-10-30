@@ -225,7 +225,7 @@ client:
     paths:
     -  path: /
        pathType: Prefix
-       serviceName: fronted-svc
+       serviceName: frontend-svc
     tls:
       - secretName: secretpass-app-tls
         hosts:
