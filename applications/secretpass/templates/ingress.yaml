@@ -21,7 +21,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: fronted-svc
+              name: frontend-svc
               port:
                 number: 3000
                 
