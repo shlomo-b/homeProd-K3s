@@ -155,7 +155,7 @@ client:
     port: 3000
   image:
     name: shlomobarzili/secretpass-frontend
-    tag: v2.4.1
+    tag: v2.3.1
   containerPort: 3000
   autoscaling:
     enabled: true
