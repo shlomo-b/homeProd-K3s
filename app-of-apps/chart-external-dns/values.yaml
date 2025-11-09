@@ -1,37 +1,3 @@
-# interval: 30m
-# provider: aws
-
-# aws:
-#   credentials:  
-#     secretName: route53-access
-#     accessKeyIDSecretRef:
-#       name: aws-secret
-#       key: accessKeyId
-#     secretAccessKeySecretRef:
-#       name: aws-secret
-#       key: secretAccessKey
-#   zoneType: public            # the zone type is public
-#   name: external-dns
-#   preferCNAME: false          # prefer A records instead of CNAME
-
-# policy: upsert-only           # update or create only A records, don't delete
-# registry: noop                # disable TXT ownership records
-# sources:
-#   - ingress                   # use ingress resources to discover endpoints
-# domainFilters:
-#   - spider-shlomo.com         # domain to manage in Route 53
-# logLevel: debug
-# txtOwnerId: ""                # no TXT record needed
-
-# serviceAccount:
-#   create: true
-#   name: external-dns-service-account
-
-# region: us-east-1
-# managedRecordTypesFilters:
-#   - A
-  
-
 provider:
   name: aws
 
