@@ -16,6 +16,9 @@ registry: noop
 txtOwnerId: "" 
 sources:
   - ingress  
+extraArgs:
+  - --provider=aws
+  - '-config.expand-env=true'
 env:
   - name: AWS_DEFAULT_REGION
     value: us-east-1
