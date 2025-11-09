@@ -1,36 +1,70 @@
-interval: 30m
-provider: aws
+# interval: 30m
+# provider: aws
 
-aws:
-  credentials:  
-    secretName: route53-access
-    accessKeyIDSecretRef:
-      name: aws-secret
-      key: accessKeyId
-    secretAccessKeySecretRef:
-      name: aws-secret
-      key: secretAccessKey
-  zoneType: public            # the zone type is public
-  name: external-dns
-  preferCNAME: false          # prefer A records instead of CNAME
+# aws:
+#   credentials:  
+#     secretName: route53-access
+#     accessKeyIDSecretRef:
+#       name: aws-secret
+#       key: accessKeyId
+#     secretAccessKeySecretRef:
+#       name: aws-secret
+#       key: secretAccessKey
+#   zoneType: public            # the zone type is public
+#   name: external-dns
+#   preferCNAME: false          # prefer A records instead of CNAME
 
-policy: upsert-only           # update or create only A records, don't delete
-registry: noop                # disable TXT ownership records
-sources:
-  - ingress                   # use ingress resources to discover endpoints
-domainFilters:
-  - spider-shlomo.com         # domain to manage in Route 53
-logLevel: debug
-txtOwnerId: ""                # no TXT record needed
+# policy: upsert-only           # update or create only A records, don't delete
+# registry: noop                # disable TXT ownership records
+# sources:
+#   - ingress                   # use ingress resources to discover endpoints
+# domainFilters:
+#   - spider-shlomo.com         # domain to manage in Route 53
+# logLevel: debug
+# txtOwnerId: ""                # no TXT record needed
+
+# serviceAccount:
+#   create: true
+#   name: external-dns-service-account
+
+# region: us-east-1
+# managedRecordTypesFilters:
+#   - A
+  
+
+provider:
+  name: aws
 
 serviceAccount:
   create: true
-  name: external-dns-service-account
+  name: external-dns
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::148088962203:role/external-dns-role
+policy: upsert-only
 
-region: us-east-1
-managedRecordTypesFilters:
-  - A
-  
+extraArgs:
+   - --aws-zone-type=public
+   - --aws-prefer-cname
+domainFilters:
+  - spider-shlomo.com   
+revisionHistoryLimit: 0  
+registry: noop
+txtOwnerId: "" 
+sources:
+  - ingress  
+env:
+  - name: AWS_DEFAULT_REGION
+    value: us-east-1
+  - name: accessKeyId
+    valueFrom:
+      secretKeyRef:
+        name: aws-secret
+        key: accessKeyId
+  - name: secretAccessKey
+    valueFrom:
+      secretKeyRef:
+        name: aws-secret
+        key: secretAccessKey
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:

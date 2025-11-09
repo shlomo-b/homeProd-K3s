@@ -9,12 +9,12 @@ spec:
     - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
       targetRevision: HEAD
       ref: values
-    - repoURL: registry-1.docker.io/bitnamicharts
+    - repoURL: https://kubernetes-sigs.github.io/external-dns/
       chart: external-dns
-      targetRevision: 8.8.3
+      targetRevision: 1.19.0
       helm:
         valueFiles:
-          - $values/app-of-apps/chart-external-dns/values.yaml
+          - $values/app-of-apps/external-dns/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: external-dns

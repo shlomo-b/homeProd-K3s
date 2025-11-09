@@ -1,0 +1,13 @@
+# kubectl cordon node3
+# Node Taint for node3 - dont schedule pods on this node
+apiVersion: v1
+kind: Node
+metadata:
+  name: node3
+spec:
+  unschedulable: true
+  taints:
+    - key: "maintenance"
+      value: "planned"
+      effect: "NoExecute"
+
