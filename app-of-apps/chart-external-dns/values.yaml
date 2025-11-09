@@ -29,6 +29,8 @@ env:
       secretKeyRef:
         name: aws-secret
         key: secretAccessKey
+  - name: AWS_EC2_METADATA_DISABLED
+    value: "true"      
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
