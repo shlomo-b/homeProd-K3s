@@ -9,9 +9,9 @@ spec:
     - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
       targetRevision: HEAD
       ref: values
-    - repoURL: registry-1.docker.io/bitnamicharts
+    - repoURL: https://kubernetes-sigs.github.io/
       chart: metrics-server
-      targetRevision: 7.4.5
+      targetRevision: 3.13.0
       helm:
         valueFiles:
           - $values/app-of-apps/chart-metrics-server/values.yaml
