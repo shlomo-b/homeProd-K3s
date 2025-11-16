@@ -9,7 +9,7 @@ spec:
     - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
       targetRevision: HEAD
       ref: values
-    - repoURL: https://kubernetes-sigs.github.io/
+    - repoURL: https://kubernetes-sigs.github.io/metrics-server/
       chart: metrics-server
       targetRevision: 3.13.0
       helm:
