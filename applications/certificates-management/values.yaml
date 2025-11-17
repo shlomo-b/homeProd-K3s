@@ -69,3 +69,12 @@ kafka-ui-cert:
   dnsNames: 
   -  kafka-ui-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+traefik-ui-cert:
+  certificate_name: traefik-ui-cert
+  namespaces: traefik-ingress-controller
+  secretName: traefik-ui-tls
+  commonName: traefik.spider-shlomo.com
+  dnsNames: 
+  -  traefik.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
