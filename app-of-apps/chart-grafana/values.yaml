@@ -64,17 +64,17 @@ grafana.ini:
 
   auth.saml:
     enabled: true
-    name = AzureAD 
-    auto_login = false
-    allow_idp_initiated = true
-    allow_sign_up = true
-    idp_entity_id = https://sts.windows.net/a2724ae3-73eb-4b45-ba62-f432da279e2c/
-    single_sign_on_service_url = https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
-    single_logout_service_url = https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
-    assertion_attribute_name  = name
-    assertion_attribute_login = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
-    assertion_attribute_email = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
-    assertion_attribute_groups = http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
+    name: AzureAD 
+    auto_login: false
+    allow_idp_initiated: true
+    allow_sign_up: true
+    idp_entity_id: https://sts.windows.net/a2724ae3-73eb-4b45-ba62-f432da279e2c/
+    single_sign_on_service_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
+    single_logout_service_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
+    assertion_attribute_name: name
+    assertion_attribute_login: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
+    assertion_attribute_email: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
+    assertion_attribute_groups: http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
 
 
 affinity:
