@@ -50,10 +50,10 @@ extraSecretMounts:
     secretName: aws-secret-grafana
     readOnly: true
 
-server:
-  root_url: https://grafana-k3s.spider-shlomo.com
 # grafana.ini for SMTP
 grafana.ini:
+  server:
+    root_url: https://grafana-k3s.spider-shlomo.com
   smtp:
     enabled: true
     host: smtp.gmail.com:587
