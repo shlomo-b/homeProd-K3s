@@ -74,3 +74,15 @@ grafana-credentials:
     dataFrom:
       extract:
         key: secrets-grafana
+
+
+grafana-secret-sso:
+    external_secret_name: grafana-secret-sso
+    namespaces:
+      - monitoring
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  aws-secret-grafana-sso
+    dataFrom:
+      extract:
+        key: secret-sso
