@@ -63,20 +63,21 @@ grafana.ini:
     user: $__file{/etc/grafana/secrets/aws-secret-grafana/user}
     password: $__file{/etc/grafana/secrets/aws-secret-grafana/password}
 
-  auth.saml:
+  auth.azuread:
     enabled: true
-    name: AzureAD 
-    auto_login: false
-    allow_idp_initiated: true
+    name: Azure AD
     allow_sign_up: true
-    idp_entity_id: https://sts.windows.net/a2724ae3-73eb-4b45-ba62-f432da279e2c/
-    single_sign_on_service_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
-    single_logout_service_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/saml2
-    assertion_attribute_name: name
-    assertion_attribute_login: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
-    assertion_attribute_email: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
-    assertion_attribute_groups: http://schemas.microsoft.com/ws/2008/06/identity/claims/groups
+    auto_login: false
 
+    client_id: 6cc09890-fd6f-4c6c-8001-20989e3ea405
+    client_secret: $__file{/etc/grafana/secrets/azuread-client-secret}
+
+    scopes: openid email profile
+
+    auth_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/oauth2/v2.0/authorize
+    token_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/oauth2/v2.0/token
+
+    allowed_organizations: a2724ae3-73eb-4b45-ba62-f432da279e2c  
 
 affinity:
   nodeAffinity:
