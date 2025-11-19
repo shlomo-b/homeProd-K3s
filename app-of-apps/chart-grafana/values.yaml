@@ -70,7 +70,7 @@ grafana.ini:
     auto_login: false
 
     client_id: 6cc09890-fd6f-4c6c-8001-20989e3ea405
-    client_secret: $__file{/etc/grafana/secrets/azuread-client-secret}
+   # client_secret: $__file{/etc/grafana/secrets/azuread-client-secret}
 
     scopes: openid email profile
 
