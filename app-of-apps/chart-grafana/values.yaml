@@ -80,6 +80,12 @@ grafana.ini:
     token_url: https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/oauth2/v2.0/token
     allowed_organizations: a2724ae3-73eb-4b45-ba62-f432da279e2c  
 
+    # === Map Azure App Roles → Grafana Roles ===
+    role_attribute_path: >
+      contains(roles[*], 'GrafanaAdmin') && 'Admin' ||
+      contains(roles[*], 'GrafanaViewer') && 'Viewer' ||
+      'Viewer'
+
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
