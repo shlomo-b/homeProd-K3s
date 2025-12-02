@@ -14,22 +14,24 @@ spec:
       labels:
         app: cunsumer
     spec:
-      # topologySpreadConstraints:
-      #   - maxSkew: 1
-      #     topologyKey: "kubernetes.io/hostname"
-      #     whenUnsatisfiable: ScheduleAnyway
-      #     labelSelector:
-      #       matchLabels:
-      #         app: cunsumer  
-   # spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
       containers:
       - name: consumer
-        image: shlomobarzili/consumer:v1.3.2
+        image: shlomobarzili/consumer:v2.0.0
         imagePullPolicy: Always
         ports:
         - name: cunsumer
           containerPort: 8001
           protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
         resources:
           requests:
             cpu: 200m
