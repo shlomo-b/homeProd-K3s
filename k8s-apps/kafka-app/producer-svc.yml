@@ -14,22 +14,24 @@ spec:
       labels:
         app: producer
     spec:
-      # topologySpreadConstraints:
-      #   - maxSkew: 1
-      #     topologyKey: "kubernetes.io/hostname"
-      #     whenUnsatisfiable: ScheduleAnyway
-      #     labelSelector:
-      #       matchLabels:
-      #         app: producer  
-   # spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
       containers:
       - name: producer
-        image: shlomobarzili/producer:v1.3.1
+        image: shlomobarzili/producer:v2.0.0
         imagePullPolicy: Always
         ports:
         - name: producer
           containerPort: 8000
           protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
         resources:
           requests:
             cpu: 200m
