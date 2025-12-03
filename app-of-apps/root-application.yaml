@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: argocd
   namespace: argocd
+  labels:
+    argocd.argoproj.io/instance: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # The finalizer delete the application and resources
 spec:
