@@ -63,8 +63,9 @@ serverFiles:
               - "master:9100"
               - "node1:9100"
               - "node2:9100"
-              - "node3:9100"
+            #  - "node3:9100"
               - "node4:9100"
+              - "node5:9100"
 
       - job_name: 'traefik'
         metrics_path: /metrics
