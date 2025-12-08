@@ -6,13 +6,25 @@ server:
   revisionHistoryLimit: 0
 #  replicas: 2
   name: backend
+
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true  
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop: ["ALL"]
+
   service:
     enabled: true
     serviceType: ClusterIP
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
-    tag: v3.2.1
+    tag: v4.0.0
   containerPort: 5050
   autoscaling:
     enabled: true
@@ -155,7 +167,7 @@ client:
     port: 3000
   image:
     name: shlomobarzili/secretpass-frontend
-    tag: v2.3.1
+    tag: v2.3.1  
   containerPort: 3000
   autoscaling:
     enabled: true

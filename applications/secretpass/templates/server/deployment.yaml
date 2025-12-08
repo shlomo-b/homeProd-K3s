@@ -5,29 +5,35 @@ metadata:
   name: {{ include "yourchart.fullname" (dict "name" .Values.server.name) }}
   namespace: {{ .Values.namespace }}
   labels:
-    app:  {{ .Values.server.name }}
+    app: {{ .Values.server.name }}
 spec:
   revisionHistoryLimit: {{ .Values.server.revisionHistoryLimit }}
   {{- if (not .Values.server.autoscaling.enabled) }}
   replicas: {{ .Values.server.replicas }}
-  {{- end}}
+  {{- end }}
   selector:
     matchLabels:
-      app:  {{ .Values.server.name }}
+      app: {{ .Values.server.name }}
   template:
     metadata:
       labels:
-        app:  {{ .Values.server.name }}
-{{- with .Values.server.affinity }}
-      affinity:
-      {{toYaml . | indent 4}}   
-{{- end}}      
+        app: {{ .Values.server.name }}
     spec:
+      {{- with .Values.server.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.server.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
       containers:
-      - name: backend
-        image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
-        imagePullPolicy: Always
-        env:
+        - name: backend
+          image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
+          imagePullPolicy: Always
+          env:
             {{- range .Values.server.envVars }}
             - name: {{ .name }}
               valueFrom:
@@ -40,11 +46,18 @@ spec:
                   name: {{ .nameVariables }}
                   key: {{ .key }}
               {{- end }}
-        {{- end }}
-        ports:
-        - containerPort: {{ .Values.server.containerPort }}
-        {{- with .Values.server.resources }}
-        resources:
-          {{toYaml . | nindent 12}}
-        {{- end }}
+          {{- end }}
+
+          ports:
+            - containerPort: {{ .Values.server.containerPort }}
+
+          {{- with .Values.server.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with .Values.server.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 {{- end }}
