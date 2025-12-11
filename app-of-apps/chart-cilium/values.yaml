@@ -8,7 +8,7 @@ hubble:
       - "drop"
       - "flow"
       - "http"
-      - "https
+      - "https"
       - "port-distribution"
       - "policy"
       - "tls"
