@@ -1,7 +1,19 @@
 policyEnforcementMode: "default"  
 
 hubble:
-  enabled: true          
+  enabled: true    
+  metrics:      
+    enabled:
+      - "dns"
+      - "drop"
+      - "flow"
+      - "http"
+      - "https
+      - "port-distribution"
+      - "policy"
+      - "tls"
+      - "udp"
+      - "tcp"
   relay:
     enabled: true        
   ui:
