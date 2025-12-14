@@ -1,6 +1,17 @@
 # Keep your existing keys; add/override only the ones below.
 hubble:
   enabled: true
+  metrics:
+    enabled: true
+    - "dns"
+    - "drop"
+    - "flow"
+    - "http"
+    - "https"
+    - "port-distribution"
+    - "policy"
+    - "tls"
+    - "udp"
   listenAddress: ":4244"
   peerService:
     enabled: true
