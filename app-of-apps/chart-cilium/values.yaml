@@ -1,32 +1,25 @@
-policyEnforcementMode: "default"  
-
+# Keep your existing keys; add/override only the ones below.
 hubble:
-  enabled: true  
+  enabled: true
   listenAddress: ":4244"
+  peerService:
+    enabled: true
   tls:
     enabled: true
     auto:
-      enabled: true  
-  metrics:      
-    enabled:
-      - "dns"
-      - "drop"
-      - "flow"
-      - "http"
-      - "https"
-      - "port-distribution"
-      - "policy"
-      - "tls"
-      - "udp"
-      - "tcp"
+      enabled: true
+      method: helm
   relay:
-    enabled: true 
+    enabled: true
     tls:
       enabled: true
       auto:
-        enabled: true       
+        enabled: true
   ui:
     enabled: true
     service:
       type: ClusterIP
-      
+
+# Show more flows while testing
+monitor:
+  aggregation: none
