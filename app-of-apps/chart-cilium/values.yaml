@@ -27,3 +27,6 @@ hubble:
         enabled: true       
   ui:
     enabled: true
+    service:
+      type: ClusterIP
+      
