@@ -12,6 +12,7 @@ hubble:
       - "policy"
       - "tls"
       - "udp"
+      - "tcp"
   listenAddress: ":4244"
   peerService:
     enabled: true
@@ -34,3 +35,7 @@ hubble:
 # Show more flows while testing
 monitor:
   aggregation: none
+
+cni:
+  install: true
+  confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
