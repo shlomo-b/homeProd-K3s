@@ -3,15 +3,16 @@ hubble:
   enabled: true
   metrics:
     enabled: true
-    - "dns"
-    - "drop"
-    - "flow"
-    - "http"
-    - "https"
-    - "port-distribution"
-    - "policy"
-    - "tls"
-    - "udp"
+    metrics:
+      - "dns",
+      - "drop",
+      - "flow",
+      - "http",
+      - "https",
+      - "port-distribution",
+      - "policy",
+      - "tls",
+      - "udp"
   listenAddress: ":4244"
   peerService:
     enabled: true
