@@ -35,20 +35,20 @@ hubble:
 monitor:
   aggregation: medium
 
-# cni:
-#   install: true
-#   binPath: /opt/cni/bin  # שינוי ל-/opt/cni/bin כדי ש-systemd service יעבוד
-#   confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
+cni:
+  install: true
+  binPath: /var/lib/rancher/k3s/data/current/bin
+  confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
 
-# bpf:
-#   autoMount:
-#     enabled: false
+bpf:
+  autoMount:
+    enabled: false
 
-# cgroup:
-#   autoMount:
-#     enabled: false
-#   hostRoot: /sys/fs/cgroup
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
 
-# # sysctlfix מופעל - הקובץ מועתק אוטומטית ל-/opt/cni/bin דרך systemd service
-# sysctlfix:
-#   enabled: true
+
+sysctlfix:
+  enabled: false
