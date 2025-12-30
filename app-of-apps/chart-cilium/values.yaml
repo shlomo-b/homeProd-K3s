@@ -1,6 +1,6 @@
 # Keep your existing keys; add/override only the ones below.
 hubble:
-  enabled: true
+  enabled: false
   metrics:
     enabled:
       - "dns"
