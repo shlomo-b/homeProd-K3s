@@ -1,6 +1,5 @@
-# Keep your existing keys; add/override only the ones below.
 hubble:
-  enabled: false
+  enabled: true
   metrics:
     enabled:
       - "dns"
@@ -22,13 +21,13 @@ hubble:
       enabled: true
       method: helm
   relay:
-    enabled: true
+    enabled: false
     tls:
       enabled: true
       auto:
         enabled: true
   ui:
-    enabled: true
+    enabled: false
     service:
       type: ClusterIP
 
