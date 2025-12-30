@@ -15,7 +15,7 @@ bpf:
 
 cgroup:
   autoMount:
-    enabled: true
+    enabled: false
 
 hubble:
   enabled: true
