@@ -41,10 +41,8 @@ cni:
 
 bpf:
   autoMount:
-    enabled: false
+    enabled: true
 
 cgroup:
   autoMount:
-    enabled: false
-  hostRoot: /sys/fs/cgroup
-kubeProxyReplacement: "false"
+    enabled: true
