@@ -1,3 +1,4 @@
+# Keep your existing keys; add/override only the ones below.
 hubble:
   enabled: true
   metrics:
@@ -21,28 +22,30 @@ hubble:
       enabled: true
       method: helm
   relay:
-    enabled: false
+    enabled: true
     tls:
       enabled: true
       auto:
         enabled: true
   ui:
-    enabled: false
+    enabled: true
     service:
       type: ClusterIP
 
-# monitor:
-#   aggregation: medium
+monitor:
+  aggregation: medium
 
-cni:
-  install: false
-  binPath: /var/lib/rancher/k3s/data/current/bin
-  confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
+# cni:
+#   install: false
+#   binPath: /var/lib/rancher/k3s/data/current/bin
+#   confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
 
 bpf:
   autoMount:
-    enabled: true
+    enabled: false
 
 cgroup:
   autoMount:
-    enabled: true
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+kubeProxyReplacement: "false"
