@@ -31,8 +31,8 @@ hubble:
     service:
       type: ClusterIP
 
-monitor:
-  aggregation: medium
+# monitor:
+#   aggregation: medium
 
 cni:
   install: false
