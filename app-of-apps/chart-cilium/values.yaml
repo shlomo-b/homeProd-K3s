@@ -1,0 +1,57 @@
+kubeProxyReplacement: "false"
+
+# להסיר לגמרי כדי לא להחזיר את הבאג
+# monitor:
+#   aggregation: medium
+
+cni:
+  install: false
+  binPath: /var/lib/rancher/k3s/data/current/bin
+  confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
+
+bpf:
+  autoMount:
+    enabled: true
+
+cgroup:
+  autoMount:
+    enabled: false
+
+
+securityContext:
+  # -- Run the pod with elevated privileges (needed for nsenter in init containers on master node)
+  privileged: true
+
+hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - "dns"
+      - "drop"
+      - "flow"
+      - "http"
+      - "https"
+      - "port-distribution"
+      - "policy"
+      - "tls"
+      - "udp"
+      - "tcp"
+  listenAddress: ":4244"
+  peerService:
+    enabled: true
+  tls:
+    enabled: true
+    auto:
+      enabled: true
+      method: helm
+  relay:
+    enabled: true
+    tls:
+      enabled: true
+      auto:
+        enabled: true
+        method: helm
+  ui:
+    enabled: true
+    service:
+      type: ClusterIP
