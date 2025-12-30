@@ -17,6 +17,14 @@ cgroup:
   autoMount:
     enabled: false
 
+# sysctlfix מושבת - לא נחוץ
+# sysctlfix:
+#   enabled: true
+
+securityContext:
+  # -- Run the pod with elevated privileges (needed for nsenter in init containers on master node)
+  privileged: true
+
 hubble:
   enabled: true
   relay:
