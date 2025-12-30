@@ -5,7 +5,7 @@ kubeProxyReplacement: "false"
 #   aggregation: medium
 
 cni:
-  install: false
+  install: true
   binPath: /var/lib/rancher/k3s/data/current/bin
   confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
 
