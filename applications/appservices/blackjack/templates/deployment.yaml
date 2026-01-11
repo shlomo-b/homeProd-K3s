@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- if (not .Values.autoscaling.enabled) }}
+  replicas: {{ .Values.replicas }}
+  {{- end}}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+{{- with .Values.affinity }}
+      affinity:
+      {{toYaml . | indent 4}}   
+{{- end}}      
+    spec:
+      containers:
+      - name: app
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "70m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"

@@ -1,0 +1,55 @@
+appName: blackjack
+namespace: blackjack
+revisionHistoryLimit: 0
+image:
+  name: shlomobarzili/blackjack
+  tag: v1.0.0
+
+service:
+  port: 80
+  targetPort: 80
+  serviceType: ClusterIP
+containerPort: 80
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/preserve-host: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  host: blackjack-k3s.spider-shlomo.com
+  
+  paths:
+  -  path: /
+     pathType: Exact
+     serviceName: blackjack
+  -  path: /metrics
+     pathType: Exact
+     serviceName: blackjack
+
+  tls:
+    - secretName: blackjack-tls
+      hosts:
+        - blackjack-k3s.spider-shlomo.com
+
+autoscaling:
+  enabled: true
+  appName: blackjack
+  minReplicas: 2
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 70
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 15
+    scaleDown:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 15
