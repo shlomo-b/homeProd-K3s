@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   labels:
     argocd.argoproj.io/instance: argocd
+    app.kubernetes.io/managed-by: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # The finalizer delete the application and resources
 spec:
