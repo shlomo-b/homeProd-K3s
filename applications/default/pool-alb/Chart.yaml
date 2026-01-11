@@ -1,0 +1,6 @@
+apiVersion: v2
+name: pool-alb
+description: A Helm chart for pool-alb
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
