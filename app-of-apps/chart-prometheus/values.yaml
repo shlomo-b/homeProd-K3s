@@ -1,0 +1,153 @@
+serviceAccount:
+  create: true  
+
+server:
+  global:
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    evaluation_interval: 15s
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    hosts:
+      - prometheus-k3s.spider-shlomo.com
+    path: /
+    pathType: Prefix    
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus-k3s.spider-shlomo.com
+
+  service:
+    enabled: true
+    type: ClusterIP
+    targetPort: 3000
+
+  persistentVolume:
+    enabled: true
+    size: 10Gi
+
+serverFiles:
+  prometheus.yml:
+    scrape_configs:
+      - job_name: 'prometheus'
+        metrics_path: '/metrics'
+        static_configs:
+          - targets: 
+              - "prometheus-k3s.spider-shlomo.com:443"
+        scheme: https
+
+      - job_name: grafana
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - "grafana-k3s.spider-shlomo.com:443"
+        scheme: https      
+
+      - job_name: "backend-secretpass"
+        metrics_path: "/api/metrics"
+        static_configs:
+          - targets:
+              - "secretpass.spider-shlomo.com:443"
+        scheme: https
+
+      - job_name: 'node-exporter-nodes'
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - "master:9100"
+              - "node1:9100"
+              - "node2:9100"
+            #  - "node3:9100"
+              - "node4:9100"
+              - "node5:9100"
+
+      - job_name: 'traefik'
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - "10.43.93.62:9100" 
+
+      # - job_name: "all-pods-/metrics"
+      #   metrics_path: "/metrics"
+      #   kubernetes_sd_configs:
+      #     - role: pod
+      #   relabel_configs:
+      #     - source_labels: [__meta_kubernetes_namespace]
+      #       target_label: kubernetes_namespace
+      #     - source_labels: [__meta_kubernetes_pod_name]
+      #       target_label: kubernetes_pod_name
+      #     - source_labels: [__meta_kubernetes_pod_label_app]
+      #       target_label: kubernetes_app
+
+      - job_name: "secretpass-backend"
+        metrics_path: "/api/metrics"
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - secretpass
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: backend
+            action: keep
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: kubernetes_pod_name
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            target_label: kubernetes_app
+          - source_labels: [__meta_kubernetes_pod_ip]
+            action: replace
+            target_label: __address__
+            regex: (.+)
+            replacement: $1:5050
+
+#---------------outside the network----------------#
+
+      - job_name: "shlomo-pc"
+        metrics_path: "/metrics"
+        static_configs:
+          - targets:
+              - "10.0.11.250:9100"
+
+      - job_name: "lab-ubuntu-consumer-docker"
+        metrics_path: "/metrics"
+        static_configs:
+          - targets:
+              - "10.0.11.10:8001" 
+
+      - job_name: "cunstomer-k3s"
+        metrics_path: "/metrics"
+        static_configs:
+          - targets:
+              - "10.90.100.126:8001"
+
+      - job_name: "lab-ubuntu-node-exporter"
+        metrics_path: "/metrics"
+        static_configs:
+          - targets:
+              - "10.0.11.10:9100"                              
+
+alertmanager:
+  enabled: false
+
+prometheus-pushgateway:
+  enabled: false
+
+kube-state-metrics:
+  enabled: false  
+
+prometheus-node-exporter:
+  enabled: true
+  service:
+    type: ClusterIP
+    port: 9100
+    targetPort: 9100
+    PortName: metrics
+    name: node-exporter
