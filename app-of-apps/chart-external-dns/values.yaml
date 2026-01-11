@@ -1,0 +1,45 @@
+interval: 30m
+provider:
+  name: aws
+
+serviceAccount:
+  create: true
+  name: external-dns
+policy: upsert-only
+
+extraArgs:
+   - --aws-zone-type=public
+   - --aws-prefer-cname
+domainFilters:
+  - spider-shlomo.com   
+revisionHistoryLimit: 0  
+registry: noop
+txtOwnerId: "" 
+sources:
+  - ingress  
+env:
+  # - name: AWS_REGION
+  #   value: us-east-1
+  - name: AWS_DEFAULT_REGION
+    value: us-east-1
+  - name: AWS_ACCESS_KEY_ID
+    valueFrom:
+      secretKeyRef:
+        name: aws-secret
+        key: accessKeyId
+  - name: AWS_SECRET_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: aws-secret
+        key: secretAccessKey
+  # - name: AWS_EC2_METADATA_DISABLED
+  #   value: "true"   
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node1
