@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:  # Note: using sources instead of source
+  source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     path: ./k8s-apps/cluster-wide-resources
     targetRevision: HEAD
@@ -13,8 +13,8 @@ spec:
     server: https://kubernetes.default.svc
     namespace: external-secrets
   syncPolicy:
-    # syncOptions:
-    #   - CreateNamespace=true
+    syncOptions:
+      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true

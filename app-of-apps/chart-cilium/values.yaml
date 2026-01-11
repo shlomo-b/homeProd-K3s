@@ -1,0 +1,38 @@
+kubeProxyReplacement: false
+
+routingMode: tunnel
+tunnelProtocol: vxlan
+
+k8sNetworkPolicy:
+  enabled: true
+
+cni:
+  install: true
+  exclusive: true
+  confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
+  binPath: /var/lib/rancher/k3s/data/current/bin
+  customConf: false
+
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+    service:
+      type: ClusterIP
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - flow
+      - icmp
+      - tcp
+      - udp
+
+securityContext:
+  # -- Run the pod with elevated privileges (needed for nsenter in init containers on master node)
+  privileged: true
+
+ipam:
+  mode: kubernetes
