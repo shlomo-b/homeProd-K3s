@@ -75,33 +75,33 @@ spec:
         generators:
           - list:
               elements:
-                - env: dev
-                  chartPath: app
-                  valueFile: values-dev.yaml
-                - env: prod
-                  chartPath: app
-                  valueFile: values-prod.yaml
-                - env: test
-                  chartPath: app
-                  valueFile: values-test.yaml
-                - env: blackjack
-                  chartPath: blackjack
-                  valueFile: values-app.yaml
+                # - env: dev
+                #   chartPath: app
+                #   valueFile: values-dev.yaml
+                # - env: prod
+                #   chartPath: app
+                #   valueFile: values-prod.yaml
+                # - env: test
+                #   chartPath: app
+                #   valueFile: values-test.yaml
+                # - env: blackjack
+                #   chartPath: blackjack
+                #   valueFile: values-app.yaml
                 - env: secrets-management
                   chartPath: secrets-management
                   valueFile: values.yaml
                 - env: certificates-management
                   chartPath: certificates-management
                   valueFile: values.yaml  
-                - env: cronjob
-                  chartPath: cronjob
-                  valueFile: values.yaml  
-                - env: pool-alb
-                  chartPath: pool-alb
-                  valueFile: values.yaml
-                - env: secretpass
-                  chartPath: secretpass
-                  valueFile: values.yaml  
+                # - env: cronjob
+                #   chartPath: cronjob
+                #   valueFile: values.yaml  
+                # - env: pool-alb
+                #   chartPath: pool-alb
+                #   valueFile: values.yaml
+                # - env: secretpass
+                #   chartPath: secretpass
+                #   valueFile: values.yaml  
           - git:
               repoURL: https://github.com/shlomo-b/homeProd-K3s.git
               revision: HEAD
