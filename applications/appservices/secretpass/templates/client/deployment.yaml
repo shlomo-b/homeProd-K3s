@@ -1,0 +1,59 @@
+ {{- if .Values.client.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:   {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app:  {{ .Values.client.name }}
+spec:
+  revisionHistoryLimit: {{ .Values.client.revisionHistoryLimit }}
+  {{- if (not .Values.client.autoscaling.enabled) }}
+  replicas: {{ .Values.client.replicas }}
+  {{- end}}
+  selector:
+    matchLabels:
+      app:  {{ .Values.client.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.client.name }}
+{{- with .Values.client.affinity }}
+      affinity:
+      {{toYaml . | indent 4}}   
+{{- end}}      
+    spec:
+      containers:
+      - name: app
+        image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
+        imagePullPolicy: Always
+        env:
+            {{- range .Values.client.envVars }}
+            - name: {{ .name }}
+              valueFrom:
+              {{- if eq .source "secretKeyRef" }}
+                secretKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- else if eq .source "configMapKeyRef" }}
+                configMapKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- end }}
+        {{- end }}
+        ports:
+        - containerPort: {{ .Values.client.containerPort }}
+        {{- with .Values.client.resources }}
+        resources:
+          {{toYaml . | nindent 12}}
+        {{- end }}
+        {{- with .Values.client.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 12}}
+        {{- end }}
+        {{- with .Values.client.livenessProbe }}
+        livenessProbe:
+          {{- toYaml . | nindent 10}}
+        {{- end }}
+
+{{- end }}

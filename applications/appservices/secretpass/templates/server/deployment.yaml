@@ -1,0 +1,63 @@
+{{- if .Values.server.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "yourchart.fullname" (dict "name" .Values.server.name) }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.server.name }}
+spec:
+  revisionHistoryLimit: {{ .Values.server.revisionHistoryLimit }}
+  {{- if (not .Values.server.autoscaling.enabled) }}
+  replicas: {{ .Values.server.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.server.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.server.name }}
+    spec:
+      {{- with .Values.server.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.server.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      containers:
+        - name: backend
+          image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
+          imagePullPolicy: Always
+          env:
+            {{- range .Values.server.envVars }}
+            - name: {{ .name }}
+              valueFrom:
+              {{- if eq .source "secretKeyRef" }}
+                secretKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- else if eq .source "configMapKeyRef" }}
+                configMapKeyRef:
+                  name: {{ .nameVariables }}
+                  key: {{ .key }}
+              {{- end }}
+          {{- end }}
+
+          ports:
+            - containerPort: {{ .Values.server.containerPort }}
+
+          {{- with .Values.server.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with .Values.server.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+{{- end }}

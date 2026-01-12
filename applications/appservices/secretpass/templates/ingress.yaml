@@ -1,0 +1,63 @@
+{{- if or .Values.client.ingress.enabled .Values.server.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: secretpass-ingress
+  namespace: {{ .Values.namespace }}
+  {{- with .Values.client.ingress.annotations }}
+  annotations:
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with (or .Values.client.ingress.ingressClassName .Values.server.ingress.ingressClassName) }}
+  ingressClassName: {{ . }}
+    {{- end}}
+  {{- if or .Values.client.ingress.tls .Values.server.ingress.tls }}
+  tls:
+    {{- range .Values.client.ingress.tls }}
+    - secretName: {{ .secretName }}
+      hosts:
+      {{- range .hosts }}
+        - {{ . }}       {{/* "present the value for each string" */}}
+      {{- end }}
+      {{- end }}
+
+      {{- range .Values.server.ingress.tls }}
+    - secretName: {{ .secretName }}
+      hosts:
+        {{- range .hosts }}
+        - {{ . }}
+      {{- end }}
+      {{- end }}
+  {{- end }}
+  rules:
+    {{- if .Values.client.ingress.host }}
+    - host: {{ .Values.client.ingress.host }}
+      http:
+        paths:
+          {{- range .Values.client.ingress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: 3000
+        {{- end }}
+      {{- end }}
+
+  {{- if .Values.server.ingress.host }}
+    - host: {{ .Values.server.ingress.host }}
+      http:
+        paths:
+          {{- range .Values.server.ingress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: 5050
+        {{- end }}
+  {{- end }}
+{{- end }}

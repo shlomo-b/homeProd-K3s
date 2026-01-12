@@ -1,0 +1,38 @@
+{{- if .Values.client.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}-hpa
+  namespace:  {{ .Values.namespace }}
+  labels:
+{{ toYaml .Values.client.autoscaling.labels | indent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
+  minReplicas: {{ .Values.client.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.client.autoscaling.maxReplicas }}
+  metrics:
+{{- if .Values.client.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.client.autoscaling.targetCPUUtilizationPercentage }}
+{{- end }}
+{{- if .Values.client.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.client.autoscaling.targetMemoryUtilizationPercentage }}
+{{- end }}
+{{- with .Values.client.autoscaling.behavior }}
+  behavior:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- end }}
+
