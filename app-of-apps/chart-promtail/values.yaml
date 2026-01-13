@@ -1,0 +1,39 @@
+serviceAccount:
+  create: true
+
+daemonset:
+  # the pods will be run on each node in the cluster
+  enabled: true
+
+config:
+  enabled: true
+  logFormat: logfm
+  logLevel: info
+  serverPort: 3101
+  clients:
+    - url: http://loki-write:3100/loki/api/v1/push  # loki write url
+
+sidecar:
+  configReloader:
+    enabled: false
+    resources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 3101  # the port svc that exposes and is used for healthcheck
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 3101
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 10
+  failureThreshold: 3
