@@ -29,6 +29,8 @@ hubble:
       - icmp
       - tcp
       - udp
+      - https
+      - http
 
 securityContext:
   # -- Run the pod with elevated privileges (needed for nsenter in init containers on master node)
@@ -36,3 +38,13 @@ securityContext:
 
 ipam:
   mode: kubernetes
+
+envoy:
+  enabled: true
+
+envoyConfig:
+  enabled: true
+  secretsNamespace:
+    create: true
+    name: cilium-secrets
+  retryInterval: 15s
