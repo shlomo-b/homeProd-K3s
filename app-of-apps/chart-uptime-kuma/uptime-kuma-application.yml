@@ -14,7 +14,7 @@ spec:
       ref: values
     - repoURL: https://dirsigler.github.io/uptime-kuma-helm
       chart: uptime-kuma
-      targetRevision: 2.21.3
+      targetRevision: 2.24.0
       helm:
         valueFiles:
           - $values/app-of-apps/chart-uptime-kuma/values.yaml
