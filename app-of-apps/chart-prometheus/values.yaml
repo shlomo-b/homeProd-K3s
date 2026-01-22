@@ -87,6 +87,9 @@ serverFiles:
 
       - job_name: "secretpass-backend"
         metrics_path: "/api/metrics"
+        basic_auth:
+          username: username
+          password: password
         kubernetes_sd_configs:
           - role: pod
             namespaces:
