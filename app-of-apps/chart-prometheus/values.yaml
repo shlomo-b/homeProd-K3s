@@ -32,6 +32,12 @@ server:
     enabled: true
     size: 10Gi
 
+  extraSecretMounts:
+    - name: secretpass-metrics-auth
+      secretName: secretpass-metrics-auth
+      mountPath: /etc/prometheus/secrets/secretpass
+      readOnly: true
+
 serverFiles:
   prometheus.yml:
     scrape_configs:
@@ -88,8 +94,8 @@ serverFiles:
       - job_name: "secretpass-backend"
         metrics_path: "/api/metrics"
         basic_auth:
-          username: username
-          password: password
+          username_file: /etc/prometheus/secrets/secretpass/username
+          password_file: /etc/prometheus/secrets/secretpass/password
         kubernetes_sd_configs:
           - role: pod
             namespaces:
@@ -136,7 +142,7 @@ serverFiles:
         static_configs:
           - targets:
               - "10.0.11.10:9100"                              
-
+  
 alertmanager:
   enabled: false
 
