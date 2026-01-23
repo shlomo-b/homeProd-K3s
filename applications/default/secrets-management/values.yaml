@@ -86,3 +86,14 @@ grafana-secret-sso:
     dataFrom:
       extract:
         key: secret-sso
+
+secretpass-metrics-auth:
+    external_secret_name: secretpass-metrics-auth
+    namespaces:
+      - monitoring
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  aws-secret-secretpass-metrics-auth
+    dataFrom:
+      extract:
+        key: secretpass-metrics-auth
