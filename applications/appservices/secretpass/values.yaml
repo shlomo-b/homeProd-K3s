@@ -24,7 +24,7 @@ server:
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
-    tag: v4.0.1
+    tag: v4.0.2
   containerPort: 5050
   autoscaling:
     enabled: true
