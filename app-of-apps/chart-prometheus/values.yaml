@@ -158,7 +158,8 @@ prometheus-pushgateway:
       kubernetes.io/ingress.class: traefik
       kubernetes.io/preserve-host: "true"
       traefik.ingress.kubernetes.io/router.tls: "true"
-    hosts: pushgateway.spider-shlomo.com
+    hosts: 
+      - pushgateway.spider-shlomo.com
     tls:
       - secretName: prometheus-pushgateway-tls
         hosts:
