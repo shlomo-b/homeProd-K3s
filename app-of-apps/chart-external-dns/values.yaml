@@ -1,4 +1,4 @@
-interval: 3m
+interval: 30m
 provider:
   name: aws
 
