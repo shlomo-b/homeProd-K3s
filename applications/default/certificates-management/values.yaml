@@ -78,3 +78,12 @@ traefik-ui-cert:
   dnsNames: 
   -  traefik.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+prometheus-pushgateway-cert:
+  certificate_name: prometheus-pushgateway-cert
+  namespaces: monitoring
+  secretName: prometheus-pushgateway-tls
+  commonName: pushgateway.spider-shlomo.com
+  dnsNames: 
+  -  pushgateway.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
