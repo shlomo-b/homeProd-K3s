@@ -32,6 +32,7 @@ server:
     enabled: true
     size: 10Gi
 
+  # secrets for metrics, job-name secretpass
   extraSecretMounts:
     - name: secretpass-metrics-auth
       secretName: aws-secret-secretpass-metrics-auth
@@ -147,7 +148,23 @@ alertmanager:
   enabled: false
 
 prometheus-pushgateway:
-  enabled: false
+  enabled: true
+  ingress:
+    enabled: true
+    className: traefik
+    path: /
+    pathType: Prefix
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    hosts: pushgateway.spider-shlomo.com
+    tls:
+      - secretName: prometheus-pushgateway-tls
+        hosts:
+          - pushgateway.spider-shlomo.com
+    
+
 
 kube-state-metrics:
   enabled: false  
