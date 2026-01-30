@@ -43,3 +43,5 @@ spec:
                   name: cronjob-config-{{ $name }}
             {{- end }}
 {{- end }}
+---
+{{- end }}
