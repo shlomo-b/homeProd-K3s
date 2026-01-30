@@ -39,7 +39,7 @@ backup-fortigate:
     data:
       PUSHGATEWAY_ADDR: https://pushgateway.spider-shlomo.com
       PUSHGATEWAY_JOB: "backup-fortigate"
-      PUSHGATEWAY_INSTANCE: "${HOSTNAME:-backup-fortigate}"
+      PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
 
   # cronjobSecurityContext:
@@ -94,7 +94,7 @@ backup-juniper:
     data:
       PUSHGATEWAY_ADDR: https://pushgateway.spider-shlomo.com
       PUSHGATEWAY_JOB: "backup-juniper"
-      PUSHGATEWAY_INSTANCE: "${HOSTNAME:-backup-juniper}"
+      PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
 
   # cronjobSecurityContext:
