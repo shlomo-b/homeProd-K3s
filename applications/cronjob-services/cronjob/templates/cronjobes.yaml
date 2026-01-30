@@ -42,6 +42,5 @@ spec:
               - configMapRef:
                   name: cronjob-config-{{ $name }}
             {{- end }}
-{{- end }}
 ---
 {{- end }}
