@@ -1,6 +1,6 @@
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "30 0 1 * *"  # every month at 00:30 "30 0 1 * *"
+  schedule: "*/1 * * * *"  # every month at 00:30 "30 0 1 * *"
   image:
     name: shlomobarzili/fortigate
     tag: v1.2.0
@@ -42,20 +42,20 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "${HOSTNAME:-backup-fortigate}"
       FW_NAME: "FW-Shlomi #"
 
-  cronjobSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    runAsNonRoot: true  
+  # cronjobSecurityContext:
+  #   runAsUser: 1000
+  #   runAsGroup: 1000
+  #   runAsNonRoot: true  
 
-  securityContext:
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
-    capabilities:
-      drop: ["ALL"]        
+  # securityContext:
+  #   allowPrivilegeEscalation: false
+  #   readOnlyRootFilesystem: true
+  #   capabilities:
+  #     drop: ["ALL"]        
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "0 0 1 * *"  # every month at 00:00 "0 0 1 * *"
+  schedule: "*/1 * * * *"  # every month at 00:00 "0 0 1 * *"
   image:
     name: shlomobarzili/junipersw
     tag: v1.2.0
@@ -97,13 +97,13 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "${HOSTNAME:-backup-juniper}"
       SW_NAME: "@Juniper_BB>"
 
-  cronjobSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    runAsNonRoot: true  
+  # cronjobSecurityContext:
+  #   runAsUser: 1000
+  #   runAsGroup: 1000
+  #   runAsNonRoot: true  
 
-  securityContext:
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
-    capabilities:
-      drop: ["ALL"]    
+  # securityContext:
+  #   allowPrivilegeEscalation: false
+  #   readOnlyRootFilesystem: true
+  #   capabilities:
+  #     drop: ["ALL"]    
