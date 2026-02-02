@@ -1,0 +1,18 @@
+{{- range $name, $config := .Values }}
+{{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cronjob-pvc-{{ $name }}
+  namespace: cronjob
+spec:
+  accessModes:
+    {{- range $k, $v := $config.volumeMounts.pvc.accessModes }}
+    - {{ $v }}
+  {{- end }}
+  resources:
+    requests:
+      storage: 300Mi
+  storageClassName: local-path
+{{- end }}
+{{- end }}

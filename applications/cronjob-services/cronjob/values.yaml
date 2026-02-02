@@ -34,6 +34,13 @@ backup-fortigate:
       secretName: cronjob-credentials-fortigate-backup
       key:
         name: PORT
+  volumeMounts:    
+      enabled: true
+      pvc:
+        name: cronjob-pvc-backup-fortigate
+        mountPath: /data
+
+
   cm:
     enabled: true
     data:
@@ -42,16 +49,16 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
 
-  # cronjobSecurityContext:
-  #   runAsUser: 1000
-  #   runAsGroup: 1000
-  #   runAsNonRoot: true  
+  cronjobSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true  
 
-  # securityContext:
-  #   allowPrivilegeEscalation: false
-  #   readOnlyRootFilesystem: true
-  #   capabilities:
-  #     drop: ["ALL"]        
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop: ["ALL"]        
 
 backup-juniper:
   cronjob_name: backup-juniper
@@ -89,6 +96,11 @@ backup-juniper:
       secretName: cronjob-credentials-juniper-backup
       key:
         name: PORT
+  volumeMounts:    
+      enabled: true
+      pvc:
+        name: cronjob-pvc-juniper
+        mountPath: /app
   cm:
     enabled: true
     data:
@@ -97,13 +109,13 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
 
-  # cronjobSecurityContext:
-  #   runAsUser: 1000
-  #   runAsGroup: 1000
-  #   runAsNonRoot: true  
+  cronjobSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true  
 
-  # securityContext:
-  #   allowPrivilegeEscalation: false
-  #   readOnlyRootFilesystem: true
-  #   capabilities:
-  #     drop: ["ALL"]    
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop: ["ALL"]    
