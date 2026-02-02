@@ -56,10 +56,10 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
 
-  cronjobSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    runAsNonRoot: true       
+  # cronjobSecurityContext:
+  #   runAsUser: 1000
+  #   runAsGroup: 1000
+  #   runAsNonRoot: true       
 
 backup-juniper:
   cronjob_name: backup-juniper
@@ -117,7 +117,7 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
 
-  cronjobSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    runAsNonRoot: true
+  # cronjobSecurityContext:
+  #   runAsUser: 1000
+  #   runAsGroup: 1000
+  #   runAsNonRoot: true
