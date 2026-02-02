@@ -4,7 +4,7 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     tag: v1.2.1
-    securityContext:
+  securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
       capabilities:
