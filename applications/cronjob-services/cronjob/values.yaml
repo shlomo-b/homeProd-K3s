@@ -38,6 +38,8 @@ backup-fortigate:
       enabled: true
       pvc:
         name: cronjob-pvc-backup-fortigate
+        accessModes: 
+          - ReadWriteOnce
         mountPath: /data
 
 
@@ -100,6 +102,8 @@ backup-juniper:
       enabled: true
       pvc:
         name: cronjob-pvc-juniper
+        accessModes: 
+          - ReadWriteOnce
         mountPath: /app
   cm:
     enabled: true
