@@ -14,13 +14,13 @@ spec:
   failedJobsHistoryLimit: 1      # The number of failed Jobs that Kubernetes will retain in history
   jobTemplate:
     spec:
-      # {{- with $config.cronjobSecurityContext }}
-      # securityContext:
-      #   {{- toYaml . | nindent 8 }}
-      # {{- end }}
       ttlSecondsAfterFinished: 60 # The Job (and its pods) will be deleted 60 seconds after completion
       template:
         spec:
+          {{- with $config.securityContext }}
+          securityContext:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: OnFailure
           containers:
           - name: cronjob

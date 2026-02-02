@@ -4,11 +4,11 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     tag: v1.2.1
-    # securityContext:
-    #     allowPrivilegeEscalation: false
-    #     readOnlyRootFilesystem: true
-    #     capabilities:
-    #       drop: ["ALL"]   
+  securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]   
 
   env:
     - name: USERNAME
@@ -56,10 +56,10 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
 
-  # cronjobSecurityContext:
-  #   runAsUser: 1000
-  #   runAsGroup: 1000
-  #   runAsNonRoot: true       
+  cronjobSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true       
 
 backup-juniper:
   cronjob_name: backup-juniper
@@ -67,11 +67,11 @@ backup-juniper:
   image:
     name: shlomobarzili/junipersw
     tag: v1.2.1
-    # securityContext:
-    #     allowPrivilegeEscalation: false
-    #     readOnlyRootFilesystem: true
-    #     capabilities:
-    #       drop: ["ALL"]     
+  securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]     
 
   env: 
     - name: USERNAME
@@ -117,7 +117,7 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
 
-  # cronjobSecurityContext:
-  #   runAsUser: 1000
-  #   runAsGroup: 1000
-  #   runAsNonRoot: true
+  cronjobSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
