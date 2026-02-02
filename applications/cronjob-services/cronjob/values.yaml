@@ -4,6 +4,11 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     tag: v1.2.0
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]   
 
   env:
     - name: USERNAME
@@ -54,13 +59,7 @@ backup-fortigate:
   cronjobSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
-    runAsNonRoot: true  
-
-  securityContext:
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
-    capabilities:
-      drop: ["ALL"]        
+    runAsNonRoot: true       
 
 backup-juniper:
   cronjob_name: backup-juniper
@@ -68,6 +67,11 @@ backup-juniper:
   image:
     name: shlomobarzili/junipersw
     tag: v1.2.0
+  securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]     
 
   env: 
     - name: USERNAME
@@ -116,10 +120,4 @@ backup-juniper:
   cronjobSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
-    runAsNonRoot: true  
-
-  securityContext:
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
-    capabilities:
-      drop: ["ALL"]    
+    runAsNonRoot: true

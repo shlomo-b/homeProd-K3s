@@ -15,4 +15,5 @@ spec:
       storage: 300Mi
   storageClassName: local-path
 {{- end }}
+---
 {{- end }}
