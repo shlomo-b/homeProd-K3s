@@ -3,7 +3,7 @@ backup-fortigate:
   schedule: "0 1 * * *" # every month at 00:30 "30 0 1 * *"
   image:
     name: shlomobarzili/fortigate
-    tag: v1.2.0
+    tag: v1.2.1
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
@@ -66,7 +66,7 @@ backup-juniper:
   schedule: "0 1 * * *" # every month at 00:00 "0 0 1 * *"
   image:
     name: shlomobarzili/junipersw
-    tag: v1.2.0
+    tag: v1.2.1
   securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
