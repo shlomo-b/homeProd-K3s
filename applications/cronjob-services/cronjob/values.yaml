@@ -4,11 +4,11 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     tag: v1.2.1
-  securityContext:
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
-      capabilities:
-        drop: ["ALL"]   
+    securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]   
 
   env:
     - name: USERNAME
