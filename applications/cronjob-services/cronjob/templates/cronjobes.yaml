@@ -26,9 +26,9 @@ spec:
           - name: cronjob
             image: "{{ $config.image.name }}:{{ $config.image.tag }}"
             {{- with $config.securityContext }}
-          securityContext:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            securityContext:
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
             env:
               {{- range $env := $config.env }}
               - name: {{ $env.name }}
