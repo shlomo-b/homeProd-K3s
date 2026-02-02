@@ -40,7 +40,7 @@ backup-fortigate:
         name: cronjob-pvc-backup-fortigate
         accessModes: 
           - ReadWriteOnce
-        mountPath: /data
+        mountPath: /app
 
 
   cm:
