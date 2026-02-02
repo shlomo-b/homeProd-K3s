@@ -17,42 +17,42 @@ spec:
       ttlSecondsAfterFinished: 60 # The Job (and its pods) will be deleted 60 seconds after completion
       template:
         spec:
-          {{- with $config.securityContext }}
+{{- with $config.securityContext }}
           securityContext:
-          {{- toYaml . | nindent 12 }}
-          {{- end }}
+{{ toYaml . | nindent 12 }}
+{{- end }}
           restartPolicy: OnFailure
           containers:
-          - name: cronjob
-            image: "{{ $config.image.name }}:{{ $config.image.tag }}"
-            {{- with $config.securityContext }}
-            securityContext:
-              {{- toYaml . | nindent 12 }}
-            {{- end }}
-            env:
-              {{- range $env := $config.env }}
-              - name: {{ $env.name }}
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ $env.secretName }}
-                    key: {{ $env.key.name }}
-            {{- end }}
-            {{- if and $config.cm $config.cm.enabled $config.cm.data }}
-            envFrom:
-              - configMapRef:
-                  name: cronjob-config-{{ $name }}
-            {{- end }}
-            {{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
-            volumeMounts:
-              - name: cronjob-pvc-{{ $name }}
-                mountPath: {{ $config.volumeMounts.pvc.mountPath }}
-            {{- end }}
-          {{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
+            - name: cronjob
+              image: "{{ $config.image.name }}:{{ $config.image.tag }}"
+{{- with $config.securityContext }}
+              securityContext:
+{{ toYaml . | nindent 16 }}
+{{- end }}
+              env:
+{{- range $env := $config.env }}
+                - name: {{ $env.name }}
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $env.secretName }}
+                      key: {{ $env.key.name }}
+{{- end }}
+{{- if and $config.cm $config.cm.enabled $config.cm.data }}
+              envFrom:
+                - configMapRef:
+                    name: cronjob-config-{{ $name }}
+{{- end }}
+{{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
+              volumeMounts:
+                - name: cronjob-pvc-{{ $name }}
+                  mountPath: {{ $config.volumeMounts.pvc.mountPath }}
+{{- end }}
+{{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
           volumes:
             - name: cronjob-pvc-{{ $name }}
               persistentVolumeClaim:
                 claimName: cronjob-pvc-{{ $name }}
-          {{- end }}
+{{- end }}
 
 ---
 {{- end }}
