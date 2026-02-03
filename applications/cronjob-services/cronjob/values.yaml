@@ -51,17 +51,16 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
 
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true    
+
   securityContext:
     allowPrivilegeEscalation: false
     readOnlyRootFilesystem: true
     capabilities:
-      drop: ["ALL"]   
-    
-
-  cronjobSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    runAsNonRoot: true       
+      drop: ["ALL"]      
 
 backup-juniper:
   cronjob_name: backup-juniper
@@ -114,14 +113,13 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
 
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true    
+
   securityContext:
     allowPrivilegeEscalation: false
     readOnlyRootFilesystem: true
     capabilities:
-      drop: ["ALL"]   
-    
-
-  cronjobSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    runAsNonRoot: true    
+      drop: ["ALL"]      

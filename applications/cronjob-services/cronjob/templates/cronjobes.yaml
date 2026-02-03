@@ -4,10 +4,6 @@ kind: CronJob
 metadata:
   name: {{ $config.cronjob_name }}
   namespace: cronjob
-  annotations:
-    keel.sh/policy: "all"
-    keel.sh/trigger: "poll"
-    keel.sh/pollSchedule: "@every 3m"
 spec:
   schedule: "{{ $config.schedule }}"
   successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
@@ -17,7 +13,7 @@ spec:
       ttlSecondsAfterFinished: 60 # The Job (and its pods) will be deleted 60 seconds after completion
       template:
         spec:
-{{- with $config.securityContext }}
+{{- with $config.podSecurityContext }}
           securityContext:
 {{ toYaml . | nindent 12 }}
 {{- end }}
