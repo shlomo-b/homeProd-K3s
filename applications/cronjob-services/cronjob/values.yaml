@@ -1,6 +1,6 @@
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "30 0 1 * *" # every month at 00:30 "30 0 1 * *"
+  schedule: "*/1 * * * *" # every month at 00:30 "30 0 1 * *"
   image:
     name: shlomobarzili/fortigate
     tag: v1.2.2
@@ -46,7 +46,7 @@ backup-fortigate:
   cm:
     enabled: true
     data:
-      PUSHGATEWAY_ADDR: "prometheus-prometheus-pushgateway.monitoring.svc.cluster.local:9091"
+      PUSHGATEWAY_ADDR: "http://prometheus-prometheus-pushgateway.monitoring.svc.cluster.local:9091"
       PUSHGATEWAY_JOB: "backup-fortigate"
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
@@ -64,7 +64,7 @@ backup-fortigate:
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "0 0 1 * *" # every month at 00:00 "0 0 1 * *"
+  schedule: "*/1 * * * *" # every month at 00:00 "0 0 1 * *"
   image:
     name: shlomobarzili/junipersw
     tag: v1.2.2
@@ -108,7 +108,7 @@ backup-juniper:
   cm:
     enabled: true
     data:
-      PUSHGATEWAY_ADDR: "prometheus-prometheus-pushgateway.monitoring.svc.cluster.local:9091"
+      PUSHGATEWAY_ADDR: "http://prometheus-prometheus-pushgateway.monitoring.svc.cluster.local:9091"
       PUSHGATEWAY_JOB: "backup-juniper"
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
