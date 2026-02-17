@@ -24,7 +24,7 @@ server:
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
-    tag: v4.0.2
+    tag: v5.0.0
   containerPort: 5050
   autoscaling:
     enabled: true
@@ -109,6 +109,8 @@ server:
       nameVariables: secretspass-credentials
       key: SAML_CERTIFICATE
 
+###--------------cm----------------------###
+
     - name: MONGO_INITDB_HOST
       source: configMapKeyRef
       nameVariables: secretpass-config
@@ -132,6 +134,44 @@ server:
       nameVariables: secretpass-config
       key: FRONTEND_URL_SAML
       value: https://secretpass.spider-shlomo.com
+
+    - name: ENABLE_AZURE_GROUPS
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: ENABLE_AZURE_GROUPS
+      value: "false"
+
+    - name: ALLOWED_AZURE_GROUPS_ID
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: ALLOWED_AZURE_GROUPS_ID
+      value: "false"
+
+    - name: ENABLE_AZURE_USERS
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: ENABLE_AZURE_USERS
+      value: "true"
+
+    - name: ALLOWED_AZURE_USERS_ID
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: ALLOWED_AZURE_USERS_ID
+      value: "9270575a-12a3-48a7-b649-e747e284829d,b12a4d5c-00cc-48be-bb51-fae361a61be8"
+
+    - name: ALLOWED_ORGANIZATIONS_ID
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: ALLOWED_ORGANIZATIONS_ID
+      value: "a2724ae3-73eb-4b45-ba62-f432da279e2c"
+
+    - name: ALLOWED_EMAIL_DOMAINS
+      source: configMapKeyRef
+      nameVariables: secretpass-config
+      key: ALLOWED_EMAIL_DOMAINS
+      value: "spider-shlomo.com"
+
+
   resources:    
     requests:
       cpu: 100m
