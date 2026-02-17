@@ -157,7 +157,7 @@ server:
       source: configMapKeyRef
       nameVariables: secretpass-config
       key: ALLOWED_AZURE_USERS_ID
-      value: "9270575a-12a3-48a7-b649-e747e284829d"
+      value: "9270575a-12a3-48a7-b649-e747e284829d,b12a4d5c-00cc-48be-bb51-fae361a61be8"
 
     - name: ALLOWED_ORGANIZATIONS_ID
       source: configMapKeyRef
