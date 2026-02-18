@@ -4,6 +4,8 @@ kind: CronJob
 metadata:
   name: {{ $config.cronjob_name }}
   namespace: cronjob
+  labels:
+    app: {{ $config.cronjob_name }}
 spec:
   schedule: "{{ $config.schedule }}"
   successfulJobsHistoryLimit: 1  # The number of successful Jobs that Kubernetes will retain in history
