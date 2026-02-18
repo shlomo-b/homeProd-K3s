@@ -1,6 +1,6 @@
 reloader:
    watchGlobally: true
-   namespaceSelector: "app in (frontend,backend)"
+   namespaceSelector: "app in (secretpass)"
 
 replicas: 1  
 rbac:
