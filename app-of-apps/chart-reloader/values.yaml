@@ -4,4 +4,6 @@ rbac:
   create: true
   serviceAccount:
     create: true
-    name: reloader
+    name: 
+      create: true
+      name: reloader-pods
