@@ -1,0 +1,7 @@
+revisionHistoryLimit: 0
+replicas: 1  
+rbac:
+  create: true
+  serviceAccount:
+    create: true
+    name: reloader

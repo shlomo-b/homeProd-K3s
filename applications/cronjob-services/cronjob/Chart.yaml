@@ -2,5 +2,5 @@ apiVersion: v2
 name: cronjob
 description: A Helm chart for cronjob
 type: application
-version: 0.1.0
-appVersion: "0.1.0"
+version: v1.2.4
+appVersion: v1.2.4
