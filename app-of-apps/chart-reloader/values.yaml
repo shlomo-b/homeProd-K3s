@@ -1,6 +1,6 @@
 reloader:
    watchGlobally: true
-   namespaceSelector: "app in (secretpass)"
+   namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring)"
 
 replicas: 1  
 rbac:
