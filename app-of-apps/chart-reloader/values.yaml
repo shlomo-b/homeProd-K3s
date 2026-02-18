@@ -2,7 +2,6 @@ revisionHistoryLimit: 0
 replicas: 1  
 rbac:
   create: true
-  name: reloader-pods
   serviceAccount:
     create: true
     name: reloader
