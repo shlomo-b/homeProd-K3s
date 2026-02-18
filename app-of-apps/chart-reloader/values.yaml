@@ -1,10 +1,14 @@
 reloader:
-   watchGlobally: false
-   namespaceSelector: "app in (reloader,backend,frontend,CronJob)"
-revisionHistoryLimit: 0
+   watchGlobally: true
+   namespaceSelector: "app in (frontend,backend)"
+
 replicas: 1  
 rbac:
   create: true
   serviceAccount:
     create: true
     name: reloader
+
+deployment:
+  replicas: 1
+  revisionHistoryLimit: 0
