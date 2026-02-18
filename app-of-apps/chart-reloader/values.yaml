@@ -1,3 +1,6 @@
+reloader:
+   watchGlobally: false
+   namespaceSelector: "app in (reloader,backend,frontend,CronJob)"
 revisionHistoryLimit: 0
 replicas: 1  
 rbac:
