@@ -1,14 +1,12 @@
 reloader:
    watchGlobally: true
-   namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring)"
+   namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring,cronjob)"
+   deployment:
+    replicas: 1
+    revisionHistoryLimit: 0
 
-replicas: 1  
-rbac:
-  create: true
-  serviceAccount:
+  rbac:
     create: true
-    name: reloader
-
-deployment:
-  replicas: 1
-  revisionHistoryLimit: 0
+    serviceAccount:
+      create: true
+      name: reloader
