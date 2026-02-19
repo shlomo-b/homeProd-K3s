@@ -4,7 +4,7 @@ secretspass-credentials:
       reloader.stakater.com/auto: "true"
     namespaces:
       - secretpass
-    refreshInterval: 168h
+    refreshInterval: 1m
     secretStoreRefName: aws-secret-store
     target: secretspass-credentials
     dataFrom:
