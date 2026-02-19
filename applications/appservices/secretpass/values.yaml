@@ -8,7 +8,7 @@ server:
   name: backend
   annotations:
     configmap.reloader.stakater.com/reload: "secretpass-config"
-    reloader.stakater.com/match: "true"
+    secret.reloader.stakater.com/reload: "secretspass-credentials"
   podSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
