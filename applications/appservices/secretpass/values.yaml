@@ -6,7 +6,9 @@ server:
   revisionHistoryLimit: 0
 #  replicas: 2
   name: backend
-
+  annotations:
+    configmap.reloader.stakater.com/reload: "secretpass-config"
+    secret.reloader.stakater.com/reload: "secretpass-credentials"
   podSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
