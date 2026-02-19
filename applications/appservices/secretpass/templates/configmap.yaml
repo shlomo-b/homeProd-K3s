@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: secretpass-config
   namespace: {{ .Values.namespace | default "default" }}
+  annotations:
+    reloader.stakater.com/auto: "true"
 data:
 {{- $all := concat (default (list) .Values.client.envVars) (default (list) .Values.server.envVars) (default (list) .Values.db.envVars) }}
 {{- $seen := dict }}
