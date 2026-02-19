@@ -171,7 +171,7 @@ server:
       source: configMapKeyRef
       nameVariables: secretpass-config
       key: ALLOWED_EMAIL_DOMAINS
-      value: "spider-shlomo.com55"
+      value: "spider-shlomo.com"
 
 
   resources:    
