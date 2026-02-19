@@ -203,6 +203,9 @@ client:
   revisionHistoryLimit: 0
 #  replicas: 2
   name: frontend
+  annotations:
+    configmap.reloader.stakater.com/reload: "secretpass-config"
+    secret.reloader.stakater.com/reload: "secretspass-credentials"
   service:
     enabled: true
     serviceType: ClusterIP
@@ -290,6 +293,9 @@ db:
   revisionHistoryLimit: 0
   replicas: 1
   name: db
+  annotations:
+    configmap.reloader.stakater.com/reload: "secretpass-config"
+    secret.reloader.stakater.com/reload: "secretspass-credentials"
   service:
     enabled: true
     serviceType: ClusterIP

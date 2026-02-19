@@ -4,8 +4,10 @@ kind: Deployment
 metadata:
   name:   {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
   namespace: {{ .Values.namespace }}
+  {{- with .Values.client.annotations }}
   annotations:
-    configmap.reloader.stakater.com/reload: "secretpass-config"
+    {{- toYaml . | nindent 4 }}  
+  {{- end }}
   labels:
     app:  {{ .Values.client.name }}
 spec:
