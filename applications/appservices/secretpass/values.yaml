@@ -76,10 +76,10 @@ server:
       nameVariables: secretspass-credentials
       key: AWS_SECRET_ACCESS_KEY
 
-    - name: DB_NAME-db
+    - name: DB_NAME
       source: secretKeyRef
       nameVariables: secretspass-credentials
-      key: DB_NAME-db
+      key: DB_NAME
 
     - name: BUCKET_NAME
       source: secretKeyRef
