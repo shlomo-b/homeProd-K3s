@@ -2,7 +2,7 @@ secretspass-credentials:
     external_secret_name: secretspass-credentials
     namespaces:
       - secretpass
-    refreshInterval: 1m
+    refreshInterval: 30m
     secretStoreRefName: aws-secret-store
     target: secretspass-credentials
     dataFrom:
