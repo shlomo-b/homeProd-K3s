@@ -117,7 +117,7 @@ server:
       source: configMapKeyRef
       nameVariables: secretpass-config
       key: MONGO_INITDB_HOST
-      value: db-service
+      value: db-serviced
 
     - name: SAML_IDENTIFIER
       source: configMapKeyRef
