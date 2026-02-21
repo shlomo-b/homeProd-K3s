@@ -1,7 +1,5 @@
 secretspass-credentials:
     external_secret_name: secretspass-credentials
-    annotations:
-      reloader.stakater.com/auto: "true"
     namespaces:
       - secretpass
     refreshInterval: 1m
