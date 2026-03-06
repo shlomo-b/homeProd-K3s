@@ -4,7 +4,7 @@
 
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "*/1 * * * * " # every month at 00:30
+  schedule: "30 0 1 * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     tag: v1.4.1
@@ -29,7 +29,7 @@ backup-fortigate:
 
   provider:
     aws:
-      enabled: false
+      enabled: true
       credentials:
         aws_access_key_id:
           name: cronjob-credentials-fortigate-backup
@@ -41,7 +41,7 @@ backup-fortigate:
           name: cronjob-credentials-fortigate-backup
           key: BUCKET_NAME
     azure:
-      enabled: true
+      enabled: false
       credentials:
         azure_tenant_id:
           name: cronjob-credentials-azure-fortigate
@@ -75,10 +75,10 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
       
-      # optional push metrics to pushgateway
-      metrics-pushgw: "false"
+            # optional push metrics to pushgateway
+      metrics-pushgw: "true"
       # optional upload to file backup to aws s3
-      aws: "false"
+      aws: "true"
       # optional upload to file backup to azure blob storage
       azure: "false"
 
@@ -96,7 +96,7 @@ backup-fortigate:
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "*/1 * * * * " # every month at 00:00
+  schedule: "0 0 1 * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     tag: v1.4.1
@@ -121,7 +121,7 @@ backup-juniper:
 
   provider:
     aws:
-      enabled: false
+      enabled: true
       credentials:
         aws_access_key_id:
           name: cronjob-credentials-juniper-backup
@@ -133,7 +133,7 @@ backup-juniper:
           name: cronjob-credentials-juniper-backup
           key: BUCKET_NAME
     azure:
-      enabled: true
+      enabled: false
       credentials:
         azure_tenant_id:
           name: cronjob-credentials-azure-juniper
@@ -168,9 +168,9 @@ backup-juniper:
       SW_NAME: "@Juniper_BB>"
       
       # optional push metrics to pushgateway
-      metrics-pushgw: "false"
+      metrics-pushgw: "true"
       # optional upload to file backup to aws s3
-      aws: "false"
+      aws: "true"
       # optional upload to file backup to azure blob storage
       azure: "false"
 
