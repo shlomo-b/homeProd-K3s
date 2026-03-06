@@ -76,11 +76,11 @@ backup-fortigate:
       FW_NAME: "FW-Shlomi #"
       
       # optional push metrics to pushgateway
-      metrics-pushgw: "true"
+      metrics-pushgw: "false"
       # optional upload to file backup to aws s3
       aws: "false"
       # optional upload to file backup to azure blob storage
-      azure: "true"
+      azure: "false"
 
 
   podSecurityContext:
@@ -168,11 +168,11 @@ backup-juniper:
       SW_NAME: "@Juniper_BB>"
       
       # optional push metrics to pushgateway
-      metrics-pushgw: "true"
+      metrics-pushgw: "false"
       # optional upload to file backup to aws s3
       aws: "false"
       # optional upload to file backup to azure blob storage
-      azure: "true"
+      azure: "false"
 
   podSecurityContext:
     runAsUser: 1000
