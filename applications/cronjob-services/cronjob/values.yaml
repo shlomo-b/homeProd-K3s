@@ -4,7 +4,7 @@
 
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/1 * * * * " # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     tag: v1.4.1
@@ -29,7 +29,7 @@ backup-fortigate:
 
   provider:
     aws:
-      enabled: true
+      enabled: false
       credentials:
         aws_access_key_id:
           name: cronjob-credentials-fortigate-backup
@@ -41,7 +41,7 @@ backup-fortigate:
           name: cronjob-credentials-fortigate-backup
           key: BUCKET_NAME
     azure:
-      enabled: false
+      enabled: true
       credentials:
         azure_tenant_id:
           name: cronjob-credentials-azure-fortigate
@@ -74,8 +74,13 @@ backup-fortigate:
       PUSHGATEWAY_JOB: "backup-fortigate"
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
+      
+      # optional push metrics to pushgateway
       metrics-pushgw: "true"
-      aws: "true"
+      # optional upload to file backup to aws s3
+      aws: "false"
+      # optional upload to file backup to azure blob storage
+      azure: "true"
 
 
   podSecurityContext:
@@ -91,7 +96,7 @@ backup-fortigate:
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "0 0 1 * *" # every month at 00:00
+  schedule: "*/1 * * * * " # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     tag: v1.4.1
@@ -116,7 +121,7 @@ backup-juniper:
 
   provider:
     aws:
-      enabled: true
+      enabled: false
       credentials:
         aws_access_key_id:
           name: cronjob-credentials-juniper-backup
@@ -128,7 +133,7 @@ backup-juniper:
           name: cronjob-credentials-juniper-backup
           key: BUCKET_NAME
     azure:
-      enabled: false
+      enabled: true
       credentials:
         azure_tenant_id:
           name: cronjob-credentials-azure-juniper
@@ -161,8 +166,13 @@ backup-juniper:
       PUSHGATEWAY_JOB: "backup-juniper"
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
+      
+      # optional push metrics to pushgateway
       metrics-pushgw: "true"
-      aws: "true"
+      # optional upload to file backup to aws s3
+      aws: "false"
+      # optional upload to file backup to azure blob storage
+      azure: "true"
 
   podSecurityContext:
     runAsUser: 1000

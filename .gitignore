@@ -27,3 +27,4 @@ kyverno-policies/
 app-test/
 
 app-of-apps/chart-keel/
+applications/cronjob-services/cronjob/templates/secret.yaml
