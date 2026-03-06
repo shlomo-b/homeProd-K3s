@@ -6,6 +6,12 @@ kind: CronJob
 metadata:
   name: {{ $config.cronjob_name }}
   namespace: cronjob
+  {{- if and $config.annotations $config.annotations }}
+  annotations:
+    {{- range $k, $v := $config.annotations }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
+  {{- end }}
   labels:
     app: {{ $config.cronjob_name }}
 spec:

@@ -3,6 +3,12 @@
 
 backup-fortigate:
   cronjob_name: backup-fortigate
+  annotations: 
+    configmap.reloader.stakater.com/reload: "cronjob-config-backup-fortigate"
+    secret.reloader.stakater.com/reload: 
+      - "cronjob-credentials-fortigate-backup"
+      - "cronjob-credentials-azure"
+
   schedule: "30 0 1 * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
@@ -43,19 +49,19 @@ backup-fortigate:
       enabled: false
       credentials:
         azure_tenant_id:
-          name: cronjob-credentials-azure-fortigate
+          name: cronjob-credentials-azure
           key: AZURE_TENANT_ID
         azure_client_id:
-          name: cronjob-credentials-azure-fortigate
+          name: cronjob-credentials-azure
           key: AZURE_CLIENT_ID
         azure_client_secret:
-          name: cronjob-credentials-azure-fortigate
+          name: cronjob-credentials-azure
           key: AZURE_CLIENT_SECRET
         azure_storage_account:
-          name: cronjob-credentials-azure-fortigate
+          name: cronjob-credentials-azure
           key: AZURE_STORAGE_ACCOUNT
         azure_storage_container:
-          name: cronjob-credentials-azure-fortigate
+          name: cronjob-credentials-azure
           key: AZURE_STORAGE_CONTAINER
 
   volumeMounts:
@@ -95,8 +101,16 @@ backup-fortigate:
     capabilities:
       drop: ["ALL"]
 
+###---------backup-juniper--------###
+
 backup-juniper:
   cronjob_name: backup-juniper
+  annotations: 
+    configmap.reloader.stakater.com/reload: "cronjob-config-backup-juniper"
+    secret.reloader.stakater.com/reload: 
+      - "cronjob-credentials-juniper-backup"
+      - "cronjob-credentials-azure"
+
   schedule: "0 0 1 * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
@@ -137,19 +151,19 @@ backup-juniper:
       enabled: false
       credentials:
         azure_tenant_id:
-          name: cronjob-credentials-azure-juniper
+          name: cronjob-credentials-azure
           key: AZURE_TENANT_ID
         azure_client_id:
-          name: cronjob-credentials-azure-juniper
+          name: cronjob-credentials-azure
           key: AZURE_CLIENT_ID
         azure_client_secret:
-          name: cronjob-credentials-azure-juniper
+          name: cronjob-credentials-azure
           key: AZURE_CLIENT_SECRET
         azure_storage_account:
-          name: cronjob-credentials-azure-juniper
+          name: cronjob-credentials-azure
           key: AZURE_STORAGE_ACCOUNT
         azure_storage_container:
-          name: cronjob-credentials-azure-juniper
+          name: cronjob-credentials-azure
           key: AZURE_STORAGE_CONTAINER
 
   volumeMounts:
