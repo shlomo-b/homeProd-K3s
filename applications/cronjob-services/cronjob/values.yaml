@@ -1,10 +1,9 @@
 # Helm values for CronJobs.
 # env: list of env from secrets. provider.aws/azure: storage from respective secret.
-# secret: optional. enabled: use + create Secret when data is set. name: optional override. data: base64 values.
 
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/2 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     tag: v1.4.1
@@ -75,11 +74,13 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
       
-            # optional push metrics to pushgateway
+      # optional push metrics to pushgateway
       metrics-pushgw: "true"
       # optional upload to file backup to aws s3
+      # If the value is false, the file will be saved in the container.
       aws: "true"
-      # optional upload to file backup to azure blob storage
+      # optional upload to file backup to azure storage
+      # If the value is false, the file will be saved in the container.
       azure: "false"
 
 
@@ -96,7 +97,7 @@ backup-fortigate:
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "0 0 1 * *" # every month at 00:00
+  schedule: "*/2 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     tag: v1.4.1
@@ -170,8 +171,10 @@ backup-juniper:
       # optional push metrics to pushgateway
       metrics-pushgw: "true"
       # optional upload to file backup to aws s3
+      # If the value is false, the file will be saved in the container.
       aws: "true"
       # optional upload to file backup to azure blob storage
+      # If the value is false, the file will be saved in the container.
       azure: "false"
 
   podSecurityContext:
