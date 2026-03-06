@@ -75,6 +75,7 @@ backup-fortigate:
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
       metrics-pushgw: "true"
+      aws: "true"
 
 
   podSecurityContext:
@@ -161,6 +162,7 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
       metrics-pushgw: "true"
+      aws: "true"
 
   podSecurityContext:
     runAsUser: 1000
