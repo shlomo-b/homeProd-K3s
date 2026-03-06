@@ -1,3 +1,5 @@
+# Kubernetes CronJob Helm template with AWS and Azure storage support.
+# provider.aws / provider.azure: set enabled and credentials.* (name+key).
 {{- range $name, $config := .Values }}
 apiVersion: batch/v1
 kind: CronJob
@@ -28,17 +30,71 @@ spec:
 {{ toYaml . | nindent 16 }}
 {{- end }}
               env:
-{{- range $env := $config.env }}
+{{- range $env := ($config.env | default list) }}
                 - name: {{ $env.name }}
                   valueFrom:
                     secretKeyRef:
                       name: {{ $env.secretName }}
                       key: {{ $env.key.name }}
 {{- end }}
-{{- if and $config.cm $config.cm.enabled $config.cm.data }}
+{{- if and $config.provider.aws $config.provider.aws.enabled $config.provider.aws.credentials }}
+                # AWS storage
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.aws.credentials.aws_access_key_id.name }}
+                      key: {{ $config.provider.aws.credentials.aws_access_key_id.key }}
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.aws.credentials.aws_secret_access_key.name }}
+                      key: {{ $config.provider.aws.credentials.aws_secret_access_key.key }}
+                - name: BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.aws.credentials.bucket_name.name }}
+                      key: {{ $config.provider.aws.credentials.bucket_name.key }}
+{{- end }}
+{{- if and $config.provider.azure $config.provider.azure.enabled $config.provider.azure.credentials }}
+                # Azure storage
+                - name: AZURE_TENANT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.azure.credentials.azure_tenant_id.name }}
+                      key: {{ $config.provider.azure.credentials.azure_tenant_id.key }}
+                - name: AZURE_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.azure.credentials.azure_client_id.name }}
+                      key: {{ $config.provider.azure.credentials.azure_client_id.key }}
+                - name: AZURE_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.azure.credentials.azure_client_secret.name }}
+                      key: {{ $config.provider.azure.credentials.azure_client_secret.key }}
+                - name: AZURE_STORAGE_ACCOUNT
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.azure.credentials.azure_storage_account.name }}
+                      key: {{ $config.provider.azure.credentials.azure_storage_account.key }}
+                - name: AZURE_STORAGE_CONTAINER
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.azure.credentials.azure_storage_container.name }}
+                      key: {{ $config.provider.azure.credentials.azure_storage_container.key }}
+{{- end }}
+{{- $hasCm := and $config.cm $config.cm.enabled $config.cm.data }}
+{{- $hasExtraSecret := and $config.secret $config.secret.enabled }}
+{{- if or $hasCm $hasExtraSecret }}
               envFrom:
+{{- if $hasCm }}
                 - configMapRef:
                     name: cronjob-config-{{ $name }}
+{{- end }}
+{{- if $hasExtraSecret }}
+                - secretRef:
+                    name: {{ $config.secret.name | default (printf "cronjob-config-%s" $name) }}
+{{- end }}
 {{- end }}
 {{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
               volumeMounts:

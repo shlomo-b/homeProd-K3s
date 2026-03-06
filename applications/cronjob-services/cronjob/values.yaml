@@ -1,9 +1,13 @@
+# Helm values for CronJobs.
+# env: list of env from secrets. provider.aws/azure: storage from respective secret.
+# secret: optional. enabled: use + create Secret when data is set. name: optional override. data: base64 values.
+
 backup-fortigate:
   cronjob_name: backup-fortigate
-  schedule: "30 0 1 * *" # every month at 00:30 "30 0 1 * *"
+  schedule: "*/1 * * * * " # every month at 00:30
   image:
     name: shlomobarzili/fortigate
-    tag: v1.2.4
+    tag: v1.4.1
 
   env:
     - name: USERNAME
@@ -14,34 +18,54 @@ backup-fortigate:
       secretName: cronjob-credentials-fortigate-backup
       key:
         name: PASSWORD
-    - name: AWS_ACCESS_KEY_ID
-      secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: AWS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: AWS_SECRET_ACCESS_KEY
     - name: HOST
       secretName: cronjob-credentials-fortigate-backup
       key:
         name: HOST
-    - name: BUCKET_NAME
-      secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: BUCKET_NAME  
     - name: PORT
       secretName: cronjob-credentials-fortigate-backup
       key:
         name: PORT
-  volumeMounts:    
-      enabled: true
-      pvc:
-        name: cronjob-pvc-backup-fortigate
-        accessModes: 
-          - ReadWriteOnce
-        mountPath: /app
 
+  provider:
+    aws:
+      enabled: true
+      credentials:
+        aws_access_key_id:
+          name: cronjob-credentials-fortigate-backup
+          key: AWS_ACCESS_KEY_ID
+        aws_secret_access_key:
+          name: cronjob-credentials-fortigate-backup
+          key: AWS_SECRET_ACCESS_KEY
+        bucket_name:
+          name: cronjob-credentials-fortigate-backup
+          key: BUCKET_NAME
+    azure:
+      enabled: false
+      credentials:
+        azure_tenant_id:
+          name: cronjob-credentials-azure-fortigate
+          key: AZURE_TENANT_ID
+        azure_client_id:
+          name: cronjob-credentials-azure-fortigate
+          key: AZURE_CLIENT_ID
+        azure_client_secret:
+          name: cronjob-credentials-azure-fortigate
+          key: AZURE_CLIENT_SECRET
+        azure_storage_account:
+          name: cronjob-credentials-azure-fortigate
+          key: AZURE_STORAGE_ACCOUNT
+        azure_storage_container:
+          name: cronjob-credentials-azure-fortigate
+          key: AZURE_STORAGE_CONTAINER
+
+  volumeMounts:
+    enabled: true
+    pvc:
+      name: cronjob-pvc-backup-fortigate
+      accessModes:
+        - ReadWriteOnce
+      mountPath: /app
 
   cm:
     enabled: true
@@ -50,26 +74,28 @@ backup-fortigate:
       PUSHGATEWAY_JOB: "backup-fortigate"
       PUSHGATEWAY_INSTANCE: "backup-fortigate"
       FW_NAME: "FW-Shlomi #"
+      metrics-pushgw: "true"
+
 
   podSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
-    runAsNonRoot: true    
+    runAsNonRoot: true
 
   securityContext:
     allowPrivilegeEscalation: false
     readOnlyRootFilesystem: true
     capabilities:
-      drop: ["ALL"]      
+      drop: ["ALL"]
 
 backup-juniper:
   cronjob_name: backup-juniper
-  schedule: "0 0 1 * *" # every month at 00:00 "0 0 1 * *"
+  schedule: "*/1 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
-    tag: v1.2.4
+    tag: v1.4.1
 
-  env: 
+  env:
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
       key:
@@ -78,33 +104,55 @@ backup-juniper:
       secretName: cronjob-credentials-juniper-backup
       key:
         name: PASSWORD
-    - name: AWS_ACCESS_KEY_ID
-      secretName: cronjob-credentials-juniper-backup
-      key:
-        name: AWS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      secretName: cronjob-credentials-juniper-backup
-      key:
-        name: AWS_SECRET_ACCESS_KEY
     - name: HOST
       secretName: cronjob-credentials-juniper-backup
       key:
         name: HOST
-    - name: BUCKET_NAME
-      secretName: cronjob-credentials-juniper-backup
-      key:
-        name: BUCKET_NAME    
     - name: PORT
       secretName: cronjob-credentials-juniper-backup
       key:
         name: PORT
-  volumeMounts:    
+
+  provider:
+    aws:
       enabled: true
-      pvc:
-        name: cronjob-pvc-juniper
-        accessModes: 
-          - ReadWriteOnce
-        mountPath: /app
+      credentials:
+        aws_access_key_id:
+          name: cronjob-credentials-juniper-backup
+          key: AWS_ACCESS_KEY_ID
+        aws_secret_access_key:
+          name: cronjob-credentials-juniper-backup
+          key: AWS_SECRET_ACCESS_KEY
+        bucket_name:
+          name: cronjob-credentials-juniper-backup
+          key: BUCKET_NAME
+    azure:
+      enabled: false
+      credentials:
+        azure_tenant_id:
+          name: cronjob-credentials-azure-juniper
+          key: AZURE_TENANT_ID
+        azure_client_id:
+          name: cronjob-credentials-azure-juniper
+          key: AZURE_CLIENT_ID
+        azure_client_secret:
+          name: cronjob-credentials-azure-juniper
+          key: AZURE_CLIENT_SECRET
+        azure_storage_account:
+          name: cronjob-credentials-azure-juniper
+          key: AZURE_STORAGE_ACCOUNT
+        azure_storage_container:
+          name: cronjob-credentials-azure-juniper
+          key: AZURE_STORAGE_CONTAINER
+
+  volumeMounts:
+    enabled: true
+    pvc:
+      name: cronjob-pvc-juniper
+      accessModes:
+        - ReadWriteOnce
+      mountPath: /app
+
   cm:
     enabled: true
     data:
@@ -112,14 +160,15 @@ backup-juniper:
       PUSHGATEWAY_JOB: "backup-juniper"
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
+      metrics-pushgw: "true"
 
   podSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
-    runAsNonRoot: true    
+    runAsNonRoot: true
 
   securityContext:
     allowPrivilegeEscalation: false
     readOnlyRootFilesystem: true
     capabilities:
-      drop: ["ALL"]      
+      drop: ["ALL"]
