@@ -6,13 +6,13 @@ metadata:
   name: cronjob-pvc-{{ $name }}
   namespace: cronjob
 spec:
+  {{- with $config.volumeMounts.annotations }}
   accessModes:
-    {{- range $k, $v := $config.volumeMounts.pvc.accessModes }}
-    - {{ $v }}
+    {{toYaml . | nindent 4 }}
   {{- end }}
   resources:
     requests:
-      storage: 300Mi
+      storage: {{ $config.volumeMounts.pvc.size }}
   storageClassName: local-path
 {{- end }}
 ---

@@ -27,6 +27,8 @@ spec:
           securityContext:
 {{ toYaml . | nindent 12 }}
 {{- end }}
+
+          serviceAccountName: {{ $config.cronjob_name }}
           restartPolicy: OnFailure
           containers:
             - name: cronjob

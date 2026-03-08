@@ -9,6 +9,13 @@ backup-fortigate:
       - "cronjob-credentials-fortigate-backup"
       - "cronjob-credentials-azure"
 
+  serviceAccount:
+    create: true
+    name: ""
+    labels: {}
+    annotations: {}
+
+
   schedule: "30 0 1 * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
@@ -71,6 +78,7 @@ backup-fortigate:
       accessModes:
         - ReadWriteOnce
       mountPath: /app
+      size: 300Mi
 
   cm:
     enabled: true
@@ -110,6 +118,12 @@ backup-juniper:
     secret.reloader.stakater.com/reload: 
       - "cronjob-credentials-juniper-backup"
       - "cronjob-credentials-azure"
+
+  serviceAccount:
+    create: true
+    name: ""
+    labels: {}
+    annotations: {}
 
   schedule: "0 0 1 * *" # every month at 00:00
   image:
@@ -173,6 +187,7 @@ backup-juniper:
       accessModes:
         - ReadWriteOnce
       mountPath: /app
+      size: 300Mi
 
   cm:
     enabled: true
