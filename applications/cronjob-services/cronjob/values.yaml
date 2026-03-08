@@ -16,7 +16,7 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/1 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     tag: v1.5.0
@@ -53,7 +53,7 @@ backup-fortigate:
           name: cronjob-credentials-fortigate-backup
           key: BUCKET_NAME
     azure:
-      enabled: true
+      enabled: false
       credentials:
         azure_tenant_id:
           name: cronjob-credentials-azure
@@ -71,11 +71,11 @@ backup-fortigate:
           name: cronjob-credentials-azure
           key: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: false
+      enabled: true
       credentials:
-        gcp_application_credentials:
+        google_application_credentials:
           name: cronjob-credentials-gcp
-          key: GCP_APPLICATION_CREDENTIALS
+          key: GOOGLE_APPLICATION_CREDENTIALS
         gcp_bucket_name:
           name: cronjob-credentials-gcp
           key: GCP_BUCKET_NAME
@@ -106,11 +106,11 @@ backup-fortigate:
 
       # optional upload to file backup to azure storage
       # If the value is false, the file will be saved in the container.
-      azure: "true"
+      azure: "false"
 
       # optional upload to file backup to gcp storage
       # If the value is false, the file will be saved in the container.
-      gcp: "false"
+      gcp: "true"
 
 
   podSecurityContext:
@@ -140,7 +140,7 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "0 0 1 * *" # every month at 00:00
+  schedule: "*/1 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     tag: v1.5.0
@@ -177,7 +177,7 @@ backup-juniper:
           name: cronjob-credentials-juniper-backup
           key: BUCKET_NAME
     azure:
-      enabled: true
+      enabled: false
       credentials:
         azure_tenant_id:
           name: cronjob-credentials-azure
@@ -195,11 +195,11 @@ backup-juniper:
           name: cronjob-credentials-azure
           key: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: false
+      enabled: true
       credentials:
-        gcp_application_credentials:
+        google_application_credentials:
           name: cronjob-credentials-gcp
-          key: GCP_APPLICATION_CREDENTIALS
+          key: GOOGLE_APPLICATION_CREDENTIALS
         gcp_bucket_name:
           name: cronjob-credentials-gcp
           key: GCP_BUCKET_NAME
@@ -230,11 +230,11 @@ backup-juniper:
 
       # optional upload to file backup to azure blob storage
       # If the value is false, the file will be saved in the container.
-      azure: "true"
+      azure: "false"
 
       # optional upload to file backup to gcp storage
       # If the value is false, the file will be saved in the container.
-      gcp: "false"
+      gcp: "true"
 
   podSecurityContext:
     runAsUser: 1000
