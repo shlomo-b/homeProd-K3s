@@ -1,5 +1,5 @@
-# Kubernetes CronJob Helm template with AWS and Azure storage support.
-# provider.aws / provider.azure: set enabled and credentials.* (name+key).
+# Kubernetes CronJob Helm template with AWS and Azure storage and gcp storage support.
+# provider.aws / provider.azure /provider gcp: set enabled and credentials.* (name+key).
 {{- range $name, $config := .Values }}
 apiVersion: batch/v1
 kind: CronJob
@@ -45,6 +45,7 @@ spec:
                       name: {{ $env.secretName }}
                       key: {{ $env.key.name }}
 {{- end }}
+
 {{- if and $config.provider.aws $config.provider.aws.enabled $config.provider.aws.credentials }}
                 # AWS storage
                 - name: AWS_ACCESS_KEY_ID
@@ -63,6 +64,7 @@ spec:
                       name: {{ $config.provider.aws.credentials.bucket_name.name }}
                       key: {{ $config.provider.aws.credentials.bucket_name.key }}
 {{- end }}
+
 {{- if and $config.provider.azure $config.provider.azure.enabled $config.provider.azure.credentials }}
                 # Azure storage
                 - name: AZURE_TENANT_ID
@@ -91,6 +93,21 @@ spec:
                       name: {{ $config.provider.azure.credentials.azure_storage_container.name }}
                       key: {{ $config.provider.azure.credentials.azure_storage_container.key }}
 {{- end }}
+
+{{- if and $config.provider.gcp $config.provider.gcp.enabled $config.provider.gcp.credentials }}
+                # GCP storage
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.gcp.credentials.gcp_application_credentials.name }}
+                      key: {{ $config.provider.gcp.credentials.gcp_application_credentials.key }}
+                - name: GCP_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $config.provider.gcp.credentials.gcp_bucket_name.name }}
+                      key: {{ $config.provider.gcp.credentials.gcp_bucket_name.key }}
+{{- end }}
+
 {{- $hasCm := and $config.cm $config.cm.enabled $config.cm.data }}
 {{- $hasExtraSecret := and $config.secret $config.secret.enabled }}
 {{- if or $hasCm $hasExtraSecret }}

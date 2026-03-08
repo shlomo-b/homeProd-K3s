@@ -16,10 +16,10 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/1 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
-    tag: v1.4.1
+    tag: v1.5.0
 
   env:
     - name: USERNAME
@@ -41,7 +41,7 @@ backup-fortigate:
 
   provider:
     aws:
-      enabled: true
+      enabled: false
       credentials:
         aws_access_key_id:
           name: cronjob-credentials-fortigate-backup
@@ -70,6 +70,15 @@ backup-fortigate:
         azure_storage_container:
           name: cronjob-credentials-azure
           key: AZURE_STORAGE_CONTAINER
+    gcp:
+      enabled: true
+      credentials:
+        gcp_application_credentials:
+          name: cronjob-credentials-gcp
+          key: GCP_APPLICATION_CREDENTIALS
+        gcp_bucket_name:
+          name: cronjob-credentials-gcp
+          key: GCP_BUCKET_NAME
 
   volumeMounts:
     enabled: true
@@ -90,12 +99,18 @@ backup-fortigate:
       
       # optional push metrics to pushgateway
       metrics-pushgw: "true"
+
       # optional upload to file backup to aws s3
       # If the value is false, the file will be saved in the container.
-      aws: "true"
+      aws: "false"
+
       # optional upload to file backup to azure storage
       # If the value is false, the file will be saved in the container.
       azure: "false"
+
+      # optional upload to file backup to gcp storage
+      # If the value is false, the file will be saved in the container.
+      gcp: "true"
 
 
   podSecurityContext:
@@ -125,10 +140,10 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "0 0 1 * *" # every month at 00:00
+  schedule: "*/1 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
-    tag: v1.4.1
+    tag: v1.5.0
 
   env:
     - name: USERNAME
@@ -150,7 +165,7 @@ backup-juniper:
 
   provider:
     aws:
-      enabled: true
+      enabled: false
       credentials:
         aws_access_key_id:
           name: cronjob-credentials-juniper-backup
@@ -179,6 +194,15 @@ backup-juniper:
         azure_storage_container:
           name: cronjob-credentials-azure
           key: AZURE_STORAGE_CONTAINER
+    gcp:
+      enabled: true
+      credentials:
+        gcp_application_credentials:
+          name: cronjob-credentials-gcp
+          key: GCP_APPLICATION_CREDENTIALS
+        gcp_bucket_name:
+          name: cronjob-credentials-gcp
+          key: GCP_BUCKET_NAME
 
   volumeMounts:
     enabled: true
@@ -199,12 +223,18 @@ backup-juniper:
       
       # optional push metrics to pushgateway
       metrics-pushgw: "true"
+
       # optional upload to file backup to aws s3
       # If the value is false, the file will be saved in the container.
-      aws: "true"
+      aws: "false"
+
       # optional upload to file backup to azure blob storage
       # If the value is false, the file will be saved in the container.
       azure: "false"
+
+      # optional upload to file backup to gcp storage
+      # If the value is false, the file will be saved in the container.
+      gcp: "true"
 
   podSecurityContext:
     runAsUser: 1000
