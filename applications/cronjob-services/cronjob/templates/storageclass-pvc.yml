@@ -6,7 +6,7 @@ metadata:
   name: cronjob-pvc-{{ $name }}
   namespace: cronjob
 spec:
-  {{- with $config.volumeMounts.annotations }}
+  {{- with $config.volumeMounts.pvc.accessModes }}
   accessModes:
     {{toYaml . | nindent 4 }}
   {{- end }}
