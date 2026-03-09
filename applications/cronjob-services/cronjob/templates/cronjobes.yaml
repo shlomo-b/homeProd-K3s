@@ -96,11 +96,11 @@ spec:
 
 {{- if and $config.provider.gcp $config.provider.gcp.enabled $config.provider.gcp.credentials }}
                 # GCP storage
-                - name: GOOGLE_APPLICATION_CREDENTIALS
+                - name: GCP_APPLICATION_CREDENTIALS
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.gcp.credentials.google_application_credentials.name }}
-                      key: {{ $config.provider.gcp.credentials.google_application_credentials.key }}
+                      name: {{ $config.provider.gcp.credentials.gcp_application_credentials.name }}
+                      key: {{ $config.provider.gcp.credentials.gcp_application_credentials.key }}
                 - name: GCP_BUCKET_NAME
                   valueFrom:
                     secretKeyRef:
