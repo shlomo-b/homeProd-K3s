@@ -24,7 +24,7 @@ backup-fortigate:
     tag: v1.7.0
 
   env:
-    - name: LOGLEVEL
+    - name: LOG_LEVEL
       value: DEBUG
 
     - name: USERNAME
@@ -126,7 +126,7 @@ backup-juniper:
     tag: v1.7.0
 
   env:
-    - name: LOGLEVEL
+    - name: LOG_LEVEL
       value: DEBUG
 
     - name: USERNAME
