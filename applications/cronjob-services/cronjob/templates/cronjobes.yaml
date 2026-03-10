@@ -5,7 +5,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ $config.cronjob_name }}
-  namespace: cronjob
+  namespace:  {{ include "cronjob.namespace" $config }}
   {{- if and $config.annotations $config.annotations }}
   annotations:
     {{- range $k, $v := $config.annotations }}
@@ -28,11 +28,17 @@ spec:
 {{ toYaml . | nindent 12 }}
 {{- end }}
 
-          serviceAccountName: sa-{{ $config.cronjob_name }}
+          serviceAccountName: {{- if $config.serviceAccount.name }}
+           {{ $config.serviceAccount.name }}
+           {{- else }} sa-{{ $config.cronjob_name }}
+           {{- end }}
           restartPolicy: OnFailure
           containers:
             - name: cronjob
               image: "{{ $config.image.name }}:{{ $config.image.tag }}"
+              imagePullPolicy: {{ $config.image.pullPolicy }}
+              args: 
+                 - --loglevel={{ $config.loglevel | default "info" }}
 {{- with $config.securityContext }}
               securityContext:
 {{ toYaml . | nindent 16 }}
@@ -46,66 +52,66 @@ spec:
                       key: {{ $env.key.name }}
 {{- end }}
 
-{{- if and $config.provider.aws $config.provider.aws.enabled $config.provider.aws.credentials }}
+{{- if $config.provider.aws.enabled }}
                 # AWS storage
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.aws.credentials.aws_access_key_id.name }}
-                      key: {{ $config.provider.aws.credentials.aws_access_key_id.key }}
+                      name: {{ $config.provider.aws.secretName }}
+                      key: {{ $config.provider.aws.credentials.aws_access_key_id }}
                 - name: AWS_SECRET_ACCESS_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.aws.credentials.aws_secret_access_key.name }}
-                      key: {{ $config.provider.aws.credentials.aws_secret_access_key.key }}
+                      name: {{ $config.provider.aws.secretName }}
+                      key: {{ $config.provider.aws.credentials.aws_secret_access_key }}
                 - name: BUCKET_NAME
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.aws.credentials.bucket_name.name }}
-                      key: {{ $config.provider.aws.credentials.bucket_name.key }}
+                      name: {{ $config.provider.aws.secretName }}
+                      key: {{ $config.provider.aws.credentials.bucket_name }}
 {{- end }}
 
-{{- if and $config.provider.azure $config.provider.azure.enabled $config.provider.azure.credentials }}
+{{- if $config.provider.azure.enabled }}
                 # Azure storage
                 - name: AZURE_TENANT_ID
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.azure.credentials.azure_tenant_id.name }}
-                      key: {{ $config.provider.azure.credentials.azure_tenant_id.key }}
+                      name: {{ $config.provider.azure.secretName }}
+                      key: {{ $config.provider.azure.credentials.azure_tenant_id }}
                 - name: AZURE_CLIENT_ID
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.azure.credentials.azure_client_id.name }}
-                      key: {{ $config.provider.azure.credentials.azure_client_id.key }}
+                      name: {{ $config.provider.azure.secretName }}
+                      key: {{ $config.provider.azure.credentials.azure_tenant_id }}
                 - name: AZURE_CLIENT_SECRET
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.azure.credentials.azure_client_secret.name }}
-                      key: {{ $config.provider.azure.credentials.azure_client_secret.key }}
+                      name: {{ $config.provider.azure.secretName }}
+                      key: {{ $config.provider.azure.credentials.azure_client_secret }}
                 - name: AZURE_STORAGE_ACCOUNT
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.azure.credentials.azure_storage_account.name }}
-                      key: {{ $config.provider.azure.credentials.azure_storage_account.key }}
+                      name: {{ $config.provider.azure.secretName }}
+                      key: {{ $config.provider.azure.credentials.azure_storage_account }}
                 - name: AZURE_STORAGE_CONTAINER
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.azure.credentials.azure_storage_container.name }}
-                      key: {{ $config.provider.azure.credentials.azure_storage_container.key }}
+                      name: {{ $config.provider.azure.secretName }}
+                      key: {{ $config.provider.azure.credentials.azure_storage_container }}
 {{- end }}
 
-{{- if and $config.provider.gcp $config.provider.gcp.enabled $config.provider.gcp.credentials }}
+{{- if $config.provider.gcp.enabled }}
                 # GCP storage
                 - name: GCP_APPLICATION_CREDENTIALS
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.gcp.credentials.gcp_application_credentials.name }}
-                      key: {{ $config.provider.gcp.credentials.gcp_application_credentials.key }}
+                      name:  {{ $config.provider.gcp.secretName }}
+                      key:  {{ $config.provider.gcp.credentials.gcp_application_credentials }}
                 - name: GCP_BUCKET_NAME
                   valueFrom:
                     secretKeyRef:
-                      name: {{ $config.provider.gcp.credentials.gcp_bucket_name.name }}
-                      key: {{ $config.provider.gcp.credentials.gcp_bucket_name.key }}
+                      name: {{ $config.provider.gcp.secretName }}
+                      key: {{ $config.provider.gcp.credentials.gcp_bucket_name }}
 {{- end }}
 
 {{- $hasCm := and $config.cm $config.cm.enabled $config.cm.data }}
@@ -114,7 +120,7 @@ spec:
               envFrom:
 {{- if $hasCm }}
                 - configMapRef:
-                    name: cronjob-config-{{ $name }}
+                    name: config-{{ $config.cronjob_name }}
 {{- end }}
 {{- if $hasExtraSecret }}
                 - secretRef:

@@ -3,6 +3,7 @@
 
 backup-fortigate:
   cronjob_name: backup-fortigate
+  namespaceOverride: ""
   annotations: 
     configmap.reloader.stakater.com/reload: "cronjob-config-backup-fortigate"
     secret.reloader.stakater.com/reload: 
@@ -16,10 +17,14 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/1 * * * * " # every month at 00:30
   image:
     name: shlomobarzili/fortigate
-    tag: v1.5.1
+    pullPolicy: IfNotPresent
+    tag: v1.7.0
+
+#  loglevel default info
+  loglevel: ""
 
   env:
     - name: USERNAME
@@ -41,44 +46,27 @@ backup-fortigate:
 
   provider:
     aws:
-      enabled: false
+      enabled: true
+      secretName: cronjob-credentials-fortigate-backup
       credentials:
-        aws_access_key_id:
-          name: cronjob-credentials-fortigate-backup
-          key: AWS_ACCESS_KEY_ID
-        aws_secret_access_key:
-          name: cronjob-credentials-fortigate-backup
-          key: AWS_SECRET_ACCESS_KEY
-        bucket_name:
-          name: cronjob-credentials-fortigate-backup
-          key: BUCKET_NAME
+        aws_access_key_id: AWS_ACCESS_KEY_ID
+        aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+        bucket_name: BUCKET_NAME
     azure:
       enabled: false
+      secretName: cronjob-credentials-azure
       credentials:
-        azure_tenant_id:
-          name: cronjob-credentials-azure
-          key: AZURE_TENANT_ID
-        azure_client_id:
-          name: cronjob-credentials-azure
-          key: AZURE_CLIENT_ID
-        azure_client_secret:
-          name: cronjob-credentials-azure
-          key: AZURE_CLIENT_SECRET
-        azure_storage_account:
-          name: cronjob-credentials-azure
-          key: AZURE_STORAGE_ACCOUNT
-        azure_storage_container:
-          name: cronjob-credentials-azure
-          key: AZURE_STORAGE_CONTAINER
+        azure_tenant_id: AZURE_TENANT_ID
+        azure_client_id: AZURE_CLIENT_ID
+        azure_client_secret: AZURE_CLIENT_SECRET
+        azure_storage_account: AZURE_STORAGE_ACCOUNT
+        azure_storage_container: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: true
+      enabled: false
+      secretName: cronjob-credentials-gcp
       credentials:
-        gcp_application_credentials:
-          name: cronjob-credentials-gcp
-          key: GCP_APPLICATION_CREDENTIALS
-        gcp_bucket_name:
-          name: cronjob-credentials-gcp
-          key: GCP_BUCKET_NAME
+        gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
+        gcp_bucket_name: GCP_BUCKET_NAME
 
   volumeMounts:
     enabled: true
@@ -100,16 +88,10 @@ backup-fortigate:
       # optional push metrics to pushgateway
       metrics-pushgw: "true"
 
-      # optional upload to file backup to aws s3
+      # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
       aws: "false"
-
-      # optional upload to file backup to azure storage
-      # If the value is false, the file will be saved in the container.
       azure: "false"
-
-      # optional upload to file backup to gcp storage
-      # If the value is false, the file will be saved in the container.
       gcp: "true"
 
 
@@ -128,6 +110,7 @@ backup-fortigate:
 
 backup-juniper:
   cronjob_name: backup-juniper
+  namespaceOverride: ""
   annotations: 
     configmap.reloader.stakater.com/reload: "cronjob-config-backup-juniper"
     secret.reloader.stakater.com/reload: 
@@ -140,10 +123,15 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "0 0 1 * *" # every month at 00:00
+  schedule: "*/1 * * * * " # every month at 00:00
   image:
     name: shlomobarzili/junipersw
-    tag: v1.5.1
+    pullPolicy: IfNotPresent
+    tag: v1.7.0
+
+#  loglevel default info
+  loglevel: ""
+
 
   env:
     - name: USERNAME
@@ -165,44 +153,27 @@ backup-juniper:
 
   provider:
     aws:
-      enabled: false
-      credentials:
-        aws_access_key_id:
-          name: cronjob-credentials-juniper-backup
-          key: AWS_ACCESS_KEY_ID
-        aws_secret_access_key:
-          name: cronjob-credentials-juniper-backup
-          key: AWS_SECRET_ACCESS_KEY
-        bucket_name:
-          name: cronjob-credentials-juniper-backup
-          key: BUCKET_NAME
-    azure:
-      enabled: talse
-      credentials:
-        azure_tenant_id:
-          name: cronjob-credentials-azure
-          key: AZURE_TENANT_ID
-        azure_client_id:
-          name: cronjob-credentials-azure
-          key: AZURE_CLIENT_ID
-        azure_client_secret:
-          name: cronjob-credentials-azure
-          key: AZURE_CLIENT_SECRET
-        azure_storage_account:
-          name: cronjob-credentials-azure
-          key: AZURE_STORAGE_ACCOUNT
-        azure_storage_container:
-          name: cronjob-credentials-azure
-          key: AZURE_STORAGE_CONTAINER
-    gcp:
       enabled: true
+      secretName: cronjob-credentials-juniper-backup
       credentials:
-        gcp_application_credentials:
-          name: cronjob-credentials-gcp
-          key: GCP_APPLICATION_CREDENTIALS
-        gcp_bucket_name:
-          name: cronjob-credentials-gcp
-          key: GCP_BUCKET_NAME
+        aws_access_key_id: AWS_ACCESS_KEY_ID
+        aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+        bucket_name: BUCKET_NAME
+    azure:
+      enabled: false
+      secretName: cronjob-credentials-azure
+      credentials:
+        azure_tenant_id: AZURE_TENANT_ID
+        azure_client_id: AZURE_CLIENT_ID  
+        azure_client_secret: AZURE_CLIENT_SECRET
+        azure_storage_account: AZURE_STORAGE_ACCOUNT
+        azure_storage_container: AZURE_STORAGE_CONTAINER
+    gcp:
+      enabled: false
+      secretName:  cronjob-credentials-gcp
+      credentials:
+        gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
+        gcp_bucket_name: GCP_BUCKET_NAME
 
   volumeMounts:
     enabled: true
@@ -224,16 +195,10 @@ backup-juniper:
       # optional push metrics to pushgateway
       metrics-pushgw: "true"
 
-      # optional upload to file backup to aws s3
+      # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
       aws: "false"
-
-      # optional upload to file backup to azure blob storage
-      # If the value is false, the file will be saved in the container.
       azure: "false"
-
-      # optional upload to file backup to gcp storage
-      # If the value is false, the file will be saved in the container.
       gcp: "true"
 
   podSecurityContext:

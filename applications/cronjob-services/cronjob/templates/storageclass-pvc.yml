@@ -3,8 +3,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: cronjob-pvc-{{ $name }}
-  namespace: cronjob
+  name: pvc-{{ $config.cronjob_name }}
+  namespace: {{ include "cronjob.namespace" $config }}
 spec:
   {{- with $config.volumeMounts.pvc.accessModes }}
   accessModes:
