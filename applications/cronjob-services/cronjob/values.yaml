@@ -25,7 +25,7 @@ backup-fortigate:
 
   env:
     - name: LOGLEVEL
-      value: info
+      value: debug
 
     - name: USERNAME
       secretName: cronjob-credentials-fortigate-backup
@@ -86,9 +86,9 @@ backup-fortigate:
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
-      aws: "false"
+      aws: "true"
       azure: "false"
-      gcp: "true"
+      gcp: "false"
 
 
   podSecurityContext:
@@ -127,7 +127,7 @@ backup-juniper:
 
   env:
     - name: LOGLEVEL
-      value: info
+      value: debug
 
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
@@ -188,9 +188,9 @@ backup-juniper:
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
-      aws: "false"
+      aws: "true"
       azure: "false"
-      gcp: "true"
+      gcp: "false"
 
   podSecurityContext:
     runAsUser: 1000
