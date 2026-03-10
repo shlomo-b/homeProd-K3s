@@ -17,15 +17,16 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "*/50 * * * *" # every month at 00:30
+  schedule: "*/1 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
     tag: v1.7.0
 
   env:
-    - name: LOG_LEVEL
-      value: DEBUG
+    # # default is INFO
+    # - name: LOG_LEVEL
+    #   value: DEBUG
 
     - name: USERNAME
       secretName: cronjob-credentials-fortigate-backup
@@ -119,15 +120,16 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "*/50 * * * *" # every month at 00:00
+  schedule: "*/1 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
     tag: v1.7.0
 
   env:
-    - name: LOG_LEVEL
-      value: DEBUG
+    # # default is INFO
+    # - name: LOG_LEVEL
+    #   value: "INFO"
 
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
