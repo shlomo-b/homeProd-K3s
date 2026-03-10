@@ -25,7 +25,7 @@ backup-fortigate:
 
   env:
     - name: LOGLEVEL
-      value: debug
+      value: DEBUG
 
     - name: USERNAME
       secretName: cronjob-credentials-fortigate-backup
@@ -127,7 +127,7 @@ backup-juniper:
 
   env:
     - name: LOGLEVEL
-      value: debug
+      value: DEBUG
 
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
