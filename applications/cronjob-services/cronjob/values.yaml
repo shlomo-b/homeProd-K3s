@@ -17,7 +17,7 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "*/2 * * * *" # every month at 00:30
+  schedule: "*/3 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
@@ -50,7 +50,7 @@ backup-fortigate:
         aws_secret_access_key: AWS_SECRET_ACCESS_KEY
         bucket_name: BUCKET_NAME
     azure:
-      enabled: false
+      enabled: true
       secretName: cronjob-credentials-azure
       credentials:
         azure_tenant_id: AZURE_TENANT_ID
@@ -59,7 +59,7 @@ backup-fortigate:
         azure_storage_account: AZURE_STORAGE_ACCOUNT
         azure_storage_container: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: true 
+      enabled: false 
       secretName: cronjob-credentials-gcp
       credentials:
         gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
@@ -88,8 +88,8 @@ backup-fortigate:
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
       aws: "false"
-      azure: "false"
-      gcp: "true"
+      azure: "true"
+      gcp: "false"
 
 
   podSecurityContext:
@@ -120,7 +120,7 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "*/2 * * * *" # every month at 00:00
+  schedule: "*/3 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
@@ -153,7 +153,7 @@ backup-juniper:
         aws_secret_access_key: AWS_SECRET_ACCESS_KEY
         bucket_name: BUCKET_NAME
     azure:
-      enabled: false
+      enabled: true
       secretName: cronjob-credentials-azure
       credentials:
         azure_tenant_id: AZURE_TENANT_ID
@@ -162,7 +162,7 @@ backup-juniper:
         azure_storage_account: AZURE_STORAGE_ACCOUNT
         azure_storage_container: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: true
+      enabled: false
       secretName: cronjob-credentials-gcp
       credentials:
         gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
@@ -191,8 +191,8 @@ backup-juniper:
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
       aws: "false"
-      azure: "false"
-      gcp: "true"
+      azure: "true"
+      gcp: "false"
 
   podSecurityContext:
     runAsUser: 1000
