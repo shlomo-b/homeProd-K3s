@@ -17,32 +17,28 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/1 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
     tag: v1.7.0
 
-#  loglevel default info
-  loglevel: ""
-
   env:
+    - name: LOGLEVEL
+      value: info
+
     - name: USERNAME
       secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: USERNAME
+      key: USERNAME
     - name: PASSWORD
       secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: PASSWORD
+      key: PASSWORD
     - name: HOST
       secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: HOST
+      key: HOST
     - name: PORT
       secretName: cronjob-credentials-fortigate-backup
-      key:
-        name: PORT
+      key: PORT
 
   provider:
     aws:
@@ -123,33 +119,28 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "0 0 1 * *" # every month at 00:00
+  schedule: "*/1 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
     tag: v1.7.0
 
-#  loglevel default info
-  loglevel: ""
-
-
   env:
+    - name: LOGLEVEL
+      value: info
+
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
-      key:
-        name: USERNAME
+      key: USERNAME
     - name: PASSWORD
       secretName: cronjob-credentials-juniper-backup
-      key:
-        name: PASSWORD
+      key: PASSWORD
     - name: HOST
       secretName: cronjob-credentials-juniper-backup
-      key:
-        name: HOST
+      key: HOST
     - name: PORT
       secretName: cronjob-credentials-juniper-backup
-      key:
-        name: PORT
+      key: PORT
 
   provider:
     aws:

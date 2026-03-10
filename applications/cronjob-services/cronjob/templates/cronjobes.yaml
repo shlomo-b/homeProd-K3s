@@ -37,19 +37,23 @@ spec:
             - name: cronjob
               image: "{{ $config.image.name }}:{{ $config.image.tag }}"
               imagePullPolicy: {{ $config.image.pullPolicy }}
-              args: 
-                 - --loglevel={{ $config.loglevel | default "info" }}
+
 {{- with $config.securityContext }}
               securityContext:
 {{ toYaml . | nindent 16 }}
 {{- end }}
+
               env:
 {{- range $env := ($config.env | default list) }}
                 - name: {{ $env.name }}
+{{- if $env.value }}  
+                  value: {{ $env.value | quote }}
+{{- else }}
                   valueFrom:
                     secretKeyRef:
                       name: {{ $env.secretName }}
-                      key: {{ $env.key.name }}
+                      key: {{ $env.key }}
+{{- end }}
 {{- end }}
 
 {{- if $config.provider.aws.enabled }}
