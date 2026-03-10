@@ -17,7 +17,7 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "*/50 * * * *" # every month at 00:30
+  schedule: "*/2 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
@@ -120,7 +120,7 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "*/50 * * * *" # every month at 00:00
+  schedule: "*/2 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
@@ -163,7 +163,7 @@ backup-juniper:
         azure_storage_container: AZURE_STORAGE_CONTAINER
     gcp:
       enabled: true
-      secretName:  cronjob-credentials-gcp
+      secretName: cronjob-credentials-gcp
       credentials:
         gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
         gcp_bucket_name: GCP_BUCKET_NAME
