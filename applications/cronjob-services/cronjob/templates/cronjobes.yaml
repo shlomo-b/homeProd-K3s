@@ -134,7 +134,7 @@ spec:
 {{- end }}
 {{- if and $config.volumeMounts $config.volumeMounts.enabled $config.volumeMounts.pvc }}
           volumes:
-            - name: cronjob-pvc-{{ $name }}
+            - name: pvc-{{ $name }}
               persistentVolumeClaim:
                 claimName: pvc-{{ $name }}
 {{- end }}
