@@ -43,7 +43,7 @@ backup-fortigate:
 
   provider:
     aws:
-      enabled: true
+      enabled: false
       secretName: cronjob-credentials-fortigate-backup
       credentials:
         aws_access_key_id: AWS_ACCESS_KEY_ID
@@ -59,7 +59,7 @@ backup-fortigate:
         azure_storage_account: AZURE_STORAGE_ACCOUNT
         azure_storage_container: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: true
+      enabled: false
       secretName: cronjob-credentials-gcp
       credentials:
         gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
@@ -87,9 +87,9 @@ backup-fortigate:
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
-      aws: "true"
+      aws: "false"
       azure: "true"
-      gcp: "true"
+      gcp: "false"
 
 
   podSecurityContext:
@@ -146,7 +146,7 @@ backup-juniper:
 
   provider:
     aws:
-      enabled: true
+      enabled: false
       secretName: cronjob-credentials-juniper-backup
       credentials:
         aws_access_key_id: AWS_ACCESS_KEY_ID
@@ -162,7 +162,7 @@ backup-juniper:
         azure_storage_account: AZURE_STORAGE_ACCOUNT
         azure_storage_container: AZURE_STORAGE_CONTAINER
     gcp:
-      enabled: true
+      enabled: false
       secretName:  cronjob-credentials-gcp
       credentials:
         gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
@@ -190,9 +190,9 @@ backup-juniper:
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
-      aws: "true"
+      aws: "false"
       azure: "true"
-      gcp: "true"
+      gcp: "false"
 
   podSecurityContext:
     runAsUser: 1000
