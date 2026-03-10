@@ -17,7 +17,7 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "*/5 * * * *" # every month at 00:30
+  schedule: "*/50 * * * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
@@ -120,7 +120,7 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "*/5 * * * *" # every month at 00:00
+  schedule: "*/50 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
