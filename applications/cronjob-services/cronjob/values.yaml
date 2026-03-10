@@ -9,6 +9,7 @@ backup-fortigate:
     secret.reloader.stakater.com/reload: 
       - "cronjob-credentials-fortigate-backup"
       - "cronjob-credentials-azure"
+      - "cronjob-credentials-gcp"
 
   serviceAccount:
     create: true
@@ -17,7 +18,7 @@ backup-fortigate:
     annotations: {}
 
 
-  schedule: "*/3 * * * *" # every month at 00:30
+  schedule: "30 0 1 * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
@@ -43,14 +44,14 @@ backup-fortigate:
 
   provider:
     aws:
-      enabled: false
+      enabled: true
       secretName: cronjob-credentials-fortigate-backup
       credentials:
         aws_access_key_id: AWS_ACCESS_KEY_ID
         aws_secret_access_key: AWS_SECRET_ACCESS_KEY
         bucket_name: BUCKET_NAME
     azure:
-      enabled: true
+      enabled: false
       secretName: cronjob-credentials-azure
       credentials:
         azure_tenant_id: AZURE_TENANT_ID
@@ -87,8 +88,8 @@ backup-fortigate:
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
-      aws: "false"
-      azure: "true"
+      aws: "true"
+      azure: "false"
       gcp: "false"
 
 
@@ -113,6 +114,7 @@ backup-juniper:
     secret.reloader.stakater.com/reload: 
       - "cronjob-credentials-juniper-backup"
       - "cronjob-credentials-azure"
+      - "cronjob-credentials-gcp"
 
   serviceAccount:
     create: true
@@ -120,7 +122,7 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule: "*/3 * * * *" # every month at 00:00
+  schedule:  "0 0 1 * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
@@ -146,14 +148,14 @@ backup-juniper:
 
   provider:
     aws:
-      enabled: false
+      enabled: true
       secretName: cronjob-credentials-juniper-backup
       credentials:
         aws_access_key_id: AWS_ACCESS_KEY_ID
         aws_secret_access_key: AWS_SECRET_ACCESS_KEY
         bucket_name: BUCKET_NAME
     azure:
-      enabled: true
+      enabled: false
       secretName: cronjob-credentials-azure
       credentials:
         azure_tenant_id: AZURE_TENANT_ID
@@ -185,13 +187,13 @@ backup-juniper:
       PUSHGATEWAY_INSTANCE: "backup-juniper"
       SW_NAME: "@Juniper_BB>"
       
-      # optional push metrics to pushgateway
+      # optional push metrics to pushgateway.
       metrics-pushgw: "true"
 
-      # optional upload the file backup to cloud aws/azure/gcp
+      # optional upload the file backup to cloud aws/azure/gcp.
       # If the value is false, the file will be saved in the container.
-      aws: "false"
-      azure: "true"
+      aws: "true"
+      azure: "false"
       gcp: "false"
 
   podSecurityContext:
