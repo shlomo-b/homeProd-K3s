@@ -24,9 +24,9 @@ backup-fortigate:
     tag: v1.7.0
 
   env:
-    # # default is INFO
-    # - name: LOG_LEVEL
-    #   value: DEBUG
+     # default is INFO
+    - name: LOG_LEVEL
+      value: "DEBUG"
 
     - name: USERNAME
       secretName: cronjob-credentials-fortigate-backup
@@ -128,8 +128,8 @@ backup-juniper:
 
   env:
     # # default is INFO
-    # - name: LOG_LEVEL
-    #   value: "INFO"
+    - name: LOG_LEVEL
+      value: "DEBUG"
 
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
