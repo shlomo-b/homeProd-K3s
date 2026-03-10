@@ -86,7 +86,7 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: {{ $config.provider.azure.secretName }}
-                      key: {{ $config.provider.azure.credentials.azure_tenant_id }}
+                      key: {{ $config.provider.azure.credentials.azure_client_id }}
                 - name: AZURE_CLIENT_SECRET
                   valueFrom:
                     secretKeyRef:
