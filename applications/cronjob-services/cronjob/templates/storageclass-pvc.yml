@@ -13,7 +13,7 @@ spec:
   resources:
     requests:
       storage: {{ $config.volumeMounts.pvc.size }}
-  storageClassName: local-path
+  storageClassName: {{ $config.volumeMounts.pvc.storageClassName }}
 {{- end }}
 ---
 {{- end }}

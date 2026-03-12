@@ -17,7 +17,6 @@ backup-fortigate:
     labels: {}
     annotations: {}
 
-
   schedule: "30 0 1 * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
@@ -69,11 +68,11 @@ backup-fortigate:
   volumeMounts:
     enabled: true
     pvc:
-      name: cronjob-pvc-backup-fortigate
       accessModes:
         - ReadWriteOnce
       mountPath: /app
       size: 300Mi
+      storageClassName: local-path
 
   cm:
     enabled: true
@@ -173,11 +172,11 @@ backup-juniper:
   volumeMounts:
     enabled: true
     pvc:
-      name: cronjob-pvc-juniper
       accessModes:
         - ReadWriteOnce
       mountPath: /app
       size: 300Mi
+      storageClassName: local-path
 
   cm:
     enabled: true
