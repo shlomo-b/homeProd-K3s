@@ -88,8 +88,8 @@ backup-fortigate:
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
       aws: "true"
-      azure: "false"
-      gcp: "false"
+      azure: ""
+      gcp: ""
 
 
   podSecurityContext:
@@ -192,8 +192,8 @@ backup-juniper:
       # optional upload the file backup to cloud aws/azure/gcp.
       # If the value is false, the file will be saved in the container.
       aws: "true"
-      azure: "false"
-      gcp: "false"
+      azure: ""
+      gcp: ""
 
   podSecurityContext:
     runAsUser: 1000
