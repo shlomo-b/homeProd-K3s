@@ -5,7 +5,7 @@ metadata:
   name: {{ include "yourchart.fullname" (dict "name" .Values.server.name) }}-hpa
   namespace:  {{ .Values.namespace }}
   labels:
-{{ toYaml .Values.server.autoscaling.labels | indent 4 }}
+    app: {{ .Values.server.name }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

@@ -12,7 +12,7 @@ metadata:
     app: {{ .Values.server.name }}
 spec:
   revisionHistoryLimit: {{ .Values.server.revisionHistoryLimit }}
-  {{- if (not .Values.server.autoscaling.enabled) }}
+  {{- if not .Values.server.autoscaling.enabled }}
   replicas: {{ .Values.server.replicas }}
   {{- end }}
   selector:
@@ -36,21 +36,53 @@ spec:
       containers:
         - name: backend
           image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .Values.server.image.pullPolicy }}
+
           env:
-            {{- range .Values.server.envVars }}
-            - name: {{ .name }}
+{{- range $env := (.Values.server.env | default list) }}
+            - name: {{ $env.name }}
+{{- if $env.value }}
+              value: {{ $env.value | quote }}
+{{- else }}
               valueFrom:
-              {{- if eq .source "secretKeyRef" }}
                 secretKeyRef:
-                  name: {{ .nameVariables }}
-                  key: {{ .key }}
-              {{- else if eq .source "configMapKeyRef" }}
-                configMapKeyRef:
-                  name: {{ .nameVariables }}
-                  key: {{ .key }}
-              {{- end }}
-          {{- end }}
+                  name: {{ $env.secretName }}
+                  key: {{ $env.key }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.server.provider.aws.enabled }}
+            # AWS storage and secret keys
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.provider.aws.secretName }}
+                  key: {{ .Values.server.provider.aws.credentials.aws_access_key_id }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.provider.aws.secretName }}
+                  key: {{ .Values.server.provider.aws.credentials.aws_secret_access_key }}
+            - name: BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.provider.aws.secretName }}
+                  key: {{ .Values.server.provider.aws.credentials.bucket_name }}
+{{- end }}
+
+{{- $hasExtraSecret := and .Values.secret .Values.secret.enabled }}
+{{- $hasCm := and .Values.server.cm .Values.server.cm.enabled .Values.server.cm.data }}
+{{- if or $hasCm $hasExtraSecret }}
+          envFrom:
+{{- if $hasCm }}
+            - configMapRef:
+                name: config-{{ .Values.server.name }}
+{{- end }}
+{{- if $hasExtraSecret }}
+                - secretRef:
+                    name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.server.name) }}
+{{- end }}
+{{- end }}
 
           ports:
             - containerPort: {{ .Values.server.containerPort }}

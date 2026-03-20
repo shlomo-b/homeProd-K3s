@@ -1,0 +1,11 @@
+{{- if and .Values.db.cm .Values.db.cm.enabled .Values.db.cm.data }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{ .Values.db.name }}
+  namespace: {{ .Values.namespace }}
+data:
+{{- range $k, $v := .Values.db.cm.data }}
+  {{ $k }}: {{ $v | quote }}
+{{- end }}
+{{- end }}

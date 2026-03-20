@@ -1,6 +1,7 @@
 appName: secretpass
 namespace: secretpass
 
+
 server:
   enabled: true
   revisionHistoryLimit: 0
@@ -26,6 +27,7 @@ server:
     port: 5050
   image:
     name: shlomobarzili/secretpass-backend
+    pullPolicy: IfNotPresent
     tag: v5.0.0
   containerPort: 5050
   autoscaling:
@@ -48,131 +50,61 @@ server:
             value: 50
             periodSeconds: 15
   affinity: {} 
+  env:
+    # # default is INFO
+    # - name: LOG_LEVEL
+    #   value: "INFO"
+
+    - name: JWT_SECRET_KEY
+      secretName:  secretspass-credentials
+      key: JWT_SECRET_KEY
+    - name: MONGO_INITDB_ROOT_USERNAME
+      secretName:  secretspass-credentials
+      key: MONGO_INITDB_ROOT_USERNAME
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      secretName:  secretspass-credentials
+      key: MONGO_INITDB_ROOT_PASSWORD
+    - name: DB_NAME
+      secretName:  secretspass-credentials
+      key: DB_NAME
+    - name: FERNET_KEY
+      secretName:  secretspass-credentials
+      key: FERNET_KEY  
+    - name: ADMIN_PASSWORD
+      secretName:  secretspass-credentials
+      key: ADMIN_PASSWORD
+    - name: MICROSOFT_ENTRA_IDENTIFIER
+      secretName:  secretspass-credentials
+      key: MICROSOFT_ENTRA_IDENTIFIER
+    - name: SAML_LOGIN_URL
+      secretName:  secretspass-credentials
+      key: SAML_LOGIN_URL
+    - name: SAML_CERTIFICATE
+      secretName:  secretspass-credentials
+      key: SAML_CERTIFICATE
+      
+        
+  provider:
+    aws:
+      enabled: true
+      secretName: secretspass-credentials
+      credentials:
+        aws_access_key_id: AWS_ACCESS_KEY_ID
+        aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+        bucket_name: BUCKET_NAME
   cm:
     enabled: true
-  envVars:
-    - name: JWT_SECRET_KEY
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: JWT_SECRET_KEY
-
-    - name: MONGO_INITDB_ROOT_USERNAME
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: MONGO_INITDB_ROOT_USERNAME
-
-    - name: MONGO_INITDB_ROOT_PASSWORD
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: MONGO_INITDB_ROOT_PASSWORD
-
-    - name: AWS_ACCESS_KEY_ID
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: AWS_ACCESS_KEY_ID
-
-    - name: AWS_SECRET_ACCESS_KEY
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: AWS_SECRET_ACCESS_KEY
-
-    - name: DB_NAME
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: DB_NAME
-
-    - name: BUCKET_NAME
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: BUCKET_NAME
-
-    - name: FERNET_KEY
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: FERNET_KEY
-
-    - name: ADMIN_PASSWORD
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: ADMIN_PASSWORD
-
-    - name: MICROSOFT_ENTRA_IDENTIFIER
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: MICROSOFT_ENTRA_IDENTIFIER
-
-    - name: SAML_LOGIN_URL
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: SAML_LOGIN_URL 
-
-    - name: SAML_CERTIFICATE
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: SAML_CERTIFICATE
-
-###--------------cm----------------------###
-
-    - name: MONGO_INITDB_HOST
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: MONGO_INITDB_HOST
-      value: db-service
-
-    - name: SAML_IDENTIFIER
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: SAML_IDENTIFIER
-      value: https://secretpass.spider-shlomo.com/remote/saml/metadata
-
-    - name: SAML_REPLY_URL
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: SAML_REPLY_URL
-      value: https://secretpass.spider-shlomo.com/remote/saml/acs
-
-    - name: FRONTEND_URL_SAML
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: FRONTEND_URL_SAML
-      value: https://secretpass.spider-shlomo.com
-
-    - name: ENABLE_AZURE_GROUPS
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: ENABLE_AZURE_GROUPS
-      value: "false"
-
-    - name: ALLOWED_AZURE_GROUPS_ID
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: ALLOWED_AZURE_GROUPS_ID
-      value: "false"
-
-    - name: ENABLE_AZURE_USERS
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: ENABLE_AZURE_USERS
-      value: "true"
-
-    - name: ALLOWED_AZURE_USERS_ID
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: ALLOWED_AZURE_USERS_ID
-      value: "9270575a-12a3-48a7-b649-e747e284829d,b12a4d5c-00cc-48be-bb51-fae361a61be8"
-
-    - name: ALLOWED_ORGANIZATIONS_ID
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: ALLOWED_ORGANIZATIONS_ID
-      value: "a2724ae3-73eb-4b45-ba62-f432da279e2c"
-
-    - name: ALLOWED_EMAIL_DOMAINS
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: ALLOWED_EMAIL_DOMAINS
-      value: "spider-shlomo.com"
-
+    data:
+      MONGO_INITDB_HOST: db-service
+      SAML_IDENTIFIER: https://secretpass.spider-shlomo.com/remote/saml/metadata
+      SAML_REPLY_URL: https://secretpass.spider-shlomo.com/remote/saml/acs
+      FRONTEND_URL_SAML: https://secretpass.spider-shlomo.com
+      ALLOWED_AZURE_USERS_ID: 9270575a-12a3-48a7-b649-e747e284829d,b12a4d5c-00cc-48be-bb51-fae361a61be8
+      ALLOWED_ORGANIZATIONS_ID: a2724ae3-73eb-4b45-ba62-f432da279e2c
+      ALLOWED_EMAIL_DOMAINS: spider-shlomo.com
+      ENABLE_AZURE_GROUPS: false
+      ALLOWED_AZURE_GROUPS_ID: false
+      ENABLE_AZURE_USERS: true
 
   resources:    
     requests:
@@ -212,6 +144,7 @@ client:
     port: 3000
   image:
     name: shlomobarzili/secretpass-frontend
+    pullPolicy: IfNotPresent
     tag: v3.0.0
   containerPort: 3000
   autoscaling:
@@ -236,17 +169,9 @@ client:
   affinity: {} 
   cm:
     enabled: true
-  envVars:
-    - name:  REACT_APP_API_URL
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: REACT_APP_API_URL
-      value: https://secretpass.spider-shlomo.com
-    - name: REACT_APP_ENABLE_SAML
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: REACT_APP_ENABLE_SAML
-      value: true  
+    data:
+      REACT_APP_API_URL: https://secretpass.spider-shlomo.com
+      REACT_APP_ENABLE_SAML: true
   readinessProbe:
     httpGet:
       path: /health
@@ -303,31 +228,26 @@ db:
   replicas: 1
   image:
     name: mongo
+    pullPolicy: IfNotPresent
     tag: latest
   containerPort: 27017
   affinity: {}
+  env:
+    - name: MONGO_INITDB_ROOT_USERNAME
+      secretName:  secretspass-credentials
+      key: MONGO_INITDB_ROOT_USERNAME
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      secretName:  secretspass-credentials
+      key: MONGO_INITDB_ROOT_PASSWORD
   cm:
     enabled: true
-  envVars:
-    - name: MONGO_INITDB_ROOT_USERNAME
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: MONGO_INITDB_ROOT_USERNAME
+    data:
+      MONGO_INITDB_ROOT_USERNAME: MONGO_INITDB_HOST
 
-    - name: MONGO_INITDB_ROOT_PASSWORD
-      source: secretKeyRef
-      nameVariables: secretspass-credentials
-      key: MONGO_INITDB_ROOT_PASSWORD  
-
-    - name: MONGO_INITDB_HOST
-      source: configMapKeyRef
-      nameVariables: secretpass-config
-      key: MONGO_INITDB_HOST
-      value: db-service
   resources:
     requests:
       cpu: 100m
       memory: 512Mi
     limits:
       cpu: 500m
-      memory: 1Gi    
+      memory: 1Gi

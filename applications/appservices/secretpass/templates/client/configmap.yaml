@@ -1,0 +1,11 @@
+{{- if and .Values.client.cm .Values.client.cm.enabled .Values.client.cm.data }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{ .Values.client.name }}
+  namespace: {{ .Values.namespace }}
+data:
+{{- range $k, $v := .Values.client.cm.data }}
+  {{ $k }}: {{ $v | quote }}
+{{- end }}
+{{- end }}

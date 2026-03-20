@@ -30,21 +30,34 @@ spec:
       containers:
       - name: app
         image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
-        imagePullPolicy: Always
+        imagePullPolicy: {{ .Values.client.image.pullPolicy }}
+
         env:
-            {{- range .Values.client.envVars }}
-            - name: {{ .name }}
+{{- range $env := (.Values.client.env | default list) }}
+            - name: {{ $env.name }}
+{{- if $env.value }}
+              value: {{ $env.value | quote }}
+{{- else }}
               valueFrom:
-              {{- if eq .source "secretKeyRef" }}
                 secretKeyRef:
-                  name: {{ .nameVariables }}
-                  key: {{ .key }}
-              {{- else if eq .source "configMapKeyRef" }}
-                configMapKeyRef:
-                  name: {{ .nameVariables }}
-                  key: {{ .key }}
-              {{- end }}
-        {{- end }}
+                  name: {{ $env.secretName }}
+                  key: {{ $env.key }}
+{{- end }}
+{{- end }}
+
+{{- $hasExtraSecret := and .Values.secret .Values.secret.enabled }}
+{{- $hasCm := and .Values.client.cm .Values.client.cm.enabled .Values.client.cm.data }}
+{{- if or $hasCm $hasExtraSecret }}
+          envFrom:
+{{- if $hasCm }}
+            - configMapRef:
+                name: config-{{ .Values.client.name }}
+{{- end }}
+{{- if $hasExtraSecret }}
+                - secretRef:
+                    name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.client.name) }}
+{{- end }}
+{{- end }}
         ports:
         - containerPort: {{ .Values.client.containerPort }}
         {{- with .Values.client.resources }}

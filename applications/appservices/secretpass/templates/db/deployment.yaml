@@ -20,41 +20,57 @@ spec:
     metadata:
       labels:
         app: {{ .Values.db.name }}
-{{- with .Values.db.affinity }}
-      affinity:
-      {{toYaml . | indent 4}}   
-{{- end}}      
     spec:
+      {{- with .Values.db.affinity }}
+      affinity:
+{{ toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-      - name: app
-        image: "{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}"
-        imagePullPolicy: Always
-        env:
-            {{- range .Values.db.envVars }}
-            - name: {{ .name }}
+        - name: app
+          image: "{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}"
+          imagePullPolicy: {{ .Values.db.image.pullPolicy }}
+
+          env:
+{{- range $env := (.Values.db.env | default list) }}
+            - name: {{ $env.name }}
+{{- if $env.value }}
+              value: {{ $env.value | quote }}
+{{- else }}
               valueFrom:
-              {{- if eq .source "secretKeyRef" }}
                 secretKeyRef:
-                  name: {{ .nameVariables }}
-                  key: {{ .key }}
-              {{- else if eq .source "configMapKeyRef" }}
-                configMapKeyRef:
-                  name: {{ .nameVariables }}
-                  key: {{ .key }}
-              {{- end }}
-        {{- end }}
-        ports:
-        - containerPort: {{ .Values.db.containerPort }}
-        {{- with .Values.db.resources }}
-        resources:
-          {{toYaml . | nindent 12}}
-        {{- end }}
-        volumeMounts:
+                  name: {{ $env.secretName }}
+                  key: {{ $env.key }}
+{{- end }}
+{{- end }}
+
+{{- $hasExtraSecret := and .Values.secret .Values.secret.enabled }}
+{{- $hasCm := and .Values.db.cm .Values.db.cm.enabled .Values.db.cm.data }}
+{{- if or $hasCm $hasExtraSecret }}
+          envFrom:
+{{- if $hasCm }}
+            - configMapRef:
+                name: config-{{ .Values.db.name }}
+{{- end }}
+{{- if $hasExtraSecret }}
+            - secretRef:
+                name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.db.name) }}
+{{- end }}
+{{- end }}
+
+          ports:
+            - containerPort: {{ .Values.db.containerPort }}
+
+          {{- with .Values.db.resources }}
+          resources:
+{{ toYaml . | nindent 12 }}
+          {{- end }}
+
+          volumeMounts:
+            - name: mongo-pvc
+              mountPath: /data/db
+
+volumes:
         - name: mongo-pvc
-          mountPath: /data/db # default path should be /data/db its for mongodb
-      volumes:
-      - name: mongo-pvc
-        persistentVolumeClaim:
-          claimName: mongodb-pvc
-  
+          persistentVolumeClaim:
+            claimName: mongodb-pvc
 {{- end }}
