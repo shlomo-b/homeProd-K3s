@@ -54,8 +54,8 @@ spec:
                 name: config-{{ .Values.client.name }}
 {{- end }}
 {{- if $hasExtraSecret }}
-                - secretRef:
-                  name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.client.name) }}
+            - secretRef:
+                name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.client.name) }}
 {{- end }}
 {{- end }}
 
