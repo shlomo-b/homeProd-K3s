@@ -55,9 +55,10 @@ spec:
 {{- end }}
 {{- if $hasExtraSecret }}
                 - secretRef:
-                    name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.client.name) }}
+                  name: {{ .Values.secret.name | default (printf "secretpass-config-%s" .Values.client.name) }}
 {{- end }}
 {{- end }}
+
         ports:
         - containerPort: {{ .Values.client.containerPort }}
         {{- with .Values.client.resources }}
