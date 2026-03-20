@@ -8,7 +8,7 @@ server:
 #  replicas: 2
   name: backend
   annotations:
-    configmap.reloader.stakater.com/reload: "secretpass-config"
+    configmap.reloader.stakater.com/reload: "config-backend"
     secret.reloader.stakater.com/reload: "secretspass-credentials"
   podSecurityContext:
     runAsUser: 1000
@@ -136,7 +136,7 @@ client:
 #  replicas: 2
   name: frontend
   annotations:
-    configmap.reloader.stakater.com/reload: "secretpass-config"
+    configmap.reloader.stakater.com/reload: "config-frontend"
     secret.reloader.stakater.com/reload: "secretspass-credentials"
   service:
     enabled: true
@@ -219,7 +219,7 @@ db:
   replicas: 1
   name: db
   annotations:
-    configmap.reloader.stakater.com/reload: "secretpass-config"
+    configmap.reloader.stakater.com/reload: "config-db"
     secret.reloader.stakater.com/reload: "secretspass-credentials"
   service:
     enabled: true

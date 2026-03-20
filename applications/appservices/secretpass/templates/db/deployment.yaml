@@ -67,10 +67,10 @@ spec:
 
           volumeMounts:
             - name: mongo-pvc
-              mountPath: /data/db
+              mountPath: /data/db # default path should be /data/db its for mongodb
 
       volumes:
         - name: mongo-pvc
           persistentVolumeClaim:
             claimName: mongodb-pvc
-{{- end }}
+{{- end }}            
