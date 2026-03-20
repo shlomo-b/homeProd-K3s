@@ -167,7 +167,7 @@ client:
             value: 50
             periodSeconds: 15
   affinity: {} 
-  env: {}
+  env: []
   cm:
     enabled: true
     data:
