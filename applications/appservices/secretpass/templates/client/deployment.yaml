@@ -1,38 +1,38 @@
- {{- if .Values.client.enabled }}
+{{- if .Values.client.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:   {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
+  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}
   namespace: {{ .Values.namespace }}
   {{- with .Values.client.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}  
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   labels:
-    app:  {{ .Values.client.name }}
+    app: {{ .Values.client.name }}
 spec:
   revisionHistoryLimit: {{ .Values.client.revisionHistoryLimit }}
   {{- if (not .Values.client.autoscaling.enabled) }}
   replicas: {{ .Values.client.replicas }}
-  {{- end}}
+  {{- end }}
   selector:
     matchLabels:
-      app:  {{ .Values.client.name }}
+      app: {{ .Values.client.name }}
   template:
     metadata:
       labels:
         app: {{ .Values.client.name }}
 {{- with .Values.client.affinity }}
       affinity:
-      {{toYaml . | indent 4}}   
-{{- end}}      
+      {{ toYaml . | indent 4 }}
+{{- end }}
     spec:
       containers:
-      - name: app
-        image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
-        imagePullPolicy: {{ .Values.client.image.pullPolicy }}
+        - name: app
+          image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
+          imagePullPolicy: {{ .Values.client.image.pullPolicy }}
 
-        env:
+          env:
 {{- range $env := (.Values.client.env | default list) }}
             - name: {{ $env.name }}
 {{- if $env.value }}
@@ -59,19 +59,19 @@ spec:
 {{- end }}
 {{- end }}
 
-        ports:
-        - containerPort: {{ .Values.client.containerPort }}
-        {{- with .Values.client.resources }}
-        resources:
-          {{toYaml . | nindent 12}}
-        {{- end }}
-        {{- with .Values.client.readinessProbe }}
-        readinessProbe:
-          {{- toYaml . | nindent 12}}
-        {{- end }}
-        {{- with .Values.client.livenessProbe }}
-        livenessProbe:
-          {{- toYaml . | nindent 10}}
-        {{- end }}
+          ports:
+            - containerPort: {{ .Values.client.containerPort }}
+          {{- with .Values.client.resources }}
+          resources:
+{{ toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.client.readinessProbe }}
+          readinessProbe:
+{{ toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.client.livenessProbe }}
+          livenessProbe:
+{{ toYaml . | nindent 12 }}
+          {{- end }}
 
 {{- end }}
