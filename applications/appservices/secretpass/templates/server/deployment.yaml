@@ -70,6 +70,49 @@ spec:
                   key: {{ .Values.server.provider.aws.credentials.bucket_name }}
 {{- end }}
 
+{{- if .Values.server.provider.azure.enabled }}
+                # Azure storage
+                - name: AZURE_TENANT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{.Values.server.provider.azure.secretName }}
+                      key: {{.Values.server.provider.azure.credentials.azure_tenant_id }}
+                - name: AZURE_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{.Values.server.provider.azure.secretName }}
+                      key: {{.Values.server.provider.azure.credentials.azure_client_id }}
+                - name: AZURE_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{.Values.server.provider.azure.secretName }}
+                      key: {{.Values.server.provider.azure.credentials.azure_client_secret }}
+                - name: AZURE_STORAGE_ACCOUNT
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{.Values.server.provider.azure.secretName }}
+                      key: {{.Values.server.provider.azure.credentials.azure_storage_account }}
+                - name: AZURE_STORAGE_CONTAINER
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{.Values.server.provider.azure.secretName }}
+                      key: {{.Values.server.provider.azure.credentials.azure_storage_container }}
+{{- end }}
+
+{{- if.Values.server.provider.gcp.enabled }}
+                # GCP storage
+                - name: GCP_APPLICATION_CREDENTIALS
+                  valueFrom:
+                    secretKeyRef:
+                      name:  {{.Values.server.provider.gcp.secretName }}
+                      key:  {{.Values.server.provider.gcp.credentials.gcp_application_credentials }}
+                - name: GCP_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{.Values.server.provider.gcp.secretName }}
+                      key: {{.Values.server.provider.gcp.credentials.gcp_bucket_name }}
+{{- end }}
+
 {{- $hasExtraSecret := and .Values.secret .Values.secret.enabled }}
 {{- $hasCm := and .Values.server.cm .Values.server.cm.enabled .Values.server.cm.data }}
 {{- if or $hasCm $hasExtraSecret }}

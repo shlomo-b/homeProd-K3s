@@ -28,7 +28,7 @@ server:
   image:
     name: shlomobarzili/secretpass-backend
     pullPolicy: IfNotPresent
-    tag: v5.0.0
+    tag: v5.1.0
   containerPort: 5050
   autoscaling:
     enabled: true
@@ -83,7 +83,6 @@ server:
       secretName:  secretspass-credentials
       key: SAML_CERTIFICATE
       
-        
   provider:
     aws:
       enabled: true
@@ -92,6 +91,22 @@ server:
         aws_access_key_id: AWS_ACCESS_KEY_ID
         aws_secret_access_key: AWS_SECRET_ACCESS_KEY
         bucket_name: BUCKET_NAME
+    azure:
+      enabled: false
+      secretName: cronjob-credentials-azure
+      credentials:
+        azure_tenant_id: AZURE_TENANT_ID
+        azure_client_id: AZURE_CLIENT_ID
+        azure_client_secret: AZURE_CLIENT_SECRET
+        azure_storage_account: AZURE_STORAGE_ACCOUNT
+        azure_storage_container: AZURE_STORAGE_CONTAINER
+    gcp:
+      enabled: false 
+      secretName: cronjob-credentials-gcp
+      credentials:
+        gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
+        gcp_bucket_name: GCP_BUCKET_NAME    
+
   cm:
     enabled: true
     data:
@@ -105,6 +120,9 @@ server:
       ENABLE_AZURE_GROUPS: false
       ALLOWED_AZURE_GROUPS_ID: false
       ENABLE_AZURE_USERS: true
+      aws: "true"
+      azure: ""
+      gcp: ""
 
   resources:    
     requests:
@@ -145,7 +163,7 @@ client:
   image:
     name: shlomobarzili/secretpass-frontend
     pullPolicy: IfNotPresent
-    tag: v3.0.0
+    tag: v3.1.0
   containerPort: 3000
   autoscaling:
     enabled: true
