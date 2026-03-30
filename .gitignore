@@ -28,3 +28,4 @@ app-test/
 
 app-of-apps/chart-keel/
 applications/cronjob-services/cronjob/templates/secret.yaml
+applications/appservices/secretpass/templates/secret.yaml
