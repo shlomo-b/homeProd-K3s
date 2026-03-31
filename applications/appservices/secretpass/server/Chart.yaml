@@ -1,0 +1,6 @@
+apiVersion: v2
+name: secretpass-backend
+description: A Helm chart for secretpass-backend
+type: application
+version: 5.1.0
+appVersion: v5.1.0

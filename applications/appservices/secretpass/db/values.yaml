@@ -1,0 +1,44 @@
+appName: secretpass
+namespace: secretpass
+
+db:  
+  enabled: true
+  revisionHistoryLimit: 0
+  replicas: 1
+  name: db
+  annotations:
+    configmap.reloader.stakater.com/reload: "config-db"
+    secret.reloader.stakater.com/reload: "secretspass-credentials"
+  service:
+    enabled: true
+    serviceType: ClusterIP
+    port: 27017
+  replicas: 1
+  image:
+    name: mongo
+    pullPolicy: IfNotPresent
+    tag: latest
+  containerPort: 27017
+  affinity: {}
+  env:
+    - name: TZ
+      value: "Asia/Jerusalem"
+      
+    - name: MONGO_INITDB_ROOT_USERNAME
+      secretName:  secretspass-credentials
+      key: MONGO_INITDB_ROOT_USERNAME
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      secretName:  secretspass-credentials
+      key: MONGO_INITDB_ROOT_PASSWORD
+  cm:
+    enabled: true
+    data:
+      MONGO_INITDB_ROOT_USERNAME: MONGO_INITDB_HOST
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi

@@ -1,0 +1,40 @@
+{{- if .Values.client.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "yourchart.fullname" (dict "name" .Values.client.name) }}-ingress
+  namespace: {{ .Values.namespace }}
+  {{- with .Values.client.ingress.annotations }}
+  annotations:
+{{ toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.client.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.client.ingress.ingressClassName }}
+  {{- end }}
+  {{- if .Values.client.ingress.tls }}
+  tls:
+    {{- range .Values.client.ingress.tls }}
+    - secretName: {{ .secretName }}
+      hosts:
+        {{- range .hosts }}
+        - {{ . }}
+        {{- end }}
+  {{- end }}
+  {{- end }}
+  rules:
+    {{- if .Values.client.ingress.host }}
+    - host: {{ .Values.client.ingress.host }}
+      http:
+        paths:
+          {{- range .Values.client.ingress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: 3000
+        {{- end }}
+  {{- end }}
+{{- end }}
