@@ -151,7 +151,6 @@ spec:
         revision: HEAD
         directories:
           - path: applications/*/*
-          - path: applications/*/*/*
   template:
     metadata:
       name: "{{path.basename}}"
