@@ -27,6 +27,7 @@ spec:
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         ports:
+        - name: {{ .Values.appName }}
         - containerPort: {{ .Values.containerPort }}
         resources:
           requests:
