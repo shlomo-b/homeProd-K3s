@@ -28,7 +28,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - name: {{ .Values.appName }}
-        - containerPort: {{ .Values.containerPort }}
+          containerPort: {{ .Values.containerPort }}
         resources:
           requests:
             memory: "100Mi"
