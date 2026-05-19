@@ -86,13 +86,15 @@ grafana.ini:
       contains(roles[*], 'GrafanaViewer') && 'Viewer' ||
       'Viewer'
 
-topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
-        app.kubernetes.io/instance: grafana
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node2
 
 initChownData:
   enabled: false
