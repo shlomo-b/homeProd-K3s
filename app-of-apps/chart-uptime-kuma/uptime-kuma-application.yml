@@ -13,7 +13,7 @@ spec:
       targetRevision: HEAD
       ref: values
     - repoURL: https://dirsigler.github.io/uptime-kuma-helm
-      chart: chart/uptime-kuma
+      chart: uptime-kuma
       targetRevision: 4.1.0
       helm:
         valueFiles:
