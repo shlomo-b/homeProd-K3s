@@ -103,7 +103,7 @@ kuma-uptime-metrics-auth:
     namespaces:
       - monitoring
     refreshInterval: 168h
-    secretStoreRefName: kuma-uptime-kuma-aws-secret-store
+    secretStoreRefName: aws-secret-store
     target:  kuma-uptime-metrics-auth
     dataFrom:
       extract:
