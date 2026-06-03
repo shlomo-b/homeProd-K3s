@@ -97,3 +97,14 @@ secretpass-metrics-auth:
     dataFrom:
       extract:
         key: secretpass-metrics-auth
+
+kuma-uptime-metrics-auth:
+    external_secret_name: kuma-uptime-metrics-auth
+    namespaces:
+      - monitoring
+    refreshInterval: 168h
+    secretStoreRefName: kuma-uptime-kuma-aws-secret-store
+    target:  kuma-uptime-metrics-auth
+    dataFrom:
+      extract:
+        key: kuma-uptime-metrics-auth
