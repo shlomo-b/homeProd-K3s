@@ -39,6 +39,11 @@ server:
       mountPath: /etc/prometheus/secrets/secretpass-metrics-auth
       readOnly: true
 
+    - name: kuma-uptime-metrics-auth
+      secretName: aws-secret-kuma-uptime-metrics-auth
+      mountPath: /etc/prometheus/secrets/kuma-uptime-metrics-auth
+      readOnly: true  
+
 serverFiles:
   prometheus.yml:
     scrape_configs:
@@ -82,6 +87,9 @@ serverFiles:
 
       - job_name: 'uptime-kuma'
         metrics_path: /metrics
+        basic_auth:
+          username_file: /etc/prometheus/secrets/kuma-uptime-metrics-auth/username
+          password_file: /etc/prometheus/secrets/kuma-uptime-metrics-auth/password
         static_configs:
           - targets:
               - "uptime-kuma:3001"        
