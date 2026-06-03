@@ -40,7 +40,7 @@ server:
       readOnly: true
 
     - name: kuma-uptime-metrics-auth
-      secretName: aws-secret-kuma-uptime-metrics-auth
+      secretName: kuma-uptime-metrics-auth
       mountPath: /etc/prometheus/secrets/kuma-uptime-metrics-auth
       readOnly: true  
 
