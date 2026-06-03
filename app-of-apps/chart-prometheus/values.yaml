@@ -80,6 +80,12 @@ serverFiles:
           - targets:
               - "prometheus-prometheus-pushgateway:9091" 
 
+      - job_name: 'uptime-kuma'
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - "uptime-kuma:3001"        
+
       # - job_name: "all-pods-/metrics"
       #   metrics_path: "/metrics"
       #   kubernetes_sd_configs:
