@@ -1,6 +1,6 @@
 {{- if .Values.podmonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitoring
+kind: PodMonitor
 metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Values.namespace }}
