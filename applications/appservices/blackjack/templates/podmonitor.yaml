@@ -1,0 +1,15 @@
+{{- if .Values.podmonitor.enabled }}
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  endpoints:
+  - port: {{ .Values.appName }}
+    path: /metrics
+    interval: {{ .Values.podmonitor.interval }}
+{{- end }}

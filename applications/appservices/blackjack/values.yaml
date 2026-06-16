@@ -10,7 +10,7 @@ service:
   targetPort: 80
   serviceType: ClusterIP
 containerPort: 80
-
+portName: metrics
 ingress:
   enabled: true
   ingressClassName: traefik
@@ -53,3 +53,7 @@ autoscaling:
         - type: Percent
           value: 50
           periodSeconds: 15
+
+podmonitor:
+  enabled: true
+  interval: 15s
