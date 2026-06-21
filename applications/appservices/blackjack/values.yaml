@@ -55,5 +55,5 @@ autoscaling:
           periodSeconds: 15
 
 podmonitor:
-  enabled: true
+  enabled: false
   interval: 15s
