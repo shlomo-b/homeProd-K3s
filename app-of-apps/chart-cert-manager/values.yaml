@@ -29,4 +29,4 @@ cainjector:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - node5
+                  - node2
