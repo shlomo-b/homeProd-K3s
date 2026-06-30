@@ -1,0 +1,18 @@
+{{- range $name, $config := .Values }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ $name }}
+  namespace: argocd
+spec:
+  description: {{ $config.description | quote }}
+  sourceRepos:
+    - {{ $config.repo | quote }}
+  destinations:
+    - namespace: {{ $config.destination.namespace | quote }}
+      server: {{ $config.destination.server | quote }}
+  clusterResourceWhitelist:
+    - group: {{ $config.clusterResourceWhitelist.group | quote }}
+      kind: {{ $config.clusterResourceWhitelist.kind | quote }}
+{{- end }}

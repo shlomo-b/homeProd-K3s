@@ -1,0 +1,49 @@
+platform-addons:
+  description: Cluster addons (external-secrets, cert-manager, external-dns, …)
+  repo: "*"
+  destination:
+    namespace: "*"
+    server: "*"
+  clusterResourceWhitelist:
+    group: "*"
+    kind: "*"
+
+cronjob-services:
+  description: Apps under main-infra/applications/cronjob-services/*
+  repo: "*"
+  destination:
+    namespace: "*"
+    server: "*"
+  clusterResourceWhitelist:
+    group: "*"
+    kind: "*"
+
+monitoring:
+  description: Apps under main-infra/applications/monitoring/*
+  repo: "*"
+  destination:
+    namespace: "*"
+    server: "*"
+  clusterResourceWhitelist:
+    group: "*"
+    kind: "*"
+
+platform-infra:
+  description: Apps under main-infra/applications/platform-infra/*
+  repo: "*"
+  destination:
+    namespace: "*"
+    server: "*"
+  clusterResourceWhitelist:
+    group: "*"
+    kind: "*"
+
+appservices:
+  description: Apps under main-infra/applications/appservices/*
+  repo: "*"
+  destination:
+    namespace: "*"
+    server: "*"
+  clusterResourceWhitelist:
+    group: "*"
+    kind: "*"
