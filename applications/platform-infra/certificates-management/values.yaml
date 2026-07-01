@@ -90,7 +90,7 @@ prometheus-pushgateway-cert:
 
 cilium-ui-cert:
   certificate_name: cilium-ui-cert
-  namespaces: cilium
+  namespaces: cilium-network-policy
   secretName: cilium-ui-tls
   commonName: cilium-ui.spider-shlomo.com
   dnsNames: 
