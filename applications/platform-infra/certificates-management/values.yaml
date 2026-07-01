@@ -87,3 +87,12 @@ prometheus-pushgateway-cert:
   dnsNames: 
   -  pushgateway.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+cilium-ui-cert:
+  certificate_name: cilium-ui-cert
+  namespaces: cilium
+  secretName: cilium-ui-tls
+  commonName: cilium-ui.spider-shlomo.com
+  dnsNames: 
+  -  cilium-ui.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
