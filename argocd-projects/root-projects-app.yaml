@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shlomo-b/gcp-porject.git
+    repoURL: https://github.com/shlomo-b/homeProd-K3s.git
     targetRevision: main
-    path: main-infra/argocd-projects
+    path: ./argocd-projects
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

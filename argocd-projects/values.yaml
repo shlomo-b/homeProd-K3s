@@ -1,15 +1,5 @@
-platform-addons:
-  description: Cluster addons (external-secrets, cert-manager, external-dns, …)
-  repo: "*"
-  destination:
-    namespace: "*"
-    server: "*"
-  clusterResourceWhitelist:
-    group: "*"
-    kind: "*"
-
 cronjob-services:
-  description: Apps under main-infra/applications/cronjob-services/*
+  description: 'Project for cronjob'
   repo: "*"
   destination:
     namespace: "*"
@@ -19,7 +9,7 @@ cronjob-services:
     kind: "*"
 
 monitoring:
-  description: Apps under main-infra/applications/monitoring/*
+  description: 'Project for monitoring'
   repo: "*"
   destination:
     namespace: "*"
@@ -29,7 +19,7 @@ monitoring:
     kind: "*"
 
 platform-infra:
-  description: Apps under main-infra/applications/platform-infra/*
+  description: 'Project for platform-infra'
   repo: "*"
   destination:
     namespace: "*"
@@ -39,7 +29,7 @@ platform-infra:
     kind: "*"
 
 appservices:
-  description: Apps under main-infra/applications/appservices/*
+  description: 'Project for appservices'
   repo: "*"
   destination:
     namespace: "*"
