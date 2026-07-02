@@ -21,6 +21,19 @@ hubble:
     enabled: true
     service:
       type: ClusterIP
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/preserve-host: "true"
+        traefik.ingress.kubernetes.io/router.tls: "true"
+      className: traefik
+      hosts:
+        - host: cilium-ui.spider-shlomo.com
+      tls:
+        - secretName: cilium-ui-tls
+          hosts:
+            - cilium-ui.spider-shlomo.com
   metrics:
     enabled:
       - dns
