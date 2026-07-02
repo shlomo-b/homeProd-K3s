@@ -29,7 +29,7 @@ hubble:
         traefik.ingress.kubernetes.io/router.tls: "true"
       className: traefik
       hosts:
-        - host: cilium-ui.spider-shlomo.com
+        - cilium-ui.spider-shlomo.com
       tls:
         - secretName: cilium-ui-tls
           hosts:
