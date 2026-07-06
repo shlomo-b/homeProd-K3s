@@ -133,6 +133,21 @@ serverFiles:
             regex: (.+)
             replacement: $1:5050
 
+      - job_name: hubble-metrics
+        metrics_path: /metrics
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - cilium-network-policy
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_name]
+            regex: hubble-metrics
+            action: keep
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            regex: hubble-metrics
+            action: keep
+
       - job_name: kubernetes-cadvisor
         scheme: https
         metrics_path: /metrics/cadvisor

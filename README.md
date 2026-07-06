@@ -147,6 +147,12 @@ All pools are advertised via L2. Traefik receives dedicated static IPs; other se
 
 Credentials for Grafana, Loki, and metrics auth are synced via `applications/platform-infra/secrets-management/`.
 
+### Cursor + Grafana MCP
+
+You can connect **Cursor** to Grafana via **MCP** (`uvx mcp-grafana`) to create dashboards, run PromQL/LogQL, and manage folders from the IDE — without deploying a separate `grafana-mcp` Helm chart.
+
+See **[explain-mcp-grafana.md](explain-mcp-grafana.md)** for a full guide in **English and Hebrew** (how `uvx` works, `mcp.json` setup, troubleshooting).
+
 ## Cluster-Wide Resources
 
 ### ClusterIssuer (`k8s-apps/cluster-wide-resources/ClusterIssuer.yaml`)
