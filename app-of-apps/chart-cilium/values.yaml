@@ -41,11 +41,10 @@ hubble:
       - drop:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
       - flow:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
       - icmp
-      - tcp:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,destination_port,traffic_direction
-      - udp:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,destination_port,traffic_direction
-      - port-distribution:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,destination_port
+      - tcp:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
+      - udp:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
+      - port-distribution:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod
       - http:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
-      - https:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
 
 securityContext:
   # -- Run the pod with elevated privileges (needed for nsenter in init containers on master node)
