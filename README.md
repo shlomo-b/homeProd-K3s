@@ -149,9 +149,9 @@ Credentials for Grafana, Loki, and metrics auth are synced via `applications/pla
 
 ### Cursor + Grafana MCP
 
-You can connect **Cursor** to Grafana via **MCP** (`uvx mcp-grafana`) to create dashboards, run PromQL/LogQL, and manage folders from the IDE — without deploying a separate `grafana-mcp` Helm chart.
+You can connect **Cursor** to Grafana via **MCP** (`uvx mcp-grafana`) to create dashboards, run PromQL/LogQL, and manage folders from the IDE — without deploying a separate `grafana-mcp` Helm chart. Configure `~/.cursor/mcp.json` with your Grafana URL and a service account token (`glsa_...`).
 
-See **[explain-mcp-grafana.md](explain-mcp-grafana.md)** for a full guide in **English and Hebrew** (how `uvx` works, `mcp.json` setup, troubleshooting).
+See **[readme/explain-mcp-grafana.md](readme/explain-mcp-grafana.md)** for the full guide (how `uvx` works, `mcp.json` setup, troubleshooting).
 
 ## Cluster-Wide Resources
 

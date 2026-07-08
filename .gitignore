@@ -30,3 +30,4 @@ app-of-apps/chart-keel/
 applications/cronjob-services/cronjob/templates/secret.yaml
 applications/appservices/secretpass/secretpass-server/templates/secret.yaml
 node3-taint.yaml
+explain-mcp-grafana-he.md
