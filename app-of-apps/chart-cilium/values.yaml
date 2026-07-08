@@ -38,13 +38,13 @@ hubble:
     # labelsContext adds source/dest pod, namespace, and port labels for network policy planning
     enabled:
       - dns:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod
-      - drop:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
-      - flow:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
+      - drop:labelsContext=source_ip,source_namespace,source_pod,destination_ip,destination_namespace,destination_pod,traffic_direction
+      - flow:labelsContext=source_ip,source_namespace,source_pod,destination_ip,destination_namespace,destination_pod,traffic_direction
       - icmp
-      - tcp:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
-      - udp:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
-      - port-distribution:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod
-      - http:labelsContext=source_namespace,source_pod,destination_namespace,destination_pod,traffic_direction
+      - tcp:labelsContext=source_ip,source_namespace,source_pod,destination_ip,destination_namespace,destination_pod,traffic_direction
+      - udp:labelsContext=source_ip,source_namespace,source_pod,destination_ip,destination_namespace,destination_pod,traffic_direction
+      - port-distribution:labelsContext=source_ip,source_namespace,source_pod,destination_ip,destination_namespace,destination_pod
+      - http:labelsContext=source_ip,source_namespace,source_pod,destination_ip,destination_namespace,destination_pod,traffic_direction
 
 securityContext:
   # -- Run the pod with elevated privileges (needed for nsenter in init containers on master node)
