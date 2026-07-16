@@ -28,7 +28,7 @@ server:
   image:
     name: shlomobarzili/secretpass-backend
     pullPolicy: IfNotPresent
-    tag: v5.1.0
+    tag: v5.1.1
   containerPort: 5050
   autoscaling:
     enabled: true
