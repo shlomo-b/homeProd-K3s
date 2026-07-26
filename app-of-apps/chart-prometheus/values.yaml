@@ -78,6 +78,7 @@ serverFiles:
               - "node2:9100"
               - "node4:9100"
               - "node5:9100"
+              - "node1:9100"
 
 
       - job_name: 'pushgateway'

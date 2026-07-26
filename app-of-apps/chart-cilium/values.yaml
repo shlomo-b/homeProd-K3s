@@ -33,7 +33,7 @@ hubble:
       tls:
         - secretName: cilium-ui-tls
           hosts:
-            - cilium-ui.spider-shlomo.com
+            - cilium-ui.spider-shlomo.com 
   metrics:
     # labelsContext adds source/dest pod, namespace, and port labels for network policy planning
     enabled:
