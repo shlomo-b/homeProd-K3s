@@ -225,7 +225,9 @@ serverFiles:
         static_configs:
           - targets: 
               - "10.0.11.10:443"
-        scheme: https                                    
+        scheme: https
+        tls_config:
+          insecure_skip_verify: true                         
   
 alertmanager:
   enabled: false
