@@ -101,6 +101,10 @@ serverFiles:
         kubernetes_sd_configs:
           - role: pod
         relabel_configs:
+          # SecretPass backend serves metrics at /api/metrics (job secretpass-backend), not /metrics
+          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_app]
+            regex: secretpass;backend
+            action: drop
           - source_labels: [__meta_kubernetes_namespace]
             target_label: kubernetes_namespace
           - source_labels: [__meta_kubernetes_pod_name]
