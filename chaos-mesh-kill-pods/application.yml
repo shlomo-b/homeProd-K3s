@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: ./chaos-mesh-secretpass
+    path: ./chaos-mesh-kill-pods
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
