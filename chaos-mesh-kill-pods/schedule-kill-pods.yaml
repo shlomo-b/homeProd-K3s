@@ -1,4 +1,4 @@
-# Once a week: Friday 09:00 (cluster/Chaos Mesh timezone, Asia/Jerusalem).
+# TEST: every 5 minutes. (Later: Friday 09:00 → "0 9 * * 5")
 # For each pod-owner group with >= 2 running pods → delete ONE pod.
 # If only 1 pod → skip.
 apiVersion: chaos-mesh.org/v1alpha1
@@ -7,7 +7,7 @@ metadata:
   name: app-pod-kill
   namespace: chaos-mesh
 spec:
-  schedule: "0 9 * * 5"
+  schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
   historyLimit: 5
   type: Workflow
