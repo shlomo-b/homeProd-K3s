@@ -32,3 +32,4 @@ applications/appservices/secretpass/secretpass-server/templates/secret.yaml
 node3-taint.yaml
 explain-mcp-grafana-he.md
 chaos-mesh-kill-pods/README.md
+podst.txt
