@@ -1,13 +1,14 @@
-# Every Friday 09:00 (Chaos Mesh chart timezone: Asia/Jerusalem).
-# For each pod-owner group with >= 2 running pods → delete ONE pod.
-# If only 1 pod → skip.
+# Every 5 minutes (change to "*/10 * * * *" if you want 10 min).
+# For each pod-owner group with >= 2 running pods → delete ONE pod
+# only if that pod has been Running >= 10 minutes.
+# If only 1 pod, or all candidates younger than 10m → skip.
 apiVersion: chaos-mesh.org/v1alpha1
 kind: Schedule
 metadata:
   name: app-pod-kill
   namespace: chaos-mesh
 spec:
-  schedule: "0 9 * * 5"
+  schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
   historyLimit: 5
   type: Workflow
@@ -26,34 +27,70 @@ spec:
             command: ["/bin/sh", "-c"]
             args:
               - |
-                # Group Running pods by owner (same ReplicaSet/STS/DS = same service).
-                # Print: ACTION ns pod count
-                # ACTION=KILL only when count >= 2; ACTION=SKIP when count == 1
+                # --- setup ---
+                # MIN_AGE_SEC: pod must be live at least this many seconds (600 = 10 min)
+                # NOW: current UTC time in epoch seconds (used to compute pod age)
+                # TMP: temp dir for grouping pods by owner; deleted on exit
+
+                MIN_AGE_SEC=600
+                NOW=$(date -u +%s)
+                TMP=$(mktemp -d)
+                trap 'rm -rf "$TMP"' EXIT
+
+                # --- list all Running pods cluster-wide ---
+                # Each line: namespace|podName|ownerKind|ownerName|startTime
+
                 kubectl get pods -A --field-selector=status.phase=Running \
-                  -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.metadata.ownerReferences[0].kind}{"|"}{.metadata.ownerReferences[0].name}{"\n"}{end}' \
-                | awk -F'|' '
-                  $3 == "" { next }
-                  {
-                    key = $1 "|" $3 "|" $4
-                    count[key]++
-                    if (!(key in pod)) pod[key] = $2
-                  }
-                  END {
-                    for (k in count) {
-                      split(k, a, "|")
-                      ns = a[1]
-                      name = pod[k]
-                      n = count[k]
-                      if (n >= 2)
-                        print "KILL", ns, name, n
-                      else
-                        print "SKIP", ns, name, n
-                    }
-                  }' \
-                | while read -r action ns name n; do
-                    echo "${action} ${ns}/${name} (running=${n})"
-                    if [ "$action" = "KILL" ]; then
+                  -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.metadata.ownerReferences[0].kind}{"|"}{.metadata.ownerReferences[0].name}{"|"}{.status.startTime}{"\n"}{end}' \
+                  > "$TMP/all.txt"
+
+                # --- while #1: group pods by owner into one file per service ---
+                # Skip pods with no owner. Write ns|name|startTime into TMP/<key>.pods
+
+                while IFS='|' read -r ns name kind owner start; do
+                  [ -z "$kind" ] && continue
+                  key="${ns}|${kind}|${owner}"
+                  f=$(printf '%s' "$key" | sed 's|/|__|g')
+                  printf '%s|%s|%s\n' "$ns" "$name" "$start" >> "$TMP/$f.pods"
+                done < "$TMP/all.txt"
+
+                # --- for: one iteration per service group (each *.pods file) ---
+                # Count replicas; if < 2 → SKIP; if >= 2 → try to kill one old enough pod
+
+                for f in "$TMP"/*.pods; do
+                  [ -f "$f" ] || continue
+                  n=$(wc -l < "$f" | tr -d ' ')
+                  first=$(head -1 "$f")
+                  ns=$(printf '%s' "$first" | cut -d'|' -f1)
+                  name=$(printf '%s' "$first" | cut -d'|' -f2)
+
+                  # Only 1 Running pod for this owner → never kill (no HA)
+
+                  if [ "$n" -lt 2 ]; then
+                    echo "SKIP ${ns}/${name} (running=${n})"
+                    continue
+                  fi
+
+                  # --- while #2: walk pods in this group; kill first with age >= 10m ---
+                  # Convert startTime → epoch, age = NOW - start; delete then break
+
+                  killed=0
+                  while IFS='|' read -r ns name start; do
+                    s=$(printf '%s' "$start" | sed -E 's/\.[0-9]+Z$/Z/')
+                    start_epoch=$(date -u -D '%Y-%m-%dT%H:%M:%SZ' -d "$s" +%s 2>/dev/null || echo 0)
+                    age=$((NOW - start_epoch))
+                    if [ "$start_epoch" -gt 0 ] && [ "$age" -ge "$MIN_AGE_SEC" ]; then
+                      echo "KILL ${ns}/${name} (running=${n} age=${age}s)"
                       kubectl delete pod "$name" -n "$ns" --wait=false || true
+                      killed=1
+                      break
                     fi
-                  done
+                  done < "$f"
+
+                  # Group had >= 2 pods but none were old enough yet → SKIP
+
+                  if [ "$killed" -eq 0 ]; then
+                    echo "SKIP ${ns}/${name} (running=${n} all_younger_than_${MIN_AGE_SEC}s)"
+                  fi
+                done
                 echo "done"
