@@ -1,4 +1,4 @@
-# Every 30 minutes.
+# Every Friday at 09:00 (Chaos Mesh chart timezone: Asia/Jerusalem).
 # For each pod-owner group with >= 2 running pods → delete ONE pod
 # only if that pod has been Running >= 10 minutes.
 # If only 1 pod, or all candidates younger than 10m → skip.
@@ -8,7 +8,7 @@ metadata:
   name: app-pod-kill
   namespace: chaos-mesh
 spec:
-  schedule: "*/30 * * * *"
+  schedule: "0 9 * * 5"
   concurrencyPolicy: Forbid
   historyLimit: 1
   type: Workflow
