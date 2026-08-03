@@ -10,7 +10,7 @@ metadata:
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
-  historyLimit: 5
+  historyLimit: 1
   type: Workflow
   workflow:
     entry: kill-one
