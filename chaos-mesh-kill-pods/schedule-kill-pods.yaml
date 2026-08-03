@@ -22,7 +22,7 @@ spec:
           container:
             name: kill
             # Portable image with shell + kubectl (not Bitnami, not k3s-specific)
-            image: alpine/k8s:1.31.0
+            image: alpine/k8s:1.32.13
             imagePullPolicy: IfNotPresent
             command: ["/bin/sh", "-c"]
             args:
