@@ -9,7 +9,10 @@ metadata:
   namespace: chaos-mesh
 spec:
   schedule: "*/10 * * * *"
-  concurrencyPolicy: Forbid
+  # Allow: Chaos Mesh can leave a finished Workflow in status.active;
+  # with Forbid that blocks all future runs until you delete it by hand.
+  # Our Task finishes in seconds, so overlap risk is negligible.
+  concurrencyPolicy: Allow
   historyLimit: 1
   type: Workflow
   workflow:
