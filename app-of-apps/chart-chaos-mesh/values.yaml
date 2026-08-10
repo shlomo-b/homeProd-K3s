@@ -1,10 +1,8 @@
-# Values for the upstream chaos-mesh subchart (dependency name = key).
-chaos-mesh:
-  rbac:
-    create: true
-  timezone: "Asia/Jerusalem"
-  dashboard:
-    enabled: true
-    securityMode: false
-    service:
-      type: LoadBalancer
+rbac:
+  create: true
+timezone: "Asia/Jerusalem"
+dashboard:
+  enabled: true
+  securityMode: false
+  service:
+    type: LoadBalancer
