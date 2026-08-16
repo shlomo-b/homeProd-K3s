@@ -43,7 +43,7 @@ server:
     - name: kuma-uptime-metrics-auth
       secretName: kuma-uptime-metrics-auth
       mountPath: /etc/prometheus/secrets/kuma-uptime-metrics-auth
-      readOnly: true  
+      readOnly: true
 
 serverFiles:
   prometheus.yml:
@@ -196,11 +196,20 @@ serverFiles:
             target_label: __metrics_path__
             replacement: /api/v1/nodes/${1}/proxy/metrics
 
+      # k3s embedded etcd metrics (Grafana dashboard 15308)
+      # Port 2381 = metrics (HTTP). Does NOT touch/delete etcd data.
+      # Requires on each server: etcd-expose-metrics: true  (then restart k3s)
       - job_name: "etcd"
         scrape_interval: 15s
         metrics_path: /metrics
+        scheme: http
         static_configs:
-          - targets: ["poller01.tylephony.com:2379", "poller02.tylephony.com:2379"]       
+          - targets:
+              - "10.90.100.250:2381"  # master
+              - "10.90.100.252:2381"  # master2
+              - "10.90.100.253:2381"  # master3
+            labels:
+              cluster: k3s
 
 #---------------outside the network----------------#
 
