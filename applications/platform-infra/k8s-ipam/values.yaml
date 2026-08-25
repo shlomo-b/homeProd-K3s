@@ -28,7 +28,7 @@ ipam_k8s:
   image:
     name: shlomobarzili/k8sipam
     pullPolicy: IfNotPresent
-    tag: v1.0.0
+    tag: v2.0.0
   containerPort: 8088
   autoscaling:
     enabled: true
