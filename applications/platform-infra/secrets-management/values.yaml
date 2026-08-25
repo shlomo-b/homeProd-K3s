@@ -108,3 +108,14 @@ kuma-uptime-metrics-auth:
     dataFrom:
       extract:
         key: kuma-uptime-metrics-auth
+
+ipam-credentials:
+    external_secret_name: ipam-credentials
+    namespaces:
+      - k8s-ipam
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  ik8s-ipam
+    dataFrom:
+      extract:
+        key: k8s-ipam
