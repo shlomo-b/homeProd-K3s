@@ -115,7 +115,7 @@ ipam-credentials:
       - k8s-ipam
     refreshInterval: 168h
     secretStoreRefName: aws-secret-store
-    target:  ik8s-ipam
+    target:  k8s-ipam
     dataFrom:
       extract:
         key: k8s-ipam
