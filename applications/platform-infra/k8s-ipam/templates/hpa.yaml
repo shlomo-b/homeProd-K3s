@@ -1,0 +1,38 @@
+{{- if .Values.ipam_k8s.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "yourchart.fullname" (dict "name" .Values.ipam_k8s.name) }}-hpa
+  namespace:  {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.ipam_k8s.name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "yourchart.fullname" (dict "name" .Values.ipam_k8s.name) }}
+  minReplicas: {{ .Values.ipam_k8s.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.ipam_k8s.autoscaling.maxReplicas }}
+  metrics:
+{{- if .Values.ipam_k8s.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.ipam_k8s.autoscaling.targetCPUUtilizationPercentage }}
+{{- end }}
+{{- if .Values.ipam_k8s.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.ipam_k8s.autoscaling.targetMemoryUtilizationPercentage }}
+{{- end }}
+{{- with .Values.ipam_k8s.autoscaling.behavior }}
+  behavior:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- end }}
+

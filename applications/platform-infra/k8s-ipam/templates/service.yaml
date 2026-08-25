@@ -1,0 +1,18 @@
+{{- if .Values.ipam_k8s.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name:   {{ include "yourchart.fullname" (dict "name" .Values.ipam_k8s.name) }}-svc
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.ipam_k8s.name }}
+spec:
+  selector:
+    app:  {{ .Values.ipam_k8s.name }}
+  ports:
+    - port: {{ .Values.ipam_k8s.service.port }}
+      targetPort: {{ .Values.ipam_k8s.service.port }}
+      protocol: TCP
+  type: {{ .Values.ipam_k8s.service.serviceType }}
+  
+{{- end }}

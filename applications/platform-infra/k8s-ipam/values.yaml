@@ -1,0 +1,143 @@
+appName: k8s-ipam
+namespace: k8s-ipam
+
+
+ipam_k8s:
+  enabled: true
+  revisionHistoryLimit: 0
+#  replicas: 2
+  name: k8s-ipam
+  # annotations:
+  #   configmap.reloader.stakater.com/reload: "config-backend"
+  #   secret.reloader.stakater.com/reload: "secretspass-credentials"
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true  
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop: ["ALL"]
+
+  service:
+    enabled: true
+    serviceType: LoadBalancer
+    port: 8088
+  image:
+    name: shlomobarzili/k8sipam
+    pullPolicy: IfNotPresent
+    tag: v1.0.0
+  containerPort: 8088
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 50
+    targetMemoryUtilizationPercentage: 70
+    behavior:
+      scaleUp:
+        stabilizationWindowSeconds: 60
+        policies:
+          - type: Percent
+            value: 50
+            periodSeconds: 15
+      scaleDown:
+        stabilizationWindowSeconds: 60
+        policies:
+          - type: Percent
+            value: 50
+            periodSeconds: 15
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - master2
+                  - master3
+  env:
+    # # default is INFO
+    # - name: LOG_LEVEL
+    #   value: "INFO"
+    - name: TZ
+      value: "Asia/Jerusalem" 
+
+
+    - name: IPAM_PASSWORD
+      secretName:  k8s-ipam
+      key: IPAM_PASSWORD
+
+    - name: IPAM_USER
+      secretName:  k8s-ipam
+      key: IPAM_USER
+
+    - name: MONGO_HOST
+      secretName:  k8s-ipam
+      key: MONGO_HOST
+
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      secretName:  k8s-ipam
+      key: MONGO_INITDB_ROOT_PASSWORD
+
+    - name: MONGO_INITDB_ROOT_USERNAME
+      secretName:  k8s-ipam
+      key: MONGO_INITDB_ROOT_USERNAME
+
+      
+  # provider:
+  #   aws:
+  #     enabled: true
+  #     secretName: secretspass-credentials
+  #     credentials:
+  #       aws_access_key_id: AWS_ACCESS_KEY_ID
+  #       aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+  #       bucket_name: BUCKET_NAME
+  #   azure:
+  #     enabled: false
+  #     secretName: cronjob-credentials-azure
+  #     credentials:
+  #       azure_tenant_id: AZURE_TENANT_ID
+  #       azure_client_id: AZURE_CLIENT_ID
+  #       azure_client_secret: AZURE_CLIENT_SECRET
+  #       azure_storage_account: AZURE_STORAGE_ACCOUNT
+  #       azure_storage_container: AZURE_STORAGE_CONTAINER
+  #   gcp:
+  #     enabled: false 
+  #     secretName: cronjob-credentials-gcp
+  #     credentials:
+  #       gcp_application_credentials: GCP_APPLICATION_CREDENTIALS
+  #       gcp_bucket_name: GCP_BUCKET_NAME    
+
+  cm:
+    enabled: true
+    data:
+      USE_MONGODB: true
+      MONGO_DB: ipam     
+
+  resources:    
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi    
+
+  ingress:
+    enabled: false
+    ingressClassName: traefik
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/preserve-host: "true"
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    host: secretpass.spider-shlomo.com
+    paths:
+    -  path: /api/
+       pathType: Prefix
+       serviceName: backend-svc
+    -  path: /remote/saml/
+       pathType: Prefix
+       serviceName: backend-svc

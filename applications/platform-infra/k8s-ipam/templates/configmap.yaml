@@ -1,0 +1,11 @@
+{{- if and .Values.ipam_k8s.cm .Values.ipam_k8s.cm.enabled .Values.ipam_k8s.cm.data }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{ .Values.ipam_k8s.name }}
+  namespace: {{ .Values.namespace }}
+data:
+{{- range $k, $v := .Values.ipam_k8s.cm.data }}
+  {{ $k }}: {{ $v | quote }}
+{{- end }}
+{{- end }}
