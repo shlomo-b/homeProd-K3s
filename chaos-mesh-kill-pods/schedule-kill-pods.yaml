@@ -1,14 +1,17 @@
 # Every Friday at 09:00 (Chaos Mesh chart timezone: Asia/Jerusalem).
-# For each pod-owner group with >= 2 running pods → delete ONE pod
+# For each pod-owner group with >= 2 running pods → kill ONE pod
 # only if that pod has been Running >= 10 minutes.
 # If only 1 pod, or all candidates younger than 10m → skip.
+#
+# Pick/skip logic is unchanged. The kill is a PodChaos (not kubectl delete)
+# so Experiments in the UI lists the pods that were actually killed.
 apiVersion: chaos-mesh.org/v1alpha1
 kind: Schedule
 metadata:
   name: app-pod-kill
   namespace: chaos-mesh
 spec:
-  schedule: "0 9 * * 5"
+  schedule: "*/2 * * * *"
   # Allow (recommended here): if a finished Workflow stays in status.active,
   # Forbid would block all future Fridays until you delete it by hand.
   # Our Task finishes in seconds → overlap risk is negligible.
@@ -39,6 +42,41 @@ spec:
                 NOW=$(date -u +%s)
                 TMP=$(mktemp -d)
                 trap 'rm -rf "$TMP"' EXIT
+                killed_seq=0
+
+                # Keep only this Friday's PodChaos in the UI (same idea as historyLimit: 1)
+                kubectl delete podchaos -n chaos-mesh -l app.kubernetes.io/name=app-pod-kill --wait=false 2>/dev/null || true
+
+                # Alpine still picks the pod. Chaos Mesh performs the kill so Experiments can show it.
+                apply_podchaos() {
+                  _ns="$1"
+                  _name="$2"
+                  killed_seq=$((killed_seq + 1))
+                  _safe=$(printf '%s' "$_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//' | cut -c1-36)
+                  [ -z "$_safe" ] && _safe=pod
+                  _pc="kill-${_safe}-$(date +%s)-${killed_seq}"
+                  cat <<EOF | kubectl apply -f -
+                apiVersion: chaos-mesh.org/v1alpha1
+                kind: PodChaos
+                metadata:
+                  name: ${_pc}
+                  namespace: chaos-mesh
+                  labels:
+                    app.kubernetes.io/name: app-pod-kill
+                  annotations:
+                    app-pod-kill/target: "${_ns}/${_name}"
+                spec:
+                  action: pod-kill
+                  mode: one
+                  duration: "1s"
+                  selector:
+                    namespaces:
+                      - ${_ns}
+                    pods:
+                      ${_ns}:
+                        - ${_name}
+                EOF
+                }
 
                 # --- list all Running pods cluster-wide ---
                 # Each line: namespace|podName|ownerKind|ownerName|startTime
@@ -75,7 +113,7 @@ spec:
                   fi
 
                   # --- while #2: walk pods in this group; kill first with age >= 10m ---
-                  # Convert startTime → epoch, age = NOW - start; delete then break
+                  # Convert startTime → epoch, age = NOW - start; PodChaos then break
 
                   killed=0
                   while IFS='|' read -r ns name start; do
@@ -84,7 +122,7 @@ spec:
                     age=$((NOW - start_epoch))
                     if [ "$start_epoch" -gt 0 ] && [ "$age" -ge "$MIN_AGE_SEC" ]; then
                       echo "KILL ${ns}/${name} (running=${n} age=${age}s)"
-                      kubectl delete pod "$name" -n "$ns" --wait=false || true
+                      apply_podchaos "$ns" "$name" || true
                       killed=1
                       break
                     fi

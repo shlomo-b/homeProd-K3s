@@ -7,7 +7,11 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["pods"]
-    verbs: ["get", "list", "delete"]
+    verbs: ["get", "list"]
+  # Task creates one PodChaos per killed pod so Experiments UI can show the target
+  - apiGroups: ["chaos-mesh.org"]
+    resources: ["podchaos"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
