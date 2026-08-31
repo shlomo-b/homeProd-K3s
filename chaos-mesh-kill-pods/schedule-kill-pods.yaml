@@ -11,7 +11,7 @@ metadata:
   name: app-pod-kill
   namespace: chaos-mesh
 spec:
-  schedule: "*/30 * * * *"
+  schedule: "0 9 * * 5"
   # Allow (recommended here): if a finished Workflow stays in status.active,
   # Forbid would block all future Fridays until you delete it by hand.
   # Our Task finishes in seconds → overlap risk is negligible.
