@@ -16,7 +16,7 @@ client:
   image:
     name: shlomobarzili/secretpass-frontend
     pullPolicy: IfNotPresent
-    tag: v3.1.2
+    tag: v3.2.0
   containerPort: 3000
   autoscaling:
     enabled: true
