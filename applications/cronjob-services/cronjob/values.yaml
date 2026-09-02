@@ -17,7 +17,7 @@ backup-fortigate:
     labels: {}
     annotations: {}
 
-  schedule: "*/5 * * * *" # every month at 00:30
+  schedule: "30 0 1 * *" # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
@@ -91,13 +91,13 @@ backup-fortigate:
       azure: ""
       gcp: ""
 
-      # connect to cron-board ui 
+     # connect to cron-board ui 
       USE_CRONBOARD_UI: true
       CRONBOARD_URL: http://10.0.11.10:8090
       HOST_NAME: backup-fortigate
       JOB_NAME: backup-fortigate-fw
       JOB_RUNTIME: kubernetes
-      JOB_DESCRIPTION: "Fortigate Backup CronJob"
+      JOB_DESCRIPTION: "Fortigate Firewall Backup CronJob"
 
 
   podSecurityContext:
@@ -129,7 +129,7 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule:  "*/5 * * * *" # every month at 00:00
+  schedule:  "0 0 1 * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
