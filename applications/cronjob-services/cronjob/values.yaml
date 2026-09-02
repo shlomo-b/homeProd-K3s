@@ -91,6 +91,14 @@ backup-fortigate:
       azure: ""
       gcp: ""
 
+      # connect to cron-board ui 
+      USE_CRONBOARD_UI: true
+      CRONBOARD_URL: http://10.0.11.10:8090
+      HOST_NAME: backup-fortigate
+      JOB_NAME: backup-fortigate-fw
+      JOB_RUNTIME: kubernetes
+      JOB_DESCRIPTION: "Fortigate Backup CronJob"
+
 
   podSecurityContext:
     runAsUser: 1000
