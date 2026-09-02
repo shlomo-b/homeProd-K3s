@@ -196,12 +196,12 @@ backup-juniper:
       gcp: ""
 
       # connect to cron-board ui 
-      USE_CRONBOARD_UI=true
-      CRONBOARD_URL=http://10.0.11.10:8090
-      HOST_NAME=backup-juniper
-      JOB_NAME=backup-juniper-sw
-      JOB_RUNTIME=kubernetes
-      JOB_DESCRIPTION="Juniper Backup CronJob"
+      USE_CRONBOARD_UI: true
+      CRONBOARD_URL: http://10.0.11.10:8090
+      HOST_NAME: backup-juniper
+      JOB_NAME: backup-juniper-sw
+      JOB_RUNTIME: kubernetes
+      JOB_DESCRIPTION: "Juniper Backup CronJob"
 
   podSecurityContext:
     runAsUser: 1000
