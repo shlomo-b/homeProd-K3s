@@ -21,7 +21,7 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
-    tag: v1.9.4
+    tag: v1.9.5
 
   env:
      # default is INFO
@@ -133,7 +133,7 @@ backup-juniper:
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
-    tag: v1.9.4
+    tag: v1.9.5
 
   env:
     # # default is INFO
