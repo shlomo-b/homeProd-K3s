@@ -17,11 +17,11 @@ backup-fortigate:
     labels: {}
     annotations: {}
 
-  schedule: "30 0 1 * *" # every month at 00:30
+  schedule: "*/5 * * * *"  # every month at 00:30
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
-    tag: v1.9.1
+    tag: v1.9.2
 
   env:
      # default is INFO
@@ -129,11 +129,11 @@ backup-juniper:
     labels: {}
     annotations: {}
 
-  schedule:  "0 0 1 * *" # every month at 00:00
+  schedule:  "*/5 * * * *" # every month at 00:00
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
-    tag: v1.9.1
+    tag: v1.9.2
 
   env:
     # # default is INFO
