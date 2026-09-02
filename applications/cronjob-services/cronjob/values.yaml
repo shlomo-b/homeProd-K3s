@@ -21,7 +21,7 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
-    tag: v1.7.0
+    tag: v1.9.1
 
   env:
      # default is INFO
@@ -125,7 +125,7 @@ backup-juniper:
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
-    tag: v1.7.0
+    tag: v1.9.1
 
   env:
     # # default is INFO
@@ -194,6 +194,14 @@ backup-juniper:
       aws: "true"
       azure: ""
       gcp: ""
+
+      # connect to cron-board ui 
+      USE_CRONBOARD_UI=true
+      CRONBOARD_URL=http://10.0.11.10:8090
+      HOST_NAME=backup-juniper
+      JOB_NAME=backup-juniper-sw
+      JOB_RUNTIME=kubernetes
+      JOB_DESCRIPTION="Juniper Backup CronJob"
 
   podSecurityContext:
     runAsUser: 1000
