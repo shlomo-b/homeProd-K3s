@@ -1,0 +1,23 @@
+{{- range $name, $config := .Values }}
+{{- if $config.cronjob_name }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cronboard-read-schedule-{{ $config.cronjob_name }}
+  namespace: {{ include "cronjob.namespace" $config }}
+  labels:
+    app: {{ $config.cronjob_name }}
+subjects:
+  - kind: ServiceAccount
+    name: {{- if $config.serviceAccount.name }}
+          {{ $config.serviceAccount.name }}
+          {{- else }} sa-{{ $config.cronjob_name }}
+        {{- end }}
+    namespace: {{ include "cronjob.namespace" $config }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cronboard-read-schedule-{{ $config.cronjob_name }}
+---
+{{- end }}
+{{- end }}
