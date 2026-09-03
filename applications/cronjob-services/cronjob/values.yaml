@@ -17,6 +17,9 @@ backup-fortigate:
     labels: {}
     annotations: {}
 
+  rbac:
+    create: false
+
   schedule: "*/23 * * * *"  # every month at 00:30
   image:
     name: shlomobarzili/fortigate
@@ -130,6 +133,9 @@ backup-juniper:
     name: ""
     labels: {}
     annotations: {}
+
+  rbac:
+    create: false
 
   schedule:  "*/23 * * * *"  # every month at 00:00
   image:

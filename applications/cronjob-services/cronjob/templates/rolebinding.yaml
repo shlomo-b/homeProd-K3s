@@ -1,5 +1,5 @@
 {{- range $name, $config := .Values }}
-{{- if $config.cronjob_name }}
+{{- if and $config.cronjob_name $config.rbac $config.rbac.create }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
