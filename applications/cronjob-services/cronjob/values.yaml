@@ -27,6 +27,8 @@ backup-fortigate:
      # default is INFO
     - name: LOG_LEVEL
       value: "INFO"
+    - name: TZ
+      value: "Asia/Jerusalem"   
 
     - name: USERNAME
       secretName: cronjob-credentials-fortigate-backup
@@ -139,6 +141,8 @@ backup-juniper:
     # # default is INFO
     - name: LOG_LEVEL
       value: "INFO"
+    - name: TZ
+      value: "Asia/Jerusalem"
 
     - name: USERNAME
       secretName: cronjob-credentials-juniper-backup
