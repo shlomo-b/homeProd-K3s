@@ -30,6 +30,7 @@ configs:
     policy.csv: |
       p, role:readonly-monitoring, applications, get, monitoring/*, allow
       p, role:readonly-monitoring, applications, override, monitoring/*, allow
+      p, role:readonly-monitoring, applications, delete/*/Pod/*/*, monitoring/*, allow
       p, role:readonly-monitoring, applications, action/*, monitoring/*, deny
       p, role:readonly-monitoring, repositories, get, *, allow
       p, role:readonly-monitoring, projects, get, monitoring, allow
