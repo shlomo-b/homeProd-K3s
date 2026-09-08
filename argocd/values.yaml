@@ -53,7 +53,7 @@ configs:
     scopes: '[email]'
   secret:
     extra:
-      accounts.shlomo.password: "$2a$10$7vI8aWBnW3fIDveFcO31GOvKthHwL4Bq/d7m1YIsc8P6Hn4L/vVem"
+      accounts.shlomo.password: "$2b$10$C1tE9CDHniAJKiT24JgnAeHIRts.W3.DrrA4e6y5sybf9nOE7QwBi"
 # Ingress for argo cd
 server:
   ingress:
