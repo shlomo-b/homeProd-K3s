@@ -49,6 +49,7 @@ configs:
       g, "Shlomo_lab@spider-shlomo.com", role:admin
       g, "shlomob@spider-shlomo.com", role:admin
       g, "AlinaB@spider-shlomo.com", role:readonly-monitoring
+      g, "shlomo", role:readonly-monitoring
       g, "daniel@spider-shlomo.com", role:readonly-appservices
     scopes: '[email]'
   secret:

@@ -33,3 +33,4 @@ node3-taint.yaml
 explain-mcp-grafana-he.md
 chaos-mesh-kill-pods/README.md
 podst.txt
+create-argocd-user-local.md
