@@ -1,10 +1,9 @@
 # Every Friday at 09:00 (Chaos Mesh chart timezone: Asia/Jerusalem).
-# For each pod-owner group with >= 2 running pods → kill ONE pod
+# For each controller with spec.replicas (or DaemonSet desired) >= 2 → kill ONE pod
 # only if that pod has been Running >= 10 minutes.
-# If only 1 pod, or all candidates younger than 10m → skip.
+# replicas: 1 (Argo CD redis, etc.) → skip, even if 2 pods are Running during a rollout.
 #
-# Pick/skip logic is unchanged. The kill is a PodChaos (not kubectl delete)
-# so Experiments in the UI lists the pods that were actually killed.
+# Alpine picks the pod. The kill is a PodChaos so Experiments lists the target.
 apiVersion: chaos-mesh.org/v1alpha1
 kind: Schedule
 metadata:
@@ -36,7 +35,7 @@ spec:
                 # --- setup ---
                 # MIN_AGE_SEC: pod must be live at least this many seconds (600 = 10 min)
                 # NOW: current UTC time in epoch seconds (used to compute pod age)
-                # TMP: temp dir for grouping pods by owner; deleted on exit
+                # TMP: temp dir for grouping pods by controller; deleted on exit
 
                 MIN_AGE_SEC=600
                 NOW=$(date -u +%s)
@@ -47,7 +46,6 @@ spec:
                 # Keep only this Friday's PodChaos in the UI (same idea as historyLimit: 1)
                 kubectl delete podchaos -n chaos-mesh -l app.kubernetes.io/name=app-pod-kill --wait=false 2>/dev/null || true
 
-                # Alpine still picks the pod. Chaos Mesh performs the kill so Experiments can show it.
                 apply_podchaos() {
                   _ns="$1"
                   _name="$2"
@@ -78,25 +76,69 @@ spec:
                 EOF
                 }
 
-                # --- list all Running pods cluster-wide ---
-                # Each line: namespace|podName|ownerKind|ownerName|startTime
+                # Exact field match in ns|name|... files (no regex)
+                lookup() {
+                  awk -F'|' -v ns="$1" -v name="$2" '$1==ns && $2==name {print; exit}' "$3"
+                }
+
+                # Climb ReplicaSet → Deployment. HA = spec.replicas (DaemonSet: desired nodes).
+                kubectl get deploy -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.spec.replicas}{"\n"}{end}' > "$TMP/deploy.txt"
+                kubectl get sts -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.spec.replicas}{"\n"}{end}' > "$TMP/sts.txt"
+                kubectl get ds -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.status.desiredNumberScheduled}{"\n"}{end}' > "$TMP/ds.txt"
+                kubectl get rs -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.metadata.ownerReferences[0].kind}{"|"}{.metadata.ownerReferences[0].name}{"|"}{.spec.replicas}{"\n"}{end}' > "$TMP/rs.txt"
 
                 kubectl get pods -A --field-selector=status.phase=Running \
                   -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.metadata.ownerReferences[0].kind}{"|"}{.metadata.ownerReferences[0].name}{"|"}{.status.startTime}{"\n"}{end}' \
                   > "$TMP/all.txt"
 
-                # --- while #1: group pods by owner into one file per service ---
-                # Skip pods with no owner. Write ns|name|startTime into TMP/<key>.pods
-
                 while IFS='|' read -r ns name kind owner start; do
                   [ -z "$kind" ] && continue
-                  key="${ns}|${kind}|${owner}"
+                  ckind=""
+                  cname=""
+                  desired=0
+
+                  case "$kind" in
+                    ReplicaSet)
+                      rsline=$(lookup "$ns" "$owner" "$TMP/rs.txt")
+                      rskind=$(printf '%s' "$rsline" | cut -d'|' -f3)
+                      rsparent=$(printf '%s' "$rsline" | cut -d'|' -f4)
+                      rsrep=$(printf '%s' "$rsline" | cut -d'|' -f5)
+                      if [ "$rskind" = "Deployment" ] && [ -n "$rsparent" ]; then
+                        ckind="Deployment"
+                        cname="$rsparent"
+                        desired=$(printf '%s' "$(lookup "$ns" "$rsparent" "$TMP/deploy.txt")" | cut -d'|' -f3)
+                      else
+                        ckind="ReplicaSet"
+                        cname="$owner"
+                        desired="$rsrep"
+                      fi
+                      ;;
+                    StatefulSet)
+                      ckind="StatefulSet"
+                      cname="$owner"
+                      desired=$(printf '%s' "$(lookup "$ns" "$owner" "$TMP/sts.txt")" | cut -d'|' -f3)
+                      ;;
+                    DaemonSet)
+                      ckind="DaemonSet"
+                      cname="$owner"
+                      desired=$(printf '%s' "$(lookup "$ns" "$owner" "$TMP/ds.txt")" | cut -d'|' -f3)
+                      ;;
+                    *)
+                      echo "SKIP ${ns}/${name} (owner=${kind} not a scale controller)"
+                      continue
+                      ;;
+                  esac
+
+                  case "$desired" in
+                    ''|*[!0-9]*) desired=1 ;;
+                  esac
+
+                  key="${ns}|${ckind}|${cname}"
                   f=$(printf '%s' "$key" | sed 's|/|__|g')
                   printf '%s|%s|%s\n' "$ns" "$name" "$start" >> "$TMP/$f.pods"
+                  printf '%s\n' "$desired" > "$TMP/$f.desired"
+                  printf '%s|%s\n' "$ckind" "$cname" > "$TMP/$f.ctrl"
                 done < "$TMP/all.txt"
-
-                # --- for: one iteration per service group (each *.pods file) ---
-                # Count replicas; if < 2 → SKIP; if >= 2 → try to kill one old enough pod
 
                 for f in "$TMP"/*.pods; do
                   [ -f "$f" ] || continue
@@ -104,16 +146,22 @@ spec:
                   first=$(head -1 "$f")
                   ns=$(printf '%s' "$first" | cut -d'|' -f1)
                   name=$(printf '%s' "$first" | cut -d'|' -f2)
+                  desired=$(cat "${f%.pods}.desired" 2>/dev/null || echo 1)
+                  ctrl=$(cat "${f%.pods}.ctrl" 2>/dev/null || echo "?|?")
+                  ckind=$(printf '%s' "$ctrl" | cut -d'|' -f1)
+                  cname=$(printf '%s' "$ctrl" | cut -d'|' -f2)
 
-                  # Only 1 Running pod for this owner → never kill (no HA)
+                  # Controller asks for < 2 replicas → never kill (ignore extra Running pods in a rollout)
 
-                  if [ "$n" -lt 2 ]; then
-                    echo "SKIP ${ns}/${name} (running=${n})"
+                  if [ "$desired" -lt 2 ]; then
+                    echo "SKIP ${ns}/${name} (desired=${desired} running=${n} ${ckind}/${cname})"
                     continue
                   fi
 
-                  # --- while #2: walk pods in this group; kill first with age >= 10m ---
-                  # Convert startTime → epoch, age = NOW - start; PodChaos then break
+                  if [ "$n" -lt 2 ]; then
+                    echo "SKIP ${ns}/${name} (desired=${desired} running=${n} ${ckind}/${cname})"
+                    continue
+                  fi
 
                   killed=0
                   while IFS='|' read -r ns name start; do
@@ -121,17 +169,15 @@ spec:
                     start_epoch=$(date -u -D '%Y-%m-%dT%H:%M:%SZ' -d "$s" +%s 2>/dev/null || echo 0)
                     age=$((NOW - start_epoch))
                     if [ "$start_epoch" -gt 0 ] && [ "$age" -ge "$MIN_AGE_SEC" ]; then
-                      echo "KILL ${ns}/${name} (running=${n} age=${age}s)"
+                      echo "KILL ${ns}/${name} (desired=${desired} running=${n} age=${age}s ${ckind}/${cname})"
                       apply_podchaos "$ns" "$name" || true
                       killed=1
                       break
                     fi
                   done < "$f"
 
-                  # Group had >= 2 pods but none were old enough yet → SKIP
-
                   if [ "$killed" -eq 0 ]; then
-                    echo "SKIP ${ns}/${name} (running=${n} all_younger_than_${MIN_AGE_SEC}s)"
+                    echo "SKIP ${ns}/${name} (desired=${desired} running=${n} all_younger_than_${MIN_AGE_SEC}s ${ckind}/${cname})"
                   fi
                 done
                 echo "done"

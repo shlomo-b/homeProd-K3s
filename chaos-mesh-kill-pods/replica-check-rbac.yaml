@@ -8,6 +8,10 @@ rules:
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get", "list"]
+  # HA check uses Deployment/StatefulSet/DaemonSet spec, not a live Running-pod count
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list"]
   # Task creates one PodChaos per killed pod so Experiments UI can show the target
   - apiGroups: ["chaos-mesh.org"]
     resources: ["podchaos"]
