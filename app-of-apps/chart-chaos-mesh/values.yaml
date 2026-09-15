@@ -3,6 +3,6 @@ rbac:
 timezone: "Asia/Jerusalem"
 dashboard:
   enabled: true
-  securityMode: false
+  securityMode: true
   service:
     type: LoadBalancer
