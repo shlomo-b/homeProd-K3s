@@ -6,9 +6,8 @@ configs:
     server.insecure: true
   cm:
     create: true
-    # 2. Only allow UI/CLI password login for shlomo
-    accounts.shlomo: login
-    accounts.shlomo.enabled: "true"
+    # accounts.shlomo: login
+    # accounts.shlomo.enabled: "true"
 
     # SSO Configuration via Azure-ad
     url: https://argocd-k3s.spider-shlomo.com
@@ -52,9 +51,9 @@ configs:
       g, "shlomo", role:readonly-monitoring
       g, "daniel@spider-shlomo.com", role:readonly-appservices
     scopes: '[email]'
-  secret:
-    extra:
-      accounts.shlomo.password: "$2a$12$FCrTKEM6e3lcFgWeL7cvIuUMkzc7G0X87YkZT49Db1jENcVqUbne6"
+  # secret:
+  #   extra:
+  #     accounts.shlomo.password: "!!!!!!!!"
 # Ingress for argo cd
 server:
   ingress:
