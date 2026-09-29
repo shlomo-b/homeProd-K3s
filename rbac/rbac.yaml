@@ -1,0 +1,50 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: chatgpt-mcp-readonly
+  labels:
+    app.kubernetes.io/name: chatgpt-mcp
+    app.kubernetes.io/part-of: k3s-mcp
+    app.kubernetes.io/component: rbac
+rules:
+  - apiGroups: [""]
+    resources:
+      - pods
+      - services
+      - endpoints
+      - events
+      - nodes
+      - namespaces
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - replicasets
+      - statefulsets
+      - daemonsets
+    verbs: ["get", "list"]
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: chatgpt-mcp-readonly
+  labels:
+    app.kubernetes.io/name: chatgpt-mcp
+    app.kubernetes.io/part-of: k3s-mcp
+    app.kubernetes.io/component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: chatgpt-mcp-readonly
+subjects:
+  - kind: ServiceAccount
+    name: chatgpt-mcp
+    namespace: chatgpt-mcp
