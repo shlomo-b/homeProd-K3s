@@ -24,7 +24,7 @@ backup-fortigate:
   image:
     name: shlomobarzili/fortigate
     pullPolicy: IfNotPresent
-    tag: v1.9.7
+    tag: v1.9.8
 
   env:
      # default is INFO
@@ -88,7 +88,7 @@ backup-fortigate:
       FW_NAME: "FW-Shlomi #"
       
       # optional push metrics to pushgateway
-      METRICS_PUSHGW: "true"
+      metrics_pushgw: "true"
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
@@ -141,7 +141,7 @@ backup-juniper:
   image:
     name: shlomobarzili/junipersw
     pullPolicy: IfNotPresent
-    tag: v1.9.7
+    tag: v1.9.8
 
   env:
     # # default is INFO
@@ -205,7 +205,7 @@ backup-juniper:
       SW_NAME: "@Juniper_BB>"
       
       # optional push metrics to pushgateway.
-      METRICS_PUSHGW: "true"
+      metrics_pushgw: "true"
 
       # optional upload the file backup to cloud aws/azure/gcp.
       # If the value is false, the file will be saved in the container.
