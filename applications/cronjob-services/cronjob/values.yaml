@@ -88,7 +88,7 @@ backup-fortigate:
       FW_NAME: "FW-Shlomi #"
       
       # optional push metrics to pushgateway
-      metrics-pushgw: "true"
+      metrics_pushgw: "true"
 
       # optional upload the file backup to cloud aws/azure/gcp
       # If the value is false, the file will be saved in the container.
@@ -205,7 +205,7 @@ backup-juniper:
       SW_NAME: "@Juniper_BB>"
       
       # optional push metrics to pushgateway.
-      metrics-pushgw: "true"
+      metrics_pushgw: "true"
 
       # optional upload the file backup to cloud aws/azure/gcp.
       # If the value is false, the file will be saved in the container.
