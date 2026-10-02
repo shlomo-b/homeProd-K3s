@@ -79,6 +79,10 @@ ipam_k8s:
       secretName:  k8s-ipam
       key: MONGO_HOST
 
+    - name: MONGO_DB
+      secretName:  k8s-ipam
+      key: MONGO_DB  
+    
     - name: MONGO_INITDB_ROOT_PASSWORD
       secretName:  k8s-ipam
       key: MONGO_INITDB_ROOT_PASSWORD
