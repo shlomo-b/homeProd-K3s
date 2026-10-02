@@ -119,3 +119,14 @@ ipam-credentials:
     dataFrom:
       extract:
         key: k8s-ipam
+
+apphub-credentials:
+    external_secret_name: apphub-credentials
+    namespaces:
+      - apphub
+    refreshInterval: 168h
+    secretStoreRefName: aws-secret-store
+    target:  apphub
+    dataFrom:
+      extract:
+        key: apphub

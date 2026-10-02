@@ -1,0 +1,18 @@
+{{- if .Values.apphub.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name:   {{ include "yourchart.fullname" (dict "name" .Values.apphub.name) }}-svc
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.apphub.name }}
+spec:
+  selector:
+    app:  {{ .Values.apphub.name }}
+  ports:
+    - port: {{ .Values.apphub.service.port }}
+      targetPort: {{ .Values.apphub.service.port }}
+      protocol: TCP
+  type: {{ .Values.apphub.service.serviceType }}
+  
+{{- end }}

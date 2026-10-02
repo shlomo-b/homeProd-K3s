@@ -1,12 +1,12 @@
-appName: k8s-ipam
-namespace: k8s-ipam
+appName: apphub
+namespace: apphub
 
 
-ipam_k8s:
+apphub:
   enabled: true
   revisionHistoryLimit: 0
 #  replicas: 2
-  name: k8s-ipam
+  name: apphub
   # annotations:
   #   configmap.reloader.stakater.com/reload: "config-backend"
   #   secret.reloader.stakater.com/reload: "secretspass-credentials"
@@ -24,12 +24,12 @@ ipam_k8s:
   service:
     enabled: true
     serviceType: LoadBalancer
-    port: 8088
+    port: 8092
   image:
-    name: shlomobarzili/k8sipam
+    name: shlomobarzili/apphub
     pullPolicy: IfNotPresent
-    tag: v2.2.4
-  containerPort: 8088
+    tag: v1.0.0
+  containerPort: 8092
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -57,7 +57,7 @@ ipam_k8s:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - master2
+                  - master
                   - master3
   env:
     # # default is INFO
@@ -67,25 +67,25 @@ ipam_k8s:
       value: "Asia/Jerusalem" 
 
 
-    - name: IPAM_PASSWORD
-      secretName:  k8s-ipam
-      key: IPAM_PASSWORD
+    - name: APPHUB_USER
+      secretName:  apphub
+      key: APPHUB_USER
 
-    - name: IPAM_USER
-      secretName:  k8s-ipam
-      key: IPAM_USER
+    - name: APPHUB_PASSWORD
+      secretName:  apphub
+      key: APPHUB_PASSWORD
 
     - name: MONGO_HOST
-      secretName:  k8s-ipam
+      secretName:  apphub
       key: MONGO_HOST
 
-    - name: MONGO_INITDB_ROOT_PASSWORD
-      secretName:  k8s-ipam
-      key: MONGO_INITDB_ROOT_PASSWORD
-
     - name: MONGO_INITDB_ROOT_USERNAME
-      secretName:  k8s-ipam
+      secretName:  apphub
       key: MONGO_INITDB_ROOT_USERNAME
+
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      secretName:  apphub
+      key: MONGO_INITDB_ROOT_PASSWORD
 
       
   # provider:
@@ -116,7 +116,7 @@ ipam_k8s:
     enabled: true
     data:
       USE_MONGODB: true
-      MONGO_DB: ipam     
+      MONGO_DB: apphub     
 
   resources:    
     requests:
@@ -124,20 +124,4 @@ ipam_k8s:
       memory: 512Mi
     limits:
       cpu: 200m
-      memory: 256Mi 
-
-  ingress:
-    enabled: false
-    ingressClassName: traefik
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/preserve-host: "true"
-      traefik.ingress.kubernetes.io/router.tls: "true"
-    host: secretpass.spider-shlomo.com
-    paths:
-    -  path: /api/
-       pathType: Prefix
-       serviceName: backend-svc
-    -  path: /remote/saml/
-       pathType: Prefix
-       serviceName: backend-svc
+      memory: 256Mi

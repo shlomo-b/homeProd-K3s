@@ -1,0 +1,11 @@
+{{- if and .Values.apphub.cm .Values.apphub.cm.enabled .Values.apphub.cm.data }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{ .Values.apphub.name }}
+  namespace: {{ .Values.namespace }}
+data:
+{{- range $k, $v := .Values.apphub.cm.data }}
+  {{ $k }}: {{ $v | quote }}
+{{- end }}
+{{- end }}
