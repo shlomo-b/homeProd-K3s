@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: chatgpt-mcp
-  labels:
-    app.kubernetes.io/name: chatgpt-mcp
-    app.kubernetes.io/part-of: k3s-mcp
-    app.kubernetes.io/component: identity
