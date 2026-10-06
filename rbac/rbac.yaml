@@ -31,6 +31,17 @@ rules:
       - jobs
       - cronjobs
     verbs: ["get", "list"]
+  # Live CPU/RAM usage (kubectl top / metrics-server) — read-only
+  - apiGroups: ["metrics.k8s.io"]
+    resources:
+      - nodes
+      - pods
+    verbs: ["get", "list"]
+  # Ingress IP + FQDN — read-only
+  - apiGroups: ["networking.k8s.io"]
+    resources:
+      - ingresses
+    verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
