@@ -4,7 +4,7 @@ apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: {{ $config.name }}
-  namespace: istio-system
+  namespace: {{ $config.name }}
 spec:
   selector:
     istio: ingress-gateway
