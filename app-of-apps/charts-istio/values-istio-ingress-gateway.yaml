@@ -2,7 +2,7 @@
 # For instance, instead of `--set _internal_defaults_do_not_set.foo=bar``, just set `--set foo=bar`.
 _internal_defaults_do_not_set:
   # Name allows overriding the release name. Generally this should not be set
-  name: ""
+  name: "istio-ingress-gateway"
   # revision declares which revision this gateway is a part of
   revision: ""
 
