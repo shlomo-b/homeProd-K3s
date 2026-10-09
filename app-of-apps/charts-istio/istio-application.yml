@@ -25,7 +25,7 @@ spec:
         valueFiles:
           - $values/app-of-apps/charts-istio/values-istiod.yaml
     - repoURL: https://istio-release.storage.googleapis.com/charts
-      chart: gateways
+      chart: gateway
       targetRevision: 1.30.5
       helm:
         valueFiles:
