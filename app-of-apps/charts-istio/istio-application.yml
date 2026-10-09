@@ -14,13 +14,13 @@ spec:
       ref: values
     - repoURL: https://istio-release.storage.googleapis.com/charts
       chart: base
-      targetRevision: 1.31.0-rc.0
+      targetRevision: Istio 1.30.5
       helm:
         valueFiles:
           - $values/app-of-apps/charts-istio/values-istio-base.yaml
     # - repoURL: https://istio-release.storage.googleapis.com/charts
-    #   chart: gateway
-    #   targetRevision: 1.31.0-rc.0
+    #   chart: istio-control/istio-discovery
+    #   targetRevision: Istio 1.30.5
     #   helm:
     #     valueFiles:
     #       - $values/app-of-apps/charts-istio/values-istio-gateway.yaml

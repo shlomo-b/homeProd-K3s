@@ -1,0 +1,36 @@
+global:
+  hub: registry.istio.io/release
+  tag: 1.30.5
+  proxy:
+    autoInject: enabled
+
+
+sidecarInjectorWebhook:
+  enableNamespacesByDefault: false
+
+cni:
+  enabled: false
+
+autoscaleEnabled: true
+autoscaleMin: 2
+autoscaleMax: 3
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - master
+                - master2
+                - master3
+
+# guarantee that all istiod pods are on different nodes
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app: istiod
+        topologyKey: kubernetes.io/hostname
