@@ -2,7 +2,7 @@ istio-vs-blackjack:
   name: blackjack-vs
   namespace: blackjack
   host: blackjack-k3s.spider-shlomo.com
-  gateway: istio-ingress-gateway/blackjack-gateway
+  gateway: istio-system/blackjack-gateway
   route:
     destination:
         host: blackjack
