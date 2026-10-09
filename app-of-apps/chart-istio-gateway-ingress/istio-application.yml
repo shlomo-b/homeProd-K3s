@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio
+  name: istio-gateway-ingress
   namespace: argocd
   labels:
     argocd.argoproj.io/instance: argocd
@@ -15,20 +15,14 @@ spec:
       targetRevision: HEAD
       ref: values
     - repoURL: https://istio-release.storage.googleapis.com/charts
-      chart: base
+      chart: gateway
       targetRevision: 1.30.5
       helm:
         valueFiles:
-          - $values/app-of-apps/charts-istio/values-istio-base.yaml
-    - repoURL: https://istio-release.storage.googleapis.com/charts
-      chart: istiod
-      targetRevision: 1.30.5
-      helm:
-        valueFiles:
-          - $values/app-of-apps/charts-istio/values-istiod.yaml
+          - $values/app-of-apps/chart-istio-gateway-ingress/values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio-system
+    namespace: istio-ingress
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
