@@ -12,7 +12,7 @@ service:
 containerPort: 80
 portName: metrics
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: traefik
   annotations:
     kubernetes.io/ingress.class: traefik

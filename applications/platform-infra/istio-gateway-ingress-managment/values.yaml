@@ -1,0 +1,6 @@
+istio-ingress-gateway-blackjack:
+  name: blackjack-gateway
+  hosts:
+    - blackjack-k3s.spider-shlomo.com
+  tls:
+    secretName: blackjack-tls-secret

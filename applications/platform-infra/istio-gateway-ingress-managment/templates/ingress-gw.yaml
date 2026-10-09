@@ -1,0 +1,34 @@
+{{- range $name, $config := .Values }}
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: {{ $config.name }}
+  namespace: istio-system
+spec:
+  selector:
+    istio: istio-ingress-gateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        {{- range $host := $config.hosts }}
+        - {{ $host | quote }}
+        {{- end }}
+      tls:
+        httpsRedirect: true
+
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        {{- range $host := $config.hosts }}
+        - {{ $host | quote }}
+        {{- end }}
+      tls:
+        mode: SIMPLE
+        credentialName: {{ $config.tls.secretName | quote }}
+{{- end }}

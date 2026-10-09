@@ -1,0 +1,6 @@
+apiVersion: v2
+name: gateway-ingress-management
+description: A Helm chart for gateway-ingress-management
+type: application
+version: "1.0.0"
+appVersion: v1.0.0
