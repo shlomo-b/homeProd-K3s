@@ -6,6 +6,8 @@ metadata:
   labels:
     argocd.argoproj.io/instance: argocd
     app.kubernetes.io/managed-by: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io  
 spec:
   project: platform-infra
   sources:
@@ -24,12 +26,12 @@ spec:
       helm:
         valueFiles:
           - $values/app-of-apps/charts-istio/values-istiod.yaml
-    - repoURL: https://istio-release.storage.googleapis.com/charts
-      chart: gateway
-      targetRevision: 1.30.5
-      helm:
-        valueFiles:
-          - $values/app-of-apps/charts-istio/values-istio-ingress-gateway.yaml   
+    # - repoURL: https://istio-release.storage.googleapis.com/charts
+    #   chart: gateway
+    #   targetRevision: 1.30.5
+    #   helm:
+    #     valueFiles:
+    #       - $values/app-of-apps/charts-istio/values-istio-ingress-gateway.yaml   
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
