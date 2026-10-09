@@ -17,6 +17,8 @@ registry: noop
 txtOwnerId: "" 
 sources:
   - ingress  
+  - istio-gateway
+  - istio-virtualservice
 env:
   # - name: AWS_REGION
   #   value: us-east-1
