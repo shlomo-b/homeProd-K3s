@@ -24,6 +24,12 @@ spec:
       helm:
         valueFiles:
           - $values/app-of-apps/charts-istio/values-istiod.yaml
+    - repoURL: https://istio-release.storage.googleapis.com/charts
+      chart: gateways
+      targetRevision: 1.30.5
+      helm:
+        valueFiles:
+          - $values/app-of-apps/charts-istio/values-istio-ingress-gateway.yaml   
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system

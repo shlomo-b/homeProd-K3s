@@ -8,7 +8,7 @@ _internal_defaults_do_not_set:
 
   # Controls the spec.replicas setting for the Gateway deployment if set.
   # Otherwise defaults to Kubernetes Deployment default (1).
-  replicaCount:
+  replicaCount: 3
 
   kind: Deployment
 
@@ -77,8 +77,8 @@ _internal_defaults_do_not_set:
       cpu: 100m
       memory: 128Mi
     limits:
-      cpu: 2000m
-      memory: 1024Mi
+      cpu: 200m
+      memory: 1Gi
 
   autoscaling:
     enabled: true
@@ -118,6 +118,7 @@ _internal_defaults_do_not_set:
   labels:
     # By default, don't enroll gateways into the ambient dataplane
     "istio.io/dataplane-mode": none
+    app: istio-ingress-gateway
 
   # Annotations to apply to all resources
   annotations: {}
