@@ -14,7 +14,7 @@ spec:
       ref: values
     - repoURL: https://istio-release.storage.googleapis.com/charts
       chart: base
-      targetRevision: Istio 1.30.5
+      targetRevision: 1.30.5
       helm:
         valueFiles:
           - $values/app-of-apps/charts-istio/values-istio-base.yaml
