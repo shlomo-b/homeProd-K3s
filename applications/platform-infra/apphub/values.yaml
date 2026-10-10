@@ -61,13 +61,15 @@ apphub:
                   - master3
 
     # guarantee that all istiod pods are on different nodes              
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app: apphub   
+    # podAntiAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     - labelSelector:
+    #         matchExpressions:
+    #           - key: app
+    #             operator: In
+    #             values:
+    #               - apphub
+    #       topologyKey: kubernetes.io/hostname        
   env:
     # # default is INFO
     # - name: LOG_LEVEL
