@@ -1,12 +1,3 @@
-prometheus-cert:
-  certificate_name: prometheus-cert
-  namespaces: monitoring
-  secretName: prometheus-tls
-  commonName: prometheus-k3s.spider-shlomo.com
-  dnsNames: 
-  - prometheus-k3s.spider-shlomo.com
-  issuerRefName: letsencrypt-dns-issuer
-
 blackjack-cert:
   certificate_name: blackjack-cert
   namespaces: istio-ingress
@@ -14,6 +5,24 @@ blackjack-cert:
   commonName: blackjack-k3s.spider-shlomo.com
   dnsNames: 
   -  blackjack-k3s.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+apphub-cert:
+  certificate_name: apphub-cert
+  namespaces: istio-ingress
+  secretName: apphub-tls
+  commonName: apphub.spider-shlomo.com
+  dnsNames: 
+  -  apphub.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+prometheus-cert:
+  certificate_name: prometheus-cert
+  namespaces: monitoring
+  secretName: prometheus-tls
+  commonName: prometheus-k3s.spider-shlomo.com
+  dnsNames: 
+  - prometheus-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
 argocd-cert:
