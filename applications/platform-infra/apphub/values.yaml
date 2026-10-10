@@ -64,9 +64,12 @@ apphub:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
-            matchLabels:
-              app: apphub
-          topologyKey: kubernetes.io/hostname          
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - apphub
+          topologyKey: kubernetes.io/hostname        
   env:
     # # default is INFO
     # - name: LOG_LEVEL
