@@ -5,3 +5,11 @@ istio-ingress-gateway-blackjack:
     - blackjack-k3s.spider-shlomo.com
   tls:
     secretName: blackjack-tls
+
+istio-ingress-gateway-apphub:
+  name: apphub
+  name: apphub-gateway
+  hosts:
+    - apphub.spider-shlomo.com
+  tls:
+    secretName: apphub-tls

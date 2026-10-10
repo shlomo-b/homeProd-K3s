@@ -7,4 +7,13 @@ istio-vs-blackjack:
     destination:
         host: blackjack
         port: 80
-        
+
+istio-vs-apphub:
+  name: apphub-vs
+  namespace: apphub
+  host: apphub.spider-shlomo.com
+  gateway: istio-ingress/apphub-gateway
+  route:
+    destination:
+        host: apphub-svc
+        port: 80
