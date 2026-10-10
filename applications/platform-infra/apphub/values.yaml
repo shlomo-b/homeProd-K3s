@@ -23,13 +23,13 @@ apphub:
 
   service:
     enabled: true
-    serviceType: LoadBalancer
-    port: 8092
+    serviceType: ClusterIP
+    port: 80
   image:
     name: shlomobarzili/apphub
     pullPolicy: IfNotPresent
-    tag: v1.0.1
-  containerPort: 8092
+    tag: v2.0.0
+  containerPort: 80
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -59,6 +59,14 @@ apphub:
                 values:
                   - master
                   - master3
+
+    # guarantee that all istiod pods are on different nodes              
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: apphub
+          topologyKey: kubernetes.io/hostname          
   env:
     # # default is INFO
     # - name: LOG_LEVEL
