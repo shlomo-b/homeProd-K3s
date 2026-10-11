@@ -26,3 +26,7 @@ servers:
   uptime-kuma-gateway:
     host: uptime-kuma.spider-shlomo.com
     tlsSecret: uptime-kuma-tls
+
+  ipam-gateway:
+    host: ipam.spider-shlomo.com
+    tlsSecret: ipam-tls

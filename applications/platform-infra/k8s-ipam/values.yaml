@@ -124,20 +124,4 @@ ipam_k8s:
       memory: 256Mi
     limits:
       cpu: 200m
-      memory: 512Mi 
-
-  ingress:
-    enabled: false
-    ingressClassName: traefik
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/preserve-host: "true"
-      traefik.ingress.kubernetes.io/router.tls: "true"
-    host: secretpass.spider-shlomo.com
-    paths:
-    -  path: /api/
-       pathType: Prefix
-       serviceName: backend-svc
-    -  path: /remote/saml/
-       pathType: Prefix
-       serviceName: backend-svc
+      memory: 512Mi

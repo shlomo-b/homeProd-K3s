@@ -61,6 +61,15 @@ cilium-ui-cert:
   -  cilium-ui.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
+ipam-k8s-cert:
+  certificate_name: ipam-k8s-cert
+  namespaces: istio-ingress
+  secretName: ipam-tls
+  commonName: ipam.spider-shlomo.com
+  dnsNames: 
+  -  ipam.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
 secretpass-cert-backend:
   certificate_name: secretpass-cert-backend
   namespaces: secretpass

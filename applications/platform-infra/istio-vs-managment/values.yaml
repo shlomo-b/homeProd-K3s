@@ -67,3 +67,13 @@ istio-vs-uptime-kuma:
     destination:
         host: uptime-kuma
         port: 3001
+
+istio-vs-ipam:
+  name: ipam-vs
+  namespace: ipam
+  host: ipam.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: ipam
+        port: 80
