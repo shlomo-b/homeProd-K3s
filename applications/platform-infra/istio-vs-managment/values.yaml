@@ -76,4 +76,4 @@ istio-vs-ipam:
   route:
     destination:
         host: ipam
-        port: 80
+        port: 8088
