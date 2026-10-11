@@ -75,5 +75,5 @@ istio-vs-ipam:
   gateway: istio-ingress/shared-gateway
   route:
     destination:
-        host: ipam
+        host: k8s-ipam-svc
         port: 8088
