@@ -70,6 +70,15 @@ ipam-k8s-cert:
   -  ipam.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
+argocd-cert:
+  certificate_name: argocd-cert
+  namespaces: istio-ingress
+  secretName: argocd-tls
+  commonName: argocd.spider-shlomo.com
+  dnsNames: 
+  -  argocd.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
 secretpass-cert-backend:
   certificate_name: secretpass-cert-backend
   namespaces: secretpass
@@ -77,15 +86,6 @@ secretpass-cert-backend:
   commonName: secretpass-backend.spider-shlomo.com
   dnsNames: 
   -  secretpass-backend.spider-shlomo.com
-  issuerRefName: letsencrypt-dns-issuer
-
-argocd-cert:
-  certificate_name: argocd-cert
-  namespaces: argocd
-  secretName: argocd-tls
-  commonName: argocd-k3s.spider-shlomo.com
-  dnsNames: 
-  -  argocd-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
 secretpass-cert:

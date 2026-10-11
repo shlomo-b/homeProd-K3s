@@ -77,3 +77,13 @@ istio-vs-ipam:
     destination:
         host: k8s-ipam-svc
         port: 8088
+
+istio-vs-argocd:
+  name: argocd-vs
+  namespace: argocd
+  host: argocd.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: prod-argocd-server
+        port: 80

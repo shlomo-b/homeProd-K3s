@@ -30,3 +30,7 @@ servers:
   ipam-gateway:
     host: ipam.spider-shlomo.com
     tlsSecret: ipam-tls
+
+  argocd-gateway:
+    host: argocd.spider-shlomo.com
+    tlsSecret: argocd-tls
