@@ -70,7 +70,7 @@ istio-vs-uptime-kuma:
 
 istio-vs-ipam:
   name: ipam-vs
-  namespace: ipam
+  namespace: k8s-ipam
   host: ipam.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
   route:
