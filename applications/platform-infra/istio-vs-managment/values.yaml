@@ -35,7 +35,7 @@ istio-vs-prometheus:
   gateway: istio-ingress/shared-gateway
   route:
     destination:
-        host: prometheus
+        host: prometheus-server
         port: 80
 
 istio-vs-prometheus-pushgateway:
@@ -45,7 +45,7 @@ istio-vs-prometheus-pushgateway:
   gateway: istio-ingress/shared-gateway
   route:
     destination:
-        host: prometheus-pushgateway
+        host: prometheus-prometheus-pushgateway
         port: 9091
 
 istio-vs-cilium-ui:
@@ -55,7 +55,7 @@ istio-vs-cilium-ui:
   gateway: istio-ingress/shared-gateway
   route:
     destination:
-        host: cilium-ui
+        host: hubble-ui
         port: 80
 
 istio-vs-uptime-kuma:
