@@ -10,3 +10,19 @@ servers:
   grafana-gateway:
     host: grafana.spider-shlomo.com
     tlsSecret: grafana-tls
+
+  prometheus-gateway:
+    host: prometheus.spider-shlomo.com
+    tlsSecret: prometheus-tls
+
+  prometheus-pushgateway-gateway:
+    host: pushgateway.spider-shlomo.com
+    tlsSecret: prometheus-pushgateway-tls
+
+  cilium-ui-gateway:
+    host: cilium-ui.spider-shlomo.com
+    tlsSecret: cilium-ui-tls
+    
+  uptime-kuma-gateway:
+    host: uptime-kuma.spider-shlomo.com
+    tlsSecret: uptime-kuma-tls

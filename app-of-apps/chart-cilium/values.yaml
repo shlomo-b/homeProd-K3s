@@ -21,19 +21,7 @@ hubble:
     enabled: true
     service:
       type: ClusterIP
-    ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: traefik
-        kubernetes.io/preserve-host: "true"
-        traefik.ingress.kubernetes.io/router.tls: "true"
-      className: traefik
-      hosts:
-        - cilium-ui.spider-shlomo.com
-      tls:
-        - secretName: cilium-ui-tls
-          hosts:
-            - cilium-ui.spider-shlomo.com 
+
   metrics:
     # labelsContext adds source/dest pod, namespace, and port labels for network policy planning
     enabled:

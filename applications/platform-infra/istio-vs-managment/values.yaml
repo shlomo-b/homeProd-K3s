@@ -27,3 +27,43 @@ istio-vs-grafana:
     destination:
         host: grafana
         port: 80
+
+istio-vs-prometheus:
+  name: prometheus-vs
+  namespace: monitoring
+  host: prometheus.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: prometheus
+        port: 80
+
+istio-vs-prometheus-pushgateway:
+  name: prometheus-pushgateway-vs
+  namespace: monitoring
+  host: pushgateway.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: prometheus-pushgateway
+        port: 9091
+
+istio-vs-cilium-ui:
+  name: cilium-ui-vs
+  namespace: cilium
+  host: cilium-ui.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: cilium-ui
+        port: 80
+
+istio-vs-uptime-kuma:
+  name: uptime-kuma-vs
+  namespace: monitoring
+  host: uptime-kuma.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: uptime-kuma
+        port: 3001
