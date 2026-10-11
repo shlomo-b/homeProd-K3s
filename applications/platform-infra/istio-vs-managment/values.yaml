@@ -50,7 +50,7 @@ istio-vs-prometheus-pushgateway:
 
 istio-vs-cilium-ui:
   name: cilium-ui-vs
-  namespace: cilium
+  namespace: cilium-network-policy
   host: cilium-ui.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
   route:
