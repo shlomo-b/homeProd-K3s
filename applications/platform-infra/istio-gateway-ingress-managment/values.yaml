@@ -22,3 +22,7 @@ servers:
   apphub-gateway:
     host: apphub.spider-shlomo.com
     tlsSecret: apphub-tls  
+
+  grafana-gateway:
+    host: grafana.spider-shlomo.com
+    tlsSecret: grafana-tls

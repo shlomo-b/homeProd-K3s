@@ -16,6 +16,15 @@ apphub-cert:
   -  apphub.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
+grafana-cert:
+  certificate_name: grafana-cert
+  namespaces: istio-ingress
+  secretName: grafana-tls
+  commonName: grafana.spider-shlomo.com
+  dnsNames: 
+  -  grafana.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
 prometheus-cert:
   certificate_name: prometheus-cert
   namespaces: monitoring
@@ -32,15 +41,6 @@ argocd-cert:
   commonName: argocd-k3s.spider-shlomo.com
   dnsNames: 
   -  argocd-k3s.spider-shlomo.com
-  issuerRefName: letsencrypt-dns-issuer
-
-grafana-cert:
-  certificate_name: grafana-cert
-  namespaces: monitoring
-  secretName: grafana-tls
-  commonName: grafana-k3s.spider-shlomo.com
-  dnsNames: 
-  -  grafana-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
 uptime-kuma-cert:

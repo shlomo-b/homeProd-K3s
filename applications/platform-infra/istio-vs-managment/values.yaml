@@ -17,3 +17,13 @@ istio-vs-apphub:
     destination:
         host: apphub-svc
         port: 80
+
+istio-vs-grafana:
+  name: grafana-vs
+  namespace: grafana
+  host: grafana.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: grafana
+        port: 80
