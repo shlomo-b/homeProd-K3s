@@ -26,4 +26,4 @@ istio-vs-grafana:
   route:
     destination:
         host: grafana
-        port: 3000
+        port: 80
