@@ -27,38 +27,38 @@ grafana-cert:
 
 prometheus-cert:
   certificate_name: prometheus-cert
-  namespaces: monitoring
+  namespaces: istio-ingress
   secretName: prometheus-tls
-  commonName: prometheus-k3s.spider-shlomo.com
+  commonName: prometheus.spider-shlomo.com
   dnsNames: 
-  - prometheus-k3s.spider-shlomo.com
-  issuerRefName: letsencrypt-dns-issuer
-
-argocd-cert:
-  certificate_name: argocd-cert
-  namespaces: argocd
-  secretName: argocd-tls
-  commonName: argocd-k3s.spider-shlomo.com
-  dnsNames: 
-  -  argocd-k3s.spider-shlomo.com
+  - prometheus.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
 uptime-kuma-cert:
   certificate_name: uptime-kuma-cert
-  namespaces: monitoring
+  namespaces: istio-ingress
   secretName: uptime-kuma-tls
   commonName: uptime-kuma-k3s.spider-shlomo.com
   dnsNames: 
-  -  uptime-kuma-k3s.spider-shlomo.com
+  -  uptime-kuma.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
-secretpass-cert:
-  certificate_name: secretpass-cert
-  namespaces: secretpass
-  secretName: secretpass-app-tls
-  commonName: secretpass.spider-shlomo.com
+prometheus-pushgateway-cert:
+  certificate_name: prometheus-pushgateway-cert
+  namespaces: istio-ingress
+  secretName: prometheus-pushgateway-tls
+  commonName: pushgateway.spider-shlomo.com
   dnsNames: 
-  -  secretpass.spider-shlomo.com
+  -  pushgateway.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
+
+cilium-ui-cert:
+  certificate_name: cilium-ui-cert
+  namespaces: cilium
+  secretName: cilium-ui-tls
+  commonName: cilium-ui.spider-shlomo.com
+  dnsNames: 
+  -  cilium-ui.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
 secretpass-cert-backend:
@@ -70,38 +70,20 @@ secretpass-cert-backend:
   -  secretpass-backend.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
-kafka-ui-cert:
-  certificate_name: kafka-ui-cert
-  namespaces: kafka
-  secretName: kafka-ui-tls
-  commonName: kafka-ui-k3s.spider-shlomo.com
+argocd-cert:
+  certificate_name: argocd-cert
+  namespaces: argocd
+  secretName: argocd-tls
+  commonName: argocd-k3s.spider-shlomo.com
   dnsNames: 
-  -  kafka-ui-k3s.spider-shlomo.com
+  -  argocd-k3s.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
-traefik-ui-cert:
-  certificate_name: traefik-ui-cert
-  namespaces: traefik-ingress-controller
-  secretName: traefik-ui-tls
-  commonName: traefik.spider-shlomo.com
+secretpass-cert:
+  certificate_name: secretpass-cert
+  namespaces: secretpass
+  secretName: secretpass-app-tls
+  commonName: secretpass.spider-shlomo.com
   dnsNames: 
-  -  traefik.spider-shlomo.com
-  issuerRefName: letsencrypt-dns-issuer
-
-prometheus-pushgateway-cert:
-  certificate_name: prometheus-pushgateway-cert
-  namespaces: monitoring
-  secretName: prometheus-pushgateway-tls
-  commonName: pushgateway.spider-shlomo.com
-  dnsNames: 
-  -  pushgateway.spider-shlomo.com
-  issuerRefName: letsencrypt-dns-issuer
-
-cilium-ui-cert:
-  certificate_name: cilium-ui-cert
-  namespaces: cilium-network-policy
-  secretName: cilium-ui-tls
-  commonName: cilium-ui.spider-shlomo.com
-  dnsNames: 
-  -  cilium-ui.spider-shlomo.com
+  -  secretpass.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer

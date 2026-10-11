@@ -24,7 +24,7 @@ datasources:
       - name: prometheus
         type: prometheus
         access: proxy
-        url: https://prometheus-k3s.spider-shlomo.com
+        url: https://prometheus.spider-shlomo.com
 
 service:
   enabled: true
@@ -44,7 +44,7 @@ extraSecretMounts:
 # grafana.ini for SMTP
 grafana.ini:
   server:
-    root_url: https://grafana-k3s.spider-shlomo.com
+    root_url: https://grafana.spider-shlomo.com
   smtp:
     enabled: true
     host: smtp.gmail.com:587
