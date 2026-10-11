@@ -20,7 +20,7 @@ istio-vs-apphub:
 
 istio-vs-grafana:
   name: grafana-vs
-  namespace: grafana
+  namespace: monitoring
   host: grafana.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
   route:
