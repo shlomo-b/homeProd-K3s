@@ -38,7 +38,3 @@ servers:
   secretpass-gateway:
     host: secretpass.spider-shlomo.com
     tlsSecret: secretpass-app-tls
-
-  secretpass-backend-gateway:
-    host: secretpass-backend.spider-shlomo.com
-    tlsSecret: secretpass-app-tls-backend

@@ -104,7 +104,7 @@ istio-vs-secretpass:
 istio-vs-secretpass-backend:
     name: secretpass-backend-vs
     namespace: secretpass
-    host: secretpass-backend.spider-shlomo.com
+    host: secretpass.spider-shlomo.com
     gateway: istio-ingress/shared-gateway
     route:
       match:
