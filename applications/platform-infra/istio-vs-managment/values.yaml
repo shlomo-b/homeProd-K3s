@@ -94,6 +94,9 @@ istio-vs-secretpass:
   host: secretpass.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
   route:
+    match:
+      urls:
+        - prefix: /
     destination:
         host: frontend-svc
         port: 3000
