@@ -34,3 +34,11 @@ servers:
   argocd-gateway:
     host: argocd.spider-shlomo.com
     tlsSecret: argocd-tls
+
+  secretpass-gateway:
+    host: secretpass.spider-shlomo.com
+    tlsSecret: secretpass-app-tls
+
+  secretpass-backend-gateway:
+    host: secretpass-backend.spider-shlomo.com
+    tlsSecret: secretpass-app-tls-backend

@@ -87,3 +87,23 @@ istio-vs-argocd:
     destination:
         host: prod-argocd-server
         port: 80
+
+istio-vs-secretpass:
+  name: secretpass-vs
+  namespace: secretpass
+  host: secretpass.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: frontend-svc
+        port: 3000
+
+istio-vs-secretpass-backend:
+  name: secretpass-backend-vs
+  namespace: secretpass
+  host: secretpass-backend.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  route:
+    destination:
+        host: backend-svc
+        port: 5050
