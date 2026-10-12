@@ -72,7 +72,7 @@ client:
       memory: 2Gi   
     
   ingress:
-    enabled: true  
+    enabled: false
     ingressClassName: traefik
     annotations:
       kubernetes.io/ingress.class: traefik
