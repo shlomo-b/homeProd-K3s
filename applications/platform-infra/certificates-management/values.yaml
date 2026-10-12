@@ -81,7 +81,7 @@ argocd-cert:
 
 secretpass-cert-backend:
   certificate_name: secretpass-cert-backend
-  namespaces: secretpass
+  namespaces: istio-ingress
   secretName: secretpass-app-tls-backend
   commonName: secretpass-backend.spider-shlomo.com
   dnsNames: 
@@ -90,7 +90,7 @@ secretpass-cert-backend:
 
 secretpass-cert:
   certificate_name: secretpass-cert
-  namespaces: secretpass
+  namespaces: istio-ingress
   secretName: secretpass-app-tls
   commonName: secretpass.spider-shlomo.com
   dnsNames: 
