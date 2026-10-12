@@ -3,17 +3,24 @@
 apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: {{ $name }}
+  name: {{ $vs.name }}
   namespace: {{ $vs.namespace }}
-  labels:
-    app: {{ $name }}
 spec:
   gateways:
     - {{ $vs.gateway | quote }}
   hosts:
-    - {{ $vs.host }}
+    - {{ $vs.host | quote }}
   http:
+    {{- with $vs.route.match }}
+    - match:
+        {{- range $uri := .urls }}
+        - uri:
+            prefix: {{ $uri.prefix | quote }}
+        {{- end }}
+      route:
+    {{- else }}
     - route:
+    {{- end }}
         - destination:
             host: {{ $vs.route.destination.host }}
             port:

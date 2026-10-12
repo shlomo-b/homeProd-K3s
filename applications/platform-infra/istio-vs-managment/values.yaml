@@ -99,11 +99,15 @@ istio-vs-secretpass:
         port: 3000
 
 istio-vs-secretpass-backend:
-  name: secretpass-backend-vs
-  namespace: secretpass
-  host: secretpass-backend.spider-shlomo.com
-  gateway: istio-ingress/shared-gateway
-  route:
-    destination:
+    name: secretpass-backend-vs
+    namespace: secretpass
+    host: secretpass-backend.spider-shlomo.com
+    gateway: istio-ingress/shared-gateway
+    route:
+      match:
+        urls:
+          - prefix: /api/
+          - prefix: /remote/saml/
+      destination:
         host: backend-svc
         port: 5050
