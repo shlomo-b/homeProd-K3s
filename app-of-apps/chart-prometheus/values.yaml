@@ -186,6 +186,37 @@ serverFiles:
               - "10.90.100.253:2381"  # master3
             labels:
               cluster: k3s
+            # Istio Envoy Sidecars Metrics
+            
+      - job_name: "istio-envoy"
+        metrics_path: /stats/prometheus
+        kubernetes_sd_configs:
+          - role: pod
+
+        relabel_configs:
+          # Only Pods with Istio Sidecar
+          - source_labels: [__meta_kubernetes_pod_container_name]
+            action: keep
+            regex: istio-proxy
+
+          # Only running Pods
+          - source_labels: [__meta_kubernetes_pod_phase]
+            action: keep
+            regex: Running
+
+          # Use Pod IP and Istio metrics port
+          - source_labels: [__meta_kubernetes_pod_ip]
+            target_label: __address__
+            regex: (.+)
+            replacement: $1:15020
+
+          # Add Kubernetes Namespace label
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+
+          # Add Kubernetes Pod label
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod        
 
 #---------------outside the network----------------#
 
