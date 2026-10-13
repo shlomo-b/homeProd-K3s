@@ -38,3 +38,6 @@ servers:
   secretpass-gateway:
     host: secretpass.spider-shlomo.com
     tlsSecret: secretpass-app-tls
+  kiali-gateway:
+    host: kiali.spider-shlomo.com
+    tlsSecret: kiali-tls

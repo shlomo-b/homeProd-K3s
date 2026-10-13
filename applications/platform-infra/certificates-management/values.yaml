@@ -96,3 +96,12 @@ secretpass-cert:
   dnsNames: 
   -  secretpass.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+kiali-cert:
+  certificate_name: kiali-cert
+  namespaces: istio-ingress
+  secretName: kiali-tls
+  commonName: kiali.spider-shlomo.com
+  dnsNames: 
+  -  kiali.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer

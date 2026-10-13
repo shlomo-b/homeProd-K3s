@@ -97,6 +97,18 @@ istio-vs-argocd:
             host: prod-argocd-server
             port: 80
 
+istio-vs-kiali:
+  name: kiali-vs
+  namespace: kiali-namespace
+  host: kiali.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  http:
+    - route:
+        destination:
+            host: kiali
+            port: 20001
+
+
 istio-vs-secretpass:
   name: secretpass-vs
   namespace: secretpass
