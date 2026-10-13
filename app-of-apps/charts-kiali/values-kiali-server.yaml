@@ -152,7 +152,7 @@ external_services:
     enabled: true
   prometheus:
     enabled: true
-    url: "prometheus-server.monitoring.svc.cluster.local"
+    url: "http://prometheus-server.monitoring.svc.cluster.local"
 
 identity: {}
   #cert_file:
