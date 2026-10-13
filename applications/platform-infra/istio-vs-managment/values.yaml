@@ -3,114 +3,119 @@ istio-vs-blackjack:
   namespace: blackjack
   host: blackjack.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: blackjack
-        port: 80
+  http:
+  - route:
+      destination:
+          host: blackjack
+          port: 80
 
 istio-vs-apphub:
   name: apphub-vs
   namespace: apphub
   host: apphub.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: apphub-svc
-        port: 80
+  http:
+    - route:
+        destination:
+            host: apphub-svc
+            port: 80
 
 istio-vs-grafana:
   name: grafana-vs
   namespace: monitoring
   host: grafana.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: grafana
-        port: 80
+  http:
+    - route:
+        destination:
+            host: grafana
+            port: 80
 
 istio-vs-prometheus:
   name: prometheus-vs
   namespace: monitoring
   host: prometheus.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: prometheus-server
-        port: 80
+  http:
+    - route:
+        destination:
+            host: prometheus-server
+            port: 80
 
 istio-vs-prometheus-pushgateway:
   name: prometheus-pushgateway-vs
   namespace: monitoring
   host: pushgateway.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: prometheus-prometheus-pushgateway
-        port: 9091
+  http:
+    - route:
+        destination:
+            host: prometheus-prometheus-pushgateway
+            port: 9091
 
 istio-vs-cilium-ui:
   name: cilium-ui-vs
   namespace: cilium-network-policy
   host: cilium-ui.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: hubble-ui
-        port: 80
+  http:
+    - route:
+        destination:
+            host: hubble-ui
+            port: 80
 
 istio-vs-uptime-kuma:
   name: uptime-kuma-vs
   namespace: monitoring
   host: uptime-kuma.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: uptime-kuma
-        port: 3001
+  http:
+    - route:
+        destination:
+            host: uptime-kuma
+            port: 3001
 
 istio-vs-ipam:
   name: ipam-vs
   namespace: k8s-ipam
   host: ipam.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: k8s-ipam-svc
-        port: 8088
+  http:
+    - route:
+        destination:
+            host: k8s-ipam-svc
+            port: 8088
 
 istio-vs-argocd:
   name: argocd-vs
   namespace: argocd
   host: argocd.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    destination:
-        host: prod-argocd-server
-        port: 80
+  http:
+    - route:
+        destination:
+            host: prod-argocd-server
+            port: 80
 
 istio-vs-secretpass:
   name: secretpass-vs
   namespace: secretpass
   host: secretpass.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
-  route:
-    match:
-      urls:
-        - prefix: /
-    destination:
-        host: frontend-svc
-        port: 3000
-
-istio-vs-secretpass-backend:
-    name: secretpass-backend-vs
-    namespace: secretpass
-    host: secretpass.spider-shlomo.com
-    gateway: istio-ingress/shared-gateway
-    route:
-      match:
+  http:
+    - match:
         urls:
           - prefix: /api/
           - prefix: /remote/saml/
-      destination:
-        host: backend-svc
-        port: 5050
+      route:
+        destination:
+          host: backend-svc
+          port: 5050
+
+    - match:
+        urls:
+          - prefix: /
+      route:
+        destination:
+          host: frontend-svc
+          port: 3000

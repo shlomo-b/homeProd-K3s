@@ -11,7 +11,8 @@ spec:
   hosts:
     - {{ $vs.host | quote }}
   http:
-    {{- with $vs.route.match }}
+    {{- range $http := $vs.http }}
+    {{- with $http.match }}
     - match:
         {{- range $uri := .urls }}
         - uri:
@@ -22,7 +23,8 @@ spec:
     - route:
     {{- end }}
         - destination:
-            host: {{ $vs.route.destination.host }}
+            host: {{ $http.route.destination.host }}
             port:
-              number: {{ $vs.route.destination.port }}
+              number: {{ $http.route.destination.port }}
+    {{- end }}
 {{- end }}
