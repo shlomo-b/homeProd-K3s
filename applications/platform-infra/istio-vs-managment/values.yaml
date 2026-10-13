@@ -99,7 +99,7 @@ istio-vs-argocd:
 
 istio-vs-kiali:
   name: kiali-vs
-  namespace: kiali-namespace
+  namespace: kiali-system
   host: kiali.spider-shlomo.com
   gateway: istio-ingress/shared-gateway
   http:
