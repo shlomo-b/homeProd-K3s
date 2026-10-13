@@ -6,6 +6,7 @@ image:
   tag: v1.0.0
 
 service:
+  serviceName: http
   port: 80
   targetPort: 80
   serviceType: ClusterIP
