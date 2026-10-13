@@ -97,7 +97,7 @@ deployment:
     #enabled:
     override_yaml:
       metadata: {}
-  instance_name: "kiali"
+  instance_name: "kiali-server"
   logger:
     log_format: "text"
     log_level: "info"
