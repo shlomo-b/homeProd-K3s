@@ -105,7 +105,7 @@ istio-vs-kiali:
   http:
     - route:
         destination:
-            host: kiali
+            host: kiali-server
             port: 20001
 
 
