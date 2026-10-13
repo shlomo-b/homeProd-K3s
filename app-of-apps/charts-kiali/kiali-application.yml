@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kiali
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/instance: argocd
+    app.kubernetes.io/managed-by: argocd
+spec:
+  project: platform-infra
+  sources:
+    - repoURL: https://github.com/shlomo-b/homeProd-K3s.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://kiali.org/helm-charts
+      chart: kiali-operator
+      targetRevision: 2.33.0
+      helm:
+        valueFiles:
+          - $values/app-of-apps/charts-kiali/values-kiali-operator.yaml
+    - repoURL: https://kiali.org/helm-charts
+      chart: kiali-server
+      targetRevision: 2.33.0
+      helm:
+        valueFiles:
+          - $values/app-of-apps/charts-kiali/values-kiali-server.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kiali-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

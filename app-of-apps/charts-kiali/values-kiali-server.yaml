@@ -1,0 +1,174 @@
+# This helm chart will create Kubernetes resources such as cluster roles, cluster role bindings, and service accounts.
+# For very rare use-cases, users may want to manage some of these resources manually, outside
+# of this helm chart. In cases like this, you can inform this helm chart to skip the creation of
+# those resources that you want to manage yourself.
+# For example, if you want to manage cluster roles and cluster role bindings yourself, but you still want this helm
+# chart to create service accounts, set the value of "skipResources" to an array
+# value of ["clusterrole", "clusterrolebinding"].
+# If you use this feature, you must be aware that you then bear the responsibility of
+# creating these resources yourself manually; if you do not then the installation
+# will be broken. Therefore, only use this feature if you know what you are doing.
+# Valid list item values are: "clusterrole", "clusterrolebinding", "sa"
+# Note: "clusterrole" controls creation of ClusterRole when cluster_wide_access is true, and Role when cluster_wide_access is false.
+#       "clusterrolebinding" controls creation of ClusterRoleBinding when cluster_wide_access is true, and RoleBinding when cluster_wide_access is false.
+skipResources: []
+
+# This is required for "openshift" auth strategy.
+# You have to know ahead of time what your Route URL will be because
+# right now the helm chart can't figure this out at runtime (it would
+# need to wait for the Kiali Route to be deployed and for OpenShift
+# to start it up). If someone knows how to update this helm chart to
+# do this, a PR would be welcome.
+kiali_route_url: ""
+
+#
+# Values referenced by the Helm chart templates. Additional Kiali server settings
+# can be supplied at install time via --set or -f; they are included in config.yaml.
+#
+
+auth:
+  openshift:
+    impersonation:
+      allowed_groups: []
+      allowed_users: []
+      enabled: false
+  strategy: ""
+
+ai:
+  chat:
+    enabled: false
+    providers: []
+  enabled: false
+
+clustering:
+  autodetect_secrets:
+    enabled: true
+    label: "kiali.io/multiCluster=true"
+  clusters: []
+
+deployment:
+  # The helm chart will apply a restrictive security context to user-defined containers and initContainers
+  # and will prevent write access to secret-backed volumes. These restrictions cannot be overridden.
+  additional_pod_containers_yaml: []
+  additional_pod_init_containers_yaml: []
+  additional_service_yaml: {}
+  affinity:
+    node: {}
+    pod: {}
+    pod_anti: {}
+  # When cluster_wide_access is true, ClusterRole and ClusterRoleBinding are created giving Kiali access to all namespaces.
+  # When cluster_wide_access is false, Role and RoleBinding are created for each accessible namespace defined in discovery_selectors.
+  cluster_wide_access: true
+  configmap_annotations: {}
+  # Discovery selectors are used when cluster_wide_access is false to determine which namespaces Kiali can access.
+  # The format matches Istio's discovery selectors - a map where each entry is a list of label selectors.
+  # For example:
+  #   discovery_selectors:
+  #     default:
+  #     - matchLabels:
+  #         istio-injection: enabled
+  #     - matchExpressions:
+  #       - key: env
+  #         operator: In
+  #         values:
+  #         - production
+  # If not specified and cluster_wide_access is false, only the Kiali deployment namespace will be accessible.
+  # Note: The Kiali deployment namespace is always included automatically.
+  # Note: Include Istio control plane namespaces in discovery selectors for access to them.
+  discovery_selectors: {}
+  custom_envs: []
+  custom_secrets: []
+  dns:
+    config: {}
+    policy: ""
+  extra_labels: {} # Labels added here are silently ignored on collision with standard Kiali labels (standard labels win).
+  host_aliases: []
+  hpa:
+    api_version: "autoscaling/v2"
+    spec: {}
+  image_digest: "" # use "sha256" if image_version is a sha256 hash (do NOT prefix this value with a "@")
+  image_name: quay.io/kiali/kiali
+  image_pull_policy: "Always"
+  image_pull_secrets: []
+  image_version: ${HELM_IMAGE_TAG} # version like "v1.39" (see: https://quay.io/repository/kiali/kiali?tab=tags) or a digest hash
+  ingress:
+    additional_labels: {} # Labels added here are silently ignored on collision with standard Kiali labels (standard labels win).
+    class_name: "nginx"
+    #enabled:
+    override_yaml:
+      metadata: {}
+  instance_name: "kiali"
+  logger:
+    log_format: "text"
+    log_level: "info"
+    log_prometheus_queries: false
+    time_field_format: "2006-01-02T15:04:05Z07:00"
+    sampler_rate: "1"
+  network_policy:
+    enabled: true
+  node_selector: {}
+  pod_annotations:
+    proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'
+  pod_disruption_budget:
+    api_version: "policy/v1"
+    spec: {}
+  pod_labels: {} # Labels added here will override standard Kiali labels on collision (user labels win).
+  priority_class_name: ""
+  probes:
+    liveness:
+      initial_delay_seconds: 5
+      period_seconds: 30
+    readiness:
+      initial_delay_seconds: 5
+      period_seconds: 30
+    startup:
+      failure_threshold: 6
+      initial_delay_seconds: 30
+      period_seconds: 10
+  remote_cluster_resources_only: false
+  # if deployment.hpa is defined, this replicas setting will be ignored
+  replicas: 1
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "64Mi"
+    limits:
+      memory: "1Gi"
+  secret_name: "kiali"
+  security_context: {}
+  service_annotations: {}
+  service_labels: {} # Labels added here will override standard Kiali labels on collision (user labels win).
+  service_type: ""
+  strategy: {}
+  tls_config:
+    source: ""
+  tolerations: []
+  topology_spread_constraints: []
+  version_label: ${HELM_IMAGE_TAG} # v1.39 # v1.39.0 # see: https://quay.io/repository/kiali/kiali?tab=tags
+  view_only_mode: false
+
+external_services:
+  custom_dashboards:
+    enabled: true
+  prometheus:
+    enabled: true
+    url: "http://prometheus-server.monitoring.svc.cluster.local:9091"
+
+identity: {}
+  #cert_file:
+  #private_key_file:
+
+kiali_feature_flags:
+  disabled_features: []
+
+login_token:
+  signing_key: ""
+
+server:
+  port: 20001
+  #node_port:
+  observability:
+    metrics:
+      enabled: true
+      port: 9090
+  web_root: ""
