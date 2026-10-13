@@ -1,6 +1,6 @@
 servers:
   blackjack-gateway:
-    host: blackjack-k3s.spider-shlomo.com
+    host: blackjack.spider-shlomo.com
     tlsSecret: blackjack-tls
 
   apphub-gateway:

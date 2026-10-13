@@ -2,9 +2,9 @@ blackjack-cert:
   certificate_name: blackjack-cert
   namespaces: istio-ingress
   secretName: blackjack-tls
-  commonName: blackjack-k3s.spider-shlomo.com
+  commonName: blackjack.spider-shlomo.com
   dnsNames: 
-  -  blackjack-k3s.spider-shlomo.com
+  -  blackjack.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
 
 apphub-cert:
