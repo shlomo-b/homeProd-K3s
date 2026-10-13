@@ -154,6 +154,10 @@ external_services:
     enabled: true
     url: "http://prometheus-server.monitoring.svc.cluster.local"
 
+  grafana:
+    enabled: true
+    url: "http://grafana.monitoring.svc.cluster.local"
+
 identity: {}
   #cert_file:
   #private_key_file:
