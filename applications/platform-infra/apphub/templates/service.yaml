@@ -10,7 +10,8 @@ spec:
   selector:
     app:  {{ .Values.apphub.name }}
   ports:
-    - port: {{ .Values.apphub.service.port }}
+    - name: {{ .Values.apphub.service.serviceName }}
+      port: {{ .Values.apphub.service.port }}
       targetPort: {{ .Values.apphub.service.port }}
       protocol: TCP
   type: {{ .Values.apphub.service.serviceType }}

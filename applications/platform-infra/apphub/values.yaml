@@ -23,6 +23,7 @@ apphub:
 
   service:
     enabled: true
+    serviceName: apphub
     serviceType: ClusterIP
     port: 80
   image:

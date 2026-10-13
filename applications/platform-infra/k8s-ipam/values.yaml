@@ -23,6 +23,7 @@ ipam_k8s:
 
   service:
     enabled: true
+    serviceName: k8s-ipam
     serviceType: ClusterIP
     port: 8088
   image:
