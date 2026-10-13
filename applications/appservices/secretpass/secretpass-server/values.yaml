@@ -23,7 +23,7 @@ server:
 
   service:
     enabled: true
-    serviceName: backend
+    serviceName: http
     serviceType: ClusterIP
     port: 5050
   image:

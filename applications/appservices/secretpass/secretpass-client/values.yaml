@@ -11,7 +11,7 @@ client:
     secret.reloader.stakater.com/reload: "secretspass-credentials"
   service:
     enabled: true
-    serviceName: frontend
+    serviceName: http
     serviceType: ClusterIP
     port: 3000
   image:
