@@ -19,10 +19,11 @@ adminConfig:
   VERSION: "3.30.0"
   SKIP_SSL_VERIFY: "false"
   # -- leave empty if uses Mongo DB deployed by this chart
-  DBPASSWORD: ""
-  DBUSER: ""
-  DB_SERVER: ""
-  DB_PORT: ""
+  DBPASSWORD: admin123
+  DBUSER: "admin"
+  DB_SERVER: "mongodb://litmus:27017"
+  DB_PORT: "27017"
+  DB_NAME: "litmus"
   ADMIN_USERNAME: "admin"
   ADMIN_PASSWORD: "litmus"
 
@@ -361,7 +362,7 @@ mongodb:
   # extraEnvVars:
   #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
   #     value: "1"
-  enabled: true
+  enabled: false
   auth:
     enabled: true
     rootUser: "root"
