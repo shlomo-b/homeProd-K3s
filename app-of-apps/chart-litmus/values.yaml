@@ -21,7 +21,7 @@ adminConfig:
   # -- leave empty if uses Mongo DB deployed by this chart
   DBPASSWORD: admin123
   DBUSER: "admin"
-  DB_SERVER: "mongodb://litmus:27017"
+  DB_SERVER: "mongodb://mongodb.litmus.svc.cluster.local:27017"
   DB_PORT: "27017"
   DB_NAME: "litmus"
   ADMIN_USERNAME: "admin"
