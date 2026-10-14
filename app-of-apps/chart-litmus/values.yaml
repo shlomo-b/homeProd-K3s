@@ -18,10 +18,12 @@ allowedOrigins: ".*"
 adminConfig:
   VERSION: "3.30.0"
   SKIP_SSL_VERIFY: "false"
-  # -- leave empty if uses Mongo DB deployed by this chart
+  # External official MongoDB from test-litmus.yaml (not Bitnami).
+  # Host must be the Service name "mongodb", not the namespace "litmus".
+  # mongodb://litmus:27017 is parsed as username=litmus host=27017, so wait-for-mongodb never succeeds.
   DBPASSWORD: admin123
   DBUSER: "admin"
-  DB_SERVER: "mongodb://litmus:27017"
+  DB_SERVER: "mongodb://mongodb.litmus.svc.cluster.local:27017"
   DB_PORT: "27017"
   DB_NAME: "litmus"
   ADMIN_USERNAME: "admin"
@@ -346,7 +348,8 @@ openshift:
     annotations: {}
     host: ""
 
-# -- Configure the Bitnami MongoDB subchart
+# Bitnami subchart OFF — official MongoDB is in test-litmus.yaml (image mongo:9.0.2).
+# Chart wait-for-mongodb requires a replica set (rs.status); that Job is in test-litmus.yaml.
 # see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
   image:
