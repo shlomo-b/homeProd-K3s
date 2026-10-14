@@ -173,7 +173,7 @@ portal:
     waitForMongodb:
       image:
         repository: mongo
-        tag: 9.0.2
+        tag: "6"
         pullPolicy: "Always"
       securityContext:
         {}
