@@ -350,7 +350,7 @@ openshift:
 mongodb:
   image:
     registry: docker.io
-    repository: latest
+    repository: mongo
     tag: 9.0.2
   # For some environments, mongo pings can take time to resolve
   livenessProbe:
