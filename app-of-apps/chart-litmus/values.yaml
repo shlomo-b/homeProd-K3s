@@ -23,7 +23,7 @@ adminConfig:
   # mongodb://litmus:27017 is parsed as username=litmus host=27017, so wait-for-mongodb never succeeds.
   DBPASSWORD: admin123
   DBUSER: "admin"
-  DB_SERVER: "mongodb://mongodb:27017" #"mongodb://mongodb.litmus.svc.cluster.local:27017"
+  DB_SERVER: "mongodb://mongodb.litmus.svc.cluster.local:27017"
   DB_PORT: "27017"
   DB_NAME: "litmus"
   ADMIN_USERNAME: "admin"
@@ -347,3 +347,47 @@ openshift:
     customLabels: {}
     annotations: {}
     host: ""
+
+# Bitnami subchart OFF — official MongoDB is in test-litmus.yaml (image mongo:9.0.2).
+# Chart wait-for-mongodb requires a replica set (rs.status); that Job is in test-litmus.yaml.
+# see values at https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+mongodb:
+  image:
+    registry: docker.io
+    repository: mongo
+    tag: 9.0.2
+  # For some environments, mongo pings can take time to resolve
+  livenessProbe:
+    timeoutSeconds: 20
+  readinessProbe:
+    timeoutSeconds: 20
+  # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
+  # extraEnvVars:
+  #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
+  #     value: "1"
+  enabled: false
+  auth:
+    enabled: true
+    rootUser: "root"
+    rootPassword: "1234"
+    # -- existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
+    existingSecret: ""
+  architecture: replicaset
+  replicaCount: 3
+  persistence:
+    enabled: true
+  volumePermissions:
+    enabled: true
+    #image:
+    #  registry: docker.io
+    #  repository: bitnamilegacy/os-shell
+    #  tag: 12-debian-12-r51
+  metrics:
+    enabled: false
+    prometheusRule:
+      enabled: false
+  # Required when using Mac M1 - https://github.com/bitnami/containers/issues/40947#issuecomment-1968364385
+  # arbiter:
+    # extraEnvVars:
+    #   - name: EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU
+    #     value: "1"
