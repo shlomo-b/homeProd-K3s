@@ -23,7 +23,7 @@ adminConfig:
   # mongodb://litmus:27017 is parsed as username=litmus host=27017, so wait-for-mongodb never succeeds.
   DBPASSWORD: admin123
   DBUSER: "admin"
-  DB_SERVER: "mongodb://mongodb.litmus.svc.cluster.local:27017"
+  DB_SERVER: "mongodb://mongodb:27017" # "mongodb://mongodb.litmus.svc.cluster.local:27017"
   DB_PORT: "27017"
   DB_NAME: "litmus"
   ADMIN_USERNAME: "admin"
