@@ -10,6 +10,7 @@ metadata:
   {{- end }}
   labels:
     app: {{ .Values.client.name }}
+    version: {{ .Values.client.version }}
 spec:
   revisionHistoryLimit: {{ .Values.client.revisionHistoryLimit }}
   {{- if (not .Values.client.autoscaling.enabled) }}

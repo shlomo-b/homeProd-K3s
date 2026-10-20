@@ -10,6 +10,7 @@ metadata:
   {{- end }}
   labels:
     app: {{ .Values.db.name }}
+    version: {{ .Values.db.version }}
 spec:
   revisionHistoryLimit: {{ .Values.db.revisionHistoryLimit }}
   replicas: {{ .Values.db.replicas }}
