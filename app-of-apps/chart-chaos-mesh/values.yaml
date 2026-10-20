@@ -1,8 +1,0 @@
-rbac:
-  create: true
-timezone: "Asia/Jerusalem"
-dashboard:
-  enabled: true
-  securityMode: false
-  service:
-    type: LoadBalancer
