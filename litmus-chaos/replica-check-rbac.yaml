@@ -1,0 +1,47 @@
+# Unique SA for the Friday kill job. Not "default".
+# Same on GKE / EKS / AKS / k3s.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: litmus-app-pod-kill
+  namespace: litmus
+  labels:
+    app.kubernetes.io/name: app-pod-kill
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: litmus-app-pod-kill
+  labels:
+    app.kubernetes.io/name: app-pod-kill
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "events"]
+    verbs: ["get", "list", "delete", "create", "patch"]
+  # HA check uses Deployment/StatefulSet/DaemonSet spec, not a live Running-pod count
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list"]
+  # Alpine creates one ChaosEngine per killed pod so ChaosCenter can show the target
+  - apiGroups: ["litmuschaos.io"]
+    resources: ["chaosengines", "chaosexperiments", "chaosresults"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+  # chaos-operator starts an experiment Job for each ChaosEngine
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: litmus-app-pod-kill
+  labels:
+    app.kubernetes.io/name: app-pod-kill
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: litmus-app-pod-kill
+subjects:
+  - kind: ServiceAccount
+    name: litmus-app-pod-kill
+    namespace: litmus

@@ -1,0 +1,192 @@
+# Every Friday at 09:00 Asia/Jerusalem — Litmus CronWorkflow (same idea as Chaos Mesh Schedule).
+# For each controller with spec.replicas (or DaemonSet desired) >= 2 → kill ONE pod
+# only if that pod has been Running >= 10 minutes.
+# replicas: 1 (Argo CD redis, etc.) → skip, even if 2 pods are Running during a rollout.
+#
+# Alpine picks the pod. The kill is a Litmus ChaosEngine (pod-delete) so ChaosCenter
+# lists the target. Unique SA litmus-app-pod-kill (not default).
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: app-pod-kill
+  namespace: litmus
+  labels:
+    app.kubernetes.io/name: app-pod-kill
+spec:
+  schedule: "0 9 * * 5"
+  timezone: Asia/Jerusalem
+  concurrencyPolicy: Allow
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  workflowSpec:
+    serviceAccountName: litmus-app-pod-kill
+    entrypoint: kill-one
+    templates:
+      - name: kill-one
+        container:
+          name: kill
+          image: alpine/k8s:1.32.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              # --- setup ---
+              # MIN_AGE_SEC: pod must be live at least this many seconds (600 = 10 min)
+              # NOW: current UTC time in epoch seconds (used to compute pod age)
+              # TMP: temp dir for grouping pods by controller; deleted on exit
+
+              MIN_AGE_SEC=600
+              NOW=$(date -u +%s)
+              TMP=$(mktemp -d)
+              trap 'rm -rf "$TMP"' EXIT
+              killed_seq=0
+
+              # Keep only this Friday's ChaosEngines in the UI (same idea as historyLimit: 1)
+              kubectl delete chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill --wait=false 2>/dev/null || true
+
+              apply_chaosengine() {
+                _ns="$1"
+                _name="$2"
+                killed_seq=$((killed_seq + 1))
+                _safe=$(printf '%s' "$_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//' | cut -c1-36)
+                [ -z "$_safe" ] && _safe=pod
+                _pc="kill-${_safe}-$(date +%s)-${killed_seq}"
+                cat <<EOF | kubectl apply -f -
+              apiVersion: litmuschaos.io/v1alpha1
+              kind: ChaosEngine
+              metadata:
+                name: ${_pc}
+                namespace: litmus
+                labels:
+                  app.kubernetes.io/name: app-pod-kill
+                annotations:
+                  app-pod-kill/target: "${_ns}/${_name}"
+              spec:
+                engineState: active
+                appinfo:
+                  appns: ${_ns}
+                  appkind: deployment
+                  applabel: app.kubernetes.io/name=app-pod-kill
+                chaosServiceAccount: litmus-app-pod-kill
+                jobCleanUpPolicy: retain
+                experiments:
+                  - name: pod-delete
+                    spec:
+                      components:
+                        env:
+                          - name: TARGET_PODS
+                            value: "${_name}"
+                          - name: FORCE
+                            value: "true"
+                          - name: TOTAL_CHAOS_DURATION
+                            value: "10"
+                          - name: CHAOS_INTERVAL
+                            value: "10"
+              EOF
+              }
+
+              # Exact field match in ns|name|... files (no regex)
+              lookup() {
+                awk -F'|' -v ns="$1" -v name="$2" '$1==ns && $2==name {print; exit}' "$3"
+              }
+
+              # Climb ReplicaSet → Deployment. HA = spec.replicas (DaemonSet: desired nodes).
+              kubectl get deploy -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.spec.replicas}{"\n"}{end}' > "$TMP/deploy.txt"
+              kubectl get sts -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.spec.replicas}{"\n"}{end}' > "$TMP/sts.txt"
+              kubectl get ds -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.status.desiredNumberScheduled}{"\n"}{end}' > "$TMP/ds.txt"
+              kubectl get rs -A -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.metadata.ownerReferences[0].kind}{"|"}{.metadata.ownerReferences[0].name}{"|"}{.spec.replicas}{"\n"}{end}' > "$TMP/rs.txt"
+
+              kubectl get pods -A --field-selector=status.phase=Running \
+                -o jsonpath='{range .items[*]}{.metadata.namespace}{"|"}{.metadata.name}{"|"}{.metadata.ownerReferences[0].kind}{"|"}{.metadata.ownerReferences[0].name}{"|"}{.status.startTime}{"\n"}{end}' \
+                > "$TMP/all.txt"
+
+              while IFS='|' read -r ns name kind owner start; do
+                [ -z "$kind" ] && continue
+                ckind=""
+                cname=""
+                desired=0
+
+                case "$kind" in
+                  ReplicaSet)
+                    rsline=$(lookup "$ns" "$owner" "$TMP/rs.txt")
+                    rskind=$(printf '%s' "$rsline" | cut -d'|' -f3)
+                    rsparent=$(printf '%s' "$rsline" | cut -d'|' -f4)
+                    rsrep=$(printf '%s' "$rsline" | cut -d'|' -f5)
+                    if [ "$rskind" = "Deployment" ] && [ -n "$rsparent" ]; then
+                      ckind="Deployment"
+                      cname="$rsparent"
+                      desired=$(printf '%s' "$(lookup "$ns" "$rsparent" "$TMP/deploy.txt")" | cut -d'|' -f3)
+                    else
+                      ckind="ReplicaSet"
+                      cname="$owner"
+                      desired="$rsrep"
+                    fi
+                    ;;
+                  StatefulSet)
+                    ckind="StatefulSet"
+                    cname="$owner"
+                    desired=$(printf '%s' "$(lookup "$ns" "$owner" "$TMP/sts.txt")" | cut -d'|' -f3)
+                    ;;
+                  DaemonSet)
+                    ckind="DaemonSet"
+                    cname="$owner"
+                    desired=$(printf '%s' "$(lookup "$ns" "$owner" "$TMP/ds.txt")" | cut -d'|' -f3)
+                    ;;
+                  *)
+                    echo "SKIP ${ns}/${name} (owner=${kind} not a scale controller)"
+                    continue
+                    ;;
+                esac
+
+                case "$desired" in
+                  ''|*[!0-9]*) desired=1 ;;
+                esac
+
+                key="${ns}|${ckind}|${cname}"
+                f=$(printf '%s' "$key" | sed 's|/|__|g')
+                printf '%s|%s|%s\n' "$ns" "$name" "$start" >> "$TMP/$f.pods"
+                printf '%s\n' "$desired" > "$TMP/$f.desired"
+                printf '%s|%s\n' "$ckind" "$cname" > "$TMP/$f.ctrl"
+              done < "$TMP/all.txt"
+
+              for f in "$TMP"/*.pods; do
+                [ -f "$f" ] || continue
+                n=$(wc -l < "$f" | tr -d ' ')
+                first=$(head -1 "$f")
+                ns=$(printf '%s' "$first" | cut -d'|' -f1)
+                name=$(printf '%s' "$first" | cut -d'|' -f2)
+                desired=$(cat "${f%.pods}.desired" 2>/dev/null || echo 1)
+                ctrl=$(cat "${f%.pods}.ctrl" 2>/dev/null || echo "?|?")
+                ckind=$(printf '%s' "$ctrl" | cut -d'|' -f1)
+                cname=$(printf '%s' "$ctrl" | cut -d'|' -f2)
+
+                # Controller asks for < 2 replicas → never kill (ignore extra Running pods in a rollout)
+
+                if [ "$desired" -lt 2 ]; then
+                  echo "SKIP ${ns}/${name} (desired=${desired} running=${n} ${ckind}/${cname})"
+                  continue
+                fi
+
+                if [ "$n" -lt 2 ]; then
+                  echo "SKIP ${ns}/${name} (desired=${desired} running=${n} ${ckind}/${cname})"
+                  continue
+                fi
+
+                killed=0
+                while IFS='|' read -r ns name start; do
+                  s=$(printf '%s' "$start" | sed -E 's/\.[0-9]+Z$/Z/')
+                  start_epoch=$(date -u -D '%Y-%m-%dT%H:%M:%SZ' -d "$s" +%s 2>/dev/null || echo 0)
+                  age=$((NOW - start_epoch))
+                  if [ "$start_epoch" -gt 0 ] && [ "$age" -ge "$MIN_AGE_SEC" ]; then
+                    echo "KILL ${ns}/${name} (desired=${desired} running=${n} age=${age}s ${ckind}/${cname})"
+                    apply_chaosengine "$ns" "$name" || true
+                    killed=1
+                    break
+                  fi
+                done < "$f"
+
+                if [ "$killed" -eq 0 ]; then
+                  echo "SKIP ${ns}/${name} (desired=${desired} running=${n} all_younger_than_${MIN_AGE_SEC}s ${ckind}/${cname})"
+                fi
+              done
+              echo "done"

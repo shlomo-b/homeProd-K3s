@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: chaos-mesh-kill-pods
+  name: litmus-app-pod-kill
   namespace: argocd
   labels:
     argocd.argoproj.io/instance: argocd
@@ -13,10 +13,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shlomo-b/homeProd-K3s.git
-    path: ./chaos-mesh-kill-pods
+    path: ./litmus-chaos
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
+    namespace: litmus
   syncPolicy:
     automated:
       selfHeal: true

@@ -1,0 +1,63 @@
+# Off-the-shelf Litmus pod-delete fault. ChaosEngine binds it to one TARGET_PODS.
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosExperiment
+metadata:
+  name: pod-delete
+  namespace: litmus
+  labels:
+    name: pod-delete
+    app.kubernetes.io/name: app-pod-kill
+    app.kubernetes.io/part-of: litmus
+    app.kubernetes.io/component: chaosexperiment
+    app.kubernetes.io/version: 3.30.0
+spec:
+  definition:
+    scope: Cluster
+    permissions:
+      - apiGroups:
+          - ""
+          - apps
+          - batch
+          - litmuschaos.io
+        resources:
+          - pods
+          - pods/log
+          - events
+          - jobs
+          - deployments
+          - replicasets
+          - statefulsets
+          - daemonsets
+          - chaosengines
+          - chaosexperiments
+          - chaosresults
+        verbs:
+          - create
+          - list
+          - get
+          - patch
+          - update
+          - delete
+    image: litmuschaos.docker.scarf.sh/litmuschaos/go-runner:3.30.0
+    imagePullPolicy: IfNotPresent
+    args:
+      - -c
+      - ./experiments -name pod-delete
+    command:
+      - /bin/bash
+    env:
+      - name: TOTAL_CHAOS_DURATION
+        value: "15"
+      - name: FORCE
+        value: "true"
+      - name: CHAOS_INTERVAL
+        value: "5"
+      - name: TARGET_PODS
+        value: ""
+      - name: SEQUENCE
+        value: parallel
+    labels:
+      name: pod-delete
+      app.kubernetes.io/part-of: litmus
+      app.kubernetes.io/component: experiment-job
+      app.kubernetes.io/version: 3.30.0

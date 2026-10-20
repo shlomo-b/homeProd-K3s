@@ -10,7 +10,6 @@ metadata:
   {{- end }}
   labels:
     app: {{ .Values.client.name }}
-    version: {{ .Values.client.version }}
 spec:
   revisionHistoryLimit: {{ .Values.client.revisionHistoryLimit }}
   {{- if (not .Values.client.autoscaling.enabled) }}
@@ -23,7 +22,8 @@ spec:
     metadata:
       labels:
         app: {{ .Values.client.name }}
-{{- with .Values.client.affinity }}
+        version: {{ .Values.client.version }}
+        {{- with .Values.client.affinity }}
       affinity:
       {{ toYaml . | indent 4 }}
 {{- end }}
