@@ -83,10 +83,10 @@ chaos-operator:
   enabled: true
 
 chaos-exporter:
-  enabled: true
+  enabled: false
 
 event-tracker:
-  enabled: true
+  enabled: false
 
 subscriber:
   enabled: true

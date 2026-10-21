@@ -15,7 +15,7 @@ metadata:
     workflows.argoproj.io/controller-instanceid: ec44cd9e-1dc1-4ffd-8ff4-9ae7872f07c2
 spec:
   # TEST: every 5 minutes. Restore Friday after: "0 9 * * 5"
-  schedule: "*/5 * * * *"
+  schedule: "0 9 * * 5"
   timezone: Asia/Jerusalem
   concurrencyPolicy: Allow
   successfulJobsHistoryLimit: 1
