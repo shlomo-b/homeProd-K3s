@@ -18,12 +18,12 @@ spec:
       helm:
         valueFiles:
           - $values/app-of-apps/chart-litmus/values-litmus-frontend.yaml
-    # - repoURL: https://litmuschaos.github.io/litmus-helm/
-    #   chart: litmus-agent
-    #   targetRevision: 3.30.0
-    #   helm:
-    #     valueFiles:
-    #       - $values/app-of-apps/chart-litmus/values-litmus-agent.yaml     
+    - repoURL: https://litmuschaos.github.io/litmus-helm/
+      chart: litmus-agent
+      targetRevision: 3.30.0
+      helm:
+        valueFiles:
+          - $values/app-of-apps/chart-litmus/values-litmus-agent.yaml     
   destination:
     server: https://kubernetes.default.svc
     namespace: litmus
