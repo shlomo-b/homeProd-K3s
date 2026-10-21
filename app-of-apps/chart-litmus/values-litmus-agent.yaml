@@ -10,7 +10,7 @@ global:
 # Declare variables to be passed into your templates.
 
 INFRA_NAME: "default"
-INFRA_DESCRIPTION: "prod chaos infrastructure deployed with helm argocd"
+INFRA_DESCRIPTION: "chaos infrastructure deployed with helm"
 
 INFRA_NODE_SELECTOR: "kubernetes.io/arch=amd64"
 SA_EXISTS: true
