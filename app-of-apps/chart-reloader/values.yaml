@@ -1,6 +1,9 @@
 reloader:
   watchGlobally: true
-  namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring,cronjob)"
+  namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring,cronjob,apphub)"
+  # namespaceSelector: ""
+  autoReloadAll: false
+  namespaces: []
   deployment:
     replicas: 1
     revisionHistoryLimit: 0
