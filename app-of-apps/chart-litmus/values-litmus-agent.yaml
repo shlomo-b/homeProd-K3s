@@ -26,7 +26,7 @@ PLATFORM_NAME: "Others"
 # Same-cluster: both URLs required, using the real svc names from `kubectl get svc -n litmus`
 # https://docs.litmuschaos.io/docs/user-guides/litmus-agent-helm-installation
 LITMUS_URL: "http://litmus-chaos-frontend-service.litmus.svc.cluster.local:9091"
-LITMUS_BACKEND_URL: "http://litmus-chaos-server-service.litmus.svc.cluster.local:9002"
+LITMUS_BACKEND_URL: "http://litmus-chaos-server-service.litmus.svc.cluster.local:9002/query"
 LITMUS_USERNAME: "admin"
 LITMUS_PASSWORD: "aB#4Yz@5"
 LITMUS_PROJECT_ID: "10464dea-055a-45aa-a1cd-2a5438f817df"
