@@ -130,3 +130,14 @@ apphub-credentials:
     dataFrom:
       extract:
         key: apphub
+
+litmus-subscriber:
+    external_secret_name: litmus-subscriber
+    namespaces:
+      - litmus
+    refreshInterval: 0s
+    secretStoreRefName: aws-secret-store
+    target: subscriber-secret
+    dataFrom:
+      extract:
+        key: litmus-subscriber
