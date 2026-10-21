@@ -10,7 +10,7 @@ global:
 # Declare variables to be passed into your templates.
 
 INFRA_NAME: "default"
-INFRA_DESCRIPTION: "chaos infrastructure deployed with helm"
+INFRA_DESCRIPTION: "chaos infrastructure deployed with argocd"
 
 INFRA_NODE_SELECTOR: "kubernetes.io/arch=amd64"
 SA_EXISTS: true
@@ -28,7 +28,7 @@ PLATFORM_NAME: "Others"
 LITMUS_URL: "http://litmus-chaos-frontend-service.litmus.svc.cluster.local:9091"
 LITMUS_BACKEND_URL: "http://litmus-chaos-server-service.litmus.svc.cluster.local:9002"
 LITMUS_USERNAME: "admin"
-LITMUS_PASSWORD: "litmus"
+LITMUS_PASSWORD: "aB#4Yz@5"
 LITMUS_PROJECT_ID: "10464dea-055a-45aa-a1cd-2a5438f817df"
 # -- ID of the litmus environment where the infrastructure will be added
 LITMUS_ENVIRONMENT_ID: "prodlitmus"
