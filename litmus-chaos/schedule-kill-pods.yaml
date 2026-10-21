@@ -12,8 +12,10 @@ metadata:
   namespace: litmus
   labels:
     app.kubernetes.io/name: app-pod-kill
+    workflows.argoproj.io/controller-instanceid: ec44cd9e-1dc1-4ffd-8ff4-9ae7872f07c2
 spec:
-  schedule: "0 9 * * 5"
+  # TEST: every 5 minutes. Restore Friday after: "0 9 * * 5"
+  schedule: "*/5 * * * *"
   timezone: Asia/Jerusalem
   concurrencyPolicy: Allow
   successfulJobsHistoryLimit: 1
@@ -21,6 +23,10 @@ spec:
   workflowSpec:
     serviceAccountName: litmus-app-pod-kill
     entrypoint: kill-one
+    workflowMetadata:
+      labels:
+        app.kubernetes.io/name: app-pod-kill
+        workflows.argoproj.io/controller-instanceid: ec44cd9e-1dc1-4ffd-8ff4-9ae7872f07c2
     templates:
       - name: kill-one
         container:
@@ -63,12 +69,13 @@ spec:
                   app-pod-kill/target: "${_ns}/${_name}"
               spec:
                 engineState: active
-                appinfo:
-                  appns: ${_ns}
-                  appkind: deployment
-                  applabel: app.kubernetes.io/name=app-pod-kill
+                defaultHealthCheck: false
                 chaosServiceAccount: litmus-app-pod-kill
                 jobCleanUpPolicy: retain
+                selectors:
+                  pods:
+                    - namespace: ${_ns}
+                      names: ${_name}
                 experiments:
                   - name: pod-delete
                     spec:
