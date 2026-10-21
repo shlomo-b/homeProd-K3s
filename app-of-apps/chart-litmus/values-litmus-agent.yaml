@@ -56,28 +56,28 @@ resources:
 # -- Enable the pre-install hook job that registers this agent with ChaosCenter.
 # Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., hook Secrets/ConfigMaps) may still be rendered;
 # manage them via their own flags (e.g., useExistingHookSecret).
-enablePreInstallJob: true
+enablePreInstallJob: false
 
 # Existing Secret name should be:
 # `{{ include "litmus-agent.fullname" . }}-hook`
 # I.E. `name: litmus-agent-hook`
 # -- Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml
-useExistingHookSecret: false
+useExistingHookSecret: true
 
 # Existing ConfigMap name should be equal to .global.infraConfigName
 # I.E. `name: subscriber-config`
 # -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map.yaml
-useExistingInfraConfigMap: false
+useExistingInfraConfigMap: true
 
 # Existing Secret name should be equal to .global.infraSecretName
 # I.E. `name: subscriber-secret`
 # -- Use an existing infra Secret instead of creating one with the chart, ref. to templates/infra-secret.yaml
-useExistingInfraSecret: false
+useExistingInfraSecret: true
 
 # Existing ConfigMap name should be:
 # `{{ index .Values "workflow-controller" "appSettings" "configmapName" }}`
 # -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map-workflow.yaml
-useExistingWorkflowControllerConfigMap: false
+useExistingWorkflowControllerConfigMap: true
 
 chaos-operator:
   enabled: true
