@@ -150,8 +150,11 @@ apphub:
       ALLOWED_EMAIL_DOMAINS: spider-shlomo.com
       ENABLE_AZURE_GROUPS: false
       ALLOWED_AZURE_GROUPS_ID: false
-      ENABLE_AZURE_USERS: true  
-      ENABLE_SAML: true   
+      ENABLE_AZURE_USERS: true
+      ENABLE_SAML: true
+      SAML_IDENTIFIER: https://apphub.spider-shlomo.com/remote/saml/metadata
+      SAML_REPLY_URL: https://apphub.spider-shlomo.com/remote/saml/acs
+      FRONTEND_URL_SAML: https://apphub.spider-shlomo.com
 
   resources:    
     requests:
