@@ -148,7 +148,7 @@ apphub:
       ALLOWED_AZURE_USERS_ID: b12a4d5c-00cc-48be-bb51-fae361a61be8
       ALLOWED_ORGANIZATIONS_ID: a2724ae3-73eb-4b45-ba62-f432da279e2c
       ALLOWED_EMAIL_DOMAINS: spider-shlomo.com
-      ENABLE_AZURE_GROUPS: true
+      ENABLE_AZURE_GROUPS: false
       ALLOWED_AZURE_GROUPS_ID: false
       ENABLE_AZURE_USERS: true     
 
