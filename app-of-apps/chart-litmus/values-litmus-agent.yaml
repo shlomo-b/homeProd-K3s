@@ -1,0 +1,96 @@
+global:
+  infraConfigName: subscriber-config
+  infraSecretName: subscriber-secret
+  podAnnotations: {}
+  customLabels: {}
+  # INFRA_MODE: cluster, namespace
+  INFRA_MODE: "cluster"
+# Default values for litmus-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+INFRA_NAME: "default"
+INFRA_DESCRIPTION: "prod chaos infrastructure deployed with helm argocd"
+
+INFRA_NODE_SELECTOR: "kubernetes.io/arch=amd64"
+SA_EXISTS: true
+NS_EXISTS: true
+INFRA_TYPE: "external"
+# For compatibility with ChaosCenter, Version has to be same
+APP_VERSION: "3.30.0"
+SKIP_SSL: "false"
+
+# Official options: Others, GKE, EKS, AKS (k3s is not a listed value)
+PLATFORM_NAME: "Others"
+
+# Same-cluster: both URLs required, using the real svc names from `kubectl get svc -n litmus`
+# https://docs.litmuschaos.io/docs/user-guides/litmus-agent-helm-installation
+LITMUS_URL: "http://litmus-chaos-frontend-service:9091"
+LITMUS_BACKEND_URL: "http://litmus-chaos-server-service:9002"
+LITMUS_USERNAME: "admin"
+LITMUS_PASSWORD: "litmus"
+LITMUS_PROJECT_ID: "10464dea-055a-45aa-a1cd-2a5438f817df"
+# -- ID of the litmus environment where the infrastructure will be added
+LITMUS_ENVIRONMENT_ID: "prodlitmus"
+
+image:
+  repository: litmuschaos.docker.scarf.sh/litmuschaos/litmus-helm-agent
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+crds:
+  create: true
+
+podAnnotations: {}
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# -- Enable the pre-install hook job that registers this agent with ChaosCenter.
+# Set to false for standallone litmus-agent installation (no ChaosCenter) however other ChaosCenter resources (e.g., hook Secrets/ConfigMaps) may still be rendered;
+# manage them via their own flags (e.g., useExistingHookSecret).
+enablePreInstallJob: true
+
+# Existing Secret name should be:
+# `{{ include "litmus-agent.fullname" . }}-hook`
+# I.E. `name: litmus-agent-hook`
+# -- Use an existing hook Secret instead of creating one with the chart, ref. to templates/secret.yaml
+useExistingHookSecret: false
+
+# Existing ConfigMap name should be equal to .global.infraConfigName
+# I.E. `name: subscriber-config`
+# -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map.yaml
+useExistingInfraConfigMap: false
+
+# Existing Secret name should be equal to .global.infraSecretName
+# I.E. `name: subscriber-secret`
+# -- Use an existing infra Secret instead of creating one with the chart, ref. to templates/infra-secret.yaml
+useExistingInfraSecret: false
+
+# Existing ConfigMap name should be:
+# `{{ index .Values "workflow-controller" "appSettings" "configmapName" }}`
+# -- Use an existing infra ConfigMap instead of creating one with the chart, ref. to templates/infra-config-map-workflow.yaml
+useExistingWorkflowControllerConfigMap: false
+
+chaos-operator:
+  enabled: true
+
+chaos-exporter:
+  enabled: true
+
+event-tracker:
+  enabled: true
+
+subscriber:
+  enabled: true
+
+workflow-controller:
+  enabled: true
+  crds:
+    create: true
