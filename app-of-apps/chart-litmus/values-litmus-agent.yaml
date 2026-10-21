@@ -38,6 +38,7 @@ image:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+  version: "3.30.0"
 
 crds:
   create: true
