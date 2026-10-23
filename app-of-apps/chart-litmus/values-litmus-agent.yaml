@@ -25,6 +25,11 @@ PLATFORM_NAME: "Others"
 
 # Same-cluster: both URLs required, using the real svc names from `kubectl get svc -n litmus`
 # https://docs.litmuschaos.io/docs/user-guides/litmus-agent-helm-installation
+
+# all those env for job that run and update the configmap and secret,>
+# the job login to chaoscenter and register the agen >
+# and update the configmap with infra id  and access token, this secret pull from ESO >
+# targert=subscriber-config , key=subscriber-secret
 LITMUS_URL: "http://litmus-chaos-frontend-service.litmus.svc.cluster.local:9091"
 LITMUS_BACKEND_URL: "http://litmus-chaos-server-service.litmus.svc.cluster.local:9002"
 LITMUS_USERNAME: "admin"

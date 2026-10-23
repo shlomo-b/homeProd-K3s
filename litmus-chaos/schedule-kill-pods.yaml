@@ -18,11 +18,16 @@ spec:
   schedule: "0 9 * * 5"
   timezone: Asia/Jerusalem
   concurrencyPolicy: Allow
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
+  # Do not keep finished Workflow CRs / alpine pods in the cluster or Argo CD
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
   workflowSpec:
     serviceAccountName: litmus-app-pod-kill
     entrypoint: kill-one
+    ttlStrategy:
+      secondsAfterCompletion: 60
+      secondsAfterSuccess: 60
+      secondsAfterFailure: 180
     workflowMetadata:
       labels:
         app.kubernetes.io/name: app-pod-kill
@@ -47,8 +52,32 @@ spec:
               trap 'rm -rf "$TMP"' EXIT
               killed_seq=0
 
-              # Keep only this Friday's ChaosEngines in the UI (same idea as historyLimit: 1)
-              kubectl delete chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill --wait=false 2>/dev/null || true
+              # Remove leftover ChaosEngines / Jobs / experiment pods from a previous run
+              cleanup_litmus() {
+                kubectl delete chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill --wait=false 2>/dev/null || true
+                kubectl delete chaosresult -n litmus -l app.kubernetes.io/name=app-pod-kill --wait=false 2>/dev/null || true
+                kubectl delete job -n litmus -l name=pod-delete --wait=false 2>/dev/null || true
+                kubectl delete pod -n litmus -l name=pod-delete --wait=false 2>/dev/null || true
+                kubectl delete job,pod -n litmus -l app.kubernetes.io/component=experiment-job --wait=false 2>/dev/null || true
+              }
+              cleanup_litmus
+
+              wait_then_cleanup() {
+                WAIT_SEC=180
+                elapsed=0
+                while [ "$elapsed" -lt "$WAIT_SEC" ]; do
+                  count=$(kubectl get chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill --no-headers 2>/dev/null | wc -l | tr -d ' ')
+                  [ "${count:-0}" -eq 0 ] && break
+                  statuses=$(kubectl get chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill -o jsonpath='{range .items[*]}{.status.engineStatus}{"\n"}{end}' 2>/dev/null || true)
+                  unfinished=$(printf '%s\n' "$statuses" | grep -cvE '^(completed|stopped)$' || true)
+                  if [ "${unfinished:-0}" -eq 0 ] && [ -n "$statuses" ]; then
+                    break
+                  fi
+                  sleep 5
+                  elapsed=$((elapsed + 5))
+                done
+                cleanup_litmus
+              }
 
               apply_chaosengine() {
                 _ns="$1"
@@ -71,7 +100,7 @@ spec:
                 engineState: active
                 defaultHealthCheck: false
                 chaosServiceAccount: litmus-app-pod-kill
-                jobCleanUpPolicy: retain
+                jobCleanUpPolicy: delete
                 selectors:
                   pods:
                     - namespace: ${_ns}
@@ -196,4 +225,5 @@ spec:
                   echo "SKIP ${ns}/${name} (desired=${desired} running=${n} all_younger_than_${MIN_AGE_SEC}s ${ckind}/${cname})"
                 fi
               done
+              wait_then_cleanup
               echo "done"

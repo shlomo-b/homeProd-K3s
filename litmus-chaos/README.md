@@ -10,25 +10,31 @@ Uses a **unique ServiceAccount** `litmus-app-pod-kill` in namespace `litmus`. Ne
 
 This is the Litmus equivalent of the old Chaos Mesh **Schedule → Workflow Task → PodChaos**. Not a Kubernetes CronJob.
 
+**UI limitation:** ChaosCenter **does not** list this schedule. Experiments in the portal are only those created in the UI / litmusctl. This CronWorkflow is GitOps (`Argo CD` Application `litmus-app-pod-kill`). It **runs on the cluster**; Chaos Experiments stays empty. Uploading `schedule-kill-pods.yaml` in the UI fails (`errorInYamlDescription`). Check runs with `kubectl` / Argo Workflows, not Chaos Studio.
+
 ---
 
 ## Who does what?
 
+One pipeline, not two jobs fighting. Each kill creates **both** a ChaosEngine and a Litmus Job.
+
 | Piece | Role (Chaos Mesh equivalent) |
 |--------|------------------------------|
-| **CronWorkflow `app-pod-kill`** | **Schedule.** Friday 09:00. Visible as a scheduled experiment. |
-| **Workflow step `kill-one`** | **Task.** Alpine picks KILL vs SKIP. |
-| **ChaosEngine (pod-delete)** | **PodChaos / Experiments.** One CR per killed pod. ChaosCenter shows the target. |
+| **CronWorkflow `app-pod-kill`** | **Schedule.** Friday 09:00. One alpine Workflow pod. |
+| **Workflow step `kill-one`** | **Task.** Alpine picks KILL vs SKIP. It does **not** delete app pods. |
+| **ChaosExperiment `pod-delete`** | **Catalog / recipe.** Image, command, RBAC for the experiment Job. ChaosEngine only *names* this. |
+| **ChaosEngine (`kill-…`)** | **PodChaos.** One CR per killed pod (`TARGET_PODS`). |
+| **Job (`pod-delete-…`)** | Created by chaos-operator from the ChaosExperiment. This Job actually deletes the app pod. |
 | **SA `litmus-app-pod-kill`** | Unique identity (not `default`). |
-| **Litmus kubernetes-agent** | **Chaos Mesh chart.** Workflow controller + chaos-operator actually run the schedule and the kill. |
+| **Litmus kubernetes-agent** | workflow-controller runs the CronWorkflow; chaos-operator runs each ChaosEngine. |
 
 ```text
 Friday 09:00 Asia/Jerusalem
-    → CronWorkflow app-pod-kill
-    → Workflow step kill-one (alpine, SA litmus-app-pod-kill)
-    → desired ≥ 2 + age ≥ 10m → apply ChaosEngine (pod-delete, TARGET_PODS=that pod)
-    → chaos-operator runs pod-delete
-    → ChaosCenter: schedule + workflow steps + experiment / ChaosEngine list
+    → CronWorkflow app-pod-kill  (one alpine pod)
+    → kill-one: desired ≥ 2 + age ≥ 10m → apply ChaosEngine kill-<pod>-…
+    → chaos-operator reads ChaosExperiment pod-delete
+    → creates Job pod-delete-…  → deletes that app pod
+    → after Succeeded: Job/engine/experiment-pods are deleted (see Cleanup)
 ```
 
 ---
@@ -37,9 +43,15 @@ Friday 09:00 Asia/Jerusalem
 
 Image: `alpine/k8s:1.32.13` (`kubectl` + `sh` + `awk`).
 
-### 1. Cleanup
+### 1. Cleanup (so Jobs/pods do not pile up)
 
-Delete last week’s ChaosEngine with label `app.kubernetes.io/name=app-pod-kill` (same idea as `historyLimit: 1`).
+At start **and** after this run’s engines complete:
+
+- ChaosEngine / ChaosResult with label `app.kubernetes.io/name=app-pod-kill`
+- Jobs and pods `name=pod-delete` (the Litmus experiment Jobs)
+
+`jobCleanUpPolicy: delete` — Litmus must not `retain` experiment Jobs.  
+CronWorkflow `successfulJobsHistoryLimit: 0` + `ttlStrategy` — the alpine Workflow pod is removed too, so Argo CD does not keep Failed/Succeeded extras.
 
 ### 2. Load controllers (HA source of truth)
 
@@ -77,24 +89,27 @@ SKIP argocd/prod-argocd-redis-… (desired=1 running=2 Deployment/prod-argocd-re
 
 Alpine applies a **ChaosEngine** in namespace **`litmus`**:
 
-- experiment `pod-delete`
+- experiment name `pod-delete` (must exist as ChaosExperiment — see Files)
 - `TARGET_PODS` = that exact pod name
-- `appinfo.appns` = that namespace
+- `selectors.pods` = namespace + name
 - annotation `app-pod-kill/target: ns/pod`
+- `jobCleanUpPolicy: delete`
 
-Then Litmus chaos-operator deletes the pod. ReplicaSet/Deployment creates a replacement.
+Then chaos-operator creates the `pod-delete-*` Job, which deletes the app pod. ReplicaSet/Deployment creates a replacement.
+
+That is why one Friday run shows many `kill-*` **and** many `pod-delete-*`: one ChaosEngine + one Job **per HA controller**, not a double script.
 
 ---
 
-## Where to look in the UI
+## Where to look (not ChaosCenter Experiments)
 
-| Chaos Mesh screen | Litmus equivalent |
-|-------------------|-------------------|
-| **Schedules** | CronWorkflow / Chaos Experiment schedule |
-| **Workflows** | Workflow run (step `kill-one`) |
-| **Experiments** | ChaosEngine list (one per kill) |
+| What you want | Where |
+|---------------|--------|
+| Schedule | `kubectl get cronworkflow -n litmus app-pod-kill` / Argo CD `litmus-app-pod-kill` |
+| This run’s alpine pod | `kubectl get workflow -n litmus` (gone after TTL) |
+| Targets | ChaosEngine annotation, while the run is in progress |
 
-Filter namespace **litmus** (where engines are stored), not the app namespace.
+Filter namespace **litmus** (engines live here), not the app namespace.
 
 ```bash
 kubectl get chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill \
@@ -105,12 +120,12 @@ kubectl get chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill \
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| `replica-check-rbac.yaml` | SA `litmus-app-pod-kill` + ClusterRole + binding |
-| `schedule-kill-pods.yaml` | **CronWorkflow** (Schedule) → step `kill-one` + ChaosEngine create |
-| `pod-delete-experiment.yaml` | Litmus `ChaosExperiment` `pod-delete` |
-| `application.yml` | Argo CD Application (`./litmus-chaos`) |
+| File | Kind | Why it exists |
+|------|------|----------------|
+| `replica-check-rbac.yaml` | SA + ClusterRole | Unique SA; alpine and the experiment Job are not `default` |
+| `schedule-kill-pods.yaml` | CronWorkflow | **When** and **which** pod. Applies ChaosEngine. Does not contain the kill recipe. |
+| `pod-delete-experiment.yaml` | ChaosExperiment `pod-delete` | **How** to kill. ChaosEngine only references `name: pod-delete`. The agent Helm chart does **not** install this catalog; without this CR the engine has nothing to run. Do not delete it. |
+| `application.yml` | Argo CD Application | Syncs this folder to namespace `litmus` (`litmus-app-pod-kill`) |
 
 **Prerequisite:** Litmus ChaosCenter **and** kubernetes-agent (workflow-controller + chaos-operator) in namespace `litmus`. Same idea as “Chaos Mesh chart already installed”. Without the agent, CronWorkflow / ChaosEngine CRs have no controller and the UI has no runs.
 
@@ -127,7 +142,7 @@ Agent install (same cluster as ChaosCenter): [Litmus agent Helm](https://docs.li
 - **When:** every **Friday at 09:00**
 - **Timezone:** `Asia/Jerusalem` (`CronWorkflow.spec.timezone`)
 - `concurrencyPolicy: Allow`
-- `successfulJobsHistoryLimit: 1` — keep one Workflow; script also deletes last week’s ChaosEngines
+- `successfulJobsHistoryLimit: 0` / `failedJobsHistoryLimit: 0` + `ttlStrategy` — do not keep finished Workflow pods (Argo CD will not sit on Failed leftovers)
 
 ---
 
@@ -175,7 +190,8 @@ kubectl get chaosengine -n litmus -l app.kubernetes.io/name=app-pod-kill \
 |--------|------|
 | **CronWorkflow** | Friday trigger (Schedule) |
 | **`kill-one` (alpine)** | Decides KILL vs SKIP from **desired replicas** |
-| **ChaosEngine pod-delete** | Executes the kill; UI card per target |
+| **ChaosExperiment `pod-delete`** | Recipe for the experiment Job (required) |
+| **ChaosEngine + Job `pod-delete-*`** | Executes the kill, then both are deleted |
 | **SA `litmus-app-pod-kill`** | Unique identity; not `default` |
 
 Rule: **`spec.replicas` ≥ 2 (or DaemonSet on ≥ 2 nodes) and pod age ≥ 10m → kill one; `replicas: 1` → skip.**
