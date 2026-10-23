@@ -3,7 +3,7 @@ global:
   tag: 1.30.5
   proxy:
     autoInject: enabled
-     # Resources for the sidecar.
+    # Resources for the sidecar.
     resources:
       requests:
         cpu: 100m
@@ -12,7 +12,13 @@ global:
         cpu: 2000m
         memory: 1024Mi
 
-
+# Native sidecars: required so Jobs can Complete when the main container exits.
+# Istio 1.27+ only auto-enables this when ALL nodes are k8s >= 1.33.
+# This cluster is k3s 1.32.x → traditional sidecars by default → Jobs stick (NotReady).
+# Explicit opt-in is safe on k8s >= 1.29 (SidecarContainers feature).
+pilot:
+  env:
+    ENABLE_NATIVE_SIDECARS: "true"
 
 sidecarInjectorWebhook:
   enableNamespacesByDefault: true
@@ -36,7 +42,7 @@ affinity:
                 - master2
                 - master3
 
-# guarantee that all istiod pods are on different nodes
+  # guarantee that all istiod pods are on different nodes
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
