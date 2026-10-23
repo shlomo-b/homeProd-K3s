@@ -15,7 +15,7 @@ global:
 
 
 sidecarInjectorWebhook:
-  enableNamespacesByDefault: false
+  enableNamespacesByDefault: true
 
 cni:
   enabled: false
