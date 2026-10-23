@@ -17,10 +17,14 @@ hubble:
   enabled: true
   relay:
     enabled: true
+    podAnnotations:
+      sidecar.istio.io/inject: "false"
   ui:
     enabled: true
     service:
       type: ClusterIP
+    podAnnotations:
+      sidecar.istio.io/inject: "false"
 
   metrics:
     # labelsContext adds source/dest pod, namespace, and port labels for network policy planning
@@ -41,8 +45,18 @@ securityContext:
 ipam:
   mode: kubernetes
 
+# CNI / hostNetwork — Istio must not inject (same as node-exporter / MetalLB speaker)
+podAnnotations:
+  sidecar.istio.io/inject: "false"
+
 envoy:
   enabled: true
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
+
+operator:
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
 
 envoyConfig:
   enabled: true
