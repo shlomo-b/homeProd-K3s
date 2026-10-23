@@ -35,4 +35,4 @@ chaos-mesh-kill-pods/README.md
 podst.txt
 create-argocd-user-local.md
 rbac/
-test-litmus.yaml
+mongodb-for-litmus.yaml
