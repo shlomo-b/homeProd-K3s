@@ -4,6 +4,12 @@ global:
 configs:
   params:
     server.insecure: true
+    # Istio + future PeerAuth STRICT: Dex must NOT speak app-TLS.
+    # Otherwise sidecar unwraps mTLS and forwards plain HTTP into Dex HTTPS → RST / SAML break.
+    # Encryption in-cluster = Istio mTLS; Dex stays HTTP on 5556.
+    dexserver.disable.tls: "true"
+    server.dex.server: "http://prod-argocd-dex-server:5556"
+    server.dex.server.plaintext: "true"
   cm:
     create: true
     # accounts.shlomo: login
@@ -60,23 +66,17 @@ server:
     type: ClusterIP
     servicePortHttp: 80
     servicePortHttps: 443
-  
 
 # responsible for authenticating users
 dex:
-  servicePortHttpName: tcp-dex
   volumes:
     - name: sso-cert
       secret:
         secretName: argocd-sso-cert
 
   # Mount the SSO certificate to Dex, making it available in the container
+  # (SAML IdP CA only — not Dex server TLS; that is disabled above for Istio mTLS)
   volumeMounts:
     - name: sso-cert
       mountPath: /etc/dex/certs
       readOnly: true
-
-redis:
-  # Istio: keep Redis plaintext TCP outside the sidecar (same class of reset issues)
-  podAnnotations:
-    traffic.sidecar.istio.io/excludeInboundPorts: "6379"
