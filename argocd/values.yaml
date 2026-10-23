@@ -68,7 +68,7 @@ dex:
       secret:
         secretName: argocd-sso-cert
 
-  # Mount the SSO certificate to Dex, making it available in the container     
+  # Mount the SSO certificate to Dex, making it available in the containerd     
   volumeMounts:
     - name: sso-cert
       mountPath: /etc/dex/certs
