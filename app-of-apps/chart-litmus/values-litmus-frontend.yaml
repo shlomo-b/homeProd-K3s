@@ -248,7 +248,9 @@ portal:
         TLS_CERT_64: ""
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         DEFAULT_HUB_BRANCH_NAME: "v3.30.x"
-        INFRA_DEPLOYMENTS: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
+        # Subscriber waits for this list at startup. Do not include components that are disabled
+        # on the agent (chaos-exporter, event-tracker) or it fatals "all components failed to startup".
+        INFRA_DEPLOYMENTS: '["name=chaos-operator", "app=workflow-controller"]'
         WORKFLOW_HELPER_IMAGE_VERSION: "3.30.0"
         REMOTE_HUB_MAX_SIZE: "5000000"
         INFRA_COMPATIBLE_VERSIONS: '["3.30.0"]'
