@@ -141,3 +141,14 @@ litmus-subscriber:
     dataFrom:
       extract:
         key: litmus-subscriber
+
+litmus-credentials:
+    external_secret_name: litmus-credentials
+    namespaces:
+      - litmus
+    refreshInterval: 0s
+    secretStoreRefName: aws-secret-store
+    target: litmus-credentials
+    dataFrom:
+      extract:
+        key: litmus-credentials
