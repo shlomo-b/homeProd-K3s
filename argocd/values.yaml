@@ -60,16 +60,23 @@ server:
     type: ClusterIP
     servicePortHttp: 80
     servicePortHttps: 443
+  
 
-# responsible for authenticating usersd
+# responsible for authenticating users
 dex:
+  servicePortHttpName: tcp-dex
   volumes:
     - name: sso-cert
       secret:
         secretName: argocd-sso-cert
 
-  # Mount the SSO certificate to Dex, making it available in the containerd     
+  # Mount the SSO certificate to Dex, making it available in the container
   volumeMounts:
     - name: sso-cert
       mountPath: /etc/dex/certs
       readOnly: true
+
+redis:
+  # Istio: keep Redis plaintext TCP outside the sidecar (same class of reset issues)
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeInboundPorts: "6379"
