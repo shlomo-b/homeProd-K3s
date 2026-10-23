@@ -1,0 +1,5 @@
+peerAuthentication:
+  name: default
+  namespace: istio-system
+  mtls:
+    mode: STRICT
