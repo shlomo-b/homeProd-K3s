@@ -17,6 +17,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appName }}
+        version: {{ .Values.version }}
 {{- with .Values.affinity }}
       affinity:
       {{toYaml . | indent 4}}   
