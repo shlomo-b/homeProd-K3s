@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: litmus-frontend-access-shlomo-ip
+  namespace: litmus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: litmus
+      app.kubernetes.io/component: litmus-frontend
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            ipBlocks:
+              - "10.90.100.250/32"
