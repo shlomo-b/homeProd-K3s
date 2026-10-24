@@ -24,7 +24,7 @@ datasources:
       - name: prometheus
         type: prometheus
         access: proxy
-        url: https://prometheus.spider-shlomo.com
+        url: http://prometheus-server:9090
 
 service:
   enabled: true
