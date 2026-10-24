@@ -1,10 +1,16 @@
-{{- if .Values.peerAuthentication.enabled | default true }}
+{{- range .Values.peerAuthentication }}
+---
 apiVersion: security.istio.io/v1
 kind: PeerAuthentication
 metadata:
-  name: {{ .Values.peerAuthentication.name }}
-  namespace: {{ .Values.peerAuthentication.namespace }}
+  name: {{ .name }}
+  namespace: {{ .namespace }}
 spec:
+  {{- with .selector }}
+  selector:
+    matchLabels:
+      {{- toYaml . | nindent 6 }}
+  {{- end }}
   mtls:
-    mode: {{ .Values.peerAuthentication.mtls.mode }}
+    mode: {{ .mtls.mode }}
 {{- end }}

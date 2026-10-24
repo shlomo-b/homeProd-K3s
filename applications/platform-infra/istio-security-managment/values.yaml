@@ -1,5 +1,13 @@
 peerAuthentication:
-  name: default
-  namespace: istio-system
-  mtls:
-    mode: STRICT
+  - name: default
+    namespace: istio-system
+    mtls:
+      mode: STRICT
+
+  - name: litmus-frontend
+    namespace: litmus
+    selector:
+      app.kubernetes.io/name: litmus
+      app.kubernetes.io/component: litmus-frontend
+    mtls:
+      mode: PERMISSIVE
