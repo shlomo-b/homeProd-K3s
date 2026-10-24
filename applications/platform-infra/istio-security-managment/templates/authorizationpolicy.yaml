@@ -12,5 +12,5 @@ spec:
   rules:
     - from:
         - source:
-            ipBlocks:
+            remoteIpBlocks:
               - "10.0.11.250/32"
