@@ -141,6 +141,7 @@ portal:
     service:
       annotations: {}
       type: LoadBalancer
+      externalTrafficPolicy: Local
       port: 9091
       targetPort: 8185
 # NOTE: Using virtualService is not compatible with native mTLS of Litmus.
