@@ -273,3 +273,6 @@ prometheus-node-exporter:
     targetPort: 9100
     PortName: metrics
     name: node-exporter
+  
+  podAnnotations:
+    sidecar.istio.io/inject: "true"
