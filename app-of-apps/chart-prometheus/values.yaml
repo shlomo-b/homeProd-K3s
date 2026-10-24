@@ -274,5 +274,3 @@ prometheus-node-exporter:
     PortName: metrics
     name: node-exporter
   
-  podAnnotations:
-    sidecar.istio.io/inject: "true"
