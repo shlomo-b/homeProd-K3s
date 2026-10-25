@@ -11,3 +11,16 @@ peerAuthentication:
       app.kubernetes.io/component: litmus-frontend
     mtls:
       mode: PERMISSIVE
+
+
+authorizationpolicies:
+  - name: litmus-frontend-access-shlomo-ip
+    namespace: litmus
+    selector:
+      app.kubernetes.io/name: litmus
+      app.kubernetes.io/component: litmus-frontend
+    action: ALLOW
+    rules:
+      sourceRules:
+        - "10.0.11.250/32"
+        - "10.212.212.1/32"

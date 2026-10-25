@@ -1,3 +1,4 @@
+# mtls mode STRICT=nust transport layer security enabled mtls mode PERMISSIVE=transport layer security disabled
 {{- range .Values.peerAuthentication }}
 ---
 apiVersion: security.istio.io/v1
