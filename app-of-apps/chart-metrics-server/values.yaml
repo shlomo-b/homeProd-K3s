@@ -2,7 +2,8 @@ serviceAccount:
   create: true
 
 replicas: 2
-
+podAnnotations:
+  sidecar.istio.io/inject: "false"
 resources:
   requests:
     cpu: 100m
