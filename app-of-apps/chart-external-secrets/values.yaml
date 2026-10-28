@@ -17,6 +17,14 @@ replicaCount: 1
 installCRDs: true
 scopedRBAC: true
 
+# The API server calls this webhook from outside the mesh and checks the
+# webhook certificate. A sidecar breaks that call, and failurePolicy is Fail,
+# so every ExternalSecret update stops. Istio marks excludeInboundPorts Alpha,
+# so the production setting is no sidecar on this pod only.
+webhook:
+  podLabels:
+    sidecar.istio.io/inject: "false"
+
 serviceAccount:
   create: true
   name: external-secrets
