@@ -1,6 +1,7 @@
 replicaCount: 1
 revisionHistoryLimit: 1
 config:
+  clientID: 21bd2210-0335-4bbb-b791-14278b7cacc9
 #  the secret pull from the secret manager
   clientSecret: client-id
 
