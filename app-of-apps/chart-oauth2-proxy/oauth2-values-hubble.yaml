@@ -1,19 +1,18 @@
 replicaCount: 1
 revisionHistoryLimit: 1
 config:
+#  the secret pull from the secret manager
   clientSecret: client-id
+
+#  the email domains that are allowed to access the application
   emailDomains:
-    - "*"
+    - "*.spider-shlomo.com"
+
+#  the upstreams that are allowed to access the application its the service name and the port
   upstreams:
+
     - http://hubble-ui.cilium-network-policy.svc.cluster.local:80
-
-alphaConfig:
-  enabled: false
-
-service:
-  type: ClusterIP
-  portNumber: 80
-
+#  the provider that is used to authenticate the user
 extraArgs:
   provider: entra-id
   oidc-issuer-url: "https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/v2.0"
