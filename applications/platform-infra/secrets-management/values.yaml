@@ -160,7 +160,7 @@ oauth2-secret-value-hubble:
       - oauth2-proxy
     refreshInterval: 168h
     secretStoreRefName: aws-secret-store
-    target: oauth2-secret-hubble
+    target: client-id
     dataFrom:
       extract:
-        key: oauth2-secret-hubble
+        key: client-id
