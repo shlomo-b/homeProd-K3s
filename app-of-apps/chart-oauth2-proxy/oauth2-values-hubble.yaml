@@ -1,0 +1,34 @@
+replicaCount: 1
+
+config:
+  existingSecret: oauth2-secret-hubble
+  emailDomains:
+    - "*"
+  upstreams:
+    - http://hubble-ui.cilium-network-policy.svc.cluster.local:80
+
+alphaConfig:
+  enabled: false
+
+service:
+  type: ClusterIP
+  portNumber: 80
+
+extraArgs:
+  provider: entra-id
+  oidc-issuer-url: "https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/v2.0"
+  redirect-url: "https://cilium-ui.spider-shlomo.com/oauth2/callback"
+  scope: "openid profile email"
+
+  reverse-proxy: "true"
+  skip-provider-button: "true"
+  code-challenge-method: S256
+
+  cookie-secure: "true"
+  cookie-httponly: "true"
+  cookie-samesite: lax
+  cookie-expire: 1h
+
+  pass-basic-auth: "false"
+  pass-access-token: "false"
+  pass-authorization-header: "false"
