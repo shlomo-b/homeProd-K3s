@@ -153,11 +153,11 @@ litmus-credentials:
       extract:
         key: litmus-credentials
 
-
+# chnage the namespace to oauth2-proxy from cilium-network-policy
 oauth2-secret-value-hubble:
     external_secret_name: oauth2-secret-value-hubble
     namespaces:
-      - cilium-network-policy
+      - oauth2-proxy
     refreshInterval: 168h
     secretStoreRefName: aws-secret-store
     target: oauth2-secret-hubble
