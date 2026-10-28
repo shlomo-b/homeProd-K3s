@@ -53,6 +53,7 @@ istio-vs-prometheus-pushgateway:
             host: prometheus-prometheus-pushgateway
             port: 9091
 
+# OAuth2 Proxy for Hubble UI, change the destination host to oauth2 from hubble-ui
 istio-vs-cilium-ui:
   name: cilium-ui-vs
   namespace: cilium-network-policy
@@ -61,7 +62,7 @@ istio-vs-cilium-ui:
   http:
     - route:
         destination:
-            host: hubble-ui
+            host: oauth2-proxy.oauth2-proxy.svc.cluster.local
             port: 80
 
 istio-vs-uptime-kuma:

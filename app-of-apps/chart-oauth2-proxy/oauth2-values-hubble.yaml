@@ -1,5 +1,5 @@
 replicaCount: 1
-
+revisionHistoryLimit: 1
 config:
   clientSecret: client-id
   emailDomains:
