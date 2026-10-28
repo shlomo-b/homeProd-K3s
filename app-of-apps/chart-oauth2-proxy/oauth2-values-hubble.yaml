@@ -1,7 +1,7 @@
 replicaCount: 1
 
 config:
-  existingSecret: client-id
+  clientSecret: client-id
   emailDomains:
     - "*"
   upstreams:
