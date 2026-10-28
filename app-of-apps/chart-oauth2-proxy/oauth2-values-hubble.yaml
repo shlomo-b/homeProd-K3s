@@ -15,7 +15,7 @@ config:
 #  the provider that is used to authenticate the user
 extraArgs:
   provider: entra-id
-  oidc-issuer-url: "https://login.microsoftonline.com/21bd2210-0335-4bbb-b791-14278b7cacc9/v2.0"
+  oidc-issuer-url: "https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/v2.0"
   redirect-url: "https://cilium-ui.spider-shlomo.com/oauth2/callback"
   scope: "openid profile email"
 
