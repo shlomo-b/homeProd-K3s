@@ -5,7 +5,7 @@ config:
 
 #  the email domains that are allowed to access the application
   emailDomains:
-    - "*.spider-shlomo.com"
+    - "*"
 
 #  the upstreams that are allowed to access the application its the service name and the port
   upstreams:
@@ -17,6 +17,7 @@ extraArgs:
   oidc-issuer-url: "https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/v2.0"
   redirect-url: "https://cilium-ui.spider-shlomo.com/oauth2/callback"
   scope: "openid profile email"
+  oidc-email-claim: preferred_username
 
   reverse-proxy: "true"
   skip-provider-button: "true"
