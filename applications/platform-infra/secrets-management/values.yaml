@@ -158,7 +158,7 @@ oauth2-secret-value-hubble:
     external_secret_name: oauth2-secret-value-hubble
     namespaces:
       - cilium-network-policy
-    refreshInterval: 0s
+    refreshInterval: 168h
     secretStoreRefName: aws-secret-store
     target: oauth2-secret-hubble
     dataFrom:
