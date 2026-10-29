@@ -5,7 +5,7 @@ config:
 
 #  the email domains that are allowed to access the application
   emailDomains:
-    - "*.spider-shlomo.com"
+    - "*"
 
 #  the upstreams that are allowed to access the application its the service name and the port
   upstreams:
