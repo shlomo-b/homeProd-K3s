@@ -1,7 +1,7 @@
 replicaCount: 1
 revisionHistoryLimit: 1
 config:
-  existingSecret: client-id
+  existingSecret: oauth2-secrets-hubble
 
 #  the email domains that are allowed to access the application
   emailDomains:
