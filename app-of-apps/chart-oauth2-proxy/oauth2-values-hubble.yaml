@@ -20,9 +20,7 @@ extraArgs:
   oidc-email-claim: preferred_username
 
   reverse-proxy: "true"
-  # Verified from live logs: oauth2-proxy has istio-proxy sidecar.
-  # Peer IP seen by the app is always 127.0.0.6 (not Istio gateway 10.42.x.x).
-  # Do NOT trust 10.42.0.0/16 — that would trust every pod in the cluster.
+  # Peer IP seen by the app is always 127.0.0.6 hardcoded in the istio-proxy sidecar.
   trusted-proxy-ip: "127.0.0.6/32"
   skip-provider-button: "true"
   code-challenge-method: S256
