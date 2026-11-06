@@ -36,4 +36,9 @@ authorizationpolicies:
       to:
         hosts:
           - "cilium-ui.spider-shlomo.com"
-          - "secretpass.spider-shlomo.com"      
+          - "secretpass.spider-shlomo.com"
+          - "grafana.spider-shlomo.com"      
+          - "prometheus.spider-shlomo.com"
+          - "apphub.spider-shlomo.com"
+          - "hubble-ui.spider-shlomo.com"
+          - "argo.spider-shlomo.com"
