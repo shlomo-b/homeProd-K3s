@@ -14,7 +14,7 @@ peerAuthentication:
 
 
 authorizationpolicies:
-  - name: litmus-frontend-access-shlomo-ip
+  - name: litmus-frontend-access-shlomo-and-vpn
     namespace: litmus
     selector:
       app.kubernetes.io/name: litmus
@@ -24,3 +24,16 @@ authorizationpolicies:
       sourceRules:
         - "10.0.11.250/32"
         - "10.212.212.1/32"
+
+  - name: restrict-apps-by-ip-shlomo
+    namespace: istio-ingress
+    selector:
+      istio: ingress-gateway
+    action: DENY
+    rules:
+      notSourceRules:
+        - "10.0.11.250/32"
+      to:
+        hosts:
+          - "cilium-ui.spider-shlomo.com"
+          - "secretpass.spider-shlomo.com"      

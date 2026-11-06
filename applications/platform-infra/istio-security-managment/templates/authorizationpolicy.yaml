@@ -1,4 +1,4 @@
-
+{{/*
 {{- range .Values.authorizationpolicies }}
 ---
 apiVersion: security.istio.io/v1
@@ -19,5 +19,40 @@ spec:
         - source:
             remoteIpBlocks:
               {{- toYaml .sourceRules | nindent 14 }}
+  {{- end }}
+{{- end }}
+*/}}
+
+{{- range .Values.authorizationpolicies }}
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+spec:
+  {{- with .selector }}
+  selector:
+    matchLabels:
+      {{- toYaml . | nindent 6 }}
+  {{- end }}
+  action: {{ .action }}
+  {{- with .rules }}
+  rules:
+    - from:
+        - source:
+            {{- with .sourceRules }}
+            remoteIpBlocks:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with .notSourceRules }}
+            notRemoteIpBlocks:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+      {{- with .to }}
+      to:
+        - operation:
+            {{- toYaml . | nindent 12 }}
+      {{- end }}
   {{- end }}
 {{- end }}
