@@ -29,7 +29,7 @@ authorizationpolicies:
     namespace: istio-ingress
     selector:
       istio: ingress-gateway
-    action: DENY
+    action: ALLOW
     rules:
       notSourceRules:
         - "10.0.11.250/32"
