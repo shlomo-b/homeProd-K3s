@@ -43,3 +43,4 @@ authorizationpolicies:
           - "apphub.spider-shlomo.com"
           - "hubble-ui.spider-shlomo.com"
           - "argocd.spider-shlomo.com"
+          - "kiali.spider-shlomo.com"
