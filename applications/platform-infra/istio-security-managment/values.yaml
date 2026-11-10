@@ -40,7 +40,7 @@ authorizationpolicies:
           - "secretpass.spider-shlomo.com"
           - "grafana.spider-shlomo.com"      
           - "prometheus.spider-shlomo.com"
-          - "pushgateway.spider-shlomo.com/"
+          - "pushgateway.spider-shlomo.com"
           - "apphub.spider-shlomo.com"
           - "hubble-ui.spider-shlomo.com"
           - "argocd.spider-shlomo.com"
