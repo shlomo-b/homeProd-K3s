@@ -28,7 +28,7 @@ extraArgs:
   cookie-secure: "true"
   cookie-httponly: "true"
   cookie-samesite: lax
-  cookie-expire: 1h
+  cookie-expire: "24h"
 
   pass-basic-auth: "false"
   pass-access-token: "false"
