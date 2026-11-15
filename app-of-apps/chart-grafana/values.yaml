@@ -12,6 +12,9 @@ persistence:
   size: 10Gi
   accessMode: ReadWriteOnce
 
+plugins:
+  - yesoreyeram-infinity-datasource
+  
 datasources:
   datasources.yaml:
     apiVersion: 1
