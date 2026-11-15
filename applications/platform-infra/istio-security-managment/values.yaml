@@ -47,3 +47,15 @@ authorizationpolicies:
           - "kiali.spider-shlomo.com"
           - "ipam.spider-shlomo.com"
           - "uptime-kuma.spider-shlomo.com"
+
+  - name: mcp-server-master
+    namespace: istio-ingress
+    selector:
+      istio: ingress-gateway
+    action: ALLOW
+    rules:
+      sourceRules:
+        - "10.90.100.250/32"
+      to:
+        hosts:
+          - "grafana.spider-shlomo.com"
