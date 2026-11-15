@@ -55,7 +55,7 @@ authorizationpolicies:
     action: ALLOW
     rules:
       sourceRules:
-        - "10.90.100.250/32"
+        - "10.42.0.243/32"
       to:
         hosts:
           - "grafana.spider-shlomo.com"
