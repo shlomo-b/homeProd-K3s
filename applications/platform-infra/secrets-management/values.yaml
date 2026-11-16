@@ -153,6 +153,17 @@ litmus-credentials:
       extract:
         key: litmus-credentials
 
+grafana-token-github-action-ci:
+    external_secret_name: grafana-token-github-action-ci
+    namespaces:
+      - monitoring
+    refreshInterval: 0s
+    secretStoreRefName: aws-secret-store
+    target: grafana-github-token
+    dataFrom:
+      extract:
+        key: grafana-github-token
+
 # chnage the namespace to oauth2-proxy from cilium-network-policy
 oauth2-secret-value-hubble:
     external_secret_name: oauth2-secret-value-hubble
