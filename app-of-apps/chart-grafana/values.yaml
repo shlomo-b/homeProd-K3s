@@ -29,6 +29,15 @@ datasources:
         access: proxy
         url: http://prometheus-server.monitoring.svc.cluster.local
 
+      - name: github-action-ci
+        type: yesoreyeram-infinity-datasource
+        jsonData:
+          auth_method: bearerToken
+          allowedHosts:
+            - https://api.github.com
+        secureJsonData:
+          bearerToken: $__file{/etc/grafana/secrets/github/GITHUB_TOKEN}  
+
 service:
   enabled: true
   type: ClusterIP
@@ -42,6 +51,10 @@ extraSecretMounts:
   - name: aws-secret-grafana-sso
     mountPath: /etc/grafana/secrets/aws-secret-grafana-sso
     secretName: aws-secret-grafana-sso
+    readOnly: true  
+  - name: grafana-github-token
+    mountPath: /etc/grafana/secrets/github
+    secretName: grafana-github-token
     readOnly: true  
 
 # grafana.ini for SMTP
