@@ -160,9 +160,8 @@ grafana-token-github-action-ci:
     refreshInterval: 0s
     secretStoreRefName: aws-secret-store
     target: grafana-github-token
-    data:
-     grafana-github-token:
-        remoteRef:
+    dataFrom:
+      extract:
           key: grafana-github-token 
 
 # chnage the namespace to oauth2-proxy from cilium-network-policy
