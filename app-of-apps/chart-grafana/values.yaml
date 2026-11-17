@@ -36,7 +36,7 @@ datasources:
           allowedHosts:
             - https://api.github.com
         secureJsonData:
-          bearerToken: $__file{/etc/grafana/secrets/github/GITHUB_TOKEN}  
+          bearerToken: $__file{/etc/grafana/secrets/github/grafana-github-token}
 
 service:
   enabled: true
