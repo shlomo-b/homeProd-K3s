@@ -2,6 +2,9 @@ revisionHistoryLimit: 0
 serviceAccount:
   create: true
 
+annotations:
+    secret.reloader.stakater.com/reload: "grafana-github-token"
+
 replicas: 2
 adminUser: admin
 adminPassword: strongpassword  # temp password
