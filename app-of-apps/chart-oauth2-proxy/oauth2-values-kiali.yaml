@@ -1,7 +1,11 @@
+nameOverride: oauth2-proxy-kiali
+fullnameOverride: oauth2-proxy-kiali
+
 replicaCount: 1
 revisionHistoryLimit: 1
 config:
   existingSecret: oauth2-secrets-apps
+
 
 #  the email domains that are allowed to access the application
   emailDomains:
