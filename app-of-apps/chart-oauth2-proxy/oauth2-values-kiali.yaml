@@ -14,7 +14,7 @@ config:
 #  the upstreams that are allowed to access the application its the service name and the port
   upstreams:
 
-    - http://kiali-server.kiali-system.svc.cluster.local:80
+    - http://kiali-server.kiali-system.svc.cluster.local:20001
 #  the provider that is used to authenticate the user
 extraArgs:
   provider: entra-id
