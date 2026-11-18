@@ -53,18 +53,6 @@ istio-vs-prometheus-pushgateway:
             host: prometheus-prometheus-pushgateway
             port: 9091
 
-# OAuth2 Proxy for Hubble UI, change the destination host to oauth2 from hubble-ui
-istio-vs-cilium-ui:
-  name: cilium-ui-vs
-  namespace: cilium-network-policy
-  host: cilium-ui.spider-shlomo.com
-  gateway: istio-ingress/shared-gateway
-  http:
-    - route:
-        destination:
-            host: oauth2-proxy.oauth2-proxy.svc.cluster.local
-            port: 80
-
 istio-vs-uptime-kuma:
   name: uptime-kuma-vs
   namespace: monitoring
@@ -98,18 +86,6 @@ istio-vs-argocd:
             host: prod-argocd-server
             port: 80
 
-istio-vs-kiali:
-  name: kiali-vs
-  namespace: kiali-system
-  host: kiali.spider-shlomo.com
-  gateway: istio-ingress/shared-gateway
-  http:
-    - route:
-        destination:
-            host: kiali-server
-            port: 20001
-
-
 istio-vs-secretpass:
   name: secretpass-vs
   namespace: secretpass
@@ -132,3 +108,26 @@ istio-vs-secretpass:
         destination:
           host: frontend-svc
           port: 3000
+
+# OAuth2 Proxy for Hubble UI, change the destination host to oauth2 from hubble-ui/kiali
+istio-vs-cilium-ui:
+  name: cilium-ui-vs
+  namespace: cilium-network-policy
+  host: cilium-ui.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  http:
+    - route:
+        destination:
+            host: oauth2-proxy.oauth2-proxy.svc.cluster.local
+            port: 80
+
+istio-vs-kiali:
+  name: kiali-vs
+  namespace: kiali-system
+  host: kiali.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  http:
+    - route:
+        destination:
+            host: oauth2-proxy.oauth2-proxy.svc.cluster.local
+            port: 20001
