@@ -59,7 +59,7 @@ configs:
     scopes: '[email]'
   # secret:
   #   extra:
-  #     accounts.shlomo.password: "!!!!!!!!"
+  #     accounts.shlomo.password: "!!!!!!!"
 # Ingress for argo cd
 server:
   service:
