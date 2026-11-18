@@ -130,5 +130,5 @@ istio-vs-kiali:
   http:
     - route:
         destination:
-            host: oauth2-proxy.oauth2-proxy.kiali.svc.cluster.local
+            host: oauth2-proxy-kiali.oauth2-proxy.svc.cluster.local
             port: 80
