@@ -37,3 +37,4 @@ extraArgs:
   pass-basic-auth: "false"
   pass-access-token: "false"
   pass-authorization-header: "false"
+  pass-host-header: "false"
