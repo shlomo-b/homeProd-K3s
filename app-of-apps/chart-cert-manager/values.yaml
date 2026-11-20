@@ -30,3 +30,18 @@ cainjector:
                 operator: In
                 values:
                   - node2
+
+webhook:
+  enabled: true
+  replicaCount: 1
+  podAnnotations:
+    sidecar.istio.io/inject: sidecar.istio.io/inject: "false"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - node4
