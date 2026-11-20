@@ -1,0 +1,24 @@
+clusterIssuer:
+  enabled: true
+  name: letsencrypt-dns-issuer
+  email: shlomobarzili@email.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+  privateKeySecretName: letsencrypt-dns-private-key
+
+  route53:
+    region: us-east-1
+    accessKeySecretName: aws-secret
+    accessKeyIdKey: accessKeyId
+    secretAccessKeyKey: secretAccessKey
+
+clusterSecretStore:
+  enabled: true
+  name: aws-secret-store
+
+  aws:
+    service: SecretsManager
+    region: us-east-1
+    secretName: aws-secret
+    secretNamespace: external-secrets
+    accessKeyIdKey: accessKeyId
+    secretAccessKeyKey: secretAccessKey

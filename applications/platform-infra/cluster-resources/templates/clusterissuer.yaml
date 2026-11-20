@@ -1,20 +1,22 @@
+{{- if .Values.clusterIssuer.enabled }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-dns-issuer
+  name: {{ .Values.clusterIssuer.name }}
 spec:
   acme:
-    email: shlomobarzili@email.com
-    server: https://acme-v02.api.letsencrypt.org/directory
+    email: {{ .Values.clusterIssuer.email | quote }}
+    server: {{ .Values.clusterIssuer.server | quote }}
     privateKeySecretRef:
-      name: letsencrypt-dns-private-key
+      name: {{ .Values.clusterIssuer.privateKeySecretName }}
     solvers:
-    - dns01:
-        route53:
-          region: us-east-1
-          accessKeyIDSecretRef:
-            name: aws-secret
-            key: accessKeyId
-          secretAccessKeySecretRef:
-            name: aws-secret
-            key: secretAccessKey
+      - dns01:
+          route53:
+            region: {{ .Values.clusterIssuer.route53.region }}
+            accessKeyIDSecretRef:
+              name: {{ .Values.clusterIssuer.route53.accessKeySecretName }}
+              key: {{ .Values.clusterIssuer.route53.accessKeyIdKey }}
+            secretAccessKeySecretRef:
+              name: {{ .Values.clusterIssuer.route53.accessKeySecretName }}
+              key: {{ .Values.clusterIssuer.route53.secretAccessKeyKey }}
+{{- end }}
