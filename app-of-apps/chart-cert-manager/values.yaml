@@ -32,7 +32,6 @@ cainjector:
                   - node2
 
 webhook:
-  enabled: true
   replicaCount: 1
   podAnnotations:
     proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'
