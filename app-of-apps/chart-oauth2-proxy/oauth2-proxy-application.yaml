@@ -29,7 +29,13 @@ spec:
       targetRevision: 10.7.2
       helm:
         valueFiles:
-          - $values/app-of-apps/chart-oauth2-proxy/oauth2-values-prometheus.yaml         
+          - $values/app-of-apps/chart-oauth2-proxy/oauth2-values-prometheus.yaml      
+    - repoURL: https://oauth2-proxy.github.io/manifests
+      chart: oauth2-proxy
+      targetRevision: 10.7.2
+      helm:
+        valueFiles:
+          - $values/app-of-apps/chart-oauth2-proxy/oauth2-values-pushgw-prometheus.yaml            
   destination:
     server: https://kubernetes.default.svc
     namespace: oauth2-proxy

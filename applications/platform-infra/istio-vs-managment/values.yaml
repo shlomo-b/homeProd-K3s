@@ -42,17 +42,6 @@ istio-vs-prometheus:
             host: prometheus-server
             port: 80
 
-istio-vs-prometheus-pushgateway:
-  name: prometheus-pushgateway-vs
-  namespace: monitoring
-  host: pushgateway.spider-shlomo.com
-  gateway: istio-ingress/shared-gateway
-  http:
-    - route:
-        destination:
-            host: prometheus-prometheus-pushgateway
-            port: 9091
-
 istio-vs-uptime-kuma:
   name: uptime-kuma-vs
   namespace: monitoring
@@ -144,3 +133,14 @@ istio-vs-prometheus:
         destination:
             host: oauth2-proxy-prometheus.oauth2-proxy.svc.cluster.local
             port: 80
+
+istio-vs-prometheus-pushgateway:
+  name: prometheus-pushgateway-vs
+  namespace: monitoring
+  host: pushgateway.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  http:
+    - route:
+        destination:
+            host: oauth2-proxy-pushgateway.oauth2-proxy.svc.cluster.local
+            port: 9091
