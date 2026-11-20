@@ -1,15 +1,19 @@
-global:
-  podLabels:
-    idecar.istio.io/inject: "false"
 serviceAccount:
   create: true
 
-installCRDs: true  
+installCRDs: true
+
+# Istio injects into every namespace (enableNamespacesByDefault). The apiserver
+# calls this webhook from outside the mesh and checks the webhook certificate.
+# A sidecar presents a SPIFFE cert with no DNS name, so the call fails with
+# "certificate is not valid for any names". Opt out on the pod annotation.
+podAnnotations:
+  sidecar.istio.io/inject: "false"
 
 resources:
   limits:
     cpu: 100m
-    memory: 512Mi  
+    memory: 512Mi
 
 affinity:
   nodeAffinity:
@@ -24,8 +28,8 @@ affinity:
 cainjector:
   enabled: true
   replicaCount: 1
-  podLabels:
-    idecar.istio.io/inject: "false"
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -38,8 +42,8 @@ cainjector:
 
 webhook:
   replicaCount: 1
-  podLabels:
-    idecar.istio.io/inject: "false"
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -52,5 +56,5 @@ webhook:
 
 startupapicheck:
   enabled: true
-  podLabels:
-    idecar.istio.io/inject: "false"
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
