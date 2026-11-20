@@ -143,4 +143,4 @@ istio-vs-prometheus-pushgateway:
     - route:
         destination:
             host: oauth2-proxy-pushgateway.oauth2-proxy.svc.cluster.local
-            port: 9091
+            port: 80
