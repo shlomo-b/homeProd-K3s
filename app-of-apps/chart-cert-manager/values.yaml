@@ -34,9 +34,8 @@ cainjector:
 webhook:
   enabled: true
   replicaCount: 1
-  podDisruptionBudget:
-    podAnnotations:
-      sidecar.istio.io/inject: sidecar.istio.io/inject: "false"
+  podAnnotations:
+    proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
