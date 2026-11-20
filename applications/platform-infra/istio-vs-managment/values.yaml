@@ -109,7 +109,8 @@ istio-vs-secretpass:
           host: frontend-svc
           port: 3000
 
-# OAuth2 Proxy for Hubble UI, change the destination host to oauth2 from hubble-ui/kiali
+# OAuth2 Proxy for Hubble UI, change the destination host to oauth2 from: > 
+# hubble-ui , kiali , prometheus-server
 # service name: oauth2-proxy/ namespace: oauth2-proxy
 istio-vs-cilium-ui:
   name: cilium-ui-vs
@@ -131,4 +132,15 @@ istio-vs-kiali:
     - route:
         destination:
             host: oauth2-proxy-kiali.oauth2-proxy.svc.cluster.local
+            port: 80
+
+istio-vs-prometheus:
+  name: prometheus-vs
+  namespace: monitoring
+  host: prometheus.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  http:
+    - route:
+        destination:
+            host: oauth2-proxy-prometheus.oauth2-proxy.svc.cluster.local
             port: 80

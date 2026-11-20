@@ -7,6 +7,7 @@ installCRDs: true
 # calls this webhook from outside the mesh and checks the webhook certificate.
 # A sidecar presents a SPIFFE cert with no DNS name, so the call fails with
 # "certificate is not valid for any names". Opt out on the pod annotation.
+#  podAnnotations for controller 
 podAnnotations:
   sidecar.istio.io/inject: "false"
 

@@ -1,0 +1,44 @@
+nameOverride: oauth2-proxy-prometheus
+fullnameOverride: oauth2-proxy-prometheus
+
+replicaCount: 1
+revisionHistoryLimit: 1
+config:
+  existingSecret: oauth2-secrets-apps
+
+
+#  the email domains that are allowed to access the application
+  emailDomains:
+    - "spider-shlomo.com"
+
+#  the upstreams that are allowed to access the application its the service name and the port
+  upstreams:
+
+    - http://prometheus-server.monitoring.svc.cluster.local:80
+#  the provider that is used to authenticate the user
+extraArgs:
+  provider: entra-id
+  oidc-issuer-url: "https://login.microsoftonline.com/a2724ae3-73eb-4b45-ba62-f432da279e2c/v2.0"
+  redirect-url: "https://prometheus.spider-shlomo.com/oauth2/callback"
+  scope: "openid profile email"
+  oidc-email-claim: preferred_username
+
+  reverse-proxy: "true"
+  # Peer IP seen by the app is always 127.0.0.6 hardcoded in the istio-proxy sidecar.
+  trusted-proxy-ip: "127.0.0.6/32"
+  skip-provider-button: "true"
+  code-challenge-method: S256
+
+  cookie-secure: "true"
+  cookie-httponly: "true"
+  cookie-samesite: lax
+  cookie-expire: "24h"
+
+  pass-basic-auth: "false"
+  pass-access-token: "false"
+  pass-authorization-header: "false"
+  
+# Do not forward the original external Host header to prometheus.
+# Use the internal upstream Host so Istio Envoy can route traffic
+# correctly to prometheus through the service mesh with mTLS.
+  pass-host-header: "false"
