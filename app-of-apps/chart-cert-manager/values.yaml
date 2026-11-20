@@ -34,8 +34,9 @@ cainjector:
 webhook:
   enabled: true
   replicaCount: 1
-  podAnnotations:
-    sidecar.istio.io/inject: sidecar.istio.io/inject: "false"
+  podDisruptionBudget:
+    podAnnotations:
+      sidecar.istio.io/inject: sidecar.istio.io/inject: "false"
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
