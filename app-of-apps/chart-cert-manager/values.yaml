@@ -21,6 +21,8 @@ affinity:
 cainjector:
   enabled: true
   replicaCount: 1
+  podLabels:
+    idecar.istio.io/inject: "false"
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -44,3 +46,8 @@ webhook:
                 operator: In
                 values:
                   - node4
+
+startupapicheck:
+  enabled: true
+  podLabels:
+    idecar.istio.io/inject: "false"
