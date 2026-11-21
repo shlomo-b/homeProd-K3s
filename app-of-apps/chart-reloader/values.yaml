@@ -1,6 +1,7 @@
 reloader:
   watchGlobally: true
-  namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring,cronjob,apphub)"
+  namespaceSelector: "kubernetes.io/metadata.name in (secretpass,monitoring,
+    cronjob,apphub,board)"
   # namespaceSelector: ""
   autoReloadAll: false
   namespaces: []

@@ -175,3 +175,14 @@ oauth2-secret-value-apps:
     dataFrom:
       extract:
         key: oauth2-secrets-apps
+
+board-app:
+    external_secret_name: board-app
+    namespaces:
+      - board
+    refreshInterval: 0s
+    secretStoreRefName: aws-secret-store
+    target: board-credentials
+    dataFrom:
+      extract:
+          key: board-credentials 

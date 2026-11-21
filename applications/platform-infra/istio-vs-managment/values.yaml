@@ -75,6 +75,17 @@ istio-vs-argocd:
             host: prod-argocd-server
             port: 80
 
+istio-vs-board:
+  name: board-vs
+  namespace: board
+  host: board.spider-shlomo.com
+  gateway: istio-ingress/shared-gateway
+  http:
+    - route:
+        destination:
+            host: board
+            port: 8093
+
 istio-vs-secretpass:
   name: secretpass-vs
   namespace: secretpass
@@ -98,8 +109,8 @@ istio-vs-secretpass:
           host: frontend-svc
           port: 3000
 
-# OAuth2 Proxy for Hubble UI, change the destination host to oauth2 from: > 
-# hubble-ui , kiali , prometheus-server
+# OAuth2 Proxy for apps , changed the destination host to oauth2 from: > 
+# hubble-ui , kiali , prometheus-server , pushgateway-server
 # service name: oauth2-proxy/ namespace: oauth2-proxy
 istio-vs-cilium-ui:
   name: cilium-ui-vs
