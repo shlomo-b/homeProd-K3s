@@ -47,6 +47,7 @@ authorizationpolicies:
           - "kiali.spider-shlomo.com"
           - "ipam.spider-shlomo.com"
           - "uptime-kuma.spider-shlomo.com"
+          - "board.spider-shlomo.com"
 
   - name: mcp-server-master
     namespace: istio-ingress
