@@ -105,3 +105,12 @@ kiali-cert:
   dnsNames: 
   -  kiali.spider-shlomo.com
   issuerRefName: letsencrypt-dns-issuer
+
+board-cert:
+  certificate_name: board-cert
+  namespaces: istio-ingress
+  secretName: board-tls
+  commonName: board.spider-shlomo.com
+  dnsNames: 
+  -  board.spider-shlomo.com
+  issuerRefName: letsencrypt-dns-issuer
