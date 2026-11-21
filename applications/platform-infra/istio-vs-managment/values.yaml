@@ -83,7 +83,7 @@ istio-vs-board:
   http:
     - route:
         destination:
-            host: board
+            host: board-svc
             port: 8093
 
 istio-vs-secretpass:
