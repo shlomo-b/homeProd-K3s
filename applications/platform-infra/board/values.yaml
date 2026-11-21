@@ -36,7 +36,7 @@ board:
   autoscaling:
     enabled: true
     minReplicas: 2
-    maxReplicas: 3
+    maxReplicas: 4
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 70
     behavior:
@@ -60,8 +60,8 @@ board:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - master
-                  - master3
+                  - node1
+                  - node2
     # keep board replicas on different nodes
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
