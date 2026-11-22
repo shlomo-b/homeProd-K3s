@@ -10,3 +10,8 @@ dashboard:
 dnsServer:
   # Enable DNS Server which required by DNSChaos
   create: false
+
+controllerManager:
+  replicaCount: 3
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
