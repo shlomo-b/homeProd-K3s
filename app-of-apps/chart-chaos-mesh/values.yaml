@@ -6,3 +6,7 @@ dashboard:
   securityMode: false
   service:
     type: LoadBalancer
+
+dnsServer:
+  # Enable DNS Server which required by DNSChaos
+  create: false
