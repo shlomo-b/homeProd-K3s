@@ -1,0 +1,37 @@
+# Task pods use SA chaos-mesh-app-pod-kill (Workflow Task serviceAccountName; Chaos Mesh >= 2.8.7).
+# Same on GKE / EKS / AKS / k3s.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: chaos-mesh-app-pod-kill
+  namespace: chaos-mesh
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: chaos-mesh-app-pod-kill
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  # HA check uses Deployment/StatefulSet/DaemonSet spec, not a live Running-pod count
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list"]
+  # Task creates one PodChaos per killed pod so Experiments UI can show the target
+  - apiGroups: ["chaos-mesh.org"]
+    resources: ["podchaos"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: chaos-mesh-app-pod-kill
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: chaos-mesh-app-pod-kill
+subjects:
+  - kind: ServiceAccount
+    name: chaos-mesh-app-pod-kill
+    namespace: chaos-mesh
