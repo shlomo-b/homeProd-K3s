@@ -4,13 +4,13 @@ peerAuthentication:
     mtls:
       mode: STRICT
 
-  - name: chaos-mesh-frontend
-    namespace: chaos-mesh
-    selector:
-      app.kubernetes.io/name: chaos-mesh
-      app.kubernetes.io/component: chaos-dashboard
-    mtls:
-      mode: PERMISSIVE
+  # - name: chaos-mesh-frontend
+  #   namespace: chaos-mesh
+  #   selector:
+  #     app.kubernetes.io/name: chaos-mesh
+  #     app.kubernetes.io/component: chaos-dashboard
+  #   mtls:
+  #     mode: PERMISSIVE
 
 
 authorizationpolicies:

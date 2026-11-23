@@ -6,6 +6,7 @@ dashboard:
   securityMode: false
   service:
     type: LoadBalancer
+    externalTrafficPolicy: "Local"
 
 dnsServer:
   # Enable DNS Server which required by DNSChaos
