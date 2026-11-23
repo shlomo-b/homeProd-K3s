@@ -14,16 +14,16 @@ peerAuthentication:
 
 
 authorizationpolicies:
-  # - name: chaos-mesh-frontend-access-shlomo-and-vpn
-  #   namespace: chaos-mesh
-  #   selector:
-  #     app.kubernetes.io/name: chaos-mesh
-  #     app.kubernetes.io/component: chaos-frontend
-  #   action: ALLOW
-  #   rules:
-  #     sourceRules:
-  #       - "10.0.11.250/32"
-  #       - "10.212.212.1/32"
+  - name: chaos-mesh-frontend-access-shlomo-and-vpn
+    namespace: chaos-mesh
+    selector:
+      app.kubernetes.io/name: chaos-mesh
+      app.kubernetes.io/component: chaos-frontend
+    action: ALLOW
+    rules:
+      sourceRules:
+        - "10.0.11.250/32"
+        - "10.212.212.1/32"
 
   - name: restrict-apps-by-ip-shlomo
     namespace: istio-ingress
