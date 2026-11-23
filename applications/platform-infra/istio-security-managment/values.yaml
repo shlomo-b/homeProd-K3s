@@ -4,21 +4,21 @@ peerAuthentication:
     mtls:
       mode: STRICT
 
-  # - name: litmus-frontend
-  #   namespace: litmus
-  #   selector:
-  #     app.kubernetes.io/name: litmus
-  #     app.kubernetes.io/component: litmus-frontend
-  #   mtls:
-  #     mode: PERMISSIVE
+  - name: chaos-mesh-frontend
+    namespace: chaos-mesh
+    selector:
+      app.kubernetes.io/name: chaos-mesh
+      app.kubernetes.io/component: chaos-frontend
+    mtls:
+      mode: PERMISSIVE
 
 
 authorizationpolicies:
-  # - name: litmus-frontend-access-shlomo-and-vpn
-  #   namespace: litmus
+  # - name: chaos-mesh-frontend-access-shlomo-and-vpn
+  #   namespace: chaos-mesh
   #   selector:
-  #     app.kubernetes.io/name: litmus
-  #     app.kubernetes.io/component: litmus-frontend
+  #     app.kubernetes.io/name: chaos-mesh
+  #     app.kubernetes.io/component: chaos-frontend
   #   action: ALLOW
   #   rules:
   #     sourceRules:
