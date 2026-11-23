@@ -8,7 +8,7 @@ peerAuthentication:
     namespace: chaos-mesh
     selector:
       app.kubernetes.io/name: chaos-mesh
-      app.kubernetes.io/component: chaos-frontend
+      app.kubernetes.io/component: chaos-dashboard
     mtls:
       mode: PERMISSIVE
 
@@ -18,7 +18,7 @@ authorizationpolicies:
     namespace: chaos-mesh
     selector:
       app.kubernetes.io/name: chaos-mesh
-      app.kubernetes.io/component: chaos-frontend
+      app.kubernetes.io/component: chaos-dashboard
     action: ALLOW
     rules:
       sourceRules:
