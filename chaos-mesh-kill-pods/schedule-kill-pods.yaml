@@ -29,7 +29,7 @@ spec:
           container:
             name: kill
             # Portable image with shell + kubectl (not Bitnami, not k3s-specific)
-            image: alpine/k8s:1.34.13
+            image: alpine/k8s:1.33.13
             # image: dbank-dglz-infra-docker-dev-runtime-virtual.jfrog.io/alpine/k8s:1.34.13
             imagePullPolicy: IfNotPresent
             command: ["/bin/sh", "-c"]
