@@ -21,7 +21,7 @@ authorizationpolicies:
       app.kubernetes.io/component: chaos-dashboard
     action: ALLOW
     rules:
-      sourceRules:
+      ipBlocks:
         - "10.0.11.250/32"
         - "10.212.212.1/32"
 

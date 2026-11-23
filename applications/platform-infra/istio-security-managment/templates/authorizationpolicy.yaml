@@ -41,6 +41,10 @@ spec:
   rules:
     - from:
         - source:
+            {{- with .ipBlocks }}
+            ipBlocks:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
             {{- with .sourceRules }}
             remoteIpBlocks:
               {{- toYaml . | nindent 14 }}
