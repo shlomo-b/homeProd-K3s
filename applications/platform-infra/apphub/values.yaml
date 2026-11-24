@@ -154,6 +154,7 @@ apphub:
       FRONTEND_URL_SAML: https://apphub.spider-shlomo.com
       AZURE_APP_ROLE_ADMIN: AppHubAdmin
       AZURE_APP_ROLE_VIEWER: AppHubViewer
+      aws: true
 
   resources:    
     requests:
