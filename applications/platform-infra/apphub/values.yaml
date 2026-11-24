@@ -64,7 +64,7 @@ apphub:
                   - master3
     # prefer different nodes, but allow extra replicas on master / master3
     podAntiAffinity:
-    # keep apphub replicas on different nodes with
+    # keep board replicas on different nodes with
     # preference for master / master3
       preferredDuringSchedulingIgnoredDuringExecution:
       # weight 100 means strong preference
