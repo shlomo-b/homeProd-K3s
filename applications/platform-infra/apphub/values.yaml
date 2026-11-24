@@ -152,8 +152,8 @@ apphub:
       SAML_IDENTIFIER: https://apphub.spider-shlomo.com/remote/saml/metadata
       SAML_REPLY_URL: https://apphub.spider-shlomo.com/remote/saml/acs
       FRONTEND_URL_SAML: https://apphub.spider-shlomo.com
-      AZURE_APP_ROLE_ADMIN: BoardAdmin
-      AZURE_APP_ROLE_VIEWER: BoardViewer
+      AZURE_APP_ROLE_ADMIN: AppHubAdmin
+      AZURE_APP_ROLE_VIEWER: AppHubViewer
 
   resources:    
     requests:
