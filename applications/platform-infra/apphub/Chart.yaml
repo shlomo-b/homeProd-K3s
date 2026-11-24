@@ -2,5 +2,5 @@ apiVersion: v2
 name: apphub
 description: A Helm chart for apphub
 type: application
-version: 1.0.0
-appVersion: v1.0.0
+version: 4.0.1
+appVersion: v4.0.1

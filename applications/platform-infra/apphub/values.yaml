@@ -7,7 +7,7 @@ apphub:
   revisionHistoryLimit: 0
 #  replicas: 2
   name: apphub
-  version: v3.1.0
+  version: v4.0.1
   annotations:
     configmap.reloader.stakater.com/reload: "config-apphub"
     secret.reloader.stakater.com/reload: "apphub"
@@ -31,7 +31,7 @@ apphub:
   image:
     name: shlomobarzili/apphub
     pullPolicy: IfNotPresent
-    tag: v3.1.0
+    tag: v4.0.1
   containerPort: 80
   autoscaling:
     enabled: true
@@ -113,14 +113,14 @@ apphub:
       key: SAML_CERTIFICATE  
 
       
-  # provider:
-  #   aws:
-  #     enabled: true
-  #     secretName: secretspass-credentials
-  #     credentials:
-  #       aws_access_key_id: AWS_ACCESS_KEY_ID
-  #       aws_secret_access_key: AWS_SECRET_ACCESS_KEY
-  #       bucket_name: BUCKET_NAME
+  provider:
+    aws:
+      enabled: true
+      secretName: secretspass-credentials
+      credentials:
+        aws_access_key_id: AWS_ACCESS_KEY_ID
+        aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+        bucket_name: BUCKET_NAME
   #   azure:
   #     enabled: false
   #     secretName: cronjob-credentials-azure
@@ -152,6 +152,8 @@ apphub:
       SAML_IDENTIFIER: https://apphub.spider-shlomo.com/remote/saml/metadata
       SAML_REPLY_URL: https://apphub.spider-shlomo.com/remote/saml/acs
       FRONTEND_URL_SAML: https://apphub.spider-shlomo.com
+      AZURE_APP_ROLE_ADMIN: BoardAdmin
+      AZURE_APP_ROLE_VIEWER: BoardViewer
 
   resources:    
     requests:

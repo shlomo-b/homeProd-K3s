@@ -52,25 +52,27 @@ spec:
 {{- end }}
 {{- end }}
 
+
+{{- if .Values.apphub.provider.aws.enabled }}
+            # AWS storage and secret keys
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.apphub.provider.aws.secretName }}
+                  key: {{ .Values.apphub.provider.aws.credentials.aws_access_key_id }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.apphub.provider.aws.secretName }}
+                  key: {{ .Values.apphub.provider.aws.credentials.aws_secret_access_key }}
+            - name: BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.apphub.provider.aws.secretName }}
+                  key: {{ .Values.apphub.provider.aws.credentials.bucket_name }}
+{{- end }}
+
 {{/*
-# {{- if .Values.apphub.provider.aws.enabled }}
-#             # AWS storage and secret keys
-#             - name: AWS_ACCESS_KEY_ID
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: {{ .Values.apphub.provider.aws.secretName }}
-#                   key: {{ .Values.apphub.provider.aws.credentials.aws_access_key_id }}
-#             - name: AWS_SECRET_ACCESS_KEY
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: {{ .Values.apphub.provider.aws.secretName }}
-#                   key: {{ .Values.apphub.provider.aws.credentials.aws_secret_access_key }}
-#             - name: BUCKET_NAME
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: {{ .Values.apphub.provider.aws.secretName }}
-#                   key: {{ .Values.apphub.provider.aws.credentials.bucket_name }}
-# {{- end }}
 
 # {{- if .Values.apphub.provider.azure.enabled }}
 #                 # Azure storage
