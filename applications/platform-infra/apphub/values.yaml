@@ -60,8 +60,8 @@ apphub:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - node1
-                  - node2
+                  - master
+                  - master3
     # prefer different nodes, but allow extra replicas on master / master3
     podAntiAffinity:
     # keep board replicas on different nodes with
