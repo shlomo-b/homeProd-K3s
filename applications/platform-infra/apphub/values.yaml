@@ -36,7 +36,7 @@ apphub:
   autoscaling:
     enabled: true
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 4
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 70
     behavior:
@@ -62,17 +62,21 @@ apphub:
                 values:
                   - master
                   - master3
-                  - node1
-    # keep apphub replicas on different nodes
+    # prefer different nodes, but allow extra replicas on master / master3
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - apphub
-          topologyKey: kubernetes.io/hostname     
+    # keep apphub replicas on different nodes with
+    # preference for master / master3
+      preferredDuringSchedulingIgnoredDuringExecution:
+      # weight 100 means strong preference
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - apphub
+            topologyKey: kubernetes.io/hostname 
              
   env:
     # # default is INFO

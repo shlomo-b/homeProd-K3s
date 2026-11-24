@@ -62,16 +62,22 @@ board:
                 values:
                   - node1
                   - node2
-    # keep board replicas on different nodes
+    # prefer different nodes, but allow extra replicas on master / master3
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - board
-          topologyKey: kubernetes.io/hostname   
+    # keep apphub replicas on different nodes with
+    # preference for master / master3
+      preferredDuringSchedulingIgnoredDuringExecution:
+      # weight 100 means strong preference
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - board
+            topologyKey: kubernetes.io/hostname 
+             
   env:
     # # default is INFO
     # - name: LOG_LEVEL
