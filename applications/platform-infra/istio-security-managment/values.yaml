@@ -49,6 +49,18 @@ authorizationpolicies:
           - "uptime-kuma.spider-shlomo.com"
           - "board.spider-shlomo.com"
 
+  - name: mac-myops-access-wifi
+    namespace: istio-ingress
+    selector:
+      istio: ingress-gateway
+    action: ALLOW
+    rules:
+      sourceRules:
+        - "10.90.90.200/32"
+      to:
+        hosts:
+          - "secretpass.spider-shlomo.com"
+
   - name: mcp-server-master
     namespace: istio-ingress
     selector:
