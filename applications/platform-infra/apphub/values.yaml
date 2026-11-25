@@ -31,7 +31,7 @@ apphub:
   image:
     name: shlomobarzili/apphub
     pullPolicy: IfNotPresent
-    tag: v4.0.1
+    tag: v4.1.1
   containerPort: 80
   autoscaling:
     enabled: true
